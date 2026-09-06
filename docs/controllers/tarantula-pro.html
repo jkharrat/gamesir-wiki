@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GameSir Tarantula Pro — specs, fixes and FAQ | GameSir Wiki</title>
+<meta name="description" content="GameSir Tarantula Pro: full specifications, measured performance, documented problems and fixes, and frequently asked questions. A tri-mode multiplatform controller with a symmetric PlayStation-style stick layout, Mag-Res TMR sticks, and a motorized gear that physically rotates the face buttons between Xbox and Nintendo layouts.">
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="../index.html">
+      <span class="brand-mark">GS</span>
+      <span>GameSir Wiki</span>
+    </a>
+    <nav class="site-nav"><a href="../index.html">Home</a><a href="../compare.html">Compare</a><a href="../troubleshooting.html">Troubleshooting</a><a href="../faq.html">FAQ</a><a href="../about.html">About</a></nav>
+  </div>
+</header>
+
+<main>
+<div class="wrap narrow">
+  <div class="page-head">
+    <p class="breadcrumb"><a href="../index.html">Home</a> / GameSir Tarantula Pro</p>
+    <p class="eyebrow">High-end &middot; Multi-platform</p>
+    <h1>GameSir Tarantula Pro</h1>
+    <p class="lede">A tri-mode multiplatform controller with a symmetric PlayStation-style stick layout, Mag-Res TMR sticks, and a motorized gear that physically rotates the face buttons between Xbox and Nintendo layouts.</p>
+    <div class="badges"><span class="badge tier-high-end">High-end</span><span class="badge badge-tmr">GameSir Mag-Res TMR (Gen-1) — tunneling magnetoresistance, non-contact</span><span class="badge badge-info">1000 Hz</span><span class="badge">Gyro</span><span class="badge">GameSir Connect (PC) and the GameSir app (mobile). GameSir Nexus does not support this model. Worth knowing: GameSir's downloads page does not list the multiplatform Tarantula Pro under any application — it lists only the Tarantula 8K PC under Connect and Tarantula Pro for Xbox under Nexus — while the official Tarantula Pro FAQ directs users to Connect. Treat the FAQ as authoritative and the downloads listing as incomplete.</span></div>
+  </div>
+
+  <h2 id="specs">Specifications</h2>
+  <div class="spec-section">
+    <h3>Overview</h3>
+    <div class="spec-grid">
+      <div class="spec-row"><span class="spec-key">Released</span><span class="spec-val">2024</span></div>
+      <div class="spec-row"><span class="spec-key">Launch price</span><span class="spec-val">$79.99 / £79.99 at launch (October 2024); currently listed at $69.99 on gamesir.com</span></div>
+      <div class="spec-row"><span class="spec-key">Weight</span><span class="spec-val">263 g / 0.58 lbs (Standard Edition, controller only). GameSir lists 325 g / 0.72 lbs net weight for the Bundle Edition, which includes the charging station.</span></div>
+      <div class="spec-row"><span class="spec-key">Dimensions</span><span class="spec-val">158 x 100 x 61 mm / 6.22 x 3.94 x 2.40 in</span></div>
+      <div class="spec-row"><span class="spec-key">Software</span><span class="spec-val">GameSir Connect (PC) and the GameSir app (mobile). GameSir Nexus does not support this model. Worth knowing: GameSir's downloads page does not list the multiplatform Tarantula Pro under any application — it lists only the Tarantula 8K PC under Connect and Tarantula Pro for Xbox under Nexus — while the official Tarantula Pro FAQ directs users to Connect. Treat the FAQ as authoritative and the downloads listing as incomplete.</span></div>
+      <div class="spec-row"><span class="spec-key">Platforms</span><span class="spec-val">PC, Switch, Android, iOS, Steam</span></div>
+    </div>
+
+    <h3>Sticks</h3>
+    <div class="spec-grid">
+      <div class="spec-row"><span class="spec-key">Sensor technology</span><span class="spec-val">GameSir Mag-Res TMR (Gen-1) — tunneling magnetoresistance, non-contact</span></div>
+      <div class="spec-row"><span class="spec-key">Resolution</span><span class="spec-val unknown">Not documented</span></div>
+      <div class="spec-row"><span class="spec-key">Durability</span><span class="spec-val unknown">Not documented</span></div>
+      <div class="spec-row"><span class="spec-key">Measured center error</span><span class="spec-val">0.6% left / 1.0% right (cable); 1.7% left / 1.5% right (dongle)</span></div>
+      <div class="spec-row"><span class="spec-key">Measured resolution</span><span class="spec-val">11.0-bit, ~2,048 steps (dongle); 10.4-bit, ~1,365 steps (cable) — gamepadla, FW 2.0.6</span></div>
+    </div>
+    <div class="note"><p>Measured by gamepadla Stick Tracer on firmware 2.0.6, single unit. Note gamepadla lists this controller under its former name, T3 Pro.</p></div>
+
+    <h3>Triggers, D-pad and buttons</h3>
+    <div class="spec-grid">
+      <div class="spec-row"><span class="spec-key">Trigger technology</span><span class="spec-val">Hall Effect analog triggers with a physical gear that converts them to micro-switch triggers</span></div>
+      <div class="spec-row"><span class="spec-key">Trigger stops</span><span class="spec-val">Yes</span></div>
+      <div class="spec-row"><span class="spec-key">D-pad</span><span class="spec-val">Four-way tactile-switch D-pad, positioned upper-left in a symmetric DualShock-style arrangement. Not swappable or replaceable.</span></div>
+      <div class="spec-row"><span class="spec-key">Face buttons</span><span class="spec-val">Four membrane ABXY buttons with no printed symbols. A motorized internal gear physically rotates the cluster between Xbox and Nintendo layouts, visible through a transparent window; the buttons are LED-lit and change color with the selected layout. Reviewers report the combo is M + A (Xbox) or M + B (Switch) held ~2 seconds; GameSir's FAQ states 'hold for 2 seconds until the gear rotates' but shows the combo only as an image. Membrane switches are the most commonly criticized part of the controller.</span></div>
+      <div class="spec-row"><span class="spec-key">Rear buttons</span><span class="spec-val">2</span></div>
+      <div class="spec-row"><span class="spec-key">Extra bumpers</span><span class="spec-val unknown">Not documented</span></div>
+    </div>
+    <p class="small text-muted">Three states are documented by GameSir: Hall Effect analog mode (linear, for racing), Hall Effect hair-trigger mode (enabled via a key combo — GameSir does not state which combo on the pages reviewed), and micro-switch mode selected by moving the physical trigger gear.</p>
+    <p class="small text-muted">Nine remappable buttons in total: R4, L4 (back buttons), C1, C2, C3, C4, T1, T2, T3. Each can be mapped to a single button or a sequence of up to 12. GameSir's documentation for the Tarantula Pro does not classify T1/T2 — on the Tarantula 8K PC the same T1/T2 names are described as 'extra bumpers,' but a GamesRadar hands-on describes the Tarantula Pro's extra front controls as four small buttons around the center panel plus an actuator on either side of it, so extraBumpers is left null rather than guessed. Physical back-button latches on the rear mechanically disable L4/R4 to prevent accidental input.</p>
+
+    <h3>Connectivity and performance</h3>
+    <div class="spec-grid">
+      <div class="spec-row"><span class="spec-key">Connection modes</span><span class="spec-val">Wired / 2.4 GHz / Bluetooth</span></div>
+      <div class="spec-row"><span class="spec-key">Polling rate (PC)</span><span class="spec-val">1000 Hz (wired and 2.4GHz dongle); Gamepadla measured 1000-1002 Hz median wired and 1000-1001 Hz via dongle</span></div>
+      <div class="spec-row"><span class="spec-key">Polling rate (Xbox)</span><span class="spec-val unknown">Not documented</span></div>
+      <div class="spec-row"><span class="spec-key">Audio jack</span><span class="spec-val">None</span></div>
+      <div class="spec-row"><span class="spec-key">Gyro</span><span class="spec-val">Yes</span></div>
+      <div class="spec-row"><span class="spec-key">Rumble</span><span class="spec-val">HD Rumble with 2 motors, per GameSir's official FAQ. Note the 'Tarantula Pro for Xbox' variant instead has 4 motors (one in each grip and each trigger), and the Tarantula 8K PC has none.</span></div>
+    </div>
+    <div class="note"><p>Tri-mode: USB-C wired, 2.4GHz dongle, Bluetooth. Variant differences: the 'Tarantula Pro for Xbox' is WIRED-ONLY (3m detachable USB-C, no battery, 4 rumble motors, micro-switch ABXY, 3.5mm jack, 235g) and uses GameSir Nexus rather than Connect; the 'Tarantula 8K PC' is also wired-only (1.8m cable, PC only, 8000Hz, Gen-2 TMR, no rumble, no battery, 180g). The 'With Dock' / Bundle Edition is the same controller shipped with a charging station.</p></div>
+    <p class="small text-muted">Not an Xbox-compatible model — the separate 'Tarantula Pro for Xbox' is rated 1000Hz on PC and 250Hz on Xbox console. Bluetooth is much slower: Gamepadla measured a 162 Hz median polling rate in Sony/DS4 mode. Gamepadla LatScore is B wired / D wireless, with measured wired button latency of 7.83 ms and dongle button latency of 31.7 ms on firmware 2.0.6 — notably worse than the Cyclone 2.</p>
+    <p class="small text-muted">Gyro: Built-in 6-axis gyroscope, supports motion control on Switch. The controller also has NFC for amiibo interaction with Nintendo devices and can wake the Switch with a single press.</p>
+
+    <h3>Battery and build</h3>
+    <div class="spec-grid">
+      <div class="spec-row"><span class="spec-key">Battery capacity</span><span class="spec-val">1200mAh</span></div>
+      <div class="spec-row"><span class="spec-key">Claimed battery life</span><span class="spec-val">No battery-life figure is published on the gamesir.com product page, FAQ, or manual. GameSir's regional official store (gamesir.sa) claims 'up to 25 hours playtime, depending on RGB lighting usage and connection method.'</span></div>
+      <div class="spec-row"><span class="spec-key">Swappable faceplates</span><span class="spec-val">No</span></div>
+    </div>
+    <p class="small text-muted">GameRant states GameSir provides no specific battery-life figure, and measured approximately 20 hours over Bluetooth with RGB at maximum brightness. Treat 25 hours as an unconfirmed regional-store claim, not a headline manufacturer spec.</p>
+    <p class="small text-muted">No magnetic or swappable faceplate system is documented for this model. Visual customization comes from the rotating face-button gear, the RGB light strip, the RGB Home indicator, and the illuminated face buttons.</p>
+  </div>
+
+  <h3 id="latency">Measured latency</h3>
+<p class="section-intro small">Bar length reflects stick latency on a fixed 0&ndash;16&nbsp;ms scale, so bars are comparable between models. Measured and published by gamepadla.com; polling rate and latency are measured by different methods and are not the same thing.</p>
+<div class="latency-list">
+<div class="latency-row">
+  <div class="latency-head"><span class="latency-mode">Wired (XInput, FW 2.0.6)</span><span class="latency-num">button 7.83 ms avg · 1000-1002 Hz</span></div>
+  <div class="bar-track"><div class="bar-fill is-warn" style="width:48.9%"></div></div>
+</div>
+<div class="latency-row">
+  <div class="latency-head"><span class="latency-mode">2.4 GHz dongle (XInput, FW 2.0.6)</span><span class="latency-num">button 31.73 ms avg · 1000-1001 Hz</span></div>
+  <div class="bar-track"><div class="bar-fill is-bad" style="width:100.0%"></div></div>
+</div>
+</div>
+
+  <h2 id="features">Notable features</h2>
+<ul>
+  <li>Motorized gear physically rotates the unlabeled ABXY cluster between Xbox and Nintendo layouts, with a transparent window showing the mechanism</li>
+  <li>Symmetric PlayStation-style stick layout, unusual for a Switch/PC controller</li>
+  <li>Nine remappable buttons, each supporting sequences of up to 12 inputs</li>
+  <li>Five extra buttons on the front face arranged in three rows (C1-C4 and T3) — GameSir's stated 'tarantula' design inspiration</li>
+  <li>Physical back-button latches mechanically disable L4/R4</li>
+  <li>Triggers switch between Hall Effect analog, Hall Effect hair-trigger, and micro-switch via a physical gear</li>
+  <li>NFC support for amiibo plus one-press Switch wake</li>
+  <li>Turbo with four modes: Slow 8Hz, Medium 12Hz, Fast 20Hz, Off</li>
+  <li>On-controller RGB editing by holding M plus a stick or the D-pad (effect, animation speed, brightness, color, saturation)</li>
+</ul>
+
+  <h2 id="issues">Known issues and fixes</h2>
+<p class="section-intro">Documented problems with documented solutions. Each entry cites where the fix comes from.</p>
+<div class="accordion">
+<details class="item">
+  <summary>Double-clicking D-pad, reversed/reverted joystick axes, low polling rate, and the controller not being recognized by GameSir Connect over the dongle.</summary>
+  <div class="item-body">
+    <div class="qa-block"><span class="qa-label">Likely cause</span>GameSir states there were many bugs in early firmware versions of the Tarantula Pro, in both the controller and the dongle.</div>
+    <div class="qa-block"><span class="qa-label">Fix</span>Update BOTH the controller and dongle firmware to the latest version. Controller: connect via USB, open the updater, press Logo + <kbd>X + Y</kbd> simultaneously until the device status shows online, then click update firmware. Dongle: exit GameSir Connect, insert the receiver, hold the pairing button for 5 seconds until Device Status shows ONLINE in green, then click Upgrade Firmware. WARNING: GameSir provides different controller firmware files by serial number (V2.06 for SN starting with 1 or 2, a separate V2.06 for SN starting with 3) and warns that the wrong file may brick the controller.</div>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/pages/tutorial-how-to-upgrade-the-dongle-firmware-of-the-tarantula-pro" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+<details class="item">
+  <summary>GameSir Nexus does not detect the Tarantula Pro at all.</summary>
+  <div class="item-body">
+    <div class="qa-block"><span class="qa-label">Likely cause</span>Wrong application. The multiplatform Tarantula Pro is a GameSir Connect device; Nexus is only for GameSir's Xbox-licensed controllers (including the separate 'Tarantula Pro for Xbox').</div>
+    <div class="qa-block"><span class="qa-label">Fix</span>Use GameSir Connect, connected via dongle or cable in XInput mode. GameSir explicitly notes Connect will not detect the controller when it is in DS or NS mode over a Bluetooth connection.</div>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/pages/faq-questions-about-tarantula-pro" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+<details class="item">
+  <summary>Apparent stick drift straight out of the box after setting the initial deadzone to 0 in GameSir Connect.</summary>
+  <div class="item-body">
+    <div class="qa-block"><span class="qa-label">Likely cause</span>Not a defect. A 0 deadzone is a true physical zero, which makes the stick extremely sensitive to any resting-position noise.</div>
+    <div class="qa-block"><span class="qa-label">Fix</span>Set the inner deadzone to 3-5 in GameSir Connect.</div>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/pages/faq-questions-about-tarantula-pro" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+<details class="item">
+  <summary>Cannot connect over Bluetooth or dongle; the indicator light keeps blinking slowly.</summary>
+  <div class="item-body">
+    <div class="qa-block"><span class="qa-label">Likely cause</span>Slow blinking means the controller is in reconnecting mode, trying to reach a previously paired device, rather than in pairing mode.</div>
+    <div class="qa-block"><span class="qa-label">Fix</span>Hold the Pairing Button on the controller for 2 seconds to force pairing mode — the light should then blink fast. For a dongle connection, also hold the pairing button on the dongle until it blinks fast so the two re-pair.</div>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/pages/faq-questions-about-tarantula-pro" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+<details class="item">
+  <summary>Stick drift or trigger inaccuracy during use.</summary>
+  <div class="item-body">
+    <div class="qa-block"><span class="qa-label">Likely cause</span>Sticks and/or triggers have lost calibration.</div>
+    <div class="qa-block"><span class="qa-label">Fix</span>Run the on-board Stick &amp; Trigger Calibration procedure documented in the manual; GameSir links a video calibration tutorial from the FAQ page.</div>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/pages/faq-questions-about-tarantula-pro" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+<details class="item">
+  <summary>Higher-than-expected input latency, especially over the 2.4GHz dongle.</summary>
+  <div class="item-body">
+    <div class="qa-block"><span class="qa-label">Likely cause</span>Firmware/internal processing rather than polling rate. The controller reports a genuine 1000 Hz polling rate, but measured hardware latency is much higher than similarly specced GameSir models.</div>
+    <div class="qa-block"><span class="qa-label">Fix</span>No documented fix. Gamepadla measured 7.83 ms average button latency wired and 31.73 ms via dongle on firmware 2.0.6, versus 2.33 ms wired for the Cyclone 2, and rates it B wired / D wireless. Prefer the wired connection for latency-sensitive play and keep firmware current.</div>
+    <p class="small text-dim">Source: <a href="https://gamepadla.com/gamesir-t3-pro.html" rel="nofollow noopener" target="_blank">gamepadla.com</a></p>
+  </div>
+</details>
+</div>
+
+  <h2 id="faq">Frequently asked questions</h2>
+<div class="accordion">
+<details class="item">
+  <summary>Which software do I need — GameSir Nexus or GameSir Connect?</summary>
+  <div class="item-body">
+    <p>GameSir Connect, connected via dongle or cable in XInput mode. GameSir Nexus does not recognize the multiplatform Tarantula Pro. Connect also will not see the controller if it is in DS or NS mode over Bluetooth. The mobile GameSir app can also configure it. (The separate 'Tarantula Pro for Xbox' is the opposite case — it uses GameSir Nexus.)</p>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/pages/faq-questions-about-tarantula-pro" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+<details class="item">
+  <summary>What platforms does the Tarantula Pro support?</summary>
+  <div class="item-body">
+    <p>PC, Switch, iOS, Android, and Steam. It does not support Xbox consoles — that requires the separate wired 'Tarantula Pro for Xbox' model.</p>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/pages/faq-questions-about-tarantula-pro" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+<details class="item">
+  <summary>How do I change the face button layout between Xbox and Nintendo?</summary>
+  <div class="item-body">
+    <p>GameSir's FAQ says to hold the combo for 2 seconds until the gear rotates and changes both the layout and the key values; the default is the Xbox layout. Reviewers document the combo as <kbd>M + A</kbd> for the Xbox layout and <kbd>M + B</kbd> for the Switch layout. The buttons physically rotate and change color to match.</p>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/pages/faq-questions-about-tarantula-pro" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+<details class="item">
+  <summary>How many remappable buttons are there and what can they do?</summary>
+  <div class="item-body">
+    <p>Nine: R4, L4, C1, C2, C3, C4, T1, T2, T3. Each can be mapped to a single button or a sequence of up to 12. Assignable values include A, B, X, Y, LB, RB, LT, RT, LS, RS, View, Menu, D-pad, and both sticks.</p>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/pages/faq-questions-about-tarantula-pro" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+<details class="item">
+  <summary>What do the back button latches do?</summary>
+  <div class="item-body">
+    <p>They mechanically enable or disable the L4/R4 back buttons so you can prevent unintended input when you are not using them.</p>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/pages/faq-questions-about-tarantula-pro" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+<details class="item">
+  <summary>How do I pair the Tarantula Pro to a phone over Bluetooth?</summary>
+  <div class="item-body">
+    <p>Hold the controller's combo for 2 seconds until channel indicators 1 and 5 flash, then release. Open your phone's Bluetooth list, find 'GameSir- Tarantula Pro' and connect. The channel indicator goes solid when connected.</p>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/pages/tutorial-how-to-connect-tarantula-pro" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+<details class="item">
+  <summary>Does it have a turbo/rapid-fire function?</summary>
+  <div class="item-body">
+    <p>Yes, with four modes: Slow (8Hz), Medium (12Hz), Fast (20Hz), and Off.</p>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/pages/faq-questions-about-tarantula-pro" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+<details class="item">
+  <summary>How many rumble motors does it have?</summary>
+  <div class="item-body">
+    <p>Two HD rumble motors. This differs by variant: the wired 'Tarantula Pro for Xbox' has four (one in each grip and each trigger), and the Tarantula 8K PC has none.</p>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/pages/faq-questions-about-tarantula-pro" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+</div>
+
+  <h2 id="sources">Sources</h2>
+<ul class="source-list">
+<li><a href="https://gamesir.com/products/gamesir-tarantula-pro" rel="nofollow noopener" target="_blank">GameSir official product page — Tarantula Pro Multiplatform Controller</a></li>
+<li><a href="https://gamesir.com/pages/faq-questions-about-tarantula-pro" rel="nofollow noopener" target="_blank">GameSir official FAQ and troubleshooting — Tarantula Pro</a></li>
+<li><a href="https://gamesir.com/pages/tutorial-how-to-upgrade-the-dongle-firmware-of-the-tarantula-pro" rel="nofollow noopener" target="_blank">GameSir official firmware upgrade tutorial (controller + dongle)</a></li>
+<li><a href="https://gamesir.com/pages/tutorial-how-to-connect-tarantula-pro" rel="nofollow noopener" target="_blank">GameSir official connection tutorial — Tarantula Pro</a></li>
+<li><a href="https://gamesir.com/products/gamesir-tarantula-pro-for-xbox" rel="nofollow noopener" target="_blank">GameSir official product page — Tarantula Pro for Xbox (wired variant)</a></li>
+<li><a href="https://gamesir.com/support/downloads" rel="nofollow noopener" target="_blank">GameSir official software downloads (shows Nexus vs Connect model lists)</a></li>
+<li><a href="https://gamepadla.com/gamesir-t3-pro.html" rel="nofollow noopener" target="_blank">Gamepadla measured latency, polling and stick tests (listed as GameSir T3 Pro)</a></li>
+<li><a href="https://gamepadla.com/stick_tracer/a87349c9b8b345de/" rel="nofollow noopener" target="_blank">Gamepadla Stick Tracer result — dongle, firmware 2.0.6</a></li>
+<li><a href="https://gamepadla.com/stick_tracer/d4841702d0cc47ad/" rel="nofollow noopener" target="_blank">Gamepadla Stick Tracer result — cable, firmware 2.0.6</a></li>
+<li><a href="https://www.techpowerup.com/327542/gamesir-launches-the-tarantula-pro-multi-platform-wireless-games-controller" rel="nofollow noopener" target="_blank">GameSir launch press release, 10 October 2024, $79.99</a></li>
+<li><a href="https://www.techradar.com/gaming/gamesir-tarantula-pro-review" rel="nofollow noopener" target="_blank">TechRadar review (face-button layout swapping)</a></li>
+<li><a href="https://www.gamesradar.com/hardware/gaming-controllers/gamesir-tarantula-pro-review/" rel="nofollow noopener" target="_blank">GamesRadar+ review (front button and D-pad description)</a></li>
+<li><a href="https://gamerant.com/gamesir-tarantula-pro-review/" rel="nofollow noopener" target="_blank">GameRant review (measured ~20h battery, notes no official claim)</a></li>
+<li><a href="https://www.xda-developers.com/gamesir-tarantula-pro-review/" rel="nofollow noopener" target="_blank">XDA review (spec table, headset support: no)</a></li>
+</ul>
+
+  <p class="small text-dim">Data last reviewed 2026-09-06. Figures are compiled from the sources above rather than first-hand testing.</p>
+</div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p class="disclaimer">
+      <strong>Unofficial and community-maintained.</strong> Not affiliated with, endorsed by, or operated by
+      GameSir. Specifications are compiled from GameSir's published product pages, manuals and FAQ documents,
+      from independent measurement data published by gamepadla.com, and from published reviews &mdash; not from
+      first-hand testing, unless a figure says otherwise. Values that could not be verified are marked
+      &ldquo;not documented&rdquo; rather than estimated. Manufacturer claims are labelled as claims.
+    </p>
+    <p class="small">Found an error? Open an issue or a pull request with a source and it will be corrected.</p>
+  </div>
+</footer>
+
+</body>
+</html>

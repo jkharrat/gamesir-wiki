@@ -10,6 +10,250 @@
   },
   "controllers": [
     {
+      "id": "cyclone-2",
+      "name": "GameSir Cyclone 2",
+      "tagline": "An Xbox-layout tri-mode wireless controller with Mag-Res TMR sticks, micro-switch face buttons and dual-mode Hall Effect triggers, measured among the lowest-latency controllers in its price class.",
+      "releaseYear": 2024,
+      "msrp": "$49.99 / £49.99 standalone, $55.99 / £55.99 for the charging-dock bundle (launch pricing, 26 November 2024)",
+      "platforms": [
+        "PC",
+        "Switch",
+        "Android",
+        "iOS",
+        "Steam"
+      ],
+      "connectivity": {
+        "wired": true,
+        "dongle24g": true,
+        "bluetooth": true,
+        "notes": "Tri-mode: USB-C wired, 2.4GHz dongle, Bluetooth. Explicitly NOT compatible with Xbox consoles. Input modes are XInput, DS4, NS and HID, cycled by holding View + Menu. Switch 2 support is claimed on retail listings. The included aluminum charging dock has a USB port, and GameSir recommends plugging the dongle into the dock to keep it close to the controller."
+      },
+      "sticks": {
+        "tech": "GameSir Mag-Res TMR (tunneling magnetoresistance), non-contact",
+        "resolution": "12-bit, 4096 sampling points (manufacturer claim)",
+        "durability": null,
+        "driftResistant": true,
+        "measuredCenterError": "3.5% left / 2.0% right (cable, XInput)",
+        "measuredResolution": "11.0-bit, ~2,048 steps (gamepadla, FW 3.5.2)",
+        "measuredNotes": "Measured by gamepadla Stick Tracer on firmware 3.5.2, single unit, recording no inner deadzone and 0.0% circle error. A separate reviewer using gamepadla tooling measured 0.8-1.0%, so results vary between units and firmware. Right-stick asymmetry measured notably higher than the left, 10.2% against 3.4%."
+      },
+      "triggers": {
+        "tech": "Precision-tuned Hall Effect analog triggers with a physical micro-switch hair-trigger lockout",
+        "triggerStops": true,
+        "notes": "Physical trigger locks toggle between Hall Effect analog travel and mechanical micro-switch actuation. A separate software hair-trigger mode is available via key combo for FPS and action games. On-board calibration is supported for triggers, sticks and gyro."
+      },
+      "dpad": "Tactile-switch D-pad, fully fenced. Reviewers describe it as clicky and precise.",
+      "faceButtons": "Micro-switch (esports-grade) ABXY rated to 5 million clicks, with light actuation and short throw. A Nintendo layout mode is available by holding a combo for 2 seconds; the default is the Xbox layout. Reviewers note the clicky micro-switches are divisive — noticeably louder and firmer than membrane alternatives.",
+      "pollingRate": {
+        "pc": "1000 Hz (wired and 2.4GHz dongle); Gamepadla measured 1000-1002 Hz median",
+        "xbox": null,
+        "notes": "Xbox consoles are not supported. Bluetooth is rated 250 Hz and Gamepadla measured roughly 250-400 Hz there. This is the strongest-measuring controller covered on this site: Gamepadla recorded 2.33 ms average button latency and 4.70 ms stick latency wired with only 0.28 ms jitter, and 7.4 ms button latency via dongle, earning a LatScore of A wired / B wireless. Bluetooth averaged around 6 ms but with spikes over 26 ms and 3.85 ms jitter."
+      },
+      "battery": {
+        "capacity": "860mAh",
+        "claimedLife": "Manufacturer estimate of about 10 hours. GameSir does not publish a figure on its product page; TechRadar states GameSir gave the 10-hour estimate on request, and a GameSir-affiliated store lists '8-10 hours with lighting.'",
+        "notes": "Independent measurements land at the low end of that estimate: roughly 8 hours with RGB and rumble active (Pocket-lint), and Neowin recorded approximately 8 hours minimum with lighting enabled. GameSir Connect shows only a color-coded battery indicator, not a percentage. Charges via USB-C or the included aluminum charging tower, which starts charging automatically when the controller is set down."
+      },
+      "weight": "229 g / 0.50 lbs",
+      "dimensions": "156 x 103 x 63 mm / 6.14 x 4.06 x 2.48 in",
+      "extraButtons": {
+        "backButtons": 2,
+        "extraBumpers": 0,
+        "remappable": true,
+        "notes": "Two fully remappable back buttons plus an M button. Four hot-swappable profiles are stored on the controller itself, so settings persist without the software running; the active profile is shown by four illuminated segments in the center of the controller. Macro and turbo are supported."
+      },
+      "gyro": {
+        "present": true,
+        "notes": "6-axis gyroscope, active in Switch mode and manually activatable elsewhere. On-board gyro calibration is supported."
+      },
+      "audioJack": true,
+      "rumble": "Two asymmetric rumble motors, one in each grip. Vibration intensity is adjustable via a button combo as well as in software. Reviewers also note wireless audio support alongside the 3.5mm jack.",
+      "faceplates": {
+        "swappable": false,
+        "notes": "No swappable faceplate system. GameSir does sell detachable joystick caps for the Cyclone 2 as a separate accessory, and the stock caps are thick Sony-style with anti-friction metal necks. The shell uses translucent plastic with an RGB strip in each grip and around the center button."
+      },
+      "software": "GameSir Connect",
+      "notableFeatures": [
+        "Lowest measured wired latency of any controller covered here: 2.33 ms average button latency with 0.28 ms jitter, rated LatScore A wired by gamepadla",
+        "Mag-Res TMR sticks with 12-bit / 4096-point sampling and no inner deadzone measured",
+        "Micro-switch ABXY rated to 5 million clicks, plus a fully fenced tactile-switch D-pad",
+        "Physical trigger locks convert Hall Effect analog triggers to mechanical micro-switches",
+        "Four hot-swappable profiles stored on the controller, so it works fully configured without software running",
+        "3.5 mm headphone jack, which the Super Nova and multiplatform Tarantula Pro both lack",
+        "Aluminum auto start-stop charging tower with dongle storage in the bundle edition",
+        "Swappable stick caps with anti-friction metal necks",
+        "Turbo with four modes: Slow 8Hz, Medium 12Hz, Fast 20Hz, Off"
+      ],
+      "knownIssues": [
+        {
+          "symptom": "The 2.4GHz dongle connection keeps dropping, sometimes with jittery button and stick input.",
+          "cause": "Mismatched controller and dongle firmware is the primary cause. GameSir also cites RF interference from 8K wireless devices and NearLink devices, and thick obstructions between the dongle and controller.",
+          "fix": "Match the firmware: dongle V1.1.9 or above AND controller V3.4.4 or above — GameSir stresses that updating one requires updating the other. Update the dongle from GameSir Connect while the controller is connected through it, or force it by holding the dongle's sync button as you plug it in (the light should stay off) with Connect open. Update the controller by plugging it in via cable and pressing 'update firmware', or force it by holding Logo + Menu while plugging it in with Connect open. For interference, move the dongle closer using a USB extension or the charging dock's USB port.",
+          "sourceUrl": "https://gamesir.com/pages/faq-questions-about-cyclone-2"
+        },
+        {
+          "symptom": "The controller shows a blue rather than green indicator light when connected to a PC, and games behave incorrectly.",
+          "cause": "The controller has been accidentally switched into DS4 or NS input mode instead of XInput.",
+          "fix": "Hold the View button + Menu button to cycle between XInput, NS and DS4 modes. XInput, indicated by a green light, is the correct mode for most PC use and is required for GameSir Connect.",
+          "sourceUrl": "https://gamesir.com/pages/faq-questions-about-cyclone-2"
+        },
+        {
+          "symptom": "The controller will not power on at all after a firmware upgrade failed in GameSir Connect.",
+          "cause": "Interrupted or failed firmware flash leaving the controller soft-locked. TheSixthAxis describes this as a known bug affecting both the Cyclone 2 and Super Nova.",
+          "fix": "Reset the controller by poking the reset hole on the back with a small object, then retry the update.",
+          "sourceUrl": "https://gamesir.com/pages/faq-questions-about-cyclone-2"
+        },
+        {
+          "symptom": "A single button press registers as continuous rapid presses and the light flashes red.",
+          "cause": "Turbo (rapid-fire) mode is enabled.",
+          "fix": "Double-tap the M button to turn turbo off.",
+          "sourceUrl": "https://gamesir.com/pages/faq-questions-about-cyclone-2"
+        },
+        {
+          "symptom": "Cannot connect over Bluetooth or dongle; the indicator light keeps blinking slowly.",
+          "cause": "Slow blinking means reconnecting mode — the controller is trying to reach a previously paired device rather than accepting a new one.",
+          "fix": "Hold the Home Button + Share Button for 2 seconds to force pairing mode; the light should then blink fast. For a dongle connection, also hold the pairing button on the dongle so the two re-pair.",
+          "sourceUrl": "https://gamesir.com/pages/faq-questions-about-cyclone-2"
+        },
+        {
+          "symptom": "GameSir Nexus does not recognize the Cyclone 2.",
+          "cause": "Wrong application — the Cyclone 2 is a GameSir Connect device. Nexus is only for GameSir's Xbox-licensed controllers.",
+          "fix": "Use GameSir Connect with the controller connected via dongle or cable in XInput mode.",
+          "sourceUrl": "https://gamesir.com/pages/faq-questions-about-cyclone-2"
+        },
+        {
+          "symptom": "Stick drift or trigger problems during use.",
+          "cause": "Sticks or triggers out of calibration.",
+          "fix": "Run the on-board Stick & Trigger Calibration procedure from the manual; GameSir links a Cyclone 2 specific calibration tutorial video from the FAQ page. Deadzones can also be tuned in GameSir Connect or on-board.",
+          "sourceUrl": "https://gamesir.com/pages/faq-questions-about-cyclone-2"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Which software does the Cyclone 2 use?",
+          "a": "GameSir Connect, connected via dongle or cable in XInput mode. GameSir Nexus does not support it. The Cyclone 2 is explicitly listed among GameSir Connect's compatible products on GameSir's downloads page.",
+          "sourceUrl": "https://gamesir.com/pages/faq-questions-about-cyclone-2"
+        },
+        {
+          "q": "What platforms does the Cyclone 2 support?",
+          "a": "Switch, iOS, Android, PC and Steam. It is NOT compatible with Xbox consoles.",
+          "sourceUrl": "https://gamesir.com/pages/faq-questions-about-cyclone-2"
+        },
+        {
+          "q": "What firmware versions do I need for reliable dongle operation?",
+          "a": "Dongle V1.1.9 or above and controller V3.4.4 or above. GameSir stresses these must be updated together — updating the dongle without updating the controller to the latest version causes disconnections.",
+          "sourceUrl": "https://gamesir.com/pages/faq-questions-about-cyclone-2"
+        },
+        {
+          "q": "How do I switch between XInput, Nintendo Switch and DS4 input modes?",
+          "a": "Hold the View button + Menu button. XInput, shown by a green indicator light, is the standard mode for PC.",
+          "sourceUrl": "https://gamesir.com/pages/faq-questions-about-cyclone-2"
+        },
+        {
+          "q": "How do I force the controller back into pairing mode?",
+          "a": "Hold the Home Button + Share Button for 2 seconds; the indicator should switch from slow blinking to fast blinking. For dongle pairing, also press the pairing button on the dongle.",
+          "sourceUrl": "https://gamesir.com/pages/faq-questions-about-cyclone-2"
+        },
+        {
+          "q": "How are the triggers configured?",
+          "a": "The Hall Effect analog triggers give linear input suited to racing games. A key combo switches them to hair-trigger mode for FPS and action games, and physical trigger locks toggle between Hall Effect analog and micro-switch actuation.",
+          "sourceUrl": "https://gamesir.com/pages/faq-questions-about-cyclone-2"
+        },
+        {
+          "q": "How many mappable buttons does the Cyclone 2 have?",
+          "a": "Two mappable back buttons. The controller also stores four hot-swappable profiles on-board, indicated by the four lit segments in the center.",
+          "sourceUrl": "https://gamesir.com/pages/faq-questions-about-cyclone-2"
+        },
+        {
+          "q": "How long does the battery last?",
+          "a": "GameSir estimates about 10 hours from the 860mAh cell, provided to TechRadar on request. Independent testing lands nearer 8 hours with RGB and rumble active. GameSir Connect shows only a color-coded indicator rather than a percentage.",
+          "sourceUrl": "https://www.techradar.com/gaming/gaming-accessories/gamesir-cyclone-2-review"
+        },
+        {
+          "q": "Does it have a headphone jack?",
+          "a": "Yes, a 3.5mm headphone jack on the bottom edge. TechRadar notes this as a bonus over the Super Nova, which lacks one.",
+          "sourceUrl": "https://www.neowin.net/reviews/review-gamesirs-new-cyclone-2-controller-arrives-with-great-specs-performance-price/"
+        }
+      ],
+      "sources": [
+        {
+          "label": "GameSir official FAQ and troubleshooting — Cyclone 2",
+          "url": "https://gamesir.com/pages/faq-questions-about-cyclone-2"
+        },
+        {
+          "label": "GameSir official product page — Cyclone 2",
+          "url": "https://gamesir.com/products/gamesir-cyclone-2"
+        },
+        {
+          "label": "GameSir official manual — How to Use the GameSir Cyclone 2",
+          "url": "https://gamesir.com/support/manuals/gamesir-cyclone-2"
+        },
+        {
+          "label": "GameSir official user manual PDF text (weight, dimensions, switch types, battery)",
+          "url": "https://files.bbystatic.com/fVZcNI2ODYeTz9vPSogkbw%3D%3D/User%2BManual"
+        },
+        {
+          "label": "GameSir official software downloads (Cyclone 2 listed under GameSir Connect)",
+          "url": "https://gamesir.com/support/downloads"
+        },
+        {
+          "label": "GameSir launch press release, 26 November 2024 (pricing, colorways)",
+          "url": "https://www.gamespress.com/en-US/GameSir-Launches-the-Cyclone-2-Multi-Platform-Wireless-Controller-with"
+        },
+        {
+          "label": "Gamepadla measured latency, polling, stick tests and LatScore",
+          "url": "https://gamepadla.com/gamesir-cyclone-2.html"
+        },
+        {
+          "label": "Gamepadla comparison vs Xbox Series controller",
+          "url": "https://gamepadla.com/compare/gamesir-cyclone-2_vs_xbox-core-controller.html"
+        },
+        {
+          "label": "Neowin review (detailed spec table, 12-bit sticks, ~8h battery)",
+          "url": "https://www.neowin.net/reviews/review-gamesirs-new-cyclone-2-controller-arrives-with-great-specs-performance-price/"
+        },
+        {
+          "label": "TechRadar review (GameSir's 10-hour battery estimate)",
+          "url": "https://www.techradar.com/gaming/gaming-accessories/gamesir-cyclone-2-review"
+        },
+        {
+          "label": "Pocket-lint review (measured ~8h battery, 3.5mm audio)",
+          "url": "https://www.pocket-lint.com/gamesir-cyclone2-review/"
+        },
+        {
+          "label": "CGMagazine review (pricing tiers, 3.5mm jack, profile indicators)",
+          "url": "https://www.cgmagonline.com/review/hardware/gamesir-cyclone-2-controller/"
+        },
+        {
+          "label": "wccftech review (independent 2.4G polling and latency measurement)",
+          "url": "https://wccftech.com/review/gamesir-cyclone-2-review/"
+        }
+      ],
+      "fullName": "GameSir Cyclone 2",
+      "tier": "mid-range",
+      "category": "Multi-platform",
+      "measuredLatency": [
+        {
+          "mode": "Wired (XInput, FW 3.5.2)",
+          "button": "2.33 ms avg",
+          "stick": "4.70 ms avg",
+          "polling": "1000-1002 Hz"
+        },
+        {
+          "mode": "2.4 GHz dongle",
+          "button": "7.40 ms avg",
+          "stick": null,
+          "polling": "1000 Hz"
+        },
+        {
+          "mode": "Bluetooth",
+          "button": "~6 ms avg, spikes past 26 ms",
+          "stick": null,
+          "polling": "250-400 Hz"
+        }
+      ]
+    },
+    {
       "id": "g7-he",
       "name": "GameSir G7 HE",
       "tagline": "Officially Xbox-licensed wired controller that keeps the G7 SE's Hall Effect sticks and triggers but swaps in microswitch face buttons and d-pad, adds silicone grips, and drops the back-button lock latches.",
@@ -563,8 +807,8 @@
       "faq": [
         {
           "q": "Which app manages the G7 Pro 8K?",
-          "a": "GameSir Connect. This is the single most common source of confusion with this model — Nexus is for GameSir's Xbox-licensed controllers and will not list the 8K. Connect also supports the Tarantula Pro, Cyclone 2, Super Nova, Nova 2 Lite and T3 Lite.",
-          "sourceUrl": "https://fixoryhq.com/en/gamesir-g7-pro-8k-not-working/"
+          "a": "GameSir Connect. This is the single most common source of confusion with this model — Nexus is for GameSir's Xbox-licensed controllers and will not list the 8K. Per GameSir's own downloads page, Connect covers the G7 Pro 8K PC editions (Aimlabs, Champion, Nioh 3, Royal2), Tarantula 8K PC, Tegenaria Lite, Super Nova, Nova Lite 2 and Cyclone 2.",
+          "sourceUrl": "https://gamesir.com/support/downloads"
         },
         {
           "q": "Does it really reach 8000 Hz on wireless?",
@@ -588,6 +832,10 @@
         }
       ],
       "sources": [
+        {
+          "label": "GameSir official software downloads (authoritative Nexus vs Connect model lists)",
+          "url": "https://gamesir.com/support/downloads"
+        },
         {
           "label": "GameSir G7 Pro 8K PC manual",
           "url": "https://gamesir.com/support/manuals/gamesir-g7-pro-8k-pc-champion-edition"
@@ -829,6 +1077,479 @@
           "button": "3.00 ms avg",
           "stick": "3.23 ms avg",
           "polling": "1000 Hz"
+        }
+      ]
+    },
+    {
+      "id": "super-nova",
+      "name": "GameSir Super Nova",
+      "tagline": "A $49.99 tri-mode multiplatform controller with Hall Effect sticks and triggers, magnetic swappable faceplates, and an auto start-stop charging dock.",
+      "releaseYear": 2025,
+      "msrp": "$49.99 / £49.99",
+      "platforms": [
+        "PC",
+        "Switch",
+        "Android",
+        "iOS"
+      ],
+      "connectivity": {
+        "wired": true,
+        "dongle24g": true,
+        "bluetooth": true,
+        "notes": "Tri-mode: USB-C wired, 2.4GHz dongle, Bluetooth 5.0. A three-position rear mode switch selects 2.4G / Off / Bluetooth. Does NOT support Xbox consoles. GameSir's own manual lists platforms as 'PC, Switch, and Android' while the product page and retail listings add iOS; Switch 2 support is claimed on retail listings. Bluetooth connects to PC only as a DS4 device, which is why GameSir Connect cannot see it over Bluetooth."
+      },
+      "sticks": {
+        "tech": "GameSir Hall Effect (non-contact magnetic), with anti-friction glide rings — NOT TMR",
+        "resolution": null,
+        "durability": "Up to 5 million cycles (GameSir manufacturer claim)",
+        "driftResistant": true,
+        "measuredCenterError": "0.0-2.3% left / 0.0-2.7% right across four test runs",
+        "measuredResolution": "8.0-bit, ~256 steps (gamepadla, dongle in DS4 mode, FW 1.0.6) — likely reflects the reporting mode rather than the sensor ceiling",
+        "measuredNotes": "Four gamepadla Stick Tracer runs on firmware 1.0.6 produced center errors from 0.0% to 2.3% on the left stick and 0.0% to 2.7% on the right. The 0.0% results were attributed to the controller's built-in inner deadzone masking the true figure. Unlike the G7 Pro family, the Super Nova does apply an inner deadzone, which is why apparent drift is less common on it."
+      },
+      "triggers": {
+        "tech": "Hall Effect analog triggers with a 100% response area",
+        "triggerStops": true,
+        "notes": "A physical trigger gear switch selects long-pull or short-pull position. After switching, GameSir instructs you to press the trigger fully three times so it auto-calibrates the new pull distance. Hair trigger mode is a separate software toggle: hold M + LT/RT, and it requires the trigger to be set to the long-pull position first."
+      },
+      "dpad": "Membrane D-pad. TechRadar's review specifically calls the D-pad the weakest part of the controller ('isn't best in class').",
+      "faceButtons": "Membrane ABXY, marketed as noise-free/silent. The ABXY buttons are physically detachable so the layout can be rearranged between Xbox and Nintendo positions by hand. Button VALUES can be swapped separately in firmware by holding M + the south face button, which swaps A-B and X-Y.",
+      "pollingRate": {
+        "pc": "1000 Hz (wired and 2.4GHz dongle)",
+        "xbox": null,
+        "notes": "Xbox consoles are not supported. Bluetooth is 125 Hz. Gamepadla measured 996-1000 Hz median wired, 999-1000 Hz via dongle, and 125-391 Hz over Bluetooth; measured button latency was 7.32 ms wired (XInput), 12.1-20.4 ms via dongle, and 14.5-26.9 ms over Bluetooth (GPDL method, firmware 1.0.6/1.3). Note that connecting by cable while in Switch mode drops polling to 125 Hz."
+      },
+      "battery": {
+        "capacity": "1000mAh",
+        "claimedLife": "Manufacturer estimate of about 15 hours. GameSir publishes no battery-life figure on its product page or manual; TechRadar states that GameSir supplied the 15-hour figure on request.",
+        "notes": "Third-party review estimates vary widely and are less reliable: roughly 16 hours at 50% RGB brightness and up to ~20 hours with RGB off (Techxreviews); some reseller spec tables claim 'up to 25 hours,' which is not supported by GameSir's own 15-hour estimate. There is no battery percentage readout in the software or on the controller — the only indicator is the Home light flashing red below 15%. Ships with a smart auto start-stop charging dock; lifting the controller can be set to power it on."
+      },
+      "weight": "263 g / 0.58 lbs",
+      "dimensions": "156 x 106 x 59 mm / 6.14 x 4.17 x 2.32 in",
+      "extraButtons": {
+        "backButtons": 2,
+        "extraBumpers": 0,
+        "remappable": true,
+        "notes": "Two rear buttons (L4/R4) supporting single-button mapping and macro recording, plus an M (mode/macro) button. The rear buttons ship as 'null inputs' with no function until mapped. On-controller mapping: hold M + L4/R4 until the corresponding RGB strip slowly flashes white, press the button to assign, then press L4/R4 again to save. Exiting without pressing a target button clears the assignment."
+      },
+      "gyro": {
+        "present": true,
+        "notes": "Built-in 6-axis gyroscope. Calibrated on-device by placing the controller on a flat surface and holding M + Screenshot for 2 seconds; the Home light flashes red and blue alternately during the process."
+      },
+      "audioJack": false,
+      "rumble": "Two rumble motors, one in each grip, described by GameSir as dual asymmetric motors. Vibration intensity is adjustable on the fly by holding M and pressing - or +.",
+      "faceplates": {
+        "swappable": true,
+        "notes": "Magnetic detachable middle faceplate, sold in additional colors by GameSir. The ABXY buttons themselves are also detachable for layout rearrangement. Thin RGB light strips on the front sync with a matching strip on the charging dock."
+      },
+      "software": "GameSir Connect (PC) and the GameSir app (mobile). Note that GameSir's own Super Nova manual page contains an error telling users to configure the rear buttons via GameSir Nexus — Nexus does not support this model.",
+      "notableFeatures": [
+        "Hall Effect sticks AND Hall Effect triggers at a $49.99 price point",
+        "Magnetic detachable middle faceplate plus physically detachable, rearrangeable ABXY buttons",
+        "Smart auto start-stop charging dock included, with RGB that syncs to the controller",
+        "1000 Hz polling over both wired and 2.4GHz connections",
+        "Trigger gear for long/short pull plus a separate software hair-trigger mode",
+        "Extensive on-controller configuration via M-button combos (turbo, deadzone, vibration intensity, RGB, layout swap) with no software required",
+        "Membrane ABXY marketed as noise-free/silent",
+        "Rubber-coated textured grips"
+      ],
+      "knownIssues": [
+        {
+          "symptom": "GameSir Connect cannot see the Super Nova when it is connected over Bluetooth.",
+          "cause": "By design. Over Bluetooth the Super Nova presents to a PC only as a DS4 device, which GameSir Connect cannot access.",
+          "fix": "Connect by cable or 2.4GHz dongle in XInput mode instead. Bluetooth cannot be used with GameSir Connect at all.",
+          "sourceUrl": "https://gamesir.com/pages/faq-questions-about-super-nova-ns"
+        },
+        {
+          "symptom": "The Super Nova appears in GameSir Connect's device list but still will not connect, even on wired or dongle mode.",
+          "cause": "The controller is in the wrong input mode, has the wrong USB PID selected, or a stale Windows driver is bound to it.",
+          "fix": "GameSir's documented sequence: (1) press [-] + [+] for 3 seconds to cycle to XInput mode — indicator lights 2 and 4 illuminate; (2) press M + Home for 3 seconds to switch PID; (3) press Logo + [+] for 5 seconds to force XInput mode; (4) uninstall the driver in Device Manager and scan for hardware changes.",
+          "sourceUrl": "https://gamesir.com/pages/faq-questions-about-super-nova-ns"
+        },
+        {
+          "symptom": "The controller soft-locks and will not power on or off after pressing 'update firmware' in GameSir Connect.",
+          "cause": "A known bug in the firmware update flow, reported for both the Super Nova and Cyclone 2.",
+          "fix": "Press the recessed Reset button inside the circular hole on the back of the controller using a paperclip-sized object to force it off. A separate settings/profile reset is done by holding Home + Menu until the Logo button blinks. Firmware can also be updated with GameSir's standalone manual updater: connect via USB, hold Home + X + Y for 3 seconds to enter update mode, then click update firmware.",
+          "sourceUrl": "https://gamesir.com/pages/super-nova-controller-and-dongle-firmware-update-tutorial"
+        },
+        {
+          "symptom": "Buttons fire repeatedly from a single press and the indicator light flashes red.",
+          "cause": "Turbo (rapid-fire) mode has been enabled accidentally, usually by an M-button combo.",
+          "fix": "Double-press the M button to clear all turbo settings. Turbo is toggled per-button by holding M and pressing A/B/X/Y/LB/RB/LT/RT.",
+          "sourceUrl": "https://gamesir.com/pages/faq-questions-about-super-nova-ns"
+        },
+        {
+          "symptom": "The trigger lock is enabled but the trigger does not reach 100% output.",
+          "cause": "GameSir states the trigger lock function is firmware-controlled and may not register the physical switch position on the first attempt.",
+          "fix": "Toggle the trigger gear switch several times until the controller registers the setting. GameSir separately instructs pressing the trigger fully down three times after switching so the pull distance auto-calibrates.",
+          "sourceUrl": "https://gamesir.com/support/manuals/gamesir-super-nova"
+        },
+        {
+          "symptom": "The rear buttons do nothing at all when pressed.",
+          "cause": "Not a fault. The rear extra buttons ship as 'null inputs' with no assigned function until they are remapped.",
+          "fix": "Map them via GameSir Connect, the GameSir mobile app, or on-controller: hold M + L4/R4 until the RGB strip flashes white, press the target button, then press L4/R4 again to save. To clear a mapping, press the same rear button again instead of a target. Note GameSir's manual page incorrectly names 'GameSir Nexus' here — Nexus does not support the Super Nova.",
+          "sourceUrl": "https://gamesir.com/support/manuals/gamesir-super-nova"
+        },
+        {
+          "symptom": "GameSir Connect is installed but does not detect the controller, and the app never updates itself.",
+          "cause": "A Microsoft Store glitch prevents GameSir Connect from receiving automatic updates, leaving users on a version that predates Super Nova support.",
+          "fix": "Uninstall and reinstall GameSir Connect from the Microsoft Store, or download it directly from GameSir's software page instead of relying on Store updates.",
+          "sourceUrl": "https://gamesir.com/pages/faq-questions-about-super-nova-ns"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Which app should I use — GameSir Connect, the GameSir app, or GameSir Nexus?",
+          "a": "GameSir Connect on PC, or the GameSir app on mobile. GameSir Nexus does not support the Super Nova (it is for GameSir's Xbox-licensed controllers). Connect requires a wired or dongle connection in XInput mode; it cannot reach the controller over Bluetooth.",
+          "sourceUrl": "https://gamesir.com/pages/faq-questions-about-super-nova-ns"
+        },
+        {
+          "q": "How do I pair the Super Nova to a Nintendo Switch?",
+          "a": "On the Switch home screen open Controllers, then Change Grip/Order, and leave that page open. Set the rear mode switch to Bluetooth and press Home to power on. Hold Home + Y for 2 seconds until the channel indicator flashes up and down rapidly, then wait for the connection. If it fails, hold Home + Screenshot to force pairing mode and retry.",
+          "sourceUrl": "https://gamesir.com/support/manuals/gamesir-super-nova"
+        },
+        {
+          "q": "What are the Bluetooth mode combos for each platform?",
+          "a": "With the mode switch in the Bluetooth position: Home + B for 2 seconds selects PC/other-device mode (appears as 'Wireless Controller'), Home + Y selects Switch mode, and Home + A selects Android mode (appears as 'GameSir-Nova Pro'). Home + Screenshot held 2-3 seconds forces pairing mode from any of these.",
+          "sourceUrl": "https://gamesir.com/support/manuals/gamesir-super-nova"
+        },
+        {
+          "q": "How do I calibrate the sticks and triggers?",
+          "a": "Set the triggers to long-travel mode first. Hold [-] + [+] + Home for 2 seconds to enter calibration — the Home light flashes slowly in white. With nothing touching the sticks or triggers, press A once. Then rotate both sticks in full circles 2-3 times and fully press both triggers three times, and press A to exit.",
+          "sourceUrl": "https://gamesir.com/support/manuals/gamesir-super-nova"
+        },
+        {
+          "q": "How do I switch between XInput, Switch, and Android/other input modes?",
+          "a": "Hold the [-] (View) and [+] (Menu) buttons to cycle through XInput, Switch and other-device modes. This only works in dongle and wired modes, not over Bluetooth. In XInput mode, indicator lights 2 and 4 illuminate.",
+          "sourceUrl": "https://gamesir.com/support/manuals/gamesir-super-nova"
+        },
+        {
+          "q": "How do I reset the controller?",
+          "a": "There are two resets. For a hardware force-off when the controller will not power on or off, press the recessed Reset button in the circular hole on the back with a paperclip. To reset the profile and all settings, hold Home + Menu until the Logo button blinks (GameSir's support FAQ specifies 5 seconds, until the Logo LED flashes green twice).",
+          "sourceUrl": "https://gamesir.com/support/manuals/gamesir-super-nova"
+        },
+        {
+          "q": "How long does the battery last, and how do I check the level?",
+          "a": "GameSir's estimate, provided to TechRadar on request, is about 15 hours from the 1000mAh cell; no figure is published on the product page. There is no percentage readout in the software or on the controller — the only battery indicator is the Home light flashing red when charge drops below 15%. The controller auto-powers-off after 10 minutes of inactivity.",
+          "sourceUrl": "https://www.techradar.com/gaming/gamesir-super-nova-review"
+        },
+        {
+          "q": "Does it work with Xbox consoles?",
+          "a": "No. The Super Nova supports PC, Switch, Android and iOS only. Xbox consoles require an Xbox-licensed GameSir model.",
+          "sourceUrl": "https://www.windowscentral.com/gaming/gamesir-super-nova-controller-review"
+        },
+        {
+          "q": "Can I change the button layout?",
+          "a": "Yes, in two ways. Physically, both the middle faceplate and the ABXY buttons are detachable so you can rearrange the caps. In firmware, hold M + the south face button to swap the A-B and X-Y button values.",
+          "sourceUrl": "https://gamesir.com/support/manuals/gamesir-super-nova"
+        }
+      ],
+      "sources": [
+        {
+          "label": "GameSir official manual — How to Use the GameSir Super Nova",
+          "url": "https://gamesir.com/support/manuals/gamesir-super-nova"
+        },
+        {
+          "label": "GameSir official FAQ and troubleshooting — Super Nova",
+          "url": "https://gamesir.com/pages/faq-questions-about-super-nova-ns"
+        },
+        {
+          "label": "GameSir official connection tutorial — Super Nova",
+          "url": "https://gamesir.com/pages/tutorials-how-to-connect-super-nova-ns"
+        },
+        {
+          "label": "GameSir official firmware update tutorial — Super Nova controller and dongle",
+          "url": "https://gamesir.com/pages/super-nova-controller-and-dongle-firmware-update-tutorial"
+        },
+        {
+          "label": "GameSir official software downloads (Connect and GameSir app model lists)",
+          "url": "https://gamesir.com/support/downloads"
+        },
+        {
+          "label": "GameSir official spec sheet via GameSir regional store (weight, dimensions, battery)",
+          "url": "https://gamesir.co.za/products/gamesir-super-nova-multiplatform-game-controller"
+        },
+        {
+          "label": "Gamepadla measured latency, polling and stick tests",
+          "url": "https://gamepadla.com/gamesir-nova-pro.html"
+        },
+        {
+          "label": "GameSir pre-order press release, 18 Feb 2025 (5M cycle stick claim)",
+          "url": "https://www.techpowerup.com/332721/gamesir-introduces-super-nova-controller-available-for-pre-order"
+        },
+        {
+          "label": "GamesRadar+ launch coverage, 3 March 2025",
+          "url": "https://www.gamesradar.com/hardware/gaming-controllers/gamesir-launches-the-super-nova-controller-packed-with-a-charging-stand-1-000hz-polling-rate-and-swappable-faceplates/"
+        },
+        {
+          "label": "TechRadar review (GameSir's 15-hour battery estimate, no battery readout)",
+          "url": "https://www.techradar.com/gaming/gamesir-super-nova-review"
+        },
+        {
+          "label": "TechRadar Super Nova vs Cyclone 2 comparison (battery claims, 3.5mm jack difference)",
+          "url": "https://www.techradar.com/gaming/gaming-accessories/ive-tested-two-of-gamesirs-best-controllers-and-for-me-theres-one-clear-winner"
+        },
+        {
+          "label": "Windows Central review (specs, no Xbox support)",
+          "url": "https://www.windowscentral.com/gaming/gamesir-super-nova-controller-review"
+        },
+        {
+          "label": "TheSixthAxis review (firmware update soft-lock bug)",
+          "url": "https://www.thesixthaxis.com/2025/03/05/gamesir-super-nova-controller-review/"
+        }
+      ],
+      "fullName": "GameSir Super Nova",
+      "tier": "mid-range",
+      "category": "Multi-platform",
+      "measuredLatency": [
+        {
+          "mode": "Wired (XInput, FW 1.0.6)",
+          "button": "7.32 ms avg",
+          "stick": null,
+          "polling": "996-1000 Hz"
+        },
+        {
+          "mode": "2.4 GHz dongle",
+          "button": "12.1-20.4 ms avg",
+          "stick": null,
+          "polling": "999-1000 Hz"
+        },
+        {
+          "mode": "Bluetooth",
+          "button": "14.5-26.9 ms avg",
+          "stick": null,
+          "polling": "125-391 Hz"
+        }
+      ]
+    },
+    {
+      "id": "tarantula-pro",
+      "name": "GameSir Tarantula Pro",
+      "tagline": "A tri-mode multiplatform controller with a symmetric PlayStation-style stick layout, Mag-Res TMR sticks, and a motorized gear that physically rotates the face buttons between Xbox and Nintendo layouts.",
+      "releaseYear": 2024,
+      "msrp": "$79.99 / £79.99 at launch (October 2024); currently listed at $69.99 on gamesir.com",
+      "platforms": [
+        "PC",
+        "Switch",
+        "Android",
+        "iOS",
+        "Steam"
+      ],
+      "connectivity": {
+        "wired": true,
+        "dongle24g": true,
+        "bluetooth": true,
+        "notes": "Tri-mode: USB-C wired, 2.4GHz dongle, Bluetooth. Variant differences: the 'Tarantula Pro for Xbox' is WIRED-ONLY (3m detachable USB-C, no battery, 4 rumble motors, micro-switch ABXY, 3.5mm jack, 235g) and uses GameSir Nexus rather than Connect; the 'Tarantula 8K PC' is also wired-only (1.8m cable, PC only, 8000Hz, Gen-2 TMR, no rumble, no battery, 180g). The 'With Dock' / Bundle Edition is the same controller shipped with a charging station."
+      },
+      "sticks": {
+        "tech": "GameSir Mag-Res TMR (Gen-1) — tunneling magnetoresistance, non-contact",
+        "resolution": null,
+        "durability": null,
+        "driftResistant": true,
+        "measuredCenterError": "0.6% left / 1.0% right (cable); 1.7% left / 1.5% right (dongle)",
+        "measuredResolution": "11.0-bit, ~2,048 steps (dongle); 10.4-bit, ~1,365 steps (cable) — gamepadla, FW 2.0.6",
+        "measuredNotes": "Measured by gamepadla Stick Tracer on firmware 2.0.6, single unit. Note gamepadla lists this controller under its former name, T3 Pro."
+      },
+      "triggers": {
+        "tech": "Hall Effect analog triggers with a physical gear that converts them to micro-switch triggers",
+        "triggerStops": true,
+        "notes": "Three states are documented by GameSir: Hall Effect analog mode (linear, for racing), Hall Effect hair-trigger mode (enabled via a key combo — GameSir does not state which combo on the pages reviewed), and micro-switch mode selected by moving the physical trigger gear."
+      },
+      "dpad": "Four-way tactile-switch D-pad, positioned upper-left in a symmetric DualShock-style arrangement. Not swappable or replaceable.",
+      "faceButtons": "Four membrane ABXY buttons with no printed symbols. A motorized internal gear physically rotates the cluster between Xbox and Nintendo layouts, visible through a transparent window; the buttons are LED-lit and change color with the selected layout. Reviewers report the combo is M + A (Xbox) or M + B (Switch) held ~2 seconds; GameSir's FAQ states 'hold for 2 seconds until the gear rotates' but shows the combo only as an image. Membrane switches are the most commonly criticized part of the controller.",
+      "pollingRate": {
+        "pc": "1000 Hz (wired and 2.4GHz dongle); Gamepadla measured 1000-1002 Hz median wired and 1000-1001 Hz via dongle",
+        "xbox": null,
+        "notes": "Not an Xbox-compatible model — the separate 'Tarantula Pro for Xbox' is rated 1000Hz on PC and 250Hz on Xbox console. Bluetooth is much slower: Gamepadla measured a 162 Hz median polling rate in Sony/DS4 mode. Gamepadla LatScore is B wired / D wireless, with measured wired button latency of 7.83 ms and dongle button latency of 31.7 ms on firmware 2.0.6 — notably worse than the Cyclone 2."
+      },
+      "battery": {
+        "capacity": "1200mAh",
+        "claimedLife": "No battery-life figure is published on the gamesir.com product page, FAQ, or manual. GameSir's regional official store (gamesir.sa) claims 'up to 25 hours playtime, depending on RGB lighting usage and connection method.'",
+        "notes": "GameRant states GameSir provides no specific battery-life figure, and measured approximately 20 hours over Bluetooth with RGB at maximum brightness. Treat 25 hours as an unconfirmed regional-store claim, not a headline manufacturer spec."
+      },
+      "weight": "263 g / 0.58 lbs (Standard Edition, controller only). GameSir lists 325 g / 0.72 lbs net weight for the Bundle Edition, which includes the charging station.",
+      "dimensions": "158 x 100 x 61 mm / 6.22 x 3.94 x 2.40 in",
+      "extraButtons": {
+        "backButtons": 2,
+        "extraBumpers": null,
+        "remappable": true,
+        "notes": "Nine remappable buttons in total: R4, L4 (back buttons), C1, C2, C3, C4, T1, T2, T3. Each can be mapped to a single button or a sequence of up to 12. GameSir's documentation for the Tarantula Pro does not classify T1/T2 — on the Tarantula 8K PC the same T1/T2 names are described as 'extra bumpers,' but a GamesRadar hands-on describes the Tarantula Pro's extra front controls as four small buttons around the center panel plus an actuator on either side of it, so extraBumpers is left null rather than guessed. Physical back-button latches on the rear mechanically disable L4/R4 to prevent accidental input."
+      },
+      "gyro": {
+        "present": true,
+        "notes": "Built-in 6-axis gyroscope, supports motion control on Switch. The controller also has NFC for amiibo interaction with Nintendo devices and can wake the Switch with a single press."
+      },
+      "audioJack": false,
+      "rumble": "HD Rumble with 2 motors, per GameSir's official FAQ. Note the 'Tarantula Pro for Xbox' variant instead has 4 motors (one in each grip and each trigger), and the Tarantula 8K PC has none.",
+      "faceplates": {
+        "swappable": false,
+        "notes": "No magnetic or swappable faceplate system is documented for this model. Visual customization comes from the rotating face-button gear, the RGB light strip, the RGB Home indicator, and the illuminated face buttons."
+      },
+      "software": "GameSir Connect (PC) and the GameSir app (mobile). GameSir Nexus does not support this model. Worth knowing: GameSir's downloads page does not list the multiplatform Tarantula Pro under any application — it lists only the Tarantula 8K PC under Connect and Tarantula Pro for Xbox under Nexus — while the official Tarantula Pro FAQ directs users to Connect. Treat the FAQ as authoritative and the downloads listing as incomplete.",
+      "notableFeatures": [
+        "Motorized gear physically rotates the unlabeled ABXY cluster between Xbox and Nintendo layouts, with a transparent window showing the mechanism",
+        "Symmetric PlayStation-style stick layout, unusual for a Switch/PC controller",
+        "Nine remappable buttons, each supporting sequences of up to 12 inputs",
+        "Five extra buttons on the front face arranged in three rows (C1-C4 and T3) — GameSir's stated 'tarantula' design inspiration",
+        "Physical back-button latches mechanically disable L4/R4",
+        "Triggers switch between Hall Effect analog, Hall Effect hair-trigger, and micro-switch via a physical gear",
+        "NFC support for amiibo plus one-press Switch wake",
+        "Turbo with four modes: Slow 8Hz, Medium 12Hz, Fast 20Hz, Off",
+        "On-controller RGB editing by holding M plus a stick or the D-pad (effect, animation speed, brightness, color, saturation)"
+      ],
+      "knownIssues": [
+        {
+          "symptom": "Double-clicking D-pad, reversed/reverted joystick axes, low polling rate, and the controller not being recognized by GameSir Connect over the dongle.",
+          "cause": "GameSir states there were many bugs in early firmware versions of the Tarantula Pro, in both the controller and the dongle.",
+          "fix": "Update BOTH the controller and dongle firmware to the latest version. Controller: connect via USB, open the updater, press Logo + X + Y simultaneously until the device status shows online, then click update firmware. Dongle: exit GameSir Connect, insert the receiver, hold the pairing button for 5 seconds until Device Status shows ONLINE in green, then click Upgrade Firmware. WARNING: GameSir provides different controller firmware files by serial number (V2.06 for SN starting with 1 or 2, a separate V2.06 for SN starting with 3) and warns that the wrong file may brick the controller.",
+          "sourceUrl": "https://gamesir.com/pages/tutorial-how-to-upgrade-the-dongle-firmware-of-the-tarantula-pro"
+        },
+        {
+          "symptom": "GameSir Nexus does not detect the Tarantula Pro at all.",
+          "cause": "Wrong application. The multiplatform Tarantula Pro is a GameSir Connect device; Nexus is only for GameSir's Xbox-licensed controllers (including the separate 'Tarantula Pro for Xbox').",
+          "fix": "Use GameSir Connect, connected via dongle or cable in XInput mode. GameSir explicitly notes Connect will not detect the controller when it is in DS or NS mode over a Bluetooth connection.",
+          "sourceUrl": "https://gamesir.com/pages/faq-questions-about-tarantula-pro"
+        },
+        {
+          "symptom": "Apparent stick drift straight out of the box after setting the initial deadzone to 0 in GameSir Connect.",
+          "cause": "Not a defect. A 0 deadzone is a true physical zero, which makes the stick extremely sensitive to any resting-position noise.",
+          "fix": "Set the inner deadzone to 3-5 in GameSir Connect.",
+          "sourceUrl": "https://gamesir.com/pages/faq-questions-about-tarantula-pro"
+        },
+        {
+          "symptom": "Cannot connect over Bluetooth or dongle; the indicator light keeps blinking slowly.",
+          "cause": "Slow blinking means the controller is in reconnecting mode, trying to reach a previously paired device, rather than in pairing mode.",
+          "fix": "Hold the Pairing Button on the controller for 2 seconds to force pairing mode — the light should then blink fast. For a dongle connection, also hold the pairing button on the dongle until it blinks fast so the two re-pair.",
+          "sourceUrl": "https://gamesir.com/pages/faq-questions-about-tarantula-pro"
+        },
+        {
+          "symptom": "Stick drift or trigger inaccuracy during use.",
+          "cause": "Sticks and/or triggers have lost calibration.",
+          "fix": "Run the on-board Stick & Trigger Calibration procedure documented in the manual; GameSir links a video calibration tutorial from the FAQ page.",
+          "sourceUrl": "https://gamesir.com/pages/faq-questions-about-tarantula-pro"
+        },
+        {
+          "symptom": "Higher-than-expected input latency, especially over the 2.4GHz dongle.",
+          "cause": "Firmware/internal processing rather than polling rate. The controller reports a genuine 1000 Hz polling rate, but measured hardware latency is much higher than similarly specced GameSir models.",
+          "fix": "No documented fix. Gamepadla measured 7.83 ms average button latency wired and 31.73 ms via dongle on firmware 2.0.6, versus 2.33 ms wired for the Cyclone 2, and rates it B wired / D wireless. Prefer the wired connection for latency-sensitive play and keep firmware current.",
+          "sourceUrl": "https://gamepadla.com/gamesir-t3-pro.html"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Which software do I need — GameSir Nexus or GameSir Connect?",
+          "a": "GameSir Connect, connected via dongle or cable in XInput mode. GameSir Nexus does not recognize the multiplatform Tarantula Pro. Connect also will not see the controller if it is in DS or NS mode over Bluetooth. The mobile GameSir app can also configure it. (The separate 'Tarantula Pro for Xbox' is the opposite case — it uses GameSir Nexus.)",
+          "sourceUrl": "https://gamesir.com/pages/faq-questions-about-tarantula-pro"
+        },
+        {
+          "q": "What platforms does the Tarantula Pro support?",
+          "a": "PC, Switch, iOS, Android, and Steam. It does not support Xbox consoles — that requires the separate wired 'Tarantula Pro for Xbox' model.",
+          "sourceUrl": "https://gamesir.com/pages/faq-questions-about-tarantula-pro"
+        },
+        {
+          "q": "How do I change the face button layout between Xbox and Nintendo?",
+          "a": "GameSir's FAQ says to hold the combo for 2 seconds until the gear rotates and changes both the layout and the key values; the default is the Xbox layout. Reviewers document the combo as M + A for the Xbox layout and M + B for the Switch layout. The buttons physically rotate and change color to match.",
+          "sourceUrl": "https://gamesir.com/pages/faq-questions-about-tarantula-pro"
+        },
+        {
+          "q": "How many remappable buttons are there and what can they do?",
+          "a": "Nine: R4, L4, C1, C2, C3, C4, T1, T2, T3. Each can be mapped to a single button or a sequence of up to 12. Assignable values include A, B, X, Y, LB, RB, LT, RT, LS, RS, View, Menu, D-pad, and both sticks.",
+          "sourceUrl": "https://gamesir.com/pages/faq-questions-about-tarantula-pro"
+        },
+        {
+          "q": "What do the back button latches do?",
+          "a": "They mechanically enable or disable the L4/R4 back buttons so you can prevent unintended input when you are not using them.",
+          "sourceUrl": "https://gamesir.com/pages/faq-questions-about-tarantula-pro"
+        },
+        {
+          "q": "How do I pair the Tarantula Pro to a phone over Bluetooth?",
+          "a": "Hold the controller's combo for 2 seconds until channel indicators 1 and 5 flash, then release. Open your phone's Bluetooth list, find 'GameSir- Tarantula Pro' and connect. The channel indicator goes solid when connected.",
+          "sourceUrl": "https://gamesir.com/pages/tutorial-how-to-connect-tarantula-pro"
+        },
+        {
+          "q": "Does it have a turbo/rapid-fire function?",
+          "a": "Yes, with four modes: Slow (8Hz), Medium (12Hz), Fast (20Hz), and Off.",
+          "sourceUrl": "https://gamesir.com/pages/faq-questions-about-tarantula-pro"
+        },
+        {
+          "q": "How many rumble motors does it have?",
+          "a": "Two HD rumble motors. This differs by variant: the wired 'Tarantula Pro for Xbox' has four (one in each grip and each trigger), and the Tarantula 8K PC has none.",
+          "sourceUrl": "https://gamesir.com/pages/faq-questions-about-tarantula-pro"
+        }
+      ],
+      "sources": [
+        {
+          "label": "GameSir official product page — Tarantula Pro Multiplatform Controller",
+          "url": "https://gamesir.com/products/gamesir-tarantula-pro"
+        },
+        {
+          "label": "GameSir official FAQ and troubleshooting — Tarantula Pro",
+          "url": "https://gamesir.com/pages/faq-questions-about-tarantula-pro"
+        },
+        {
+          "label": "GameSir official firmware upgrade tutorial (controller + dongle)",
+          "url": "https://gamesir.com/pages/tutorial-how-to-upgrade-the-dongle-firmware-of-the-tarantula-pro"
+        },
+        {
+          "label": "GameSir official connection tutorial — Tarantula Pro",
+          "url": "https://gamesir.com/pages/tutorial-how-to-connect-tarantula-pro"
+        },
+        {
+          "label": "GameSir official product page — Tarantula Pro for Xbox (wired variant)",
+          "url": "https://gamesir.com/products/gamesir-tarantula-pro-for-xbox"
+        },
+        {
+          "label": "GameSir official software downloads (shows Nexus vs Connect model lists)",
+          "url": "https://gamesir.com/support/downloads"
+        },
+        {
+          "label": "Gamepadla measured latency, polling and stick tests (listed as GameSir T3 Pro)",
+          "url": "https://gamepadla.com/gamesir-t3-pro.html"
+        },
+        {
+          "label": "Gamepadla Stick Tracer result — dongle, firmware 2.0.6",
+          "url": "https://gamepadla.com/stick_tracer/a87349c9b8b345de/"
+        },
+        {
+          "label": "Gamepadla Stick Tracer result — cable, firmware 2.0.6",
+          "url": "https://gamepadla.com/stick_tracer/d4841702d0cc47ad/"
+        },
+        {
+          "label": "GameSir launch press release, 10 October 2024, $79.99",
+          "url": "https://www.techpowerup.com/327542/gamesir-launches-the-tarantula-pro-multi-platform-wireless-games-controller"
+        },
+        {
+          "label": "TechRadar review (face-button layout swapping)",
+          "url": "https://www.techradar.com/gaming/gamesir-tarantula-pro-review"
+        },
+        {
+          "label": "GamesRadar+ review (front button and D-pad description)",
+          "url": "https://www.gamesradar.com/hardware/gaming-controllers/gamesir-tarantula-pro-review/"
+        },
+        {
+          "label": "GameRant review (measured ~20h battery, notes no official claim)",
+          "url": "https://gamerant.com/gamesir-tarantula-pro-review/"
+        },
+        {
+          "label": "XDA review (spec table, headset support: no)",
+          "url": "https://www.xda-developers.com/gamesir-tarantula-pro-review/"
+        }
+      ],
+      "fullName": "GameSir Tarantula Pro",
+      "tier": "high-end",
+      "category": "Multi-platform",
+      "measuredLatency": [
+        {
+          "mode": "Wired (XInput, FW 2.0.6)",
+          "button": "7.83 ms avg",
+          "stick": null,
+          "polling": "1000-1002 Hz"
+        },
+        {
+          "mode": "2.4 GHz dongle (XInput, FW 2.0.6)",
+          "button": "31.73 ms avg",
+          "stick": null,
+          "polling": "1000-1001 Hz"
         }
       ]
     }

@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GameSir Super Nova — specs, fixes and FAQ | GameSir Wiki</title>
+<meta name="description" content="GameSir Super Nova: full specifications, measured performance, documented problems and fixes, and frequently asked questions. A $49.99 tri-mode multiplatform controller with Hall Effect sticks and triggers, magnetic swappable faceplates, and an auto start-stop charging dock.">
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="../index.html">
+      <span class="brand-mark">GS</span>
+      <span>GameSir Wiki</span>
+    </a>
+    <nav class="site-nav"><a href="../index.html">Home</a><a href="../compare.html">Compare</a><a href="../troubleshooting.html">Troubleshooting</a><a href="../faq.html">FAQ</a><a href="../about.html">About</a></nav>
+  </div>
+</header>
+
+<main>
+<div class="wrap narrow">
+  <div class="page-head">
+    <p class="breadcrumb"><a href="../index.html">Home</a> / GameSir Super Nova</p>
+    <p class="eyebrow">Mid-range &middot; Multi-platform</p>
+    <h1>GameSir Super Nova</h1>
+    <p class="lede">A $49.99 tri-mode multiplatform controller with Hall Effect sticks and triggers, magnetic swappable faceplates, and an auto start-stop charging dock.</p>
+    <div class="badges"><span class="badge tier-mid-range">Mid-range</span><span class="badge badge-tmr">GameSir Hall Effect (non-contact magnetic), with anti-friction glide rings — NOT TMR</span><span class="badge badge-info">1000 Hz</span><span class="badge">Gyro</span><span class="badge">GameSir Connect (PC) and the GameSir app (mobile). Note that GameSir's own Super Nova manual page contains an error telling users to configure the rear buttons via GameSir Nexus — Nexus does not support this model.</span></div>
+  </div>
+
+  <h2 id="specs">Specifications</h2>
+  <div class="spec-section">
+    <h3>Overview</h3>
+    <div class="spec-grid">
+      <div class="spec-row"><span class="spec-key">Released</span><span class="spec-val">2025</span></div>
+      <div class="spec-row"><span class="spec-key">Launch price</span><span class="spec-val">$49.99 / £49.99</span></div>
+      <div class="spec-row"><span class="spec-key">Weight</span><span class="spec-val">263 g / 0.58 lbs</span></div>
+      <div class="spec-row"><span class="spec-key">Dimensions</span><span class="spec-val">156 x 106 x 59 mm / 6.14 x 4.17 x 2.32 in</span></div>
+      <div class="spec-row"><span class="spec-key">Software</span><span class="spec-val">GameSir Connect (PC) and the GameSir app (mobile). Note that GameSir's own Super Nova manual page contains an error telling users to configure the rear buttons via GameSir Nexus — Nexus does not support this model.</span></div>
+      <div class="spec-row"><span class="spec-key">Platforms</span><span class="spec-val">PC, Switch, Android, iOS</span></div>
+    </div>
+
+    <h3>Sticks</h3>
+    <div class="spec-grid">
+      <div class="spec-row"><span class="spec-key">Sensor technology</span><span class="spec-val">GameSir Hall Effect (non-contact magnetic), with anti-friction glide rings — NOT TMR</span></div>
+      <div class="spec-row"><span class="spec-key">Resolution</span><span class="spec-val unknown">Not documented</span></div>
+      <div class="spec-row"><span class="spec-key">Durability</span><span class="spec-val">Up to 5 million cycles (GameSir manufacturer claim)</span></div>
+      <div class="spec-row"><span class="spec-key">Measured center error</span><span class="spec-val">0.0-2.3% left / 0.0-2.7% right across four test runs</span></div>
+      <div class="spec-row"><span class="spec-key">Measured resolution</span><span class="spec-val">8.0-bit, ~256 steps (gamepadla, dongle in DS4 mode, FW 1.0.6) — likely reflects the reporting mode rather than the sensor ceiling</span></div>
+    </div>
+    <div class="note"><p>Four gamepadla Stick Tracer runs on firmware 1.0.6 produced center errors from 0.0% to 2.3% on the left stick and 0.0% to 2.7% on the right. The 0.0% results were attributed to the controller's built-in inner deadzone masking the true figure. Unlike the G7 Pro family, the Super Nova does apply an inner deadzone, which is why apparent drift is less common on it.</p></div>
+
+    <h3>Triggers, D-pad and buttons</h3>
+    <div class="spec-grid">
+      <div class="spec-row"><span class="spec-key">Trigger technology</span><span class="spec-val">Hall Effect analog triggers with a 100% response area</span></div>
+      <div class="spec-row"><span class="spec-key">Trigger stops</span><span class="spec-val">Yes</span></div>
+      <div class="spec-row"><span class="spec-key">D-pad</span><span class="spec-val">Membrane D-pad. TechRadar's review specifically calls the D-pad the weakest part of the controller ('isn't best in class').</span></div>
+      <div class="spec-row"><span class="spec-key">Face buttons</span><span class="spec-val">Membrane ABXY, marketed as noise-free/silent. The ABXY buttons are physically detachable so the layout can be rearranged between Xbox and Nintendo positions by hand. Button VALUES can be swapped separately in firmware by holding M + the south face button, which swaps A-B and X-Y.</span></div>
+      <div class="spec-row"><span class="spec-key">Rear buttons</span><span class="spec-val">2</span></div>
+      <div class="spec-row"><span class="spec-key">Extra bumpers</span><span class="spec-val">0</span></div>
+    </div>
+    <p class="small text-muted">A physical trigger gear switch selects long-pull or short-pull position. After switching, GameSir instructs you to press the trigger fully three times so it auto-calibrates the new pull distance. Hair trigger mode is a separate software toggle: hold M + LT/RT, and it requires the trigger to be set to the long-pull position first.</p>
+    <p class="small text-muted">Two rear buttons (L4/R4) supporting single-button mapping and macro recording, plus an M (mode/macro) button. The rear buttons ship as 'null inputs' with no function until mapped. On-controller mapping: hold M + L4/R4 until the corresponding RGB strip slowly flashes white, press the button to assign, then press L4/R4 again to save. Exiting without pressing a target button clears the assignment.</p>
+
+    <h3>Connectivity and performance</h3>
+    <div class="spec-grid">
+      <div class="spec-row"><span class="spec-key">Connection modes</span><span class="spec-val">Wired / 2.4 GHz / Bluetooth</span></div>
+      <div class="spec-row"><span class="spec-key">Polling rate (PC)</span><span class="spec-val">1000 Hz (wired and 2.4GHz dongle)</span></div>
+      <div class="spec-row"><span class="spec-key">Polling rate (Xbox)</span><span class="spec-val unknown">Not documented</span></div>
+      <div class="spec-row"><span class="spec-key">Audio jack</span><span class="spec-val">None</span></div>
+      <div class="spec-row"><span class="spec-key">Gyro</span><span class="spec-val">Yes</span></div>
+      <div class="spec-row"><span class="spec-key">Rumble</span><span class="spec-val">Two rumble motors, one in each grip, described by GameSir as dual asymmetric motors. Vibration intensity is adjustable on the fly by holding M and pressing - or +.</span></div>
+    </div>
+    <div class="note"><p>Tri-mode: USB-C wired, 2.4GHz dongle, Bluetooth 5.0. A three-position rear mode switch selects 2.4G / Off / Bluetooth. Does NOT support Xbox consoles. GameSir's own manual lists platforms as 'PC, Switch, and Android' while the product page and retail listings add iOS; Switch 2 support is claimed on retail listings. Bluetooth connects to PC only as a DS4 device, which is why GameSir Connect cannot see it over Bluetooth.</p></div>
+    <p class="small text-muted">Xbox consoles are not supported. Bluetooth is 125 Hz. Gamepadla measured 996-1000 Hz median wired, 999-1000 Hz via dongle, and 125-391 Hz over Bluetooth; measured button latency was 7.32 ms wired (XInput), 12.1-20.4 ms via dongle, and 14.5-26.9 ms over Bluetooth (GPDL method, firmware 1.0.6/1.3). Note that connecting by cable while in Switch mode drops polling to 125 Hz.</p>
+    <p class="small text-muted">Gyro: Built-in 6-axis gyroscope. Calibrated on-device by placing the controller on a flat surface and holding M + Screenshot for 2 seconds; the Home light flashes red and blue alternately during the process.</p>
+
+    <h3>Battery and build</h3>
+    <div class="spec-grid">
+      <div class="spec-row"><span class="spec-key">Battery capacity</span><span class="spec-val">1000mAh</span></div>
+      <div class="spec-row"><span class="spec-key">Claimed battery life</span><span class="spec-val">Manufacturer estimate of about 15 hours. GameSir publishes no battery-life figure on its product page or manual; TechRadar states that GameSir supplied the 15-hour figure on request.</span></div>
+      <div class="spec-row"><span class="spec-key">Swappable faceplates</span><span class="spec-val">Yes</span></div>
+    </div>
+    <p class="small text-muted">Third-party review estimates vary widely and are less reliable: roughly 16 hours at 50% RGB brightness and up to ~20 hours with RGB off (Techxreviews); some reseller spec tables claim 'up to 25 hours,' which is not supported by GameSir's own 15-hour estimate. There is no battery percentage readout in the software or on the controller — the only indicator is the Home light flashing red below 15%. Ships with a smart auto start-stop charging dock; lifting the controller can be set to power it on.</p>
+    <p class="small text-muted">Magnetic detachable middle faceplate, sold in additional colors by GameSir. The ABXY buttons themselves are also detachable for layout rearrangement. Thin RGB light strips on the front sync with a matching strip on the charging dock.</p>
+  </div>
+
+  <h3 id="latency">Measured latency</h3>
+<p class="section-intro small">Bar length reflects stick latency on a fixed 0&ndash;16&nbsp;ms scale, so bars are comparable between models. Measured and published by gamepadla.com; polling rate and latency are measured by different methods and are not the same thing.</p>
+<div class="latency-list">
+<div class="latency-row">
+  <div class="latency-head"><span class="latency-mode">Wired (XInput, FW 1.0.6)</span><span class="latency-num">button 7.32 ms avg · 996-1000 Hz</span></div>
+  <div class="bar-track"><div class="bar-fill is-warn" style="width:45.8%"></div></div>
+</div>
+<div class="latency-row">
+  <div class="latency-head"><span class="latency-mode">2.4 GHz dongle</span><span class="latency-num">button 12.1-20.4 ms avg · 999-1000 Hz</span></div>
+  <div class="bar-track"><div class="bar-fill is-bad" style="width:100.0%"></div></div>
+</div>
+<div class="latency-row">
+  <div class="latency-head"><span class="latency-mode">Bluetooth</span><span class="latency-num">button 14.5-26.9 ms avg · 125-391 Hz</span></div>
+  <div class="bar-track"><div class="bar-fill is-bad" style="width:100.0%"></div></div>
+</div>
+</div>
+
+  <h2 id="features">Notable features</h2>
+<ul>
+  <li>Hall Effect sticks AND Hall Effect triggers at a $49.99 price point</li>
+  <li>Magnetic detachable middle faceplate plus physically detachable, rearrangeable ABXY buttons</li>
+  <li>Smart auto start-stop charging dock included, with RGB that syncs to the controller</li>
+  <li>1000 Hz polling over both wired and 2.4GHz connections</li>
+  <li>Trigger gear for long/short pull plus a separate software hair-trigger mode</li>
+  <li>Extensive on-controller configuration via M-button combos (turbo, deadzone, vibration intensity, RGB, layout swap) with no software required</li>
+  <li>Membrane ABXY marketed as noise-free/silent</li>
+  <li>Rubber-coated textured grips</li>
+</ul>
+
+  <h2 id="issues">Known issues and fixes</h2>
+<p class="section-intro">Documented problems with documented solutions. Each entry cites where the fix comes from.</p>
+<div class="accordion">
+<details class="item">
+  <summary>GameSir Connect cannot see the Super Nova when it is connected over Bluetooth.</summary>
+  <div class="item-body">
+    <div class="qa-block"><span class="qa-label">Likely cause</span>By design. Over Bluetooth the Super Nova presents to a PC only as a DS4 device, which GameSir Connect cannot access.</div>
+    <div class="qa-block"><span class="qa-label">Fix</span>Connect by cable or 2.4GHz dongle in XInput mode instead. Bluetooth cannot be used with GameSir Connect at all.</div>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/pages/faq-questions-about-super-nova-ns" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+<details class="item">
+  <summary>The Super Nova appears in GameSir Connect's device list but still will not connect, even on wired or dongle mode.</summary>
+  <div class="item-body">
+    <div class="qa-block"><span class="qa-label">Likely cause</span>The controller is in the wrong input mode, has the wrong USB PID selected, or a stale Windows driver is bound to it.</div>
+    <div class="qa-block"><span class="qa-label">Fix</span>GameSir's documented sequence: (1) press [-] + [+] for 3 seconds to cycle to XInput mode — indicator lights 2 and 4 illuminate; (2) press <kbd>M + Home</kbd> for 3 seconds to switch PID; (3) press Logo + [+] for 5 seconds to force XInput mode; (4) uninstall the driver in Device Manager and scan for hardware changes.</div>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/pages/faq-questions-about-super-nova-ns" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+<details class="item">
+  <summary>The controller soft-locks and will not power on or off after pressing 'update firmware' in GameSir Connect.</summary>
+  <div class="item-body">
+    <div class="qa-block"><span class="qa-label">Likely cause</span>A known bug in the firmware update flow, reported for both the Super Nova and Cyclone 2.</div>
+    <div class="qa-block"><span class="qa-label">Fix</span>Press the recessed Reset button inside the circular hole on the back of the controller using a paperclip-sized object to force it off. A separate settings/profile reset is done by holding <kbd>Home + Menu</kbd> until the Logo button blinks. Firmware can also be updated with GameSir's standalone manual updater: connect via USB, hold <kbd>Home + X + Y</kbd> for 3 seconds to enter update mode, then click update firmware.</div>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/pages/super-nova-controller-and-dongle-firmware-update-tutorial" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+<details class="item">
+  <summary>Buttons fire repeatedly from a single press and the indicator light flashes red.</summary>
+  <div class="item-body">
+    <div class="qa-block"><span class="qa-label">Likely cause</span>Turbo (rapid-fire) mode has been enabled accidentally, usually by an M-button combo.</div>
+    <div class="qa-block"><span class="qa-label">Fix</span>Double-press the M button to clear all turbo settings. Turbo is toggled per-button by holding M and pressing A/B/X/Y/LB/RB/LT/RT.</div>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/pages/faq-questions-about-super-nova-ns" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+<details class="item">
+  <summary>The trigger lock is enabled but the trigger does not reach 100% output.</summary>
+  <div class="item-body">
+    <div class="qa-block"><span class="qa-label">Likely cause</span>GameSir states the trigger lock function is firmware-controlled and may not register the physical switch position on the first attempt.</div>
+    <div class="qa-block"><span class="qa-label">Fix</span>Toggle the trigger gear switch several times until the controller registers the setting. GameSir separately instructs pressing the trigger fully down three times after switching so the pull distance auto-calibrates.</div>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/support/manuals/gamesir-super-nova" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+<details class="item">
+  <summary>The rear buttons do nothing at all when pressed.</summary>
+  <div class="item-body">
+    <div class="qa-block"><span class="qa-label">Likely cause</span>Not a fault. The rear extra buttons ship as 'null inputs' with no assigned function until they are remapped.</div>
+    <div class="qa-block"><span class="qa-label">Fix</span>Map them via GameSir Connect, the GameSir mobile app, or on-controller: hold M + L4/R4 until the RGB strip flashes white, press the target button, then press L4/R4 again to save. To clear a mapping, press the same rear button again instead of a target. Note GameSir's manual page incorrectly names 'GameSir Nexus' here — Nexus does not support the Super Nova.</div>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/support/manuals/gamesir-super-nova" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+<details class="item">
+  <summary>GameSir Connect is installed but does not detect the controller, and the app never updates itself.</summary>
+  <div class="item-body">
+    <div class="qa-block"><span class="qa-label">Likely cause</span>A Microsoft Store glitch prevents GameSir Connect from receiving automatic updates, leaving users on a version that predates Super Nova support.</div>
+    <div class="qa-block"><span class="qa-label">Fix</span>Uninstall and reinstall GameSir Connect from the Microsoft Store, or download it directly from GameSir's software page instead of relying on Store updates.</div>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/pages/faq-questions-about-super-nova-ns" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+</div>
+
+  <h2 id="faq">Frequently asked questions</h2>
+<div class="accordion">
+<details class="item">
+  <summary>Which app should I use — GameSir Connect, the GameSir app, or GameSir Nexus?</summary>
+  <div class="item-body">
+    <p>GameSir Connect on PC, or the GameSir app on mobile. GameSir Nexus does not support the Super Nova (it is for GameSir's Xbox-licensed controllers). Connect requires a wired or dongle connection in XInput mode; it cannot reach the controller over Bluetooth.</p>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/pages/faq-questions-about-super-nova-ns" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+<details class="item">
+  <summary>How do I pair the Super Nova to a Nintendo Switch?</summary>
+  <div class="item-body">
+    <p>On the Switch home screen open Controllers, then Change Grip/Order, and leave that page open. Set the rear mode switch to Bluetooth and press Home to power on. Hold <kbd>Home + Y</kbd> for 2 seconds until the channel indicator flashes up and down rapidly, then wait for the connection. If it fails, hold Home + Screenshot to force pairing mode and retry.</p>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/support/manuals/gamesir-super-nova" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+<details class="item">
+  <summary>What are the Bluetooth mode combos for each platform?</summary>
+  <div class="item-body">
+    <p>With the mode switch in the Bluetooth position: <kbd>Home + B</kbd> for 2 seconds selects PC/other-device mode (appears as 'Wireless Controller'), <kbd>Home + Y</kbd> selects Switch mode, and <kbd>Home + A</kbd> selects Android mode (appears as 'GameSir-Nova Pro'). Home + Screenshot held 2-3 seconds forces pairing mode from any of these.</p>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/support/manuals/gamesir-super-nova" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+<details class="item">
+  <summary>How do I calibrate the sticks and triggers?</summary>
+  <div class="item-body">
+    <p>Set the triggers to long-travel mode first. Hold [-] + [+] + Home for 2 seconds to enter calibration — the Home light flashes slowly in white. With nothing touching the sticks or triggers, press A once. Then rotate both sticks in full circles 2-3 times and fully press both triggers three times, and press A to exit.</p>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/support/manuals/gamesir-super-nova" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+<details class="item">
+  <summary>How do I switch between XInput, Switch, and Android/other input modes?</summary>
+  <div class="item-body">
+    <p>Hold the [-] (View) and [+] (Menu) buttons to cycle through XInput, Switch and other-device modes. This only works in dongle and wired modes, not over Bluetooth. In XInput mode, indicator lights 2 and 4 illuminate.</p>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/support/manuals/gamesir-super-nova" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+<details class="item">
+  <summary>How do I reset the controller?</summary>
+  <div class="item-body">
+    <p>There are two resets. For a hardware force-off when the controller will not power on or off, press the recessed Reset button in the circular hole on the back with a paperclip. To reset the profile and all settings, hold <kbd>Home + Menu</kbd> until the Logo button blinks (GameSir's support FAQ specifies 5 seconds, until the Logo LED flashes green twice).</p>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/support/manuals/gamesir-super-nova" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+<details class="item">
+  <summary>How long does the battery last, and how do I check the level?</summary>
+  <div class="item-body">
+    <p>GameSir's estimate, provided to TechRadar on request, is about 15 hours from the 1000mAh cell; no figure is published on the product page. There is no percentage readout in the software or on the controller — the only battery indicator is the Home light flashing red when charge drops below 15%. The controller auto-powers-off after 10 minutes of inactivity.</p>
+    <p class="small text-dim">Source: <a href="https://www.techradar.com/gaming/gamesir-super-nova-review" rel="nofollow noopener" target="_blank">www.techradar.com</a></p>
+  </div>
+</details>
+<details class="item">
+  <summary>Does it work with Xbox consoles?</summary>
+  <div class="item-body">
+    <p>No. The Super Nova supports PC, Switch, Android and iOS only. Xbox consoles require an Xbox-licensed GameSir model.</p>
+    <p class="small text-dim">Source: <a href="https://www.windowscentral.com/gaming/gamesir-super-nova-controller-review" rel="nofollow noopener" target="_blank">www.windowscentral.com</a></p>
+  </div>
+</details>
+<details class="item">
+  <summary>Can I change the button layout?</summary>
+  <div class="item-body">
+    <p>Yes, in two ways. Physically, both the middle faceplate and the ABXY buttons are detachable so you can rearrange the caps. In firmware, hold <kbd>M + the south</kbd> face button to swap the A-B and X-Y button values.</p>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/support/manuals/gamesir-super-nova" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+</div>
+
+  <h2 id="sources">Sources</h2>
+<ul class="source-list">
+<li><a href="https://gamesir.com/support/manuals/gamesir-super-nova" rel="nofollow noopener" target="_blank">GameSir official manual — How to Use the GameSir Super Nova</a></li>
+<li><a href="https://gamesir.com/pages/faq-questions-about-super-nova-ns" rel="nofollow noopener" target="_blank">GameSir official FAQ and troubleshooting — Super Nova</a></li>
+<li><a href="https://gamesir.com/pages/tutorials-how-to-connect-super-nova-ns" rel="nofollow noopener" target="_blank">GameSir official connection tutorial — Super Nova</a></li>
+<li><a href="https://gamesir.com/pages/super-nova-controller-and-dongle-firmware-update-tutorial" rel="nofollow noopener" target="_blank">GameSir official firmware update tutorial — Super Nova controller and dongle</a></li>
+<li><a href="https://gamesir.com/support/downloads" rel="nofollow noopener" target="_blank">GameSir official software downloads (Connect and GameSir app model lists)</a></li>
+<li><a href="https://gamesir.co.za/products/gamesir-super-nova-multiplatform-game-controller" rel="nofollow noopener" target="_blank">GameSir official spec sheet via GameSir regional store (weight, dimensions, battery)</a></li>
+<li><a href="https://gamepadla.com/gamesir-nova-pro.html" rel="nofollow noopener" target="_blank">Gamepadla measured latency, polling and stick tests</a></li>
+<li><a href="https://www.techpowerup.com/332721/gamesir-introduces-super-nova-controller-available-for-pre-order" rel="nofollow noopener" target="_blank">GameSir pre-order press release, 18 Feb 2025 (5M cycle stick claim)</a></li>
+<li><a href="https://www.gamesradar.com/hardware/gaming-controllers/gamesir-launches-the-super-nova-controller-packed-with-a-charging-stand-1-000hz-polling-rate-and-swappable-faceplates/" rel="nofollow noopener" target="_blank">GamesRadar+ launch coverage, 3 March 2025</a></li>
+<li><a href="https://www.techradar.com/gaming/gamesir-super-nova-review" rel="nofollow noopener" target="_blank">TechRadar review (GameSir's 15-hour battery estimate, no battery readout)</a></li>
+<li><a href="https://www.techradar.com/gaming/gaming-accessories/ive-tested-two-of-gamesirs-best-controllers-and-for-me-theres-one-clear-winner" rel="nofollow noopener" target="_blank">TechRadar Super Nova vs Cyclone 2 comparison (battery claims, 3.5mm jack difference)</a></li>
+<li><a href="https://www.windowscentral.com/gaming/gamesir-super-nova-controller-review" rel="nofollow noopener" target="_blank">Windows Central review (specs, no Xbox support)</a></li>
+<li><a href="https://www.thesixthaxis.com/2025/03/05/gamesir-super-nova-controller-review/" rel="nofollow noopener" target="_blank">TheSixthAxis review (firmware update soft-lock bug)</a></li>
+</ul>
+
+  <p class="small text-dim">Data last reviewed 2026-09-06. Figures are compiled from the sources above rather than first-hand testing.</p>
+</div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p class="disclaimer">
+      <strong>Unofficial and community-maintained.</strong> Not affiliated with, endorsed by, or operated by
+      GameSir. Specifications are compiled from GameSir's published product pages, manuals and FAQ documents,
+      from independent measurement data published by gamepadla.com, and from published reviews &mdash; not from
+      first-hand testing, unless a figure says otherwise. Values that could not be verified are marked
+      &ldquo;not documented&rdquo; rather than estimated. Manufacturer claims are labelled as claims.
+    </p>
+    <p class="small">Found an error? Open an issue or a pull request with a source and it will be corrected.</p>
+  </div>
+</footer>
+
+</body>
+</html>

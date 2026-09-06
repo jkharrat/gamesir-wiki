@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>GameSir Wiki — sourced specs, fixes and FAQ for GameSir controllers</title>
-<meta name="description" content="Community-maintained reference covering specifications, documented fixes and FAQs for 4 GameSir controllers, with every figure traced to a source.">
+<meta name="description" content="Community-maintained reference covering specifications, documented fixes and FAQs for 7 GameSir controllers, with every figure traced to a source.">
 <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
@@ -24,7 +24,7 @@
   <section class="hero">
     <h1>A sourced reference for GameSir controllers</h1>
     <p class="lede">
-      Specifications, documented fixes and frequently asked questions for 4 GameSir controllers,
+      Specifications, documented fixes and frequently asked questions for 7 GameSir controllers,
       each traceable to an official manual, an independent measurement, or a published review. Nothing here is
       estimated &mdash; unverified values are left blank on purpose.
     </p>
@@ -35,15 +35,24 @@
   </section>
 
   <div class="stat-strip">
-    <div class="stat"><div class="stat-value">4</div><div class="stat-label">Controllers</div></div>
-    <div class="stat"><div class="stat-value">25</div><div class="stat-label">Documented fixes</div></div>
-    <div class="stat"><div class="stat-value">31</div><div class="stat-label">FAQ entries</div></div>
-    <div class="stat"><div class="stat-value">30</div><div class="stat-label">Cited sources</div></div>
+    <div class="stat"><div class="stat-value">7</div><div class="stat-label">Controllers</div></div>
+    <div class="stat"><div class="stat-value">45</div><div class="stat-label">Documented fixes</div></div>
+    <div class="stat"><div class="stat-value">57</div><div class="stat-label">FAQ entries</div></div>
+    <div class="stat"><div class="stat-value">68</div><div class="stat-label">Cited sources</div></div>
   </div>
 
   <h2 id="controllers">Controllers</h2>
   <p class="section-intro">Each page covers full specifications, measured performance where independent data exists, documented problems with their fixes, and sources.</p>
   <div class="card-grid">
+<a class="controller-card" href="controllers/cyclone-2.html">
+  <div class="badges"><span class="badge tier-mid-range">Mid-range</span><span class="badge badge-tmr">GameSir Mag-Res TMR (tunneling magnetoresistance), non-contact</span><span class="badge badge-info">1000 Hz</span><span class="badge">Gyro</span><span class="badge">GameSir Connect</span></div>
+  <h3>GameSir Cyclone 2</h3>
+  <p class="tagline">An Xbox-layout tri-mode wireless controller with Mag-Res TMR sticks, micro-switch face buttons and dual-mode Hall Effect triggers, measured among the lowest-latency controllers in its price class.</p>
+  <div class="card-foot">
+    <span>Wired / 2.4 GHz / Bluetooth</span>
+    <span>$49.99 / £49.99 standalone, $55.99 / £55.99 for the charging-dock bundle (launch pricing, 26 November 2024)</span>
+  </div>
+</a>
 <a class="controller-card" href="controllers/g7-he.html">
   <div class="badges"><span class="badge tier-mid-range">Mid-range</span><span class="badge badge-hall">Hall Effect</span><span class="badge badge-info">250 Hz default; 500 Hz and 1000 Hz selectable in GameSir Nexus</span><span class="badge">GameSir Nexus (Xbox and PC; a 'Legacy GameSir Nexus' build also exists). The G7 HE does not use GameSir Connect, which is the app for the G7 Pro line. One gamepadla commenter reports Nexus failing to surface the newest firmware, matching GameSir's own instruction to fall back to a standalone PC upgrader.</span></div>
   <h3>GameSir G7 HE</h3>
@@ -80,6 +89,24 @@
     <span>$44.99</span>
   </div>
 </a>
+<a class="controller-card" href="controllers/super-nova.html">
+  <div class="badges"><span class="badge tier-mid-range">Mid-range</span><span class="badge badge-tmr">GameSir Hall Effect (non-contact magnetic), with anti-friction glide rings — NOT TMR</span><span class="badge badge-info">1000 Hz</span><span class="badge">Gyro</span><span class="badge">GameSir Connect (PC) and the GameSir app (mobile). Note that GameSir's own Super Nova manual page contains an error telling users to configure the rear buttons via GameSir Nexus — Nexus does not support this model.</span></div>
+  <h3>GameSir Super Nova</h3>
+  <p class="tagline">A $49.99 tri-mode multiplatform controller with Hall Effect sticks and triggers, magnetic swappable faceplates, and an auto start-stop charging dock.</p>
+  <div class="card-foot">
+    <span>Wired / 2.4 GHz / Bluetooth</span>
+    <span>$49.99 / £49.99</span>
+  </div>
+</a>
+<a class="controller-card" href="controllers/tarantula-pro.html">
+  <div class="badges"><span class="badge tier-high-end">High-end</span><span class="badge badge-tmr">GameSir Mag-Res TMR (Gen-1) — tunneling magnetoresistance, non-contact</span><span class="badge badge-info">1000 Hz</span><span class="badge">Gyro</span><span class="badge">GameSir Connect (PC) and the GameSir app (mobile). GameSir Nexus does not support this model. Worth knowing: GameSir's downloads page does not list the multiplatform Tarantula Pro under any application — it lists only the Tarantula 8K PC under Connect and Tarantula Pro for Xbox under Nexus — while the official Tarantula Pro FAQ directs users to Connect. Treat the FAQ as authoritative and the downloads listing as incomplete.</span></div>
+  <h3>GameSir Tarantula Pro</h3>
+  <p class="tagline">A tri-mode multiplatform controller with a symmetric PlayStation-style stick layout, Mag-Res TMR sticks, and a motorized gear that physically rotates the face buttons between Xbox and Nintendo layouts.</p>
+  <div class="card-foot">
+    <span>Wired / 2.4 GHz / Bluetooth</span>
+    <span>$79.99 / £79.99 at launch (October 2024); currently listed at $69.99 on gamesir.com</span>
+  </div>
+</a>
   </div>
 
   <h2 id="start-here">Start here</h2>
@@ -89,12 +116,17 @@
     <details class="item">
       <summary>&ldquo;My controller isn't detected by the app&rdquo; &mdash; check which app it needs</summary>
       <div class="item-body">
-        <p>GameSir ships two PC applications and they do not cover the same hardware. <strong>GameSir Nexus</strong>
-        serves the Xbox-licensed controllers. <strong>GameSir Connect</strong> serves the others, including the
-        G7 Pro 8K PC, Tarantula Pro, Cyclone 2, Super Nova, Nova 2 Lite and T3 Lite.</p>
-        <p>GameSir has stated publicly that the G7 Pro 8K PC does not work with Nexus. If you have Nexus open and
-        the controller never appears, that is expected behaviour rather than a fault. Check your model's page for
-        which app it uses.</p>
+        <p>GameSir ships two PC applications and they do not cover the same hardware.
+        <strong>GameSir Nexus</strong> handles the Xbox-licensed controllers &mdash; per GameSir's downloads page
+        that means the G7 Pro and its licensed editions, G7 SE, G7 HE, T7, T7 Pro, Kaleid, Kaleid Flux and
+        Tarantula Pro for Xbox. <strong>GameSir Connect</strong> handles the rest, including the G7 Pro 8K PC
+        editions, Tarantula 8K PC, Tegenaria Lite, Super Nova, Nova Lite 2 and Cyclone 2.</p>
+        <p>The trap is that a model name can appear in both families. <em>Tarantula Pro for Xbox</em> uses Nexus,
+        while the multiplatform <em>Tarantula Pro</em> and the <em>Tarantula 8K PC</em> use Connect. Installing
+        Nexus and waiting for a Connect device to appear is one of the most common reasons a controller is never
+        detected &mdash; and it is expected behaviour, not a fault.</p>
+        <p>On mobile, the separate <strong>GameSir app</strong> covers models including the Super Nova, Nova Lite,
+        Nova Lite 2, G8 series and X-series. Check your model's page for which app applies.</p>
       </div>
     </details>
 

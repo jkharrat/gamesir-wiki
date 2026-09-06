@@ -359,6 +359,12 @@ table.spec-table td {
   vertical-align: top;
 }
 
+/* Keep comparison columns from collapsing into narrow ragged strips */
+table.spec-table td { min-width: 150px; }
+
+/* Signal that a shortened cell has more text behind it */
+table.spec-table td[title] { cursor: help; border-bottom-color: var(--border-strong); }
+
 table.spec-table thead th {
   position: sticky;
   top: 0;

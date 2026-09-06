@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GameSir Cyclone 2 — specs, fixes and FAQ | GameSir Wiki</title>
+<meta name="description" content="GameSir Cyclone 2: full specifications, measured performance, documented problems and fixes, and frequently asked questions. An Xbox-layout tri-mode wireless controller with Mag-Res TMR sticks, micro-switch face buttons and dual-mode Hall Effect triggers, measured among the lowest-latency controllers in its price class.">
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="../index.html">
+      <span class="brand-mark">GS</span>
+      <span>GameSir Wiki</span>
+    </a>
+    <nav class="site-nav"><a href="../index.html">Home</a><a href="../compare.html">Compare</a><a href="../troubleshooting.html">Troubleshooting</a><a href="../faq.html">FAQ</a><a href="../about.html">About</a></nav>
+  </div>
+</header>
+
+<main>
+<div class="wrap narrow">
+  <div class="page-head">
+    <p class="breadcrumb"><a href="../index.html">Home</a> / GameSir Cyclone 2</p>
+    <p class="eyebrow">Mid-range &middot; Multi-platform</p>
+    <h1>GameSir Cyclone 2</h1>
+    <p class="lede">An Xbox-layout tri-mode wireless controller with Mag-Res TMR sticks, micro-switch face buttons and dual-mode Hall Effect triggers, measured among the lowest-latency controllers in its price class.</p>
+    <div class="badges"><span class="badge tier-mid-range">Mid-range</span><span class="badge badge-tmr">GameSir Mag-Res TMR (tunneling magnetoresistance), non-contact</span><span class="badge badge-info">1000 Hz</span><span class="badge">Gyro</span><span class="badge">GameSir Connect</span></div>
+  </div>
+
+  <h2 id="specs">Specifications</h2>
+  <div class="spec-section">
+    <h3>Overview</h3>
+    <div class="spec-grid">
+      <div class="spec-row"><span class="spec-key">Released</span><span class="spec-val">2024</span></div>
+      <div class="spec-row"><span class="spec-key">Launch price</span><span class="spec-val">$49.99 / £49.99 standalone, $55.99 / £55.99 for the charging-dock bundle (launch pricing, 26 November 2024)</span></div>
+      <div class="spec-row"><span class="spec-key">Weight</span><span class="spec-val">229 g / 0.50 lbs</span></div>
+      <div class="spec-row"><span class="spec-key">Dimensions</span><span class="spec-val">156 x 103 x 63 mm / 6.14 x 4.06 x 2.48 in</span></div>
+      <div class="spec-row"><span class="spec-key">Software</span><span class="spec-val">GameSir Connect</span></div>
+      <div class="spec-row"><span class="spec-key">Platforms</span><span class="spec-val">PC, Switch, Android, iOS, Steam</span></div>
+    </div>
+
+    <h3>Sticks</h3>
+    <div class="spec-grid">
+      <div class="spec-row"><span class="spec-key">Sensor technology</span><span class="spec-val">GameSir Mag-Res TMR (tunneling magnetoresistance), non-contact</span></div>
+      <div class="spec-row"><span class="spec-key">Resolution</span><span class="spec-val">12-bit, 4096 sampling points (manufacturer claim)</span></div>
+      <div class="spec-row"><span class="spec-key">Durability</span><span class="spec-val unknown">Not documented</span></div>
+      <div class="spec-row"><span class="spec-key">Measured center error</span><span class="spec-val">3.5% left / 2.0% right (cable, XInput)</span></div>
+      <div class="spec-row"><span class="spec-key">Measured resolution</span><span class="spec-val">11.0-bit, ~2,048 steps (gamepadla, FW 3.5.2)</span></div>
+    </div>
+    <div class="note"><p>Measured by gamepadla Stick Tracer on firmware 3.5.2, single unit, recording no inner deadzone and 0.0% circle error. A separate reviewer using gamepadla tooling measured 0.8-1.0%, so results vary between units and firmware. Right-stick asymmetry measured notably higher than the left, 10.2% against 3.4%.</p></div>
+
+    <h3>Triggers, D-pad and buttons</h3>
+    <div class="spec-grid">
+      <div class="spec-row"><span class="spec-key">Trigger technology</span><span class="spec-val">Precision-tuned Hall Effect analog triggers with a physical micro-switch hair-trigger lockout</span></div>
+      <div class="spec-row"><span class="spec-key">Trigger stops</span><span class="spec-val">Yes</span></div>
+      <div class="spec-row"><span class="spec-key">D-pad</span><span class="spec-val">Tactile-switch D-pad, fully fenced. Reviewers describe it as clicky and precise.</span></div>
+      <div class="spec-row"><span class="spec-key">Face buttons</span><span class="spec-val">Micro-switch (esports-grade) ABXY rated to 5 million clicks, with light actuation and short throw. A Nintendo layout mode is available by holding a combo for 2 seconds; the default is the Xbox layout. Reviewers note the clicky micro-switches are divisive — noticeably louder and firmer than membrane alternatives.</span></div>
+      <div class="spec-row"><span class="spec-key">Rear buttons</span><span class="spec-val">2</span></div>
+      <div class="spec-row"><span class="spec-key">Extra bumpers</span><span class="spec-val">0</span></div>
+    </div>
+    <p class="small text-muted">Physical trigger locks toggle between Hall Effect analog travel and mechanical micro-switch actuation. A separate software hair-trigger mode is available via key combo for FPS and action games. On-board calibration is supported for triggers, sticks and gyro.</p>
+    <p class="small text-muted">Two fully remappable back buttons plus an M button. Four hot-swappable profiles are stored on the controller itself, so settings persist without the software running; the active profile is shown by four illuminated segments in the center of the controller. Macro and turbo are supported.</p>
+
+    <h3>Connectivity and performance</h3>
+    <div class="spec-grid">
+      <div class="spec-row"><span class="spec-key">Connection modes</span><span class="spec-val">Wired / 2.4 GHz / Bluetooth</span></div>
+      <div class="spec-row"><span class="spec-key">Polling rate (PC)</span><span class="spec-val">1000 Hz (wired and 2.4GHz dongle); Gamepadla measured 1000-1002 Hz median</span></div>
+      <div class="spec-row"><span class="spec-key">Polling rate (Xbox)</span><span class="spec-val unknown">Not documented</span></div>
+      <div class="spec-row"><span class="spec-key">Audio jack</span><span class="spec-val">3.5 mm</span></div>
+      <div class="spec-row"><span class="spec-key">Gyro</span><span class="spec-val">Yes</span></div>
+      <div class="spec-row"><span class="spec-key">Rumble</span><span class="spec-val">Two asymmetric rumble motors, one in each grip. Vibration intensity is adjustable via a button combo as well as in software. Reviewers also note wireless audio support alongside the 3.5mm jack.</span></div>
+    </div>
+    <div class="note"><p>Tri-mode: USB-C wired, 2.4GHz dongle, Bluetooth. Explicitly NOT compatible with Xbox consoles. Input modes are XInput, DS4, NS and HID, cycled by holding View + Menu. Switch 2 support is claimed on retail listings. The included aluminum charging dock has a USB port, and GameSir recommends plugging the dongle into the dock to keep it close to the controller.</p></div>
+    <p class="small text-muted">Xbox consoles are not supported. Bluetooth is rated 250 Hz and Gamepadla measured roughly 250-400 Hz there. This is the strongest-measuring controller covered on this site: Gamepadla recorded 2.33 ms average button latency and 4.70 ms stick latency wired with only 0.28 ms jitter, and 7.4 ms button latency via dongle, earning a LatScore of A wired / B wireless. Bluetooth averaged around 6 ms but with spikes over 26 ms and 3.85 ms jitter.</p>
+    <p class="small text-muted">Gyro: 6-axis gyroscope, active in Switch mode and manually activatable elsewhere. On-board gyro calibration is supported.</p>
+
+    <h3>Battery and build</h3>
+    <div class="spec-grid">
+      <div class="spec-row"><span class="spec-key">Battery capacity</span><span class="spec-val">860mAh</span></div>
+      <div class="spec-row"><span class="spec-key">Claimed battery life</span><span class="spec-val">Manufacturer estimate of about 10 hours. GameSir does not publish a figure on its product page; TechRadar states GameSir gave the 10-hour estimate on request, and a GameSir-affiliated store lists '8-10 hours with lighting.'</span></div>
+      <div class="spec-row"><span class="spec-key">Swappable faceplates</span><span class="spec-val">No</span></div>
+    </div>
+    <p class="small text-muted">Independent measurements land at the low end of that estimate: roughly 8 hours with RGB and rumble active (Pocket-lint), and Neowin recorded approximately 8 hours minimum with lighting enabled. GameSir Connect shows only a color-coded battery indicator, not a percentage. Charges via USB-C or the included aluminum charging tower, which starts charging automatically when the controller is set down.</p>
+    <p class="small text-muted">No swappable faceplate system. GameSir does sell detachable joystick caps for the Cyclone 2 as a separate accessory, and the stock caps are thick Sony-style with anti-friction metal necks. The shell uses translucent plastic with an RGB strip in each grip and around the center button.</p>
+  </div>
+
+  <h3 id="latency">Measured latency</h3>
+<p class="section-intro small">Bar length reflects stick latency on a fixed 0&ndash;16&nbsp;ms scale, so bars are comparable between models. Measured and published by gamepadla.com; polling rate and latency are measured by different methods and are not the same thing.</p>
+<div class="latency-list">
+<div class="latency-row">
+  <div class="latency-head"><span class="latency-mode">Wired (XInput, FW 3.5.2)</span><span class="latency-num">button 2.33 ms avg · stick 4.70 ms avg · 1000-1002 Hz</span></div>
+  <div class="bar-track"><div class="bar-fill is-warn" style="width:29.4%"></div></div>
+</div>
+<div class="latency-row">
+  <div class="latency-head"><span class="latency-mode">2.4 GHz dongle</span><span class="latency-num">button 7.40 ms avg · 1000 Hz</span></div>
+  <div class="bar-track"><div class="bar-fill is-warn" style="width:46.3%"></div></div>
+</div>
+<div class="latency-row">
+  <div class="latency-head"><span class="latency-mode">Bluetooth</span><span class="latency-num">button ~6 ms avg, spikes past 26 ms · 250-400 Hz</span></div>
+  <div class="bar-track"><div class="bar-fill is-warn" style="width:37.5%"></div></div>
+</div>
+</div>
+
+  <h2 id="features">Notable features</h2>
+<ul>
+  <li>Lowest measured wired latency of any controller covered here: 2.33 ms average button latency with 0.28 ms jitter, rated LatScore A wired by gamepadla</li>
+  <li>Mag-Res TMR sticks with 12-bit / 4096-point sampling and no inner deadzone measured</li>
+  <li>Micro-switch ABXY rated to 5 million clicks, plus a fully fenced tactile-switch D-pad</li>
+  <li>Physical trigger locks convert Hall Effect analog triggers to mechanical micro-switches</li>
+  <li>Four hot-swappable profiles stored on the controller, so it works fully configured without software running</li>
+  <li>3.5 mm headphone jack, which the Super Nova and multiplatform Tarantula Pro both lack</li>
+  <li>Aluminum auto start-stop charging tower with dongle storage in the bundle edition</li>
+  <li>Swappable stick caps with anti-friction metal necks</li>
+  <li>Turbo with four modes: Slow 8Hz, Medium 12Hz, Fast 20Hz, Off</li>
+</ul>
+
+  <h2 id="issues">Known issues and fixes</h2>
+<p class="section-intro">Documented problems with documented solutions. Each entry cites where the fix comes from.</p>
+<div class="accordion">
+<details class="item">
+  <summary>The 2.4GHz dongle connection keeps dropping, sometimes with jittery button and stick input.</summary>
+  <div class="item-body">
+    <div class="qa-block"><span class="qa-label">Likely cause</span>Mismatched controller and dongle firmware is the primary cause. GameSir also cites RF interference from 8K wireless devices and NearLink devices, and thick obstructions between the dongle and controller.</div>
+    <div class="qa-block"><span class="qa-label">Fix</span>Match the firmware: dongle V1.1.9 or above AND controller V3.4.4 or above — GameSir stresses that updating one requires updating the other. Update the dongle from GameSir Connect while the controller is connected through it, or force it by holding the dongle's sync button as you plug it in (the light should stay off) with Connect open. Update the controller by plugging it in via cable and pressing 'update firmware', or force it by holding Logo + Menu while plugging it in with Connect open. For interference, move the dongle closer using a USB extension or the charging dock's USB port.</div>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/pages/faq-questions-about-cyclone-2" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+<details class="item">
+  <summary>The controller shows a blue rather than green indicator light when connected to a PC, and games behave incorrectly.</summary>
+  <div class="item-body">
+    <div class="qa-block"><span class="qa-label">Likely cause</span>The controller has been accidentally switched into DS4 or NS input mode instead of XInput.</div>
+    <div class="qa-block"><span class="qa-label">Fix</span>Hold the View button + Menu button to cycle between XInput, NS and DS4 modes. XInput, indicated by a green light, is the correct mode for most PC use and is required for GameSir Connect.</div>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/pages/faq-questions-about-cyclone-2" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+<details class="item">
+  <summary>The controller will not power on at all after a firmware upgrade failed in GameSir Connect.</summary>
+  <div class="item-body">
+    <div class="qa-block"><span class="qa-label">Likely cause</span>Interrupted or failed firmware flash leaving the controller soft-locked. TheSixthAxis describes this as a known bug affecting both the Cyclone 2 and Super Nova.</div>
+    <div class="qa-block"><span class="qa-label">Fix</span>Reset the controller by poking the reset hole on the back with a small object, then retry the update.</div>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/pages/faq-questions-about-cyclone-2" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+<details class="item">
+  <summary>A single button press registers as continuous rapid presses and the light flashes red.</summary>
+  <div class="item-body">
+    <div class="qa-block"><span class="qa-label">Likely cause</span>Turbo (rapid-fire) mode is enabled.</div>
+    <div class="qa-block"><span class="qa-label">Fix</span>Double-tap the M button to turn turbo off.</div>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/pages/faq-questions-about-cyclone-2" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+<details class="item">
+  <summary>Cannot connect over Bluetooth or dongle; the indicator light keeps blinking slowly.</summary>
+  <div class="item-body">
+    <div class="qa-block"><span class="qa-label">Likely cause</span>Slow blinking means reconnecting mode — the controller is trying to reach a previously paired device rather than accepting a new one.</div>
+    <div class="qa-block"><span class="qa-label">Fix</span>Hold the Home Button + Share Button for 2 seconds to force pairing mode; the light should then blink fast. For a dongle connection, also hold the pairing button on the dongle so the two re-pair.</div>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/pages/faq-questions-about-cyclone-2" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+<details class="item">
+  <summary>GameSir Nexus does not recognize the Cyclone 2.</summary>
+  <div class="item-body">
+    <div class="qa-block"><span class="qa-label">Likely cause</span>Wrong application — the Cyclone 2 is a GameSir Connect device. Nexus is only for GameSir's Xbox-licensed controllers.</div>
+    <div class="qa-block"><span class="qa-label">Fix</span>Use GameSir Connect with the controller connected via dongle or cable in XInput mode.</div>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/pages/faq-questions-about-cyclone-2" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+<details class="item">
+  <summary>Stick drift or trigger problems during use.</summary>
+  <div class="item-body">
+    <div class="qa-block"><span class="qa-label">Likely cause</span>Sticks or triggers out of calibration.</div>
+    <div class="qa-block"><span class="qa-label">Fix</span>Run the on-board Stick &amp; Trigger Calibration procedure from the manual; GameSir links a Cyclone 2 specific calibration tutorial video from the FAQ page. Deadzones can also be tuned in GameSir Connect or on-board.</div>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/pages/faq-questions-about-cyclone-2" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+</div>
+
+  <h2 id="faq">Frequently asked questions</h2>
+<div class="accordion">
+<details class="item">
+  <summary>Which software does the Cyclone 2 use?</summary>
+  <div class="item-body">
+    <p>GameSir Connect, connected via dongle or cable in XInput mode. GameSir Nexus does not support it. The Cyclone 2 is explicitly listed among GameSir Connect's compatible products on GameSir's downloads page.</p>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/pages/faq-questions-about-cyclone-2" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+<details class="item">
+  <summary>What platforms does the Cyclone 2 support?</summary>
+  <div class="item-body">
+    <p>Switch, iOS, Android, PC and Steam. It is NOT compatible with Xbox consoles.</p>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/pages/faq-questions-about-cyclone-2" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+<details class="item">
+  <summary>What firmware versions do I need for reliable dongle operation?</summary>
+  <div class="item-body">
+    <p>Dongle V1.1.9 or above and controller V3.4.4 or above. GameSir stresses these must be updated together — updating the dongle without updating the controller to the latest version causes disconnections.</p>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/pages/faq-questions-about-cyclone-2" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+<details class="item">
+  <summary>How do I switch between XInput, Nintendo Switch and DS4 input modes?</summary>
+  <div class="item-body">
+    <p>Hold the View button + Menu button. XInput, shown by a green indicator light, is the standard mode for PC.</p>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/pages/faq-questions-about-cyclone-2" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+<details class="item">
+  <summary>How do I force the controller back into pairing mode?</summary>
+  <div class="item-body">
+    <p>Hold the Home Button + Share Button for 2 seconds; the indicator should switch from slow blinking to fast blinking. For dongle pairing, also press the pairing button on the dongle.</p>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/pages/faq-questions-about-cyclone-2" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+<details class="item">
+  <summary>How are the triggers configured?</summary>
+  <div class="item-body">
+    <p>The Hall Effect analog triggers give linear input suited to racing games. A key combo switches them to hair-trigger mode for FPS and action games, and physical trigger locks toggle between Hall Effect analog and micro-switch actuation.</p>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/pages/faq-questions-about-cyclone-2" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+<details class="item">
+  <summary>How many mappable buttons does the Cyclone 2 have?</summary>
+  <div class="item-body">
+    <p>Two mappable back buttons. The controller also stores four hot-swappable profiles on-board, indicated by the four lit segments in the center.</p>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/pages/faq-questions-about-cyclone-2" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+<details class="item">
+  <summary>How long does the battery last?</summary>
+  <div class="item-body">
+    <p>GameSir estimates about 10 hours from the 860mAh cell, provided to TechRadar on request. Independent testing lands nearer 8 hours with RGB and rumble active. GameSir Connect shows only a color-coded indicator rather than a percentage.</p>
+    <p class="small text-dim">Source: <a href="https://www.techradar.com/gaming/gaming-accessories/gamesir-cyclone-2-review" rel="nofollow noopener" target="_blank">www.techradar.com</a></p>
+  </div>
+</details>
+<details class="item">
+  <summary>Does it have a headphone jack?</summary>
+  <div class="item-body">
+    <p>Yes, a 3.5mm headphone jack on the bottom edge. TechRadar notes this as a bonus over the Super Nova, which lacks one.</p>
+    <p class="small text-dim">Source: <a href="https://www.neowin.net/reviews/review-gamesirs-new-cyclone-2-controller-arrives-with-great-specs-performance-price/" rel="nofollow noopener" target="_blank">www.neowin.net</a></p>
+  </div>
+</details>
+</div>
+
+  <h2 id="sources">Sources</h2>
+<ul class="source-list">
+<li><a href="https://gamesir.com/pages/faq-questions-about-cyclone-2" rel="nofollow noopener" target="_blank">GameSir official FAQ and troubleshooting — Cyclone 2</a></li>
+<li><a href="https://gamesir.com/products/gamesir-cyclone-2" rel="nofollow noopener" target="_blank">GameSir official product page — Cyclone 2</a></li>
+<li><a href="https://gamesir.com/support/manuals/gamesir-cyclone-2" rel="nofollow noopener" target="_blank">GameSir official manual — How to Use the GameSir Cyclone 2</a></li>
+<li><a href="https://files.bbystatic.com/fVZcNI2ODYeTz9vPSogkbw%3D%3D/User%2BManual" rel="nofollow noopener" target="_blank">GameSir official user manual PDF text (weight, dimensions, switch types, battery)</a></li>
+<li><a href="https://gamesir.com/support/downloads" rel="nofollow noopener" target="_blank">GameSir official software downloads (Cyclone 2 listed under GameSir Connect)</a></li>
+<li><a href="https://www.gamespress.com/en-US/GameSir-Launches-the-Cyclone-2-Multi-Platform-Wireless-Controller-with" rel="nofollow noopener" target="_blank">GameSir launch press release, 26 November 2024 (pricing, colorways)</a></li>
+<li><a href="https://gamepadla.com/gamesir-cyclone-2.html" rel="nofollow noopener" target="_blank">Gamepadla measured latency, polling, stick tests and LatScore</a></li>
+<li><a href="https://gamepadla.com/compare/gamesir-cyclone-2_vs_xbox-core-controller.html" rel="nofollow noopener" target="_blank">Gamepadla comparison vs Xbox Series controller</a></li>
+<li><a href="https://www.neowin.net/reviews/review-gamesirs-new-cyclone-2-controller-arrives-with-great-specs-performance-price/" rel="nofollow noopener" target="_blank">Neowin review (detailed spec table, 12-bit sticks, ~8h battery)</a></li>
+<li><a href="https://www.techradar.com/gaming/gaming-accessories/gamesir-cyclone-2-review" rel="nofollow noopener" target="_blank">TechRadar review (GameSir's 10-hour battery estimate)</a></li>
+<li><a href="https://www.pocket-lint.com/gamesir-cyclone2-review/" rel="nofollow noopener" target="_blank">Pocket-lint review (measured ~8h battery, 3.5mm audio)</a></li>
+<li><a href="https://www.cgmagonline.com/review/hardware/gamesir-cyclone-2-controller/" rel="nofollow noopener" target="_blank">CGMagazine review (pricing tiers, 3.5mm jack, profile indicators)</a></li>
+<li><a href="https://wccftech.com/review/gamesir-cyclone-2-review/" rel="nofollow noopener" target="_blank">wccftech review (independent 2.4G polling and latency measurement)</a></li>
+</ul>
+
+  <p class="small text-dim">Data last reviewed 2026-09-06. Figures are compiled from the sources above rather than first-hand testing.</p>
+</div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p class="disclaimer">
+      <strong>Unofficial and community-maintained.</strong> Not affiliated with, endorsed by, or operated by
+      GameSir. Specifications are compiled from GameSir's published product pages, manuals and FAQ documents,
+      from independent measurement data published by gamepadla.com, and from published reviews &mdash; not from
+      first-hand testing, unless a figure says otherwise. Values that could not be verified are marked
+      &ldquo;not documented&rdquo; rather than estimated. Manufacturer claims are labelled as claims.
+    </p>
+    <p class="small">Found an error? Open an issue or a pull request with a source and it will be corrected.</p>
+  </div>
+</footer>
+
+</body>
+</html>

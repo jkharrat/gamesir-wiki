@@ -39,6 +39,24 @@ const cell = (v) =>
 const boolCell = (v) =>
   v ? '<td class="yes">Yes</td>' : '<td class="no">No</td>';
 
+/**
+ * Comparison-table cell. Source values are often full prose, which makes the
+ * table unreadable, so this reduces a value to its first clause and exposes
+ * the full text as a tooltip. Detail pages still show everything.
+ */
+const shortCell = (v) => {
+  if (v === null || v === undefined || v === "") return '<td class="na">&mdash;</td>';
+
+  const full = String(v);
+  let s = full.split(/\.\s+/)[0].replace(/\.$/, "");
+  s = s.replace(/\s*\([^)]*\)\s*$/, "");
+
+  const clipped =
+    s.length > 72 ? s.slice(0, 69).replace(/[\s,;:—-]+$/, "") + "\u2026" : s;
+
+  return `<td${clipped === full ? "" : ` title="${esc(full)}"`}>${esc(clipped)}</td>`;
+};
+
 const row = (k, v) => `<div class="spec-row"><span class="spec-key">${esc(k)}</span>${val(v)}</div>`;
 
 /** Wraps <kbd> around button-combo notation so procedures are scannable. */
@@ -161,9 +179,14 @@ function latencyBars(c) {
       const nums = [l.button ? `button ${l.button}` : null, l.stick ? `stick ${l.stick}` : null, l.polling]
         .filter(Boolean)
         .join(" \u00b7 ");
+      // Draw no bar at all when there is no latency figure, rather than an
+      // empty track that reads as a measured zero.
+      const bar =
+        ms === null
+          ? ""
+          : `\n  <div class="bar-track"><div class="bar-fill ${cls}" style="width:${pct.toFixed(1)}%"></div></div>`;
       return `<div class="latency-row">
-  <div class="latency-head"><span class="latency-mode">${esc(l.mode)}</span><span class="latency-num">${esc(nums)}</span></div>
-  <div class="bar-track"><div class="bar-fill ${cls}" style="width:${pct.toFixed(1)}%"></div></div>
+  <div class="latency-head"><span class="latency-mode">${esc(l.mode)}</span><span class="latency-num">${esc(nums)}</span></div>${bar}
 </div>`;
     })
     .join("\n");
@@ -253,12 +276,17 @@ ${cards}
     <details class="item">
       <summary>&ldquo;My controller isn't detected by the app&rdquo; &mdash; check which app it needs</summary>
       <div class="item-body">
-        <p>GameSir ships two PC applications and they do not cover the same hardware. <strong>GameSir Nexus</strong>
-        serves the Xbox-licensed controllers. <strong>GameSir Connect</strong> serves the others, including the
-        G7 Pro 8K PC, Tarantula Pro, Cyclone 2, Super Nova, Nova 2 Lite and T3 Lite.</p>
-        <p>GameSir has stated publicly that the G7 Pro 8K PC does not work with Nexus. If you have Nexus open and
-        the controller never appears, that is expected behaviour rather than a fault. Check your model's page for
-        which app it uses.</p>
+        <p>GameSir ships two PC applications and they do not cover the same hardware.
+        <strong>GameSir Nexus</strong> handles the Xbox-licensed controllers &mdash; per GameSir's downloads page
+        that means the G7 Pro and its licensed editions, G7 SE, G7 HE, T7, T7 Pro, Kaleid, Kaleid Flux and
+        Tarantula Pro for Xbox. <strong>GameSir Connect</strong> handles the rest, including the G7 Pro 8K PC
+        editions, Tarantula 8K PC, Tegenaria Lite, Super Nova, Nova Lite 2 and Cyclone 2.</p>
+        <p>The trap is that a model name can appear in both families. <em>Tarantula Pro for Xbox</em> uses Nexus,
+        while the multiplatform <em>Tarantula Pro</em> and the <em>Tarantula 8K PC</em> use Connect. Installing
+        Nexus and waiting for a Connect device to appear is one of the most common reasons a controller is never
+        detected &mdash; and it is expected behaviour, not a fault.</p>
+        <p>On mobile, the separate <strong>GameSir app</strong> covers models including the Super Nova, Nova Lite,
+        Nova Lite 2, G8 series and X-series. Check your model's page for which app applies.</p>
       </div>
     </details>
 
@@ -455,7 +483,7 @@ function pageCompare(data) {
   ]
     .map(
       ([label, fn]) =>
-        `<tr><th>${esc(label)}</th>${cs.map((c) => cell(fn(c))).join("")}</tr>`
+        `<tr><th>${esc(label)}</th>${cs.map((c) => shortCell(fn(c))).join("")}</tr>`
     )
     .join("\n");
 
@@ -467,6 +495,10 @@ function pageCompare(data) {
       Every documented specification side by side. Em dashes mark values that could not be verified against a
       source &mdash; they are gaps in the documentation, not zeros. Scroll horizontally to see all models; model
       names stay pinned.
+    </p>
+    <p class="lede small">
+      Values are abbreviated here to keep the table scannable. Hover a shortened cell for the full text, or open
+      the model page for the complete entry with its caveats and sources.
     </p>
   </div>
 
