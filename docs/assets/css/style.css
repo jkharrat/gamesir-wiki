@@ -2012,6 +2012,688 @@ h3[id],
   font-size: 0.91rem;
 }
 
+/* -------------------------------------------------------------- diagrams -- */
+
+/* The vector diagrams are inlined rather than loaded as images, so every shape
+   below reads the same tokens as the rest of the page and follows the theme
+   switch. Nothing here hard-codes a colour, exactly as above. */
+
+.diagram {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+/* --- Shells and shapes -------------------------------------------------- */
+
+.d-body {
+  fill: var(--surface-2);
+  stroke: var(--line-strong);
+  stroke-width: 2;
+}
+/* Dashed frame around a component close-up: enough to bound the drawing
+   without adding a second border inside the figure's own. */
+.d-panel {
+  fill: none;
+  stroke: var(--line);
+  stroke-width: 1;
+  stroke-dasharray: 3 4;
+}
+.d-part {
+  fill: var(--surface-3);
+  stroke: var(--line-strong);
+  stroke-width: 1.4;
+}
+.d-part-2 {
+  fill: var(--surface-inset);
+  stroke: var(--line-strong);
+  stroke-width: 1.4;
+}
+.d-part-inset {
+  fill: var(--surface-inset);
+  stroke: var(--line);
+  stroke-width: 1;
+}
+.d-recess {
+  fill: var(--surface-inset);
+  stroke: var(--line-strong);
+  stroke-width: 1.4;
+}
+.d-port {
+  fill: var(--surface-inset);
+  stroke: var(--text-dim);
+  stroke-width: 1.4;
+}
+.d-plate {
+  fill: var(--surface-3);
+  stroke: var(--brand);
+  stroke-width: 1.6;
+}
+
+/* --- Buttons ------------------------------------------------------------ */
+
+.d-btn,
+.d-btn-sm,
+.d-step,
+.d-guide {
+  fill: var(--surface-3);
+  stroke: var(--text-dim);
+  stroke-width: 1.3;
+}
+.d-guide-ring,
+.d-ring {
+  fill: none;
+  stroke: var(--line-strong);
+  stroke-width: 1.3;
+}
+.d-accent-ring {
+  fill: none;
+  stroke: var(--brand);
+  stroke-width: 1.4;
+}
+
+/* ABXY keep their long-standing colour convention, drawn from the status
+   tokens this stylesheet already defines rather than new hex values. */
+.d-btn-good {
+  fill: var(--good-soft);
+  stroke: var(--good);
+}
+.d-btn-bad {
+  fill: var(--bad-soft);
+  stroke: var(--bad);
+}
+.d-btn-info {
+  fill: var(--info-soft);
+  stroke: var(--info);
+}
+.d-btn-warn {
+  fill: var(--warn-soft);
+  stroke: var(--warn);
+}
+.d-btn-letter {
+  fill: var(--text);
+  font: 700 12px var(--font);
+  text-anchor: middle;
+  dominant-baseline: central;
+}
+
+/* --- Details and markings ---------------------------------------------- */
+
+.d-window {
+  fill: var(--surface-inset);
+  stroke: var(--text-dim);
+  stroke-width: 1.2;
+  stroke-dasharray: 4 3;
+}
+.d-gear {
+  fill: var(--surface-3);
+  stroke: var(--brand);
+  stroke-width: 1.4;
+}
+.d-swap-ring {
+  fill: none;
+  stroke: var(--brand);
+  stroke-width: 1.3;
+  stroke-dasharray: 6 5;
+  opacity: 0.75;
+}
+/* The faceplate seam traces the whole outline, so at accent strength it read
+   as a border around the drawing. It stays quiet until it is the subject. */
+.d-seam {
+  fill: none;
+  stroke: var(--line-strong);
+  stroke-width: 1.2;
+  stroke-dasharray: 5 5;
+}
+.d-hot:where(:hover, :focus-visible, .is-active) .d-seam {
+  stroke: var(--brand);
+  stroke-width: 1.6;
+}
+.d-rgb {
+  fill: none;
+  stroke: var(--brand);
+  stroke-width: 3.4;
+  stroke-linecap: round;
+  opacity: 0.7;
+}
+.d-texture {
+  fill: none;
+  stroke: var(--line-strong);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+}
+.d-ink {
+  fill: none;
+  stroke: var(--text-dim);
+  stroke-width: 1.6;
+}
+.d-ink-thick {
+  fill: none;
+  stroke: var(--text-muted);
+  stroke-width: 3.4;
+  stroke-linecap: round;
+}
+.d-leader,
+.d-dim-stroke {
+  fill: none;
+  stroke: var(--text-dim);
+  stroke-width: 1.1;
+}
+.d-travel {
+  fill: none;
+  stroke: var(--text-dim);
+  stroke-width: 1.4;
+  stroke-dasharray: 5 4;
+}
+.d-accent-stroke {
+  fill: none;
+  stroke: var(--brand);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+}
+.d-good-stroke {
+  fill: none;
+  stroke: var(--good);
+  stroke-width: 1.8;
+}
+.d-warn-stroke {
+  fill: none;
+  stroke: var(--warn);
+  stroke-width: 1.8;
+}
+.d-accent-fill {
+  fill: var(--brand);
+}
+.d-good-fill {
+  fill: var(--good);
+}
+.d-warn-fill {
+  fill: var(--warn);
+}
+.d-bad-fill {
+  fill: var(--bad);
+}
+.d-half-fill {
+  fill: var(--text-muted);
+}
+.d-dim-fill {
+  fill: var(--text-dim);
+}
+.d-deadzone {
+  fill: var(--info-soft);
+  stroke: var(--info);
+  stroke-width: 1.2;
+}
+.d-antideadzone {
+  fill: var(--brand-soft);
+  stroke: var(--brand);
+  stroke-width: 1.2;
+}
+/* A control this model does not have, drawn as an outline and struck out —
+   an absence the data documents is worth showing rather than omitting. */
+.d-absent {
+  fill: none;
+  stroke: var(--text-dim);
+  stroke-width: 1.2;
+  stroke-dasharray: 4 3;
+}
+.d-slash,
+.d-slash-line {
+  fill: none;
+  stroke: var(--bad);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+}
+.d-lane {
+  fill: var(--surface-inset);
+  stroke: var(--line);
+  stroke-width: 1.2;
+}
+.d-lane.on {
+  fill: var(--good-soft);
+  stroke: var(--good-line);
+}
+.d-lane-icon {
+  color: var(--text-muted);
+}
+.d-glyph {
+  fill: var(--text-muted);
+}
+.d-glyph-stroke {
+  fill: none;
+  stroke: var(--text-muted);
+  stroke-width: 1.4;
+  stroke-linecap: round;
+}
+
+/* --- Type inside a diagram --------------------------------------------- */
+
+.d-label {
+  fill: var(--text-muted);
+  font: 600 10px var(--font);
+  text-anchor: middle;
+  dominant-baseline: central;
+}
+.d-label-sm {
+  font-size: 9px;
+}
+.d-label-xs {
+  font-size: 8px;
+  fill: var(--text-dim);
+}
+.d-label-left {
+  text-anchor: start;
+}
+.d-title {
+  fill: var(--text);
+  font: 700 10px var(--font);
+  text-anchor: middle;
+  dominant-baseline: central;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.d-accent-text {
+  fill: var(--brand);
+}
+.d-good-text {
+  fill: var(--good);
+}
+.d-dim-text {
+  fill: var(--text-dim);
+}
+.d-on-accent {
+  fill: var(--brand-ink);
+}
+
+/* --- Hotspots ----------------------------------------------------------- */
+
+/* Each labelled control is a focusable group carrying its own <title>, so the
+   diagram is still explorable with this stylesheet's JS absent — the browser's
+   own tooltip and the legend below cover it. */
+.d-hot {
+  cursor: help;
+}
+.d-hot > *,
+.d-hot > g > * {
+  transition: fill var(--fast), stroke var(--fast), stroke-width var(--fast);
+}
+
+.d-hot:where(:hover, :focus-visible, .is-active) :is(.d-part, .d-part-2, .d-part-inset, .d-recess, .d-port, .d-btn, .d-btn-sm, .d-guide, .d-window) {
+  fill: var(--brand-soft);
+  stroke: var(--brand);
+  stroke-width: 2.2;
+}
+.d-hot:where(:hover, :focus-visible, .is-active) :is(.d-ink, .d-ink-thick, .d-texture, .d-travel, .d-glyph-stroke, .d-ring, .d-guide-ring, .d-absent) {
+  stroke: var(--brand);
+}
+.d-hot:where(:hover, :focus-visible, .is-active) :is(.d-label, .d-title, .d-glyph) {
+  fill: var(--brand);
+}
+.d-hot:where(:hover, :focus-visible, .is-active) .d-rgb,
+.d-hot:where(:hover, :focus-visible, .is-active) .d-swap-ring {
+  opacity: 1;
+}
+
+/* --- Card silhouette --------------------------------------------------- */
+
+/* Sits in the card media panel behind the model designation: enough of an
+   outline to tell a symmetric pad from an offset one at a glance. */
+.diagram-silhouette {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: auto;
+  height: 128%;
+  opacity: 0.5;
+}
+.s-body {
+  fill: none;
+  stroke: var(--text-dim);
+  stroke-width: 3;
+  opacity: 0.5;
+}
+.s-shoulder {
+  fill: none;
+  stroke: var(--text-dim);
+  stroke-width: 3;
+  opacity: 0.32;
+}
+.s-ring,
+.s-part {
+  fill: none;
+  stroke: var(--text-dim);
+  stroke-width: 2.6;
+  opacity: 0.42;
+}
+.controller-card:hover .diagram-silhouette {
+  opacity: 0.72;
+}
+
+/* ---------------------------------------------------------- figure shells */
+
+.fig {
+  margin: var(--s-5) 0;
+  padding: var(--s-4);
+  background: var(--surface-1);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+}
+.fig > .diagram {
+  max-width: 100%;
+  margin: 0 auto;
+}
+.fig figcaption {
+  margin-top: var(--s-3);
+  padding-top: var(--s-3);
+  border-top: 1px solid var(--line);
+  font-size: 0.83rem;
+  line-height: 1.6;
+  color: var(--text-dim);
+}
+.fig figcaption strong {
+  color: var(--text-muted);
+}
+
+/* A row of component close-ups that stay legible rather than stretching to
+   fill whatever width is available. */
+.figure-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--s-4);
+  margin: var(--s-6) 0;
+}
+.figure-grid .fig {
+  margin: 0;
+}
+
+/* Small diagram inside a specification card, above the rows it explains. */
+.spec-fig {
+  margin: var(--s-4) 0 var(--s-2);
+  padding: var(--s-3);
+  background: var(--surface-inset);
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+}
+.spec-fig .diagram {
+  max-width: 320px;
+  margin: 0 auto;
+}
+.spec-fig.is-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s-3);
+}
+
+/* A table row label or stat label with its glyph. Both were single-line block
+   text already, so this only adds the icon's place in the line. */
+.th-label,
+.stat-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Icon in a spec key, table heading or platform chip. Sized in ems so it
+   tracks whatever type size it is sitting in. */
+.spec-icon {
+  flex: 0 0 auto;
+  width: 1.05em;
+  height: 1.05em;
+  vertical-align: -0.16em;
+  color: var(--text-dim);
+}
+.spec-key {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 7px;
+}
+.spec-card > h3 .spec-icon,
+.spec-section > h3 .spec-icon {
+  width: 1.15em;
+  height: 1.15em;
+  margin-right: 6px;
+}
+
+/* --- Platform strip ---------------------------------------------------- */
+
+.platform-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: var(--s-4) 0 0;
+  padding: 0;
+  list-style: none;
+}
+.platform-strip li {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 11px 4px 9px;
+  background: var(--surface-inset);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-pill);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+.platform-strip .spec-icon {
+  width: 14px;
+  height: 14px;
+}
+
+/* ------------------------------------------------- controller layout view */
+
+.layout-section {
+  margin: var(--s-8) 0 0;
+}
+.layout-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s-3);
+}
+.layout-head h2 {
+  margin: 0;
+  font-size: var(--fs-h2);
+}
+.layout-head .section-intro {
+  margin: var(--s-2) 0 0;
+  flex: 1 1 100%;
+}
+
+.diagram-figure {
+  display: grid;
+  gap: var(--s-4);
+  margin: var(--s-5) 0 0;
+}
+
+.diagram-stage {
+  position: relative;
+  padding: var(--s-4);
+  background: var(--surface-1);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+}
+/* A faint grid behind the drawing, the same one the hero and card media use,
+   so a technical illustration reads as being on a drawing surface. */
+.diagram-stage::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border-radius: var(--r-lg);
+  background-image: linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+  background-size: 24px 24px;
+  pointer-events: none;
+}
+.diagram-view {
+  position: relative;
+}
+.diagram-view .diagram {
+  max-width: 520px;
+  margin: 0 auto;
+}
+.diagram-view.is-top .diagram,
+.diagram-view .diagram.is-top {
+  max-width: 560px;
+}
+/* Only ever one view at a time once scripting is available; without it every
+   view stays on the page, each under its own heading. */
+.js .diagram-view:not(.is-active) {
+  display: none;
+}
+.diagram-view > h3 {
+  margin: 0 0 var(--s-2);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-dim);
+}
+.js .diagram-view > h3 {
+  display: none;
+}
+
+/* Reads out whatever the pointer or keyboard is on. Min-height is set so the
+   page does not shift as the text length changes. */
+.diagram-readout {
+  align-self: start;
+  min-height: 128px;
+  padding: var(--s-4) var(--s-5);
+  background: var(--surface-1);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--brand-line);
+  border-radius: var(--r);
+}
+.readout-name {
+  display: block;
+  margin-bottom: var(--s-2);
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+.readout-desc {
+  margin: 0;
+  font-size: 0.87rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+.diagram-readout.is-idle .readout-name {
+  color: var(--text-dim);
+  font-weight: 600;
+}
+
+.diagram-legend {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  overflow: hidden;
+}
+.js .diagram-legend:not(.is-active) {
+  display: none;
+}
+.legend-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 11px var(--s-4);
+  background: var(--surface-1);
+  transition: background var(--fast);
+}
+.legend-item.is-active {
+  background: var(--brand-soft);
+}
+.legend-name {
+  font-size: 0.86rem;
+  font-weight: 600;
+}
+.legend-item.is-active .legend-name {
+  color: var(--brand);
+}
+.legend-desc {
+  font-size: 0.8rem;
+  line-height: 1.55;
+  color: var(--text-dim);
+}
+
+.diagram-note {
+  margin: var(--s-4) 0 0;
+}
+
+@media (min-width: 860px) {
+  .diagram-legend {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* The readout only moves alongside the drawing once both can have a usable
+   width. Below that it sits under the drawing, full width, rather than
+   squeezing the drawing into a column where its own labels stop being
+   legible. */
+@media (min-width: 1180px) {
+  .diagram-figure {
+    grid-template-columns: minmax(0, 1.85fr) minmax(0, 1fr);
+    align-items: start;
+  }
+  .diagram-legend {
+    grid-column: 1 / -1;
+  }
+}
+
+/* ----------------------------------------------------- feature callouts -- */
+
+/* A notable feature with the hardware it refers to drawn beside it, rather
+   than a bullet that names it and moves on. */
+.callout-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--s-4);
+  margin: var(--s-6) 0;
+}
+.callout {
+  display: flex;
+  flex-direction: column;
+  background: var(--surface-1);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  overflow: hidden;
+}
+.callout-media {
+  position: relative;
+  padding: var(--s-4) var(--s-4) var(--s-2);
+  background: var(--surface-inset);
+  border-bottom: 1px solid var(--line);
+}
+.callout-media .diagram {
+  max-width: 300px;
+  margin: 0 auto;
+}
+.callout-body {
+  padding: var(--s-4) var(--s-5) var(--s-5);
+}
+.callout-body h3 {
+  margin: 0 0 var(--s-2);
+  font-size: 0.98rem;
+  text-transform: none;
+  letter-spacing: -0.01em;
+}
+.callout-body p {
+  margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
+/* Features with no matching drawing stay a plain list under the callouts. */
+.feature-rest {
+  margin: var(--s-5) 0 0;
+}
+
 /* ----------------------------------------------------------- responsive -- */
 
 /* Below this the seven nav items no longer fit beside the brand, so they move
@@ -2092,6 +2774,17 @@ h3[id],
   .cta-panel {
     padding: var(--s-5);
   }
+  .spec-fig.is-pair {
+    grid-template-columns: 1fr;
+  }
+  /* The readout only reserves space to stop the page jumping under a pointer;
+     on a touch screen there is no pointer and the space is just a gap. */
+  .diagram-readout {
+    min-height: 0;
+  }
+  .diagram-stage {
+    padding: var(--s-3);
+  }
   .footer-top {
     grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   }
@@ -2142,6 +2835,21 @@ h3[id],
   /* Every panel prints, not just the one that happened to be open on screen. */
   .js .tab-panel:not(.is-active) {
     display: block !important;
+  }
+  /* Same for the controller views: a printed page cannot be switched. */
+  .js .diagram-view:not(.is-active),
+  .js .diagram-legend:not(.is-active) {
+    display: block !important;
+  }
+  .js .diagram-view > h3 {
+    display: block !important;
+  }
+  .view-switch,
+  .diagram-readout {
+    display: none !important;
+  }
+  .diagram-stage::before {
+    display: none;
   }
   /* Best effort at printing collapsed answers: browsers differ on whether a
      closed <details> can be forced open from CSS, so this is an improvement

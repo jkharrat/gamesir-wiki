@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 280" width="480" height="336" role="img" aria-label="GameSir T7 Pro — outline">
+  <title>GameSir T7 Pro — outline</title>
+  <desc>Original schematic diagram from the community-maintained GameSir Wiki. Not GameSir product photography.</desc>
+
+  <style>
+    :root { color-scheme: dark light; }
+    svg { --ink:#f2f3f5; --muted:#a6aab3; --dim:#71757e; --line:#34343e;
+          --s1:#121216; --s2:#17171d; --s3:#1e1e25; --inset:#0e0e12;
+          --brand:#e5343c; --good:#35d07f; --warn:#ffc247; --bad:#ff6b6b; --info:#64a8ff; }
+    @media (prefers-color-scheme: light) {
+      svg { --ink:#16171a; --muted:#585d66; --dim:#80858d; --line:#cdced5;
+            --s1:#fff; --s2:#fbfbfc; --s3:#f1f1f4; --inset:#f4f4f7;
+            --brand:#d6272e; --good:#0f7a44; --warn:#8a5a00; --bad:#c02626; --info:#175fd0; }
+    }
+  </style>
+  <style>
+    .d-canvas{fill:var(--s1)}
+    .d-body{fill:var(--s2);stroke:var(--line);stroke-width:2}
+    .d-panel{fill:none;stroke:var(--line);stroke-width:1;stroke-dasharray:3 4}
+    .d-part{fill:var(--s3);stroke:var(--line);stroke-width:1.4}
+    .d-part-2{fill:var(--inset);stroke:var(--line);stroke-width:1.4}
+    .d-part-inset{fill:var(--inset);stroke:var(--line);stroke-width:1}
+    .d-recess{fill:var(--inset);stroke:var(--line);stroke-width:1.4}
+    .d-port{fill:var(--inset);stroke:var(--muted);stroke-width:1.4}
+    .d-plate{fill:var(--s3);stroke:var(--brand);stroke-width:1.6;opacity:.9}
+    .d-btn,.d-btn-sm,.d-step{fill:var(--s3);stroke:var(--muted);stroke-width:1.3}
+    .d-btn-good{fill:color-mix(in srgb,var(--good) 22%,transparent);stroke:var(--good)}
+    .d-btn-bad{fill:color-mix(in srgb,var(--bad) 22%,transparent);stroke:var(--bad)}
+    .d-btn-info{fill:color-mix(in srgb,var(--info) 22%,transparent);stroke:var(--info)}
+    .d-btn-warn{fill:color-mix(in srgb,var(--warn) 22%,transparent);stroke:var(--warn)}
+    .d-btn-letter{fill:var(--ink);font:700 12px system-ui,sans-serif;text-anchor:middle;dominant-baseline:central}
+    .d-guide{fill:var(--s3);stroke:var(--muted);stroke-width:1.4}
+    .d-guide-ring{fill:none;stroke:var(--line);stroke-width:1.2}
+    .d-window{fill:var(--inset);stroke:var(--muted);stroke-width:1.2;stroke-dasharray:4 3}
+    .d-gear{fill:var(--s3);stroke:var(--brand);stroke-width:1.4}
+    .d-ring,.d-accent-ring{fill:none;stroke:var(--line);stroke-width:1.4}
+    .d-accent-ring{stroke:var(--brand)}
+    .d-swap-ring{fill:none;stroke:var(--brand);stroke-width:1.4;stroke-dasharray:5 4}
+    .d-seam{fill:none;stroke:var(--line);stroke-width:1.2;stroke-dasharray:5 5}
+    .d-rgb{fill:none;stroke:var(--brand);stroke-width:3.4;stroke-linecap:round;opacity:.75}
+    .d-texture{fill:none;stroke:var(--line);stroke-width:1.6;stroke-linecap:round}
+    .d-ink{fill:none;stroke:var(--muted);stroke-width:1.6}
+    .d-ink-thick{fill:none;stroke:var(--muted);stroke-width:3.4;stroke-linecap:round}
+    .d-leader,.d-dim-stroke{fill:none;stroke:var(--dim);stroke-width:1.1}
+    .d-travel{fill:none;stroke:var(--muted);stroke-width:1.4;stroke-dasharray:5 4}
+    .d-accent-stroke{fill:none;stroke:var(--brand);stroke-width:1.8;stroke-linecap:round}
+    .d-good-stroke{fill:none;stroke:var(--good);stroke-width:1.8}
+    .d-warn-stroke{fill:none;stroke:var(--warn);stroke-width:1.8}
+    .d-accent-fill{fill:var(--brand);stroke:none}
+    .d-good-fill{fill:var(--good);stroke:none}
+    .d-warn-fill{fill:var(--warn);stroke:none}
+    .d-bad-fill{fill:var(--bad);stroke:none}
+    .d-half-fill{fill:var(--muted);stroke:none}
+    .d-dim-fill{fill:var(--dim);stroke:none}
+    .d-deadzone{fill:color-mix(in srgb,var(--info) 26%,transparent);stroke:var(--info);stroke-width:1.2}
+    .d-antideadzone{fill:color-mix(in srgb,var(--brand) 20%,transparent);stroke:var(--brand);stroke-width:1.2}
+    .d-absent{fill:none;stroke:var(--dim);stroke-width:1.2;stroke-dasharray:4 3}
+    .d-slash,.d-slash-line{fill:none;stroke:var(--bad);stroke-width:1.8;stroke-linecap:round}
+    .d-lane{fill:var(--inset);stroke:var(--line);stroke-width:1.2}
+    .d-lane.on{fill:color-mix(in srgb,var(--good) 12%,transparent);stroke:var(--good)}
+    .d-lane-icon{color:var(--muted)}
+    .d-glyph{fill:var(--muted);stroke:none}
+    .d-glyph-stroke{fill:none;stroke:var(--muted);stroke-width:1.4;stroke-linecap:round}
+    .d-label{fill:var(--muted);font:600 10px system-ui,sans-serif;text-anchor:middle;dominant-baseline:central}
+    .d-label-sm{font-size:9px}
+    .d-label-xs{font-size:8px;fill:var(--dim)}
+    .d-label-left{text-anchor:start}
+    .d-title{fill:var(--ink);font:700 10px system-ui,sans-serif;text-anchor:middle;dominant-baseline:central;letter-spacing:.04em;text-transform:uppercase}
+    .d-accent-text{fill:var(--brand)}
+    .d-good-text{fill:var(--good)}
+    .d-dim-text{fill:var(--dim)}
+    .d-on-accent{fill:#fff}
+  </style>
+  <rect class="d-canvas" x="0" y="0" width="400" height="280"/>
+  <rect class="s-shoulder" x="68" y="42" width="84" height="26" rx="13"/><rect class="s-shoulder" x="248" y="42" width="84" height="26" rx="13"/><path class="s-body" d="M 200 64 C 178 64 152 60 124 64 C 96 68 70 80 52 104 C 38 124 33 148 36 172 C 39 202 50 234 72 254 C 90 270 114 274 132 262 C 146 253 152 240 156 220 C 159 206 166 198 180 196 C 187 195 194 195 200 195 C 206 195 213 195 220 196 C 234 198 241 206 244 220 C 248 240 254 253 268 262 C 286 274 310 270 328 254 C 350 234 361 202 364 172 C 367 148 362 124 348 104 C 330 80 304 68 276 64 C 248 60 222 64 200 64 Z"/><circle class="s-ring" cx="110" cy="120" r="26"/><circle class="s-ring" cx="296" cy="120" r="28"/><path class="s-part" d="M 135 170 H 149 V 181 H 160 V 195 H 149 V 206 H 135 V 195 H 124 V 181 H 135 Z"/><circle class="s-ring" cx="258" cy="186" r="24"/><circle class="s-part" cx="200" cy="90" r="12"/>
+</svg>

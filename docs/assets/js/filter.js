@@ -250,6 +250,100 @@
   update();
 })();
 
+/* -- Controller layout diagrams -------------------------------------------
+   Two jobs: switch between the front, back and top views, and read out
+   whichever control the pointer or the keyboard is on. The readout text is
+   taken from the legend already in the page rather than a second copy of the
+   descriptions, so the two can never disagree. With this file absent, every
+   view and every legend simply stays on the page. */
+(function () {
+  var sections = document.querySelectorAll("[data-layout]");
+  if (!sections.length) return;
+
+  Array.prototype.forEach.call(sections, function (section) {
+    var readout = section.querySelector("[data-readout]");
+    var idle = readout ? readout.innerHTML : "";
+    var switcher = section.querySelector(".view-switch");
+    var views = section.querySelectorAll(".diagram-view");
+    var legends = section.querySelectorAll(".diagram-legend");
+
+    function each(list, fn) {
+      Array.prototype.forEach.call(list, fn);
+    }
+
+    function activeLegend() {
+      return section.querySelector(".diagram-legend.is-active");
+    }
+
+    function highlight(id) {
+      each(section.querySelectorAll("[data-part]"), function (el) {
+        el.classList.toggle("is-active", el.dataset.part === id);
+      });
+
+      var legend = activeLegend();
+      var source = legend && legend.querySelector('[data-part="' + id + '"]');
+      if (!readout || !source) return;
+
+      var name = source.querySelector(".legend-name");
+      var desc = source.querySelector(".legend-desc");
+      readout.classList.remove("is-idle");
+      readout.innerHTML =
+        '<span class="readout-name"></span><p class="readout-desc"></p>';
+      readout.querySelector(".readout-name").textContent = name ? name.textContent : "";
+      readout.querySelector(".readout-desc").textContent = desc ? desc.textContent : "";
+    }
+
+    function reset() {
+      each(section.querySelectorAll("[data-part]"), function (el) {
+        el.classList.remove("is-active");
+      });
+      if (readout) {
+        readout.innerHTML = idle;
+        readout.classList.add("is-idle");
+      }
+    }
+
+    // Delegated, so it covers both the shapes in the drawing and the rows of
+    // the legend, in both directions.
+    ["mouseover", "focusin"].forEach(function (evt) {
+      section.addEventListener(evt, function (e) {
+        var target = e.target.closest ? e.target.closest("[data-part]") : null;
+        if (target) highlight(target.dataset.part);
+        else if (evt === "mouseover") reset();
+      });
+    });
+
+    ["mouseleave", "focusout"].forEach(function (evt) {
+      section.addEventListener(evt, reset);
+    });
+
+    // Touch: there is no hover, so a tap has to do the same thing.
+    section.addEventListener("click", function (e) {
+      var target = e.target.closest ? e.target.closest("[data-part]") : null;
+      if (target) highlight(target.dataset.part);
+    });
+
+    if (!switcher) return;
+
+    switcher.addEventListener("click", function (e) {
+      var btn = e.target.closest("[data-view]");
+      if (!btn) return;
+
+      var want = btn.dataset.view;
+      each(switcher.querySelectorAll("[data-view]"), function (b) {
+        b.setAttribute("aria-pressed", String(b === btn));
+      });
+      each(views, function (v) {
+        v.classList.toggle("is-active", v.dataset.view === want);
+      });
+      each(legends, function (l) {
+        l.classList.toggle("is-active", l.dataset.view === want);
+      });
+      reset();
+    });
+  });
+})();
+
 /* -- Latency metric switch ------------------------------------------------ */
 (function () {
   var group = document.getElementById("metric-switch");

@@ -25,8 +25,10 @@ figure explicitly says so.
 ```
 data/controllers.json    Single source of truth — all content lives here
 build.mjs                Zero-dependency generator (templates and client JS live inline)
+src/diagrams.mjs         SVG line art: controller views, component close-ups, icons
 src/assets/               Stylesheet and favicon, copied verbatim into docs/assets/
 docs/                    Generated output (this is what GitHub Pages serves)
+docs/assets/gamesir/     Diagrams also written out as standalone SVG files
 ```
 
 Everything in `docs/` is generated. Never edit it by hand; edit the JSON and rebuild.
@@ -40,13 +42,32 @@ hard-codes a surface or text colour. The theme follows the operating system by d
 remembers an explicit choice in `localStorage`.
 
 Typography is a system-font stack, which renders on first paint and needs no network
-request. There is no product photography anywhere: controller cards use a typographic
-media panel generated from the model name, and the hero is built from a masked grid and a
-brand-tinted glow.
+request. There is no product photography anywhere: the hero is built from a masked grid
+and a brand-tinted glow, controller cards pair a typographic panel with the model's own
+outline, and hardware is documented with the schematics described below.
 
 Scripting is progressive enhancement only. With JavaScript off, every page stays a
 complete, readable document — panels do not collapse, and the filters simply do not appear
 to do anything.
+
+## Diagrams
+
+`src/diagrams.mjs` draws every illustration on the site from SVG primitives: front, back
+and top-edge views of each controller, close-ups of each component, and the small icons
+beside spec rows and table headers. Nothing is traced from a photograph or a render.
+
+Which controls a model's diagram shows is derived from that model's record in
+`data/controllers.json`, so a diagram cannot claim hardware the specification table does
+not. The legend beside each diagram is generated from the same list that drew it, which is
+why the two cannot drift apart. A small `LAYOUT` table in the module carries the few
+placement facts the JSON has no field for — which family the shell belongs to, what the
+centre buttons are called, whether the face caps are printed — and a model absent from it
+falls back to the Xbox-style layout.
+
+Diagrams are inlined into the HTML so they inherit the page's custom properties and theme
+with it, and are hoverable, focusable and keyboard-reachable. The same drawings are also
+written to `docs/assets/gamesir/` as standalone SVG files carrying their own palette, for
+reuse outside the site. Both come from one call, so they cannot disagree.
 
 ## Building
 

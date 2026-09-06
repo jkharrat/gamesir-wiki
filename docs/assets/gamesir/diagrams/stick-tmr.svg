@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 170" width="720" height="510" role="img" aria-label="TMR stick, in cross-section">
+  <title>TMR stick, in cross-section</title>
+  <desc>Original schematic diagram from the community-maintained GameSir Wiki. Not GameSir product photography.</desc>
+
+  <style>
+    :root { color-scheme: dark light; }
+    svg { --ink:#f2f3f5; --muted:#a6aab3; --dim:#71757e; --line:#34343e;
+          --s1:#121216; --s2:#17171d; --s3:#1e1e25; --inset:#0e0e12;
+          --brand:#e5343c; --good:#35d07f; --warn:#ffc247; --bad:#ff6b6b; --info:#64a8ff; }
+    @media (prefers-color-scheme: light) {
+      svg { --ink:#16171a; --muted:#585d66; --dim:#80858d; --line:#cdced5;
+            --s1:#fff; --s2:#fbfbfc; --s3:#f1f1f4; --inset:#f4f4f7;
+            --brand:#d6272e; --good:#0f7a44; --warn:#8a5a00; --bad:#c02626; --info:#175fd0; }
+    }
+  </style>
+  <style>
+    .d-canvas{fill:var(--s1)}
+    .d-body{fill:var(--s2);stroke:var(--line);stroke-width:2}
+    .d-panel{fill:none;stroke:var(--line);stroke-width:1;stroke-dasharray:3 4}
+    .d-part{fill:var(--s3);stroke:var(--line);stroke-width:1.4}
+    .d-part-2{fill:var(--inset);stroke:var(--line);stroke-width:1.4}
+    .d-part-inset{fill:var(--inset);stroke:var(--line);stroke-width:1}
+    .d-recess{fill:var(--inset);stroke:var(--line);stroke-width:1.4}
+    .d-port{fill:var(--inset);stroke:var(--muted);stroke-width:1.4}
+    .d-plate{fill:var(--s3);stroke:var(--brand);stroke-width:1.6;opacity:.9}
+    .d-btn,.d-btn-sm,.d-step{fill:var(--s3);stroke:var(--muted);stroke-width:1.3}
+    .d-btn-good{fill:color-mix(in srgb,var(--good) 22%,transparent);stroke:var(--good)}
+    .d-btn-bad{fill:color-mix(in srgb,var(--bad) 22%,transparent);stroke:var(--bad)}
+    .d-btn-info{fill:color-mix(in srgb,var(--info) 22%,transparent);stroke:var(--info)}
+    .d-btn-warn{fill:color-mix(in srgb,var(--warn) 22%,transparent);stroke:var(--warn)}
+    .d-btn-letter{fill:var(--ink);font:700 12px system-ui,sans-serif;text-anchor:middle;dominant-baseline:central}
+    .d-guide{fill:var(--s3);stroke:var(--muted);stroke-width:1.4}
+    .d-guide-ring{fill:none;stroke:var(--line);stroke-width:1.2}
+    .d-window{fill:var(--inset);stroke:var(--muted);stroke-width:1.2;stroke-dasharray:4 3}
+    .d-gear{fill:var(--s3);stroke:var(--brand);stroke-width:1.4}
+    .d-ring,.d-accent-ring{fill:none;stroke:var(--line);stroke-width:1.4}
+    .d-accent-ring{stroke:var(--brand)}
+    .d-swap-ring{fill:none;stroke:var(--brand);stroke-width:1.4;stroke-dasharray:5 4}
+    .d-seam{fill:none;stroke:var(--line);stroke-width:1.2;stroke-dasharray:5 5}
+    .d-rgb{fill:none;stroke:var(--brand);stroke-width:3.4;stroke-linecap:round;opacity:.75}
+    .d-texture{fill:none;stroke:var(--line);stroke-width:1.6;stroke-linecap:round}
+    .d-ink{fill:none;stroke:var(--muted);stroke-width:1.6}
+    .d-ink-thick{fill:none;stroke:var(--muted);stroke-width:3.4;stroke-linecap:round}
+    .d-leader,.d-dim-stroke{fill:none;stroke:var(--dim);stroke-width:1.1}
+    .d-travel{fill:none;stroke:var(--muted);stroke-width:1.4;stroke-dasharray:5 4}
+    .d-accent-stroke{fill:none;stroke:var(--brand);stroke-width:1.8;stroke-linecap:round}
+    .d-good-stroke{fill:none;stroke:var(--good);stroke-width:1.8}
+    .d-warn-stroke{fill:none;stroke:var(--warn);stroke-width:1.8}
+    .d-accent-fill{fill:var(--brand);stroke:none}
+    .d-good-fill{fill:var(--good);stroke:none}
+    .d-warn-fill{fill:var(--warn);stroke:none}
+    .d-bad-fill{fill:var(--bad);stroke:none}
+    .d-half-fill{fill:var(--muted);stroke:none}
+    .d-dim-fill{fill:var(--dim);stroke:none}
+    .d-deadzone{fill:color-mix(in srgb,var(--info) 26%,transparent);stroke:var(--info);stroke-width:1.2}
+    .d-antideadzone{fill:color-mix(in srgb,var(--brand) 20%,transparent);stroke:var(--brand);stroke-width:1.2}
+    .d-absent{fill:none;stroke:var(--dim);stroke-width:1.2;stroke-dasharray:4 3}
+    .d-slash,.d-slash-line{fill:none;stroke:var(--bad);stroke-width:1.8;stroke-linecap:round}
+    .d-lane{fill:var(--inset);stroke:var(--line);stroke-width:1.2}
+    .d-lane.on{fill:color-mix(in srgb,var(--good) 12%,transparent);stroke:var(--good)}
+    .d-lane-icon{color:var(--muted)}
+    .d-glyph{fill:var(--muted);stroke:none}
+    .d-glyph-stroke{fill:none;stroke:var(--muted);stroke-width:1.4;stroke-linecap:round}
+    .d-label{fill:var(--muted);font:600 10px system-ui,sans-serif;text-anchor:middle;dominant-baseline:central}
+    .d-label-sm{font-size:9px}
+    .d-label-xs{font-size:8px;fill:var(--dim)}
+    .d-label-left{text-anchor:start}
+    .d-title{fill:var(--ink);font:700 10px system-ui,sans-serif;text-anchor:middle;dominant-baseline:central;letter-spacing:.04em;text-transform:uppercase}
+    .d-accent-text{fill:var(--brand)}
+    .d-good-text{fill:var(--good)}
+    .d-dim-text{fill:var(--dim)}
+    .d-on-accent{fill:#fff}
+  </style>
+  <rect class="d-canvas" x="0" y="0" width="240" height="170"/>
+  <rect class="d-panel" x="1" y="1" width="238" height="168" rx="12"/><path class="d-ink-thick" d="M 120 40 L 120 84"/><path class="d-part" d="M 100 36 C 100 28 140 28 140 36 C 140 46 100 46 100 36 Z"/><path class="d-ink" d="M 86 84 C 86 68 154 68 154 84"/><circle class="d-part-2" cx="120" cy="88" r="7"/><rect class="d-part-2" x="60" y="124" width="120" height="18" rx="4"/><text class="d-label d-label-xs" x="120" y="133.5">sensor board</text><rect class="d-accent-fill" x="102" y="94" width="36" height="12" rx="3"/><text class="d-label d-label-xs d-on-accent" x="120" y="100">magnet</text><rect class="d-part" x="104" y="112" width="32" height="10" rx="3"/><path class="d-accent-stroke" d="M 141 106 L 149 106 M 141 112 L 149 112 M 145 106 L 145 112"/><path class="d-leader" d="M 174 102 L 150 109"/><text class="d-label d-label-xs d-accent-text" x="196" y="99">no contact</text><path class="d-good-stroke" d="M 60 152 h 120"/><text class="d-label d-label-xs" x="120" y="160">nothing rubs — no wear path</text><text class="d-title" x="120" y="18">TMR</text>
+</svg>

@@ -13,6 +13,31 @@ import { readFile, writeFile, mkdir, rm, cp } from "node:fs/promises";
 import { existsSync } from "node:fs";
 import path from "node:path";
 
+import {
+  icon,
+  platformIcon,
+  layoutInfo,
+  controllerViews,
+  silhouette,
+  stickSensorFigure,
+  sensorCompareFigures,
+  deadzoneFigure,
+  triggerFigure,
+  dpadFigure,
+  faceButtonFigure,
+  shoulderFigure,
+  rearButtonFigure,
+  centreButtonFigure,
+  connectionFigure,
+  portFigure,
+  indicatorFigure,
+  gyroFigure,
+  rumbleFigure,
+  faceplateFigure,
+  mappingFigure,
+  standaloneSvg,
+} from "./src/diagrams.mjs";
+
 const ROOT = import.meta.dirname;
 const OUT = path.join(ROOT, "docs");
 
@@ -65,16 +90,92 @@ const shortCell = (v, full = v) => {
 };
 
 /**
+ * Glyph for a specification label, keyed by the label itself so the row and
+ * comparison-table helpers pick one up without every call site naming it.
+ * A block of thirty figures is much faster to scan when each line has a shape
+ * as well as a word.
+ */
+const LABEL_ICONS = {
+  Released: "calendar",
+  "Launch price": "tag",
+  Weight: "weight",
+  Dimensions: "ruler",
+  Platforms: "gamepad",
+  "Configuration app": "app",
+  Software: "app",
+  Tier: "shield",
+  "Sensor technology": "chip",
+  "Stick sensor": "chip",
+  Resolution: "steps",
+  "Stick resolution (claimed)": "steps",
+  "Measured resolution": "steps",
+  Durability: "shield",
+  "Measured center error": "target",
+  "Trigger technology": "trigger",
+  "Trigger tech": "trigger",
+  "Trigger stops": "lock",
+  "D-pad": "dpad",
+  "Face buttons": "buttons",
+  "Rear buttons": "paddle",
+  "Extra bumpers": "bumper",
+  "Connection modes": "cable",
+  "Polling rate (PC)": "bolt",
+  "Polling rate (Xbox)": "bolt",
+  "Polling (PC)": "bolt",
+  "Polling (Xbox)": "bolt",
+  "Audio jack": "headset",
+  Gyro: "gyro",
+  Rumble: "rumble",
+  Battery: "battery",
+  "Battery capacity": "battery",
+  "Claimed battery life": "battery",
+  "Swappable faceplates": "plate",
+};
+
+const labelIcon = (k) => (LABEL_ICONS[k] ? icon(LABEL_ICONS[k]) : "");
+
+/**
  * Spec rows put the value flush right, which reads well for "2024" or "$79.99"
  * but turns a sourced caveat into a ragged right-aligned paragraph. Anything
  * long stacks under its label and reads left instead.
  */
 const row = (k, v) => {
   const long = v !== null && v !== undefined && String(v).length > 32;
-  return `<div class="spec-row${long ? " is-long" : ""}"><span class="spec-key">${esc(
+  return `<div class="spec-row${long ? " is-long" : ""}"><span class="spec-key">${labelIcon(
     k
-  )}</span>${val(v)}</div>`;
+  )}${esc(k)}</span>${val(v)}</div>`;
 };
+
+/* --------------------------------------------------------------- figures -- */
+
+/**
+ * Caps a diagram at a fixed multiple of its own drawing width. Without this a
+ * 240-unit close-up and a 400-unit one stretched to the same column would
+ * render their labels at noticeably different sizes.
+ */
+const sized = (markup, k = 1.35) => {
+  const w = Number(/viewBox="0 0 ([\d.]+)/.exec(markup)?.[1] ?? 400);
+  return markup.replace("<svg ", `<svg style="max-width:${Math.round(w * k)}px" `);
+};
+
+/** Figure with an optional caption. `label` is bolded as a lead-in. */
+const fig = (markup, { label = null, text = null, cls = "" } = {}) => {
+  const caption =
+    label || text
+      ? `<figcaption>${label ? `<strong>${esc(label)}.</strong> ` : ""}${
+          text ? esc(text) : ""
+        }</figcaption>`
+      : "";
+  return `<figure class="fig${cls ? ` ${cls}` : ""}">${sized(markup)}${caption}</figure>`;
+};
+
+/** Platform list as icon chips. Sits under the badges in a page head. */
+const platformStrip = (c) =>
+  (c.platforms ?? []).length
+    ? `<ul class="platform-strip">${c.platforms
+        .map((p) => `<li>${platformIcon(p)}${esc(p)}</li>`)
+        .join("")}</ul>`
+    : "";
 
 /**
  * Long prose notes sit behind a toggle. Inline they dwarfed the specs they
@@ -114,9 +215,9 @@ const msClass = (ms) => (ms === null ? "" : ms <= 3 ? "is-good" : ms <= 8 ? "is-
  * callers get the whole list and decide what to show.
  */
 const MODE_FAMILIES = [
-  { key: "wired", label: "Wired", test: /wired|cable/i },
-  { key: "dongle", label: "2.4 GHz", test: /2\.4|dongle|receiver/i },
-  { key: "bluetooth", label: "Bluetooth", test: /bluetooth|\bbt\b/i },
+  { key: "wired", label: "Wired", icon: "cable", test: /wired|cable/i },
+  { key: "dongle", label: "2.4 GHz", icon: "wifi", test: /2\.4|dongle|receiver/i },
+  { key: "bluetooth", label: "Bluetooth", icon: "bluetooth", test: /bluetooth|\bbt\b/i },
 ];
 
 const familyOf = (mode) => MODE_FAMILIES.find((f) => f.test.test(String(mode ?? "")))?.key ?? null;
@@ -487,6 +588,251 @@ ${rows}
 <p class="small text-dim">Bars use a fixed 0&ndash;16&nbsp;ms scale so they compare with every other page on this site; a full-width bar exceeds 16&nbsp;ms. Measured and published by gamepadla.com from a single unit on one firmware. Polling rate and latency are measured by different methods and are not the same thing. <a href="../latency.html">Compare against every other model</a>.</p>`;
 }
 
+/* ------------------------------------------------------- hardware figures -- */
+
+/** Clips prose to fit a caption without cutting mid-word. */
+const clip = (v, max) => {
+  const s = String(v ?? "");
+  return s.length <= max ? s : s.slice(0, max - 1).replace(/\s+\S*$/, "") + "\u2026";
+};
+
+const stickKind = (tech) => {
+  const t = String(tech ?? "").toLowerCase();
+  if (t.includes("tmr")) return "tmr";
+  if (t.includes("hall")) return "hall";
+  if (t.includes("potentiometer")) return "pot";
+  return null;
+};
+
+/**
+ * The labelled controller diagram: three views, a readout naming whatever the
+ * pointer or keyboard is on, and a legend that is also where the readout gets
+ * its text, so the drawing and the prose cannot drift apart.
+ *
+ * With scripting off, every view stays on the page under its own heading and
+ * every legend is visible, which is a complete description of the hardware —
+ * the script only collapses it into one view at a time.
+ */
+function layoutSection(c, { id = "layout", heading = "Controller layout", intro, note } = {}) {
+  const views = controllerViews(c);
+
+  const switcher = views
+    .map(
+      (v, i) =>
+        `<button class="chip" type="button" data-view="${esc(v.id)}" aria-pressed="${
+          i === 0 ? "true" : "false"
+        }">${esc(v.label)}</button>`
+    )
+    .join("\n        ");
+
+  const stage = views
+    .map(
+      (v, i) =>
+        `      <div class="diagram-view${i === 0 ? " is-active" : ""}" data-view="${esc(v.id)}">
+        <h3>${esc(v.label)} view</h3>
+${v.svg}
+      </div>`
+    )
+    .join("\n");
+
+  const legends = views
+    .map(
+      (v, i) =>
+        `    <ul class="diagram-legend${i === 0 ? " is-active" : ""}" data-view="${esc(v.id)}">
+${v.parts
+  .map(
+    (p) =>
+      `      <li class="legend-item" data-part="${esc(p.id)}"><span class="legend-name">${esc(
+        p.label
+      )}</span><span class="legend-desc">${esc(p.desc)}</span></li>`
+  )
+  .join("\n")}
+    </ul>`
+    )
+    .join("\n");
+
+  return `<section class="layout-section" data-layout aria-labelledby="${esc(id)}">
+  <div class="layout-head">
+    <h2 id="${esc(id)}">${esc(heading)}</h2>
+    <div class="metric-switch view-switch" role="group" aria-label="Choose a view of the controller">
+        ${switcher}
+    </div>
+    ${intro ? `<p class="section-intro">${intro}</p>` : ""}
+  </div>
+
+  <div class="diagram-figure">
+    <div class="diagram-stage">
+${stage}
+    </div>
+
+    <div class="diagram-readout is-idle" data-readout aria-live="polite">
+      <span class="readout-name">Every control, named</span>
+      <p class="readout-desc">Point at, tap or tab to any part of the diagram and it is explained here. The full list is below, so nothing depends on hovering.</p>
+    </div>
+
+${legends}
+  </div>
+
+  <p class="small text-dim diagram-note">${
+    note ??
+    "Schematic drawing. It shows which controls this model has and where they sit relative to each other, taken from the same sourced record as the specifications below &mdash; it is not a scale drawing, and no GameSir artwork is reproduced."
+  }</p>
+</section>`;
+}
+
+/**
+ * Component close-ups. Each figure is paired with what the sources actually
+ * say about that part on this model, so the drawing explains the mechanism and
+ * the caption carries the documented detail.
+ */
+function componentFigures(c) {
+  const s = c.sticks ?? {};
+  const t = c.triggers ?? {};
+  const eb = c.extraButtons ?? {};
+  const L = layoutInfo(c);
+  const out = [];
+  const add = (markup, label, textValue) => {
+    if (markup) out.push(fig(markup, { label, text: textValue ? clip(textValue, 260) : null }));
+  };
+
+  const kind = stickKind(s.tech);
+  if (kind) {
+    add(
+      stickSensorFigure(kind),
+      "Sticks",
+      [s.tech, s.resolution && `${s.resolution}`].filter(Boolean).join(". ")
+    );
+  }
+
+  add(dpadFigure({ fenced: /fenced/i.test(String(c.dpad)) }), "D-pad", c.dpad);
+
+  add(
+    faceButtonFigure({ swap: !!L.faceSwap || /nintendo layout/i.test(String(c.faceButtons)) }),
+    "Face buttons",
+    c.faceButtons
+  );
+
+  add(
+    shoulderFigure({ mini: (eb.extraBumpers ?? 0) >= 2 }),
+    "Bumpers and triggers",
+    t.tech ?? "Bumpers report as pressed or not pressed; triggers report how far they have travelled."
+  );
+
+  if (t.triggerStops !== null && t.triggerStops !== undefined) {
+    add(triggerFigure(t.triggerStops), t.triggerStops ? "Trigger stops" : "Trigger travel", t.notes);
+  }
+
+  if ((eb.backButtons ?? 0) >= 1) {
+    add(
+      rearButtonFigure({ count: eb.backButtons, latches: L.latches ?? null }),
+      "Rear buttons",
+      eb.notes
+    );
+  }
+
+  add(
+    centreButtonFigure({ variant: L.centre === "nintendo" ? "nintendo" : "xbox", mode: L.mode ?? "M" }),
+    "Centre cluster",
+    "Every documented button combination on this page is built from these controls, which is why the calibration and reset procedures are so easy to get wrong on the ones that moved."
+  );
+
+  if (eb.remappable) {
+    add(
+      mappingFigure({ mode: L.mode ?? "M" }),
+      "Mapping a rear button",
+      "The gesture is the same across this range: hold the modifier with the button you are assigning, then press the control it should copy."
+    );
+  }
+
+  add(connectionFigure(c), "Connection modes", c.connectivity?.notes);
+  add(
+    portFigure({ audioJack: !!c.audioJack }),
+    "Ports",
+    c.audioJack
+      ? "Audio and microphone pass through the controller, so a report rate above 250 Hz can silence a headset on several models in this range."
+      : "Audio goes through the host device on this model."
+  );
+
+  if (c.rumble) add(rumbleFigure(c.rumble), "Rumble", c.rumble);
+  if (c.gyro?.present) add(gyroFigure(), "Gyro", c.gyro.notes);
+  if (c.faceplates?.swappable) add(faceplateFigure(), "Faceplate", c.faceplates.notes);
+
+  return out;
+}
+
+/**
+ * Notable features, with the hardware they describe drawn beside them. Only
+ * the features that map onto a drawing become callouts; the rest stay a list,
+ * because a decorative figure next to "1000 Hz polling" would be noise.
+ */
+function featureCallouts(c) {
+  const s = c.sticks ?? {};
+  const t = c.triggers ?? {};
+  const eb = c.extraButtons ?? {};
+  const L = layoutInfo(c);
+
+  const matchers = [
+    {
+      test: /tmr|hall effect stick|mag-res|stick|deadzone|trajector/i,
+      figure: () => (stickKind(s.tech) ? stickSensorFigure(stickKind(s.tech)) : null),
+    },
+    { test: /trigger/i, figure: () => triggerFigure(!!t.triggerStops) },
+    {
+      test: /rear|back button|paddle|bumper/i,
+      figure: () => rearButtonFigure({ count: eb.backButtons ?? 2, latches: L.latches ?? null }),
+    },
+    { test: /faceplate/i, figure: () => faceplateFigure() },
+    { test: /gyro/i, figure: () => gyroFigure() },
+    { test: /layout|nintendo|rotat|swap/i, figure: () => faceButtonFigure({ swap: true }) },
+    { test: /macro|remap|profile/i, figure: () => mappingFigure({ mode: L.mode ?? "M" }) },
+    { test: /d-pad/i, figure: () => dpadFigure({ fenced: /fenced/i.test(String(c.dpad)) }) },
+    { test: /wireless|tri-mode|2\.4|bluetooth|dongle/i, figure: () => connectionFigure(c) },
+    { test: /rumble|vibrat/i, figure: () => rumbleFigure(c.rumble) },
+  ];
+
+  const used = new Set();
+  const callouts = [];
+  const rest = [];
+
+  for (const feature of c.notableFeatures ?? []) {
+    const m = matchers.find((x, i) => !used.has(i) && x.test.test(feature));
+    const drawing = m?.figure();
+    if (!m || !drawing) {
+      rest.push(feature);
+      continue;
+    }
+    used.add(matchers.indexOf(m));
+    callouts.push(`<div class="callout">
+      <div class="callout-media">${sized(drawing, 1.25)}</div>
+      <div class="callout-body"><h3>${esc(feature)}</h3><p>${esc(
+      calloutNote(feature, c)
+    )}</p></div>
+    </div>`);
+  }
+
+  return { callouts, rest };
+}
+
+/**
+ * The sentence under a feature callout. It points at the sourced field the
+ * feature came from rather than adding a claim of its own; where there is
+ * nothing extra to say it explains what the drawing is showing.
+ */
+function calloutNote(feature, c) {
+  const f = feature.toLowerCase();
+  if (/trigger/.test(f) && c.triggers?.notes) return clip(c.triggers.notes, 220);
+  if (/rear|back button|paddle|bumper/.test(f) && c.extraButtons?.notes)
+    return clip(c.extraButtons.notes, 220);
+  if (/faceplate/.test(f) && c.faceplates?.notes) return clip(c.faceplates.notes, 220);
+  if (/gyro/.test(f) && c.gyro?.notes) return clip(c.gyro.notes, 220);
+  if (/tmr|hall|stick|deadzone|trajector/.test(f) && c.sticks?.measuredNotes)
+    return clip(c.sticks.measuredNotes, 220);
+  if (/rumble|vibrat/.test(f) && c.rumble) return clip(c.rumble, 220);
+  if (/wireless|tri-mode|2\.4|bluetooth|dongle/.test(f) && c.connectivity?.notes)
+    return clip(c.connectivity.notes, 220);
+  return "Drawn from this model's documented control list; see the specification panel for the sourced figures.";
+}
+
 function issueItem(iss, modelName = null) {
   return `<details class="item">
   <summary>${esc(iss.symptom)}${modelName ? ` <span class="badge">${esc(modelName)}</span>` : ""}</summary>
@@ -510,6 +856,24 @@ function faqItem(f, modelName = null) {
 
 /* ---------------------------------------------------------------- pages -- */
 
+/**
+ * Stand-in controller for the home page's anatomy diagram. It carries the
+ * union of the controls this range uses so the drawing can name all of them,
+ * and it is labelled as generic on the page — it is a vocabulary reference,
+ * not a claim about any product.
+ */
+const REFERENCE_PAD = {
+  id: "reference",
+  name: "A modern gamepad",
+  sticks: {},
+  triggers: { triggerStops: true },
+  extraButtons: { backButtons: 2, extraBumpers: 2, remappable: true },
+  connectivity: { wired: true, dongle24g: true, bluetooth: true },
+  audioJack: true,
+  faceplates: { swappable: false },
+  short: {},
+};
+
 function pageIndex(data) {
   const cs = data.controllers;
 
@@ -525,7 +889,9 @@ function pageIndex(data) {
       const mark = c.name.replace(/^GameSir\s+/i, "");
 
       return `<a class="controller-card tint-${esc(c.tier ?? "entry")}" href="controllers/${esc(c.id)}.html">
-  <span class="card-media" aria-hidden="true"><span class="card-mark">${esc(mark)}</span></span>
+  <span class="card-media" aria-hidden="true">${silhouette(c)}<span class="card-mark">${esc(
+        mark
+      )}</span></span>
   <span class="card-body">
     ${controllerBadges(c, { max: 3 })}
     <h3>${esc(c.name)}</h3>
@@ -581,6 +947,19 @@ function pageIndex(data) {
   <div class="card-grid">
 ${cards}
   </div>
+
+  ${sectionHead(
+    "anatomy",
+    "Anatomy of a controller",
+    "The vocabulary the rest of this site uses. Every model page carries the same diagram drawn for that specific controller, including its back."
+  )}
+  ${layoutSection(REFERENCE_PAD, {
+    id: "reference-layout",
+    heading: "The controls, named",
+    intro:
+      "A generic layout rather than any one product: the offset sticks, the ABXY cluster, the centre row and the rear paddles that the models covered here share. Where a specific controller differs &mdash; no rear latches, a rotating button cluster, no wireless at all &mdash; its own page says so.",
+    note: "Generic schematic. It is not a drawing of any particular GameSir product; see a model page for that model's own layout.",
+  })}
 
   ${sectionHead(
     "start-here",
@@ -655,6 +1034,9 @@ function pageController(c, data) {
   // Panels rather than one continuous page: a fully documented controller runs
   // to ~25 spec rows, 8 issues, 9 FAQ entries and 16 sources, which is far too
   // much to scroll through when you arrived looking for one button combination.
+  const components = componentFigures(c);
+  const { callouts, rest } = featureCallouts(c);
+
   const panels = [
     {
       id: "specs",
@@ -663,7 +1045,7 @@ function pageController(c, data) {
   <p class="section-intro">Values that could not be verified against a source read &ldquo;not documented&rdquo; rather than being estimated.</p>
   <div class="spec-columns">
     <div class="spec-card">
-      <h3>Overview</h3>
+      <h3>${icon("gamepad")}Overview</h3>
       <div class="spec-grid">
         ${row("Released", c.releaseYear)}
         ${row("Launch price", c.short?.msrp ?? c.msrp)}
@@ -680,7 +1062,7 @@ function pageController(c, data) {
     </div>
 
     <div class="spec-card">
-      <h3>Sticks</h3>
+      <h3>${icon("stick")}Sticks</h3>
       <div class="spec-grid">
         ${row("Sensor technology", s.tech)}
         ${row("Resolution", s.resolution)}
@@ -692,7 +1074,7 @@ function pageController(c, data) {
     </div>
 
     <div class="spec-card">
-      <h3>Triggers, D-pad and buttons</h3>
+      <h3>${icon("trigger")}Triggers, D-pad and buttons</h3>
       <div class="spec-grid">
         ${row("Trigger technology", t.tech)}
         ${row("Trigger stops", t.triggerStops === null || t.triggerStops === undefined ? null : t.triggerStops ? "Yes" : "No")}
@@ -706,7 +1088,7 @@ function pageController(c, data) {
     </div>
 
     <div class="spec-card">
-      <h3>Connectivity</h3>
+      <h3>${icon("cable")}Connectivity</h3>
       <div class="spec-grid">
         ${row("Connection modes", connSummary(c))}
         ${row("Polling rate (PC)", c.short?.polling ?? c.pollingRate?.pc)}
@@ -721,7 +1103,7 @@ function pageController(c, data) {
     </div>
 
     <div class="spec-card">
-      <h3>Battery and build</h3>
+      <h3>${icon("battery")}Battery and build</h3>
       <div class="spec-grid">
         ${row("Battery capacity", c.battery?.capacity)}
         ${row("Claimed battery life", c.short?.claimedLife ?? c.battery?.claimedLife)}
@@ -731,6 +1113,18 @@ function pageController(c, data) {
       ${noteDetail("Faceplate detail", c.faceplates?.notes)}
     </div>
   </div>`,
+    },
+    {
+      id: "components",
+      label: "Components",
+      count: components.length,
+      html: components.length
+        ? `<h2>Component by component</h2>
+  <p class="section-intro">What each part of this controller is and what it does, with the documented detail for this model beside it. The drawings explain the mechanism; the captions carry the sourced specifics.</p>
+  <div class="figure-grid">
+${components.join("\n")}
+  </div>`
+        : "",
     },
     {
       id: "performance",
@@ -745,9 +1139,21 @@ function pageController(c, data) {
       count: (c.notableFeatures ?? []).length,
       html: (c.notableFeatures ?? []).length
         ? `<h2>Notable features</h2>
-  <ul>
-${c.notableFeatures.map((f) => `    <li>${esc(f)}</li>`).join("\n")}
+  <p class="section-intro">The features that separate this model from its siblings, each shown against the part of the hardware it refers to.</p>
+${
+  callouts.length
+    ? `  <div class="callout-grid">
+${callouts.join("\n")}
+  </div>`
+    : ""
+}
+${
+  rest.length
+    ? `  <ul class="feature-rest">
+${rest.map((f) => `    <li>${esc(f)}</li>`).join("\n")}
   </ul>`
+    : ""
+}`
         : "",
     },
     {
@@ -833,10 +1239,15 @@ ${sources}
     eyebrow: `${tierLabel(c.tier)} \u00b7 ${c.category ?? ""}`,
     heading: esc(c.fullName ?? c.name),
     lede: `<p class="lede">${esc(c.tagline)}</p>`,
-    extra: controllerBadges(c),
+    extra: controllerBadges(c) + platformStrip(c),
   })}
 
 <div class="wrap narrow">
+  ${layoutSection(c, {
+    intro:
+      "Every control this model has, front, back and along the top edge. The rear view is where the models in this range differ most from each other.",
+  })}
+
   <div class="tabs-dock">
     <nav class="tabs" id="controller-tabs" aria-label="Sections of this page">${tabs}</nav>
   </div>
@@ -913,7 +1324,9 @@ function pageCompare(data) {
           return shortCell(shortFn(c) ?? full, full);
         })
         .join("");
-      return `<tr><th>${esc(label)}</th>${cells}</tr>`;
+      return `<tr><th><span class="th-label">${labelIcon(label)}${esc(
+        label
+      )}</span></th>${cells}</tr>`;
     })
     .join("\n");
 
@@ -938,6 +1351,27 @@ function pageCompare(data) {
     wear like potentiometer sticks, which is why they are marketed as drift-resistant. That resistance is about
     sensor wear, not about center accuracy &mdash; a magnetic stick can still show a small center error, and
     several of these controllers apply no inner deadzone to hide it.</p>
+  </div>
+
+  <div class="figure-grid">
+${sensorCompareFigures()
+  .map(({ kind, svg: markup }) =>
+    fig(markup, {
+      label:
+        kind === "pot"
+          ? "Potentiometer"
+          : kind === "hall"
+          ? "Hall Effect"
+          : "TMR (tunnel magnetoresistance)",
+      text:
+        kind === "pot"
+          ? "A wiper drags along a resistive track. The contact point is also the wear point, which is where classic stick drift comes from."
+          : kind === "hall"
+          ? "A magnet on the stick shaft is read by a sensor beneath it. Nothing touches, so there is no wear path — but the sensor still has a resting value, and that value is rarely exactly zero."
+          : "The same contactless arrangement as Hall Effect, using a magnetoresistive sensor that the manufacturers rate for finer resolution. Drift resistance comes from the same property: no contact.",
+    })
+  )
+  .join("\n")}
   </div>
 
   <div class="table-scroll">
@@ -1066,7 +1500,7 @@ function pageLatency(data) {
   const strip = fastest
     .map(
       (f) => `<div class="stat">
-      <div class="stat-label">Fastest on ${esc(f.label.toLowerCase())}</div>
+      <div class="stat-label">${icon(f.icon)}Fastest on ${esc(f.label.toLowerCase())}</div>
       <div class="stat-value small-value">${
         f.best ? `${f.best.ms} ms` : "&mdash;"
       }</div>
@@ -1127,7 +1561,7 @@ ${metricChips}
   <div class="table-scroll">
     <table class="spec-table pivot-table" id="latency-pivot" data-show="stick">
       <thead><tr><th>Controller</th>${MODE_FAMILIES.map(
-        (f) => `<th>${esc(f.label)}</th>`
+        (f) => `<th><span class="th-label">${icon(f.icon)}${esc(f.label)}</span></th>`
       ).join("")}</tr></thead>
       <tbody>
 ${pivot}
@@ -1220,6 +1654,17 @@ ${issueItem(i, i.model)}
     manual firmware upgrade from a Windows PC. Older guides and videos still circulate the wrong sequence.</p>
   </div>
 
+  <div class="figure-grid">
+${fig(centreButtonFigure({ variant: "xbox", mode: "M" }), {
+  label: "Where those buttons are",
+  text: "View, the guide button and Menu sit in the centre row, with Share below and the M modifier under that. Every procedure on this page is a combination of these five and one other control.",
+})}
+${fig(indicatorFigure(), {
+  label: "What the indicator is telling you",
+  text: "The patterns are consistent across this range even though the exact meanings are per-model: a slow blink means the controller is waiting for you inside a setting mode, and a double blink is normally a refusal rather than a confirmation.",
+})}
+  </div>
+
   <div class="note danger">
     <p><strong>Never cross-flash Kaleid firmware.</strong> GameSir sells three different controllers under the
     Kaleid name &mdash; the <em>T4 Kaleid</em> (T4K), the <em>Kaleid</em> (K1) and the <em>Kaleid Flux</em>
@@ -1235,6 +1680,11 @@ ${issueItem(i, i.model)}
     Most reported drift on these controllers is not sensor failure. Work through this order before contacting
     support, because the later steps mask the symptom rather than fix it.
   </p>
+
+  ${fig(deadzoneFigure(), {
+    label: "The same stick, sitting still, three ways",
+    text: "A magnetic stick has a resting value and it is rarely exactly zero, so a controller that applies no inner deadzone reports that error to the game. An inner deadzone hides it at the cost of precision; an anti-deadzone does the opposite, deliberately reporting movement while the stick is centred — which is indistinguishable from drift if it is set too high.",
+  })}
 
   <div class="accordion">
     <details class="item" open>
@@ -1357,6 +1807,25 @@ ${faqItem(f, f.model)}
   })}
 
 <div class="wrap narrow">
+  <h2 id="reading-the-combos">Reading the button combinations</h2>
+  <p class="section-intro">
+    Most answers below are a button combination. Two figures cover nearly all of them: which control is which, and
+    the remapping gesture that every model in this range shares.
+  </p>
+
+  <div class="figure-grid">
+${fig(centreButtonFigure({ variant: "xbox", mode: "M" }), {
+  label: "The centre row",
+  text: "Xbox-style models name these View, Menu, guide and Share; the multiplatform ones use Minus, Plus, Home and Screenshot for the same positions. M is the modifier the on-controller procedures start from.",
+})}
+${fig(mappingFigure({ mode: "M" }), {
+  label: "Assigning a rear button",
+  text: "Hold M together with the rear button until the indicator blinks slowly, press the control it should copy, and the indicator returns to solid. Repeating the hold and pressing the rear button itself clears the assignment again.",
+})}
+  </div>
+
+  <h2 id="all-questions">Every question</h2>
+
   ${filterToolbar({
     topicLabel: "Topic",
     topicAllLabel: "All topics",
@@ -1414,6 +1883,25 @@ function pageAbout(data) {
     unless a figure explicitly says so. Manufacturer claims are labelled as claims. Independent measurements come
     from single tested units on specific firmware versions and can vary between units.</p>
   </div>
+
+  <h2 id="diagrams">The diagrams</h2>
+  <p>
+    Every diagram on this site is original line art, drawn from primitives by the site generator and coloured from
+    the same palette as the pages around it. None of it is GameSir photography, a GameSir render, or a trace of
+    either, and no GameSir logo or marketing asset is reproduced anywhere.
+  </p>
+  <p>
+    The controller views are <strong>schematics, not scale drawings</strong>. Which controls appear on a model's
+    diagram comes from the same sourced record as its specification table, so a diagram will show two rear
+    paddles and no latches when that is what the sources document &mdash; but the contours, spacing and
+    proportions are drawn for clarity and should not be measured. Where a control is documented as absent, the
+    diagram marks the absence rather than quietly leaving it out.
+  </p>
+  <p>
+    The drawings are also written out as standalone SVG files under
+    <code>assets/gamesir/</code> &mdash; controller views, component close-ups and the site's own mark &mdash; so
+    they can be reused or corrected independently of the pages that embed them.
+  </p>
 
   <h2 id="gaps">How gaps are handled</h2>
   <p>
@@ -1696,6 +2184,100 @@ const FILTER_JS = `/* Progressive enhancement: theme switching, the mobile nav, 
   update();
 })();
 
+/* -- Controller layout diagrams -------------------------------------------
+   Two jobs: switch between the front, back and top views, and read out
+   whichever control the pointer or the keyboard is on. The readout text is
+   taken from the legend already in the page rather than a second copy of the
+   descriptions, so the two can never disagree. With this file absent, every
+   view and every legend simply stays on the page. */
+(function () {
+  var sections = document.querySelectorAll("[data-layout]");
+  if (!sections.length) return;
+
+  Array.prototype.forEach.call(sections, function (section) {
+    var readout = section.querySelector("[data-readout]");
+    var idle = readout ? readout.innerHTML : "";
+    var switcher = section.querySelector(".view-switch");
+    var views = section.querySelectorAll(".diagram-view");
+    var legends = section.querySelectorAll(".diagram-legend");
+
+    function each(list, fn) {
+      Array.prototype.forEach.call(list, fn);
+    }
+
+    function activeLegend() {
+      return section.querySelector(".diagram-legend.is-active");
+    }
+
+    function highlight(id) {
+      each(section.querySelectorAll("[data-part]"), function (el) {
+        el.classList.toggle("is-active", el.dataset.part === id);
+      });
+
+      var legend = activeLegend();
+      var source = legend && legend.querySelector('[data-part="' + id + '"]');
+      if (!readout || !source) return;
+
+      var name = source.querySelector(".legend-name");
+      var desc = source.querySelector(".legend-desc");
+      readout.classList.remove("is-idle");
+      readout.innerHTML =
+        '<span class="readout-name"></span><p class="readout-desc"></p>';
+      readout.querySelector(".readout-name").textContent = name ? name.textContent : "";
+      readout.querySelector(".readout-desc").textContent = desc ? desc.textContent : "";
+    }
+
+    function reset() {
+      each(section.querySelectorAll("[data-part]"), function (el) {
+        el.classList.remove("is-active");
+      });
+      if (readout) {
+        readout.innerHTML = idle;
+        readout.classList.add("is-idle");
+      }
+    }
+
+    // Delegated, so it covers both the shapes in the drawing and the rows of
+    // the legend, in both directions.
+    ["mouseover", "focusin"].forEach(function (evt) {
+      section.addEventListener(evt, function (e) {
+        var target = e.target.closest ? e.target.closest("[data-part]") : null;
+        if (target) highlight(target.dataset.part);
+        else if (evt === "mouseover") reset();
+      });
+    });
+
+    ["mouseleave", "focusout"].forEach(function (evt) {
+      section.addEventListener(evt, reset);
+    });
+
+    // Touch: there is no hover, so a tap has to do the same thing.
+    section.addEventListener("click", function (e) {
+      var target = e.target.closest ? e.target.closest("[data-part]") : null;
+      if (target) highlight(target.dataset.part);
+    });
+
+    if (!switcher) return;
+
+    switcher.addEventListener("click", function (e) {
+      var btn = e.target.closest("[data-view]");
+      if (!btn) return;
+
+      var want = btn.dataset.view;
+      each(switcher.querySelectorAll("[data-view]"), function (b) {
+        b.setAttribute("aria-pressed", String(b === btn));
+      });
+      each(views, function (v) {
+        v.classList.toggle("is-active", v.dataset.view === want);
+      });
+      each(legends, function (l) {
+        l.classList.toggle("is-active", l.dataset.view === want);
+      });
+      reset();
+    });
+  });
+})();
+
 /* -- Latency metric switch ------------------------------------------------ */
 (function () {
   var group = document.getElementById("metric-switch");
@@ -1772,6 +2354,127 @@ const FILTER_JS = `/* Progressive enhancement: theme switching, the mobile nav, 
 })();
 `;
 
+/**
+ * Writes every diagram out as a standalone SVG file as well as inlining it.
+ * The inline copies are what the pages render; these are the reusable library —
+ * organised by subject, each carrying its own palette so it stands up outside
+ * the site, and each with a <desc> stating that it is a schematic rather than
+ * product photography.
+ */
+async function writeDiagramAssets(data) {
+  const base = path.join(OUT, "assets", "gamesir");
+  const dirs = ["controllers", "buttons", "diagrams", "logos"];
+  for (const d of dirs) await mkdir(path.join(base, d), { recursive: true });
+
+  let count = 0;
+  const put = async (dir, name, markup, title, width) => {
+    await writeFile(path.join(base, dir, `${name}.svg`), standaloneSvg(markup, { title, width }));
+    count++;
+  };
+
+  for (const c of data.controllers) {
+    for (const v of controllerViews(c)) {
+      await put(
+        "controllers",
+        `${c.id}-${v.id}`,
+        v.svg,
+        `${c.name} — ${v.label.toLowerCase()} layout schematic`,
+        900
+      );
+    }
+    await put("controllers", `${c.id}-outline`, silhouette(c), `${c.name} — outline`, 480);
+    await put(
+      "diagrams",
+      `${c.id}-connections`,
+      connectionFigure(c),
+      `${c.name} — supported connection modes`,
+      640
+    );
+  }
+
+  const buttons = {
+    dpad: [dpadFigure(), "D-pad: four switches, eight directions"],
+    "dpad-fenced": [dpadFigure({ fenced: true }), "Fenced D-pad"],
+    abxy: [faceButtonFigure(), "ABXY cluster in the Xbox arrangement"],
+    "abxy-layouts": [faceButtonFigure({ swap: true }), "ABXY in the Xbox and Nintendo arrangements"],
+    shoulders: [shoulderFigure(), "Bumpers and triggers"],
+    "shoulders-mini": [shoulderFigure({ mini: true }), "Bumpers, triggers and mini bumpers"],
+    "rear-buttons": [rearButtonFigure(), "Rear paddles"],
+    "rear-buttons-latched": [
+      rearButtonFigure({ latches: true }),
+      "Rear paddles with mechanical lock sliders",
+    ],
+    "centre-xbox": [centreButtonFigure({ variant: "xbox" }), "Centre cluster, Xbox naming"],
+    "centre-multiplatform": [
+      centreButtonFigure({ variant: "nintendo" }),
+      "Centre cluster, multiplatform naming",
+    ],
+    mapping: [mappingFigure(), "Mapping a rear button in three steps"],
+    ports: [portFigure({ audioJack: true }), "USB-C port and 3.5 mm headset jack"],
+  };
+  for (const [name, [markup, title]] of Object.entries(buttons)) {
+    await put("buttons", name, markup, title, 620);
+  }
+
+  const diagrams = {
+    "stick-potentiometer": [stickSensorFigure("pot"), "Potentiometer stick, in cross-section"],
+    "stick-hall-effect": [stickSensorFigure("hall"), "Hall Effect stick, in cross-section"],
+    "stick-tmr": [stickSensorFigure("tmr"), "TMR stick, in cross-section"],
+    deadzone: [deadzoneFigure(), "Centre error, inner deadzone and anti-deadzone compared"],
+    trigger: [triggerFigure(false), "Analog trigger travel"],
+    "trigger-stops": [triggerFigure(true), "Trigger travel shortened by a stop"],
+    indicator: [indicatorFigure(), "Controller indicator patterns"],
+    gyro: [gyroFigure(), "Gyroscope axes"],
+    "rumble-two-motors": [rumbleFigure("one in each grip"), "Two rumble motors"],
+    "rumble-four-motors": [
+      rumbleFigure("one in each grip and one in each trigger"),
+      "Four rumble motors",
+    ],
+    faceplate: [faceplateFigure(), "Magnetic faceplate lifting off the shell"],
+    "reference-layout": [
+      controllerViews(REFERENCE_PAD)[0].svg,
+      "Generic gamepad layout, front view",
+    ],
+  };
+  for (const [name, [markup, title]] of Object.entries(diagrams)) {
+    await put("diagrams", name, markup, title, 720);
+  }
+
+  // The site's own mark, not anyone else's. Kept here so the pages and the
+  // asset library are drawing the same thing.
+  await writeFile(
+    path.join(base, "logos", "gamesir-wiki-mark.svg"),
+    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="256" height="256" role="img" aria-label="GameSir Wiki mark">
+  <title>GameSir Wiki mark</title>
+  <desc>Mark of the unofficial community-maintained GameSir Wiki. Not a GameSir trademark.</desc>
+  <rect width="32" height="32" rx="8" fill="#e5343c"/>
+  <circle cx="16" cy="16" r="8.4" fill="none" stroke="#fff" stroke-width="2.5" opacity=".85"/>
+  <circle cx="19.4" cy="12.6" r="3.3" fill="#fff"/>
+</svg>
+`
+  );
+  count++;
+
+  await writeFile(
+    path.join(base, "README.md"),
+    `# Diagram assets
+
+Original schematic line art generated by \`build.mjs\` from \`src/diagrams.mjs\`. Regenerated on
+every build, so edit the generator rather than these files.
+
+- \`controllers/\` — front, back and top-edge schematics plus a plain outline, one set per model
+- \`buttons/\` — close-ups of individual controls
+- \`diagrams/\` — mechanisms and concepts: stick sensing, deadzones, trigger travel, indicators
+- \`logos/\` — this site's own mark
+
+These are schematics, not product photography, and no GameSir artwork, render or logo is
+reproduced in any of them. GameSir product names and trademarks belong to their owner.
+`
+  );
+
+  return count;
+}
+
 async function build() {
   const data = JSON.parse(await readFile(path.join(ROOT, "data", "controllers.json"), "utf8"));
 
@@ -1806,12 +2509,15 @@ async function build() {
     await writeFile(path.join(OUT, "controllers", `${c.id}.html`), pageController(c, data));
   }
 
+  const assets = await writeDiagramAssets(data);
+
   const issues = data.controllers.reduce((n, c) => n + (c.knownIssues?.length ?? 0), 0);
   const faqs = data.controllers.reduce((n, c) => n + (c.faq?.length ?? 0), 0);
 
   console.log(
     `Built ${data.controllers.length + 6} pages -> docs/\n` +
-      `  ${data.controllers.length} controllers, ${issues} documented issues, ${faqs} FAQ entries`
+      `  ${data.controllers.length} controllers, ${issues} documented issues, ${faqs} FAQ entries\n` +
+      `  ${assets} diagram assets -> docs/assets/gamesir/`
   );
 }
 

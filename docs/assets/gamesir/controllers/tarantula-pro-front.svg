@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 280" width="900" height="630" role="img" aria-label="GameSir Tarantula Pro — front layout schematic">
+  <title>GameSir Tarantula Pro — front layout schematic</title>
+  <desc>Original schematic diagram from the community-maintained GameSir Wiki. Not GameSir product photography.</desc>
+
+  <style>
+    :root { color-scheme: dark light; }
+    svg { --ink:#f2f3f5; --muted:#a6aab3; --dim:#71757e; --line:#34343e;
+          --s1:#121216; --s2:#17171d; --s3:#1e1e25; --inset:#0e0e12;
+          --brand:#e5343c; --good:#35d07f; --warn:#ffc247; --bad:#ff6b6b; --info:#64a8ff; }
+    @media (prefers-color-scheme: light) {
+      svg { --ink:#16171a; --muted:#585d66; --dim:#80858d; --line:#cdced5;
+            --s1:#fff; --s2:#fbfbfc; --s3:#f1f1f4; --inset:#f4f4f7;
+            --brand:#d6272e; --good:#0f7a44; --warn:#8a5a00; --bad:#c02626; --info:#175fd0; }
+    }
+  </style>
+  <style>
+    .d-canvas{fill:var(--s1)}
+    .d-body{fill:var(--s2);stroke:var(--line);stroke-width:2}
+    .d-panel{fill:none;stroke:var(--line);stroke-width:1;stroke-dasharray:3 4}
+    .d-part{fill:var(--s3);stroke:var(--line);stroke-width:1.4}
+    .d-part-2{fill:var(--inset);stroke:var(--line);stroke-width:1.4}
+    .d-part-inset{fill:var(--inset);stroke:var(--line);stroke-width:1}
+    .d-recess{fill:var(--inset);stroke:var(--line);stroke-width:1.4}
+    .d-port{fill:var(--inset);stroke:var(--muted);stroke-width:1.4}
+    .d-plate{fill:var(--s3);stroke:var(--brand);stroke-width:1.6;opacity:.9}
+    .d-btn,.d-btn-sm,.d-step{fill:var(--s3);stroke:var(--muted);stroke-width:1.3}
+    .d-btn-good{fill:color-mix(in srgb,var(--good) 22%,transparent);stroke:var(--good)}
+    .d-btn-bad{fill:color-mix(in srgb,var(--bad) 22%,transparent);stroke:var(--bad)}
+    .d-btn-info{fill:color-mix(in srgb,var(--info) 22%,transparent);stroke:var(--info)}
+    .d-btn-warn{fill:color-mix(in srgb,var(--warn) 22%,transparent);stroke:var(--warn)}
+    .d-btn-letter{fill:var(--ink);font:700 12px system-ui,sans-serif;text-anchor:middle;dominant-baseline:central}
+    .d-guide{fill:var(--s3);stroke:var(--muted);stroke-width:1.4}
+    .d-guide-ring{fill:none;stroke:var(--line);stroke-width:1.2}
+    .d-window{fill:var(--inset);stroke:var(--muted);stroke-width:1.2;stroke-dasharray:4 3}
+    .d-gear{fill:var(--s3);stroke:var(--brand);stroke-width:1.4}
+    .d-ring,.d-accent-ring{fill:none;stroke:var(--line);stroke-width:1.4}
+    .d-accent-ring{stroke:var(--brand)}
+    .d-swap-ring{fill:none;stroke:var(--brand);stroke-width:1.4;stroke-dasharray:5 4}
+    .d-seam{fill:none;stroke:var(--line);stroke-width:1.2;stroke-dasharray:5 5}
+    .d-rgb{fill:none;stroke:var(--brand);stroke-width:3.4;stroke-linecap:round;opacity:.75}
+    .d-texture{fill:none;stroke:var(--line);stroke-width:1.6;stroke-linecap:round}
+    .d-ink{fill:none;stroke:var(--muted);stroke-width:1.6}
+    .d-ink-thick{fill:none;stroke:var(--muted);stroke-width:3.4;stroke-linecap:round}
+    .d-leader,.d-dim-stroke{fill:none;stroke:var(--dim);stroke-width:1.1}
+    .d-travel{fill:none;stroke:var(--muted);stroke-width:1.4;stroke-dasharray:5 4}
+    .d-accent-stroke{fill:none;stroke:var(--brand);stroke-width:1.8;stroke-linecap:round}
+    .d-good-stroke{fill:none;stroke:var(--good);stroke-width:1.8}
+    .d-warn-stroke{fill:none;stroke:var(--warn);stroke-width:1.8}
+    .d-accent-fill{fill:var(--brand);stroke:none}
+    .d-good-fill{fill:var(--good);stroke:none}
+    .d-warn-fill{fill:var(--warn);stroke:none}
+    .d-bad-fill{fill:var(--bad);stroke:none}
+    .d-half-fill{fill:var(--muted);stroke:none}
+    .d-dim-fill{fill:var(--dim);stroke:none}
+    .d-deadzone{fill:color-mix(in srgb,var(--info) 26%,transparent);stroke:var(--info);stroke-width:1.2}
+    .d-antideadzone{fill:color-mix(in srgb,var(--brand) 20%,transparent);stroke:var(--brand);stroke-width:1.2}
+    .d-absent{fill:none;stroke:var(--dim);stroke-width:1.2;stroke-dasharray:4 3}
+    .d-slash,.d-slash-line{fill:none;stroke:var(--bad);stroke-width:1.8;stroke-linecap:round}
+    .d-lane{fill:var(--inset);stroke:var(--line);stroke-width:1.2}
+    .d-lane.on{fill:color-mix(in srgb,var(--good) 12%,transparent);stroke:var(--good)}
+    .d-lane-icon{color:var(--muted)}
+    .d-glyph{fill:var(--muted);stroke:none}
+    .d-glyph-stroke{fill:none;stroke:var(--muted);stroke-width:1.4;stroke-linecap:round}
+    .d-label{fill:var(--muted);font:600 10px system-ui,sans-serif;text-anchor:middle;dominant-baseline:central}
+    .d-label-sm{font-size:9px}
+    .d-label-xs{font-size:8px;fill:var(--dim)}
+    .d-label-left{text-anchor:start}
+    .d-title{fill:var(--ink);font:700 10px system-ui,sans-serif;text-anchor:middle;dominant-baseline:central;letter-spacing:.04em;text-transform:uppercase}
+    .d-accent-text{fill:var(--brand)}
+    .d-good-text{fill:var(--good)}
+    .d-dim-text{fill:var(--dim)}
+    .d-on-accent{fill:#fff}
+  </style>
+  <rect class="d-canvas" x="0" y="0" width="400" height="280"/>
+  <g class="d-hot" data-part="lt" tabindex="0" role="img" aria-label="Left trigger (LT). Analog trigger reporting how far it is pulled, not just whether it is pressed. Hall Effect + microswitch."><title>Left trigger (LT)</title><rect class="d-part" x="76" y="18" width="68" height="30" rx="15"/><text class="d-label" x="110" y="33">LT</text></g><g class="d-hot" data-part="rt" tabindex="0" role="img" aria-label="Right trigger (RT). Analog trigger, normally fire or accelerate. This model has trigger stops, so the travel can be shortened to a micro-switch click."><title>Right trigger (RT)</title><rect class="d-part" x="256" y="18" width="68" height="30" rx="15"/><text class="d-label" x="290" y="33">RT</text></g><g class="d-hot" data-part="lb" tabindex="0" role="img" aria-label="Left bumper (LB). Digital shoulder button above the left trigger. Reported as LB on Xbox and L1 elsewhere."><title>Left bumper (LB)</title><rect class="d-part-2" x="66" y="44" width="86" height="28" rx="14"/><text class="d-label" x="105" y="57">LB</text></g><g class="d-hot" data-part="rb" tabindex="0" role="img" aria-label="Right bumper (RB). Digital shoulder button above the right trigger. Reported as RB on Xbox and R1 elsewhere."><title>Right bumper (RB)</title><rect class="d-part-2" x="248" y="44" width="86" height="28" rx="14"/><text class="d-label" x="295" y="57">RB</text></g><path class="d-body" d="M 200 64 C 178 64 152 60 124 64 C 96 68 70 80 52 104 C 38 124 33 148 36 172 C 39 202 50 234 72 254 C 90 270 114 274 132 262 C 146 253 152 240 156 220 C 160 210 170 204 186 203 L 214 203 C 230 204 240 210 244 220 C 248 240 254 253 268 262 C 286 274 310 270 328 254 C 350 234 361 202 364 172 C 367 148 362 124 348 104 C 330 80 304 68 276 64 C 248 60 222 64 200 64 Z"/><g class="d-hot" data-part="dpad" tabindex="0" role="img" aria-label="D-pad. Eight-way directional pad, used for menus and weapon or item wheels. Tactile switch."><title>D-pad</title><path class="d-part" d="M 91.03 89 H 108.97 V 103.03 H 123 V 120.97 H 108.97 V 135 H 91.03 V 120.97 H 77 V 103.03 H 91.03 Z"/><g class="d-glyph d-glyph-stroke"><path d="M100 95l-3 4h6zM100 129l-3-4h6zM83 112l4-3v6zM117 112l-4-3v6z"/></g></g><g class="d-hot" data-part="face" tabindex="0" role="img" aria-label="ABXY face buttons. The four primary action buttons. Four membrane ABXY buttons with no printed symbols."><title>ABXY face buttons</title><circle class="d-btn d-btn-warn" cx="300" cy="85" r="12"/><circle class="d-btn d-btn-bad" cx="327" cy="112" r="12"/><circle class="d-btn d-btn-good" cx="300" cy="139" r="12"/><circle class="d-btn d-btn-info" cx="273" cy="112" r="12"/></g><g class="d-hot" data-part="ls" tabindex="0" role="img" aria-label="Left stick. Movement axis, and a digital click (LS/L3) when pressed. Sensor: Mag-Res TMR."><title>Left stick</title><circle class="d-recess" cx="140" cy="186" r="25"/><circle class="d-part" cx="140" cy="186" r="16"/><circle class="d-part-inset" cx="140" cy="186" r="8"/><text class="d-label d-label-sm" x="140" y="186.5">LS</text></g><g class="d-hot" data-part="rs" tabindex="0" role="img" aria-label="Right stick. Camera and aim axis, with a click (RS/R3). Same sensor assembly as the left stick. Measured centre error: 0.6% left / 1.0% right (cable); 1.7% left / 1.5% right (dongle)."><title>Right stick</title><circle class="d-recess" cx="260" cy="186" r="25"/><circle class="d-part" cx="260" cy="186" r="16"/><circle class="d-part-inset" cx="260" cy="186" r="8"/><text class="d-label d-label-sm" x="260" y="186.5">RS</text></g><g class="d-hot" data-part="view" tabindex="0" role="img" aria-label="View button. Opens in-game maps and menus. It is also the first button in most of this family's calibration and reset combinations, so its position matters more than its everyday use."><title>View button</title><circle class="d-btn-sm" cx="152" cy="74" r="10"/><g class="d-glyph"><rect x="146" y="69.5" width="7.5" height="6" rx="1.2"/><rect x="150.5" y="72.5" width="7.5" height="6" rx="1.2"/></g></g><g class="d-hot" data-part="menu" tabindex="0" role="img" aria-label="Menu button. Pause and start. Held with View and the guide button it enters the calibration and reset sequences documented on this page."><title>Menu button</title><circle class="d-btn-sm" cx="248" cy="74" r="10"/><g class="d-glyph d-glyph-stroke"><path d="M243 70.5h10M243 74h10M243 77.5h10"/></g></g><g class="d-hot" data-part="faceSwap" tabindex="0" role="img" aria-label="Rotating face-button gear. A motorised internal gear physically rotates the ABXY cluster between the Xbox and Nintendo arrangements, visible through a window in the shell."><title>Rotating face-button gear</title><rect class="d-window" x="178" y="104" width="44" height="36" rx="8"/><circle class="d-gear" cx="200" cy="122" r="13"/><circle class="d-part-inset" cx="200" cy="122" r="4.5"/><path class="d-ink" d="M208.0 122.0L212.0 122.0M205.7 127.7L208.5 130.5M200.0 130.0L200.0 134.0M194.3 127.7L191.5 130.5M192.0 122.0L188.0 122.0M194.3 116.3L191.5 113.5M200.0 114.0L200.0 110.0M205.7 116.3L208.5 113.5"/></g><g class="d-hot" data-part="guide" tabindex="0" role="img" aria-label="Home button. Powers the controller and opens the connected platform's home screen. The surrounding indicator reports pairing and connection state."><title>Home button</title><circle class="d-guide" cx="200" cy="176" r="12"/><circle class="d-guide-ring" cx="200" cy="176" r="7.5"/><circle class="d-accent-fill" cx="200" cy="176" r="4.6"/></g><g class="d-hot" data-part="extraFront" tabindex="0" role="img" aria-label="Extra front controls (C1–C4, T1–T3). Additional remappable inputs around the centre panel. Each can be assigned a single button or a sequence of up to twelve."><title>Extra front controls (C1–C4, T1–T3)</title><circle class="d-btn-sm" cx="184" cy="92" r="7.5"/><text class="d-label d-label-xs" x="184" y="92.4">C1</text><circle class="d-btn-sm" cx="216" cy="92" r="7.5"/><text class="d-label d-label-xs" x="216" y="92.4">C2</text><circle class="d-btn-sm" cx="184" cy="152" r="7.5"/><text class="d-label d-label-xs" x="184" y="152.4">C3</text><circle class="d-btn-sm" cx="216" cy="152" r="7.5"/><text class="d-label d-label-xs" x="216" y="152.4">C4</text><rect class="d-btn-sm" x="160" y="111" width="12" height="22" rx="6"/><text class="d-label d-label-xs" x="166" y="106">T1</text><rect class="d-btn-sm" x="228" y="111" width="12" height="22" rx="6"/><text class="d-label d-label-xs" x="234" y="106">T2</text></g><g class="d-hot" data-part="rgb" tabindex="0" role="img" aria-label="RGB lighting. RGB strip, RGB Home indicator and illuminated face buttons."><title>RGB lighting</title><path class="d-rgb" d="M 58 150 C 54 178 60 208 72 232"/><path class="d-rgb" d="M 342 150 C 346 178 340 208 328 232"/></g>
+</svg>
