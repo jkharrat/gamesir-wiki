@@ -40,24 +40,50 @@ const boolCell = (v) =>
   v ? '<td class="yes">Yes</td>' : '<td class="no">No</td>';
 
 /**
- * Comparison-table cell. Source values are often full prose, which makes the
- * table unreadable, so this reduces a value to its first clause and exposes
- * the full text as a tooltip. Detail pages still show everything.
+ * Reduces a prose value to something that fits a table cell or a pill: first
+ * clause only, trailing parenthetical dropped, then hard-clipped.
  */
-const shortCell = (v) => {
-  if (v === null || v === undefined || v === "") return '<td class="na">&mdash;</td>';
-
-  const full = String(v);
-  let s = full.split(/\.\s+/)[0].replace(/\.$/, "");
+const condense = (v, max) => {
+  let s = String(v).split(/\.\s+/)[0].replace(/\.$/, "");
   s = s.replace(/\s*\([^)]*\)\s*$/, "");
-
-  const clipped =
-    s.length > 72 ? s.slice(0, 69).replace(/[\s,;:—-]+$/, "") + "\u2026" : s;
-
-  return `<td${clipped === full ? "" : ` title="${esc(full)}"`}>${esc(clipped)}</td>`;
+  return s.length > max ? s.slice(0, max - 1).replace(/[\s,;:—-]+$/, "") + "\u2026" : s;
 };
 
-const row = (k, v) => `<div class="spec-row"><span class="spec-key">${esc(k)}</span>${val(v)}</div>`;
+/**
+ * Comparison-table cell. Controllers carry curated `short` values for the
+ * fields whose full text is prose; anything else gets condensed. Either way
+ * the untruncated text stays available as a tooltip, and detail pages always
+ * show it in full.
+ */
+const shortCell = (v, full = v) => {
+  if (v === null || v === undefined || v === "") return '<td class="na">&mdash;</td>';
+
+  const shown = condense(v, 40);
+  const complete = full === null || full === undefined ? "" : String(full);
+
+  return `<td${shown === complete ? "" : ` title="${esc(complete)}"`}>${esc(shown)}</td>`;
+};
+
+/**
+ * Spec rows put the value flush right, which reads well for "2024" or "$79.99"
+ * but turns a sourced caveat into a ragged right-aligned paragraph. Anything
+ * long stacks under its label and reads left instead.
+ */
+const row = (k, v) => {
+  const long = v !== null && v !== undefined && String(v).length > 32;
+  return `<div class="spec-row${long ? " is-long" : ""}"><span class="spec-key">${esc(
+    k
+  )}</span>${val(v)}</div>`;
+};
+
+/**
+ * Long prose notes sit behind a toggle. Inline they dwarfed the specs they
+ * annotate and left the spec cards at wildly uneven heights.
+ */
+const noteDetail = (label, text) =>
+  text
+    ? `<details class="spec-note"><summary>${esc(label)}</summary><p>${esc(text)}</p></details>`
+    : "";
 
 /** Wraps <kbd> around button-combo notation so procedures are scannable. */
 const kbdify = (text) =>
@@ -73,6 +99,132 @@ const parseMs = (s) => {
   const m = /([\d.]+)\s*ms/.exec(String(s ?? ""));
   return m ? parseFloat(m[1]) : null;
 };
+
+/** Full-width reference for every latency bar, so bars compare across models. */
+const MS_SCALE = 16;
+
+/** Colour band for a latency figure. Thresholds are editorial, not sourced. */
+const msClass = (ms) => (ms === null ? "" : ms <= 3 ? "is-good" : ms <= 8 ? "is-warn" : "is-bad");
+
+/**
+ * Connection families used as the columns of the latency comparison. Measured
+ * entries name their mode in prose ("2.4 GHz dongle (XInput)"), so they are
+ * matched by keyword. A controller can have several entries in one family —
+ * the Kaleid is measured at three different report rates over cable — so
+ * callers get the whole list and decide what to show.
+ */
+const MODE_FAMILIES = [
+  { key: "wired", label: "Wired", test: /wired|cable/i },
+  { key: "dongle", label: "2.4 GHz", test: /2\.4|dongle|receiver/i },
+  { key: "bluetooth", label: "Bluetooth", test: /bluetooth|\bbt\b/i },
+];
+
+const familyOf = (mode) => MODE_FAMILIES.find((f) => f.test.test(String(mode ?? "")))?.key ?? null;
+
+/**
+ * Topic buckets for the troubleshooting and FAQ indexes. Sixty issues and
+ * seventy-five questions in one list is unusable without a way to narrow it,
+ * and "which controller" is only half of how people arrive — the other half
+ * is "my headset stopped working". Entries can land in several buckets.
+ */
+const TOPICS = [
+  { key: "detection", label: "Not detected", test: /not detect|does not detect|invisible|no input|not recognis|does not appear|which app|nexus or|wrong (one|app)/i },
+  { key: "sticks", label: "Sticks & drift", test: /drift|dead ?zone|center|centre|calibrat|stick (sensor|range|resolution)|twitchy/i },
+  { key: "audio", label: "Audio & mic", test: /headset|audio|microphone|\bmic\b|3\.5 ?mm|earphone|volume/i },
+  { key: "connection", label: "Connection drops", test: /disconnect|reconnect|drop out|pair|bluetooth|dongle|2\.4 ?ghz|receiver|wired or wireless/i },
+  { key: "buttons", label: "Buttons & triggers", test: /back button|rear button|paddle|bumper|d-pad|face button|trigger|hair trigger|double.?click|remap|turbo/i },
+  { key: "power", label: "Power & firmware", test: /firmware|brick|power on|power off|will not turn|won't turn|unresponsive|reset|battery|charg/i },
+  { key: "polling", label: "Polling rate", test: /polling|report rate|1000 ?hz|8000 ?hz|250 ?hz/i },
+  { key: "profiles", label: "Profiles & mapping", test: /profile|configuration [1-4]|preset|mapping|gyro|light|rgb|led/i },
+  // Deliberately narrow: matching "Steam" or "Android" loosely would sweep in
+  // most of the list and make the bucket useless.
+  { key: "platforms", label: "Platform support", test: /platform|compatib|work(s)? with (xbox|switch|ios|android|steam)|steam input|desktop layout/i },
+];
+
+/** Space-separated topic keys for an entry, for the client-side filter. */
+const topicsFor = (...text) => {
+  const blob = text.filter(Boolean).join(" ");
+  return TOPICS.filter((t) => t.test.test(blob)).map((t) => t.key);
+};
+
+/** Topic dropdown options, counting how many entries land in each bucket. */
+function topicOptions(entries, allLabel) {
+  const counts = new Map();
+  for (const e of entries) for (const k of e.topics) counts.set(k, (counts.get(k) ?? 0) + 1);
+
+  return [`<option value="all">${esc(allLabel)}</option>`]
+    .concat(
+      TOPICS.filter((t) => counts.get(t.key)).map(
+        (t) => `<option value="${t.key}">${esc(t.label)} (${counts.get(t.key)})</option>`
+      )
+    )
+    .join("\n        ");
+}
+
+/** Model dropdown options. A controller with no entries would filter to nothing. */
+function modelOptions(entries, controllers) {
+  const counts = new Map();
+  for (const e of entries) counts.set(e.modelId, (counts.get(e.modelId) ?? 0) + 1);
+
+  return [`<option value="all">All models</option>`]
+    .concat(
+      controllers
+        .filter((c) => counts.get(c.id))
+        .map((c) => `<option value="${esc(c.id)}">${esc(c.name)} (${counts.get(c.id)})</option>`)
+    )
+    .join("\n        ");
+}
+
+/**
+ * Filter toolbar for the troubleshooting and FAQ indexes. Both dimensions were
+ * chip rows, which wrapped to five ragged lines and pushed the list itself
+ * below the fold; native selects keep the same information on one line.
+ */
+function filterToolbar({ topicLabel, topicAllLabel, entries, controllers, placeholder, searchAria }) {
+  return `<div class="filter-bar">
+    <div class="filter-field is-search">
+      <label class="filter-label" for="ts-search">Search</label>
+      <input class="search-input" id="ts-search" type="search" placeholder="${placeholder}" aria-label="${esc(searchAria)}">
+    </div>
+
+    <div class="filter-field is-select">
+      <label class="filter-label" for="ts-topic">${esc(topicLabel)}</label>
+      <select class="filter-select" id="ts-topic">
+        ${topicOptions(entries, topicAllLabel)}
+      </select>
+    </div>
+
+    <div class="filter-field is-select">
+      <label class="filter-label" for="ts-model">Model</label>
+      <select class="filter-select" id="ts-model">
+        ${modelOptions(entries, controllers)}
+      </select>
+    </div>
+
+    <div class="filter-actions">
+      <span class="result-count" id="ts-count"></span>
+      <button class="filter-clear" type="button" id="ts-clear" hidden>Clear filters</button>
+    </div>
+  </div>`;
+}
+
+/** Groups a controller's latency entries by connection family, fastest first. */
+function latencyByFamily(c) {
+  const out = {};
+  for (const l of c.measuredLatency ?? []) {
+    const key = familyOf(l.mode);
+    if (!key) continue;
+    (out[key] ??= []).push(l);
+  }
+  for (const list of Object.values(out)) {
+    list.sort(
+      (a, b) =>
+        (parseMs(a.stick) ?? parseMs(a.button) ?? Infinity) -
+        (parseMs(b.stick) ?? parseMs(b.button) ?? Infinity)
+    );
+  }
+  return out;
+}
 
 const stickBadgeClass = (tech = "") => {
   const t = tech.toLowerCase();
@@ -98,7 +250,9 @@ const connSummary = (c) => {
 
 const NAV = [
   { href: "index.html", label: "Home" },
+  { href: "index.html#controllers", label: "Controllers" },
   { href: "compare.html", label: "Compare" },
+  { href: "latency.html", label: "Latency" },
   { href: "troubleshooting.html", label: "Troubleshooting" },
   { href: "faq.html", label: "FAQ" },
   { href: "about.html", label: "About" },
@@ -118,6 +272,7 @@ function layout({ title, description, current, base = "", body, bodyEnd = "" }) 
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(description)}">
 <link rel="stylesheet" href="${base}assets/css/style.css">
+<script>document.documentElement.className += " js";</script>
 </head>
 <body>
 
@@ -148,6 +303,7 @@ ${body}
   </div>
 </footer>
 ${bodyEnd}
+<script src="${base}assets/js/filter.js" defer></script>
 </body>
 </html>
 `;
@@ -155,47 +311,66 @@ ${bodyEnd}
 
 /* ----------------------------------------------------------- components -- */
 
+/**
+ * Badges must stay pill-sized, so they read from the curated `short` values
+ * rather than the prose fields, which run to whole paragraphs on some models.
+ */
 function controllerBadges(c) {
   const b = [];
-  if (c.tier) b.push(`<span class="badge tier-${esc(c.tier)}">${esc(tierLabel(c.tier))}</span>`);
-  if (c.sticks?.tech)
-    b.push(`<span class="badge ${stickBadgeClass(c.sticks.tech)}">${esc(c.sticks.tech)}</span>`);
-  if (c.pollingRate?.pc)
-    b.push(`<span class="badge badge-info">${esc(String(c.pollingRate.pc).split(" (")[0])}</span>`);
-  if (c.gyro?.present) b.push(`<span class="badge">Gyro</span>`);
-  if (c.software) b.push(`<span class="badge">${esc(c.software)}</span>`);
+  const pill = (text, cls = "badge", title = null) =>
+    b.push(
+      `<span class="${cls}"${title && title !== text ? ` title="${esc(title)}"` : ""}>${esc(
+        condense(text, 22)
+      )}</span>`
+    );
+
+  if (c.tier) pill(tierLabel(c.tier), `badge tier-${esc(c.tier)}`);
+  const sticks = c.short?.sticks ?? c.sticks?.tech;
+  if (sticks) pill(sticks, `badge ${stickBadgeClass(sticks)}`, c.sticks?.tech);
+  const polling = c.short?.polling ?? c.pollingRate?.pc;
+  if (polling) pill(polling, "badge badge-info", c.pollingRate?.pc);
+  if (c.gyro?.present) pill("Gyro");
+  const software = c.short?.software ?? c.software;
+  if (software) pill(software, "badge", c.software);
+
   return `<div class="badges">${b.join("")}</div>`;
 }
 
-function latencyBars(c) {
-  if (!Array.isArray(c.measuredLatency) || !c.measuredLatency.length) return "";
+/**
+ * One controller's measured latency as a compact table. Stacking a labelled
+ * bar per mode made this the tallest block on the page for no extra
+ * information, so the figures sit in columns with the bar as a fifth column.
+ */
+function latencyTable(c) {
+  if (!Array.isArray(c.measuredLatency) || !c.measuredLatency.length) {
+    return `<p class="text-muted">No independent latency measurement has been published for this model.</p>`;
+  }
 
-  const SCALE = 16; // ms — full-width reference so bars are comparable across models
-  const bars = c.measuredLatency
+  const rows = c.measuredLatency
     .map((l) => {
       const ms = parseMs(l.stick) ?? parseMs(l.button);
-      const pct = ms === null ? 0 : Math.min(100, (ms / SCALE) * 100);
-      const cls = ms === null ? "" : ms <= 3 ? "is-good" : ms <= 8 ? "is-warn" : "is-bad";
-      const nums = [l.button ? `button ${l.button}` : null, l.stick ? `stick ${l.stick}` : null, l.polling]
-        .filter(Boolean)
-        .join(" \u00b7 ");
-      // Draw no bar at all when there is no latency figure, rather than an
-      // empty track that reads as a measured zero.
+      // No bar at all when there is no figure — an empty track reads as a
+      // measured zero.
       const bar =
         ms === null
-          ? ""
-          : `\n  <div class="bar-track"><div class="bar-fill ${cls}" style="width:${pct.toFixed(1)}%"></div></div>`;
-      return `<div class="latency-row">
-  <div class="latency-head"><span class="latency-mode">${esc(l.mode)}</span><span class="latency-num">${esc(nums)}</span></div>${bar}
-</div>`;
+          ? '<td class="na">&mdash;</td>'
+          : `<td class="bar-cell"><span class="bar-track"><span class="bar-fill ${msClass(
+              ms
+            )}" style="width:${Math.min(100, (ms / MS_SCALE) * 100).toFixed(1)}%"></span></span></td>`;
+
+      return `<tr><th>${esc(l.mode)}</th>${cell(l.button)}${cell(l.stick)}${cell(l.polling)}${bar}</tr>`;
     })
     .join("\n");
 
-  return `<h3 id="latency">Measured latency</h3>
-<p class="section-intro small">Bar length reflects stick latency on a fixed 0&ndash;16&nbsp;ms scale, so bars are comparable between models. Measured and published by gamepadla.com; polling rate and latency are measured by different methods and are not the same thing.</p>
-<div class="latency-list">
-${bars}
-</div>`;
+  return `<div class="table-scroll">
+  <table class="spec-table latency-table">
+    <thead><tr><th>Connection mode</th><th>Button</th><th>Stick</th><th>Polling</th><th>Stick latency</th></tr></thead>
+    <tbody>
+${rows}
+    </tbody>
+  </table>
+</div>
+<p class="small text-dim">Bars use a fixed 0&ndash;16&nbsp;ms scale so they compare with every other page on this site; a full-width bar exceeds 16&nbsp;ms. Measured and published by gamepadla.com from a single unit on one firmware. Polling rate and latency are measured by different methods and are not the same thing. <a href="../latency.html">Compare against every other model</a>.</p>`;
 }
 
 function issueItem(iss, modelName = null) {
@@ -225,17 +400,23 @@ function pageIndex(data) {
   const cs = data.controllers;
 
   const cards = cs
-    .map(
-      (c) => `<a class="controller-card" href="controllers/${esc(c.id)}.html">
+    .map((c) => {
+      // Some launch prices are written as a sentence covering bundles and
+      // dates; the card only has room for the headline figure.
+      const price = c.short?.msrp ?? (c.msrp ? condense(c.msrp, 18) : null);
+
+      return `<a class="controller-card" href="controllers/${esc(c.id)}.html">
   ${controllerBadges(c)}
   <h3>${esc(c.name)}</h3>
   <p class="tagline">${esc(c.tagline)}</p>
   <div class="card-foot">
     <span>${esc(connSummary(c) ?? "")}</span>
-    <span>${c.msrp ? esc(c.msrp) : ""}</span>
+    <span class="card-price"${
+      c.msrp && c.msrp !== price ? ` title="${esc(c.msrp)}"` : ""
+    }>${price ? esc(price) : ""}</span>
   </div>
-</a>`
-    )
+</a>`;
+    })
     .join("\n");
 
   const issueCount = cs.reduce((n, c) => n + (c.knownIssues?.length ?? 0), 0);
@@ -336,110 +517,213 @@ function pageController(c, data) {
     )
     .join("\n");
 
+  // Panels rather than one continuous page: a fully documented controller runs
+  // to ~25 spec rows, 8 issues, 9 FAQ entries and 16 sources, which is far too
+  // much to scroll through when you arrived looking for one button combination.
+  const panels = [
+    {
+      id: "specs",
+      label: "Specifications",
+      html: `<h2>Specifications</h2>
+  <p class="section-intro">Values that could not be verified against a source read &ldquo;not documented&rdquo; rather than being estimated.</p>
+  <div class="spec-columns">
+    <div class="spec-card">
+      <h3>Overview</h3>
+      <div class="spec-grid">
+        ${row("Released", c.releaseYear)}
+        ${row("Launch price", c.short?.msrp ?? c.msrp)}
+        ${row("Weight", c.short?.weight ?? c.weight)}
+        ${row("Dimensions", c.dimensions)}
+        ${row("Platforms", c.short?.platforms ?? ((c.platforms ?? []).join(", ") || null))}
+        ${row("Configuration app", c.short?.software ?? c.software)}
+      </div>
+      ${noteDetail(
+        "Conflicting published weights",
+        c.short?.weight && c.weight !== c.short.weight ? c.weight : null
+      )}
+      ${noteDetail("Which app, and the exact platform wording", c.software)}
+    </div>
+
+    <div class="spec-card">
+      <h3>Sticks</h3>
+      <div class="spec-grid">
+        ${row("Sensor technology", s.tech)}
+        ${row("Resolution", s.resolution)}
+        ${row("Durability", s.durability)}
+        ${row("Measured center error", s.measuredCenterError)}
+        ${row("Measured resolution", s.measuredResolution)}
+      </div>
+      ${noteDetail("How these measurements were arrived at", s.measuredNotes)}
+    </div>
+
+    <div class="spec-card">
+      <h3>Triggers, D-pad and buttons</h3>
+      <div class="spec-grid">
+        ${row("Trigger technology", t.tech)}
+        ${row("Trigger stops", t.triggerStops === null || t.triggerStops === undefined ? null : t.triggerStops ? "Yes" : "No")}
+        ${row("D-pad", c.short?.dpad ?? c.dpad)}
+        ${row("Face buttons", c.faceButtons)}
+        ${row("Rear buttons", eb.backButtons)}
+        ${row("Extra bumpers", eb.extraBumpers)}
+      </div>
+      ${noteDetail("Trigger detail", t.notes)}
+      ${noteDetail("Mapping the extra buttons", eb.notes)}
+    </div>
+
+    <div class="spec-card">
+      <h3>Connectivity</h3>
+      <div class="spec-grid">
+        ${row("Connection modes", connSummary(c))}
+        ${row("Polling rate (PC)", c.short?.polling ?? c.pollingRate?.pc)}
+        ${row("Polling rate (Xbox)", c.pollingRate?.xbox)}
+        ${row("Audio jack", c.audioJack === null || c.audioJack === undefined ? null : c.audioJack ? "3.5 mm" : "None")}
+        ${row("Gyro", c.gyro?.present ? "Yes" : c.gyro?.present === false ? "No" : null)}
+        ${row("Rumble", c.rumble)}
+      </div>
+      ${noteDetail("Which modes work on which platform", c.connectivity?.notes)}
+      ${noteDetail("Polling rate caveats", c.pollingRate?.notes)}
+      ${noteDetail("Gyro detail", c.gyro?.notes)}
+    </div>
+
+    <div class="spec-card">
+      <h3>Battery and build</h3>
+      <div class="spec-grid">
+        ${row("Battery capacity", c.battery?.capacity)}
+        ${row("Claimed battery life", c.short?.claimedLife ?? c.battery?.claimedLife)}
+        ${row("Swappable faceplates", c.faceplates?.swappable === null || c.faceplates?.swappable === undefined ? null : c.faceplates.swappable ? "Yes" : "No")}
+      </div>
+      ${noteDetail("Battery detail", c.battery?.notes)}
+      ${noteDetail("Faceplate detail", c.faceplates?.notes)}
+    </div>
+  </div>`,
+    },
+    {
+      id: "performance",
+      label: "Performance",
+      html: `<h2>Measured performance</h2>
+  <p class="section-intro">Independent measurement, kept separate from the manufacturer's own figures above.</p>
+  ${latencyTable(c)}`,
+    },
+    {
+      id: "features",
+      label: "Features",
+      count: (c.notableFeatures ?? []).length,
+      html: (c.notableFeatures ?? []).length
+        ? `<h2>Notable features</h2>
+  <ul>
+${c.notableFeatures.map((f) => `    <li>${esc(f)}</li>`).join("\n")}
+  </ul>`
+        : "",
+    },
+    {
+      id: "issues",
+      label: "Problems",
+      count: (c.knownIssues ?? []).length,
+      html: issues
+        ? `<h2>Known issues and fixes</h2>
+  <p class="section-intro">Documented problems with documented solutions. Each entry cites where the fix comes from.</p>
+  <div class="accordion">
+${issues}
+  </div>`
+        : "",
+    },
+    {
+      id: "faq",
+      label: "FAQ",
+      count: (c.faq ?? []).length,
+      html: faqs
+        ? `<h2>Frequently asked questions</h2>
+  <div class="accordion">
+${faqs}
+  </div>`
+        : "",
+    },
+    {
+      id: "sources",
+      label: "Sources",
+      count: (c.sources ?? []).length,
+      html: sources
+        ? `<h2>Sources</h2>
+  <p class="section-intro">Everything on this page traces back to one of these.</p>
+  <ul class="source-list">
+${sources}
+  </ul>`
+        : "",
+    },
+  ].filter((p) => p.html);
+
+  const tabs = panels
+    .map(
+      (p, i) =>
+        `<a href="#${p.id}" data-tab="${p.id}"${i === 0 ? ' aria-current="true"' : ""}>${esc(
+          p.label
+        )}${p.count ? `<span class="tab-count">${p.count}</span>` : ""}</a>`
+    )
+    .join("");
+
+  const sections = panels
+    .map(
+      (p, i) =>
+        `<section class="tab-panel${i === 0 ? " is-active" : ""}" id="${p.id}" data-panel="${p.id}">
+  ${p.html}
+</section>`
+    )
+    .join("\n");
+
+  // Reaching a controller page previously meant going back to the home page
+  // grid, so every page carries its neighbours and the full list.
+  const siblings = data.controllers;
+  const at = siblings.findIndex((x) => x.id === c.id);
+  const prev = siblings[(at - 1 + siblings.length) % siblings.length];
+  const next = siblings[(at + 1) % siblings.length];
+
+  const others = siblings
+    .filter((x) => x.id !== c.id)
+    .map(
+      (x) =>
+        `<a class="switch-item" href="${esc(x.id)}.html">
+      <span class="switch-name">${esc(x.name)}</span>
+      <span class="switch-meta">${[x.short?.sticks, x.short?.msrp]
+        .filter(Boolean)
+        .map(esc)
+        .join(" &middot; ")}</span>
+    </a>`
+    )
+    .join("\n");
+
   const body = `<div class="wrap narrow">
   <div class="page-head">
-    <p class="breadcrumb"><a href="../index.html">Home</a> / ${esc(c.name)}</p>
+    <p class="breadcrumb"><a href="../index.html">Home</a> / <a href="../index.html#controllers">Controllers</a> / ${esc(
+      c.name
+    )}</p>
     <p class="eyebrow">${esc(tierLabel(c.tier))} &middot; ${esc(c.category ?? "")}</p>
     <h1>${esc(c.fullName ?? c.name)}</h1>
     <p class="lede">${esc(c.tagline)}</p>
     ${controllerBadges(c)}
   </div>
 
-  <h2 id="specs">Specifications</h2>
-  <div class="spec-section">
-    <h3>Overview</h3>
-    <div class="spec-grid">
-      ${row("Released", c.releaseYear)}
-      ${row("Launch price", c.msrp)}
-      ${row("Weight", c.weight)}
-      ${row("Dimensions", c.dimensions)}
-      ${row("Software", c.software)}
-      ${row("Platforms", (c.platforms ?? []).join(", ") || null)}
+  <nav class="tabs" id="controller-tabs" aria-label="Sections of this page">${tabs}</nav>
+
+${sections}
+
+  <nav class="pager" aria-label="Nearby controllers">
+    <a class="pager-link" href="${esc(prev.id)}.html" rel="prev">
+      <span class="pager-dir">&larr; Previous</span>
+      <span class="pager-name">${esc(prev.name)}</span>
+    </a>
+    <a class="pager-link is-next" href="${esc(next.id)}.html" rel="next">
+      <span class="pager-dir">Next &rarr;</span>
+      <span class="pager-name">${esc(next.name)}</span>
+    </a>
+  </nav>
+
+  <details class="switcher">
+    <summary>Jump to another controller</summary>
+    <div class="switch-grid">
+${others}
     </div>
-
-    <h3>Sticks</h3>
-    <div class="spec-grid">
-      ${row("Sensor technology", s.tech)}
-      ${row("Resolution", s.resolution)}
-      ${row("Durability", s.durability)}
-      ${row("Measured center error", s.measuredCenterError)}
-      ${row("Measured resolution", s.measuredResolution)}
-    </div>
-    ${s.measuredNotes ? `<div class="note"><p>${esc(s.measuredNotes)}</p></div>` : ""}
-
-    <h3>Triggers, D-pad and buttons</h3>
-    <div class="spec-grid">
-      ${row("Trigger technology", t.tech)}
-      ${row("Trigger stops", t.triggerStops === null || t.triggerStops === undefined ? null : t.triggerStops ? "Yes" : "No")}
-      ${row("D-pad", c.dpad)}
-      ${row("Face buttons", c.faceButtons)}
-      ${row("Rear buttons", eb.backButtons)}
-      ${row("Extra bumpers", eb.extraBumpers)}
-    </div>
-    ${t.notes ? `<p class="small text-muted">${esc(t.notes)}</p>` : ""}
-    ${eb.notes ? `<p class="small text-muted">${esc(eb.notes)}</p>` : ""}
-
-    <h3>Connectivity and performance</h3>
-    <div class="spec-grid">
-      ${row("Connection modes", connSummary(c))}
-      ${row("Polling rate (PC)", c.pollingRate?.pc)}
-      ${row("Polling rate (Xbox)", c.pollingRate?.xbox)}
-      ${row("Audio jack", c.audioJack === null || c.audioJack === undefined ? null : c.audioJack ? "3.5 mm" : "None")}
-      ${row("Gyro", c.gyro?.present ? "Yes" : c.gyro?.present === false ? "No" : null)}
-      ${row("Rumble", c.rumble)}
-    </div>
-    ${c.connectivity?.notes ? `<div class="note"><p>${esc(c.connectivity.notes)}</p></div>` : ""}
-    ${c.pollingRate?.notes ? `<p class="small text-muted">${esc(c.pollingRate.notes)}</p>` : ""}
-    ${c.gyro?.notes ? `<p class="small text-muted">Gyro: ${esc(c.gyro.notes)}</p>` : ""}
-
-    <h3>Battery and build</h3>
-    <div class="spec-grid">
-      ${row("Battery capacity", c.battery?.capacity)}
-      ${row("Claimed battery life", c.battery?.claimedLife)}
-      ${row("Swappable faceplates", c.faceplates?.swappable === null || c.faceplates?.swappable === undefined ? null : c.faceplates.swappable ? "Yes" : "No")}
-    </div>
-    ${c.battery?.notes ? `<p class="small text-muted">${esc(c.battery.notes)}</p>` : ""}
-    ${c.faceplates?.notes ? `<p class="small text-muted">${esc(c.faceplates.notes)}</p>` : ""}
-  </div>
-
-  ${latencyBars(c)}
-
-  ${
-    (c.notableFeatures ?? []).length
-      ? `<h2 id="features">Notable features</h2>
-<ul>
-${c.notableFeatures.map((f) => `  <li>${esc(f)}</li>`).join("\n")}
-</ul>`
-      : ""
-  }
-
-  ${
-    issues
-      ? `<h2 id="issues">Known issues and fixes</h2>
-<p class="section-intro">Documented problems with documented solutions. Each entry cites where the fix comes from.</p>
-<div class="accordion">
-${issues}
-</div>`
-      : ""
-  }
-
-  ${
-    faqs
-      ? `<h2 id="faq">Frequently asked questions</h2>
-<div class="accordion">
-${faqs}
-</div>`
-      : ""
-  }
-
-  ${
-    sources
-      ? `<h2 id="sources">Sources</h2>
-<ul class="source-list">
-${sources}
-</ul>`
-      : ""
-  }
+    <p class="small text-dim">Or <a href="../compare.html">compare all ${siblings.length} side by side</a>.</p>
+  </details>
 
   <p class="small text-dim">Data last reviewed ${esc(data.meta?.updated ?? "")}. Figures are compiled from the sources above rather than first-hand testing.</p>
 </div>`;
@@ -456,35 +740,44 @@ ${sources}
 function pageCompare(data) {
   const cs = data.controllers;
 
-  const head = cs.map((c) => `<th>${esc(c.name)}</th>`).join("");
+  const head = cs
+    .map((c) => `<th><a href="controllers/${esc(c.id)}.html">${esc(c.name)}</a></th>`)
+    .join("");
 
+  // [label, short value, full value for the tooltip]. Where a controller has
+  // no curated short value the full one is condensed instead.
   const rows = [
     ["Tier", (c) => tierLabel(c.tier)],
-    ["Launch price", (c) => c.msrp],
+    ["Launch price", (c) => c.short?.msrp, (c) => c.msrp],
     ["Released", (c) => c.releaseYear],
-    ["Software", (c) => c.software],
-    ["Stick sensor", (c) => c.sticks?.tech],
-    ["Stick resolution (claimed)", (c) => c.sticks?.resolution],
-    ["Measured center error", (c) => c.sticks?.measuredCenterError],
-    ["Trigger tech", (c) => c.triggers?.tech],
+    ["Software", (c) => c.short?.software, (c) => c.software],
+    ["Stick sensor", (c) => c.short?.sticks, (c) => c.sticks?.tech],
+    ["Stick resolution (claimed)", (c) => c.short?.resolution, (c) => c.sticks?.resolution],
+    ["Measured center error", (c) => c.short?.centerError, (c) => c.sticks?.measuredCenterError],
+    ["Trigger tech", (c) => c.short?.triggers, (c) => c.triggers?.tech],
     ["Trigger stops", (c) => (c.triggers?.triggerStops == null ? null : c.triggers.triggerStops ? "Yes" : "No")],
-    ["D-pad", (c) => c.dpad],
-    ["Polling (PC)", (c) => c.pollingRate?.pc],
+    ["D-pad", (c) => c.short?.dpad, (c) => c.dpad],
+    ["Polling (PC)", (c) => c.short?.polling, (c) => c.pollingRate?.pc],
     ["Polling (Xbox)", (c) => c.pollingRate?.xbox],
     ["Connection modes", (c) => connSummary(c)],
     ["Battery", (c) => c.battery?.capacity],
-    ["Claimed battery life", (c) => c.battery?.claimedLife],
+    ["Claimed battery life", (c) => c.short?.claimedLife, (c) => c.battery?.claimedLife],
     ["Weight", (c) => c.weight],
     ["Rear buttons", (c) => c.extraButtons?.backButtons],
     ["Gyro", (c) => (c.gyro?.present == null ? null : c.gyro.present ? "Yes" : "No")],
     ["Audio jack", (c) => (c.audioJack == null ? null : c.audioJack ? "Yes" : "No")],
     ["Swappable faceplates", (c) => (c.faceplates?.swappable == null ? null : c.faceplates.swappable ? "Yes" : "No")],
-    ["Platforms", (c) => (c.platforms ?? []).join(", ") || null],
+    ["Platforms", (c) => c.short?.platforms, (c) => (c.platforms ?? []).join(", ") || null],
   ]
-    .map(
-      ([label, fn]) =>
-        `<tr><th>${esc(label)}</th>${cs.map((c) => shortCell(fn(c))).join("")}</tr>`
-    )
+    .map(([label, shortFn, fullFn]) => {
+      const cells = cs
+        .map((c) => {
+          const full = fullFn ? fullFn(c) : shortFn(c);
+          return shortCell(shortFn(c) ?? full, full);
+        })
+        .join("");
+      return `<tr><th>${esc(label)}</th>${cells}</tr>`;
+    })
     .join("\n");
 
   const body = `<div class="wrap">
@@ -518,26 +811,16 @@ ${rows}
     </table>
   </div>
 
-  <h2>Measured latency</h2>
-  <p class="section-intro">
-    Independent measurements published by gamepadla.com, where available. These are averages from a single tested
-    unit on a specific firmware, so treat them as indicative rather than exact. Note how much the connection mode
-    matters &mdash; on several models the dongle is markedly slower than the cable for stick input.
-  </p>
-  <div class="table-scroll">
-    <table class="spec-table">
-      <thead><tr><th>Controller</th><th>Mode</th><th>Button latency</th><th>Stick latency</th><th>Polling</th></tr></thead>
-      <tbody>
-${cs
-  .flatMap((c) =>
-    (c.measuredLatency ?? []).map(
-      (l) =>
-        `<tr><th>${esc(c.name)}</th>${cell(l.mode)}${cell(l.button)}${cell(l.stick)}${cell(l.polling)}</tr>`
-    )
-  )
-  .join("\n") || '<tr><td class="na" colspan="5">No measured latency data recorded yet.</td></tr>'}
-      </tbody>
-    </table>
+  <div class="cta-panel">
+    <div>
+      <h2>Measured latency lives on its own page</h2>
+      <p>
+        Latency needs a second dimension &mdash; every controller is measured separately over cable, dongle and
+        Bluetooth &mdash; so it does not fit a column here. The latency page compares all
+        ${cs.filter((c) => (c.measuredLatency ?? []).length).length} measured models by connection mode.
+      </p>
+    </div>
+    <a class="btn btn-primary" href="latency.html">Compare latency</a>
   </div>
 </div>`;
 
@@ -549,25 +832,202 @@ ${cs
   });
 }
 
+/**
+ * Latency gets its own page because the flat "one row per controller per mode"
+ * table it used to live in ran to 22 rows. Pivoting connection mode into the
+ * columns brings the comparison down to one row per controller without
+ * dropping a figure, and a metric switch keeps button, stick and polling all
+ * reachable in the same space.
+ */
+function pageLatency(data) {
+  const cs = data.controllers;
+  const measured = cs.filter((c) => (c.measuredLatency ?? []).length);
+
+  const metricCell = (entries) => {
+    if (!entries?.length) return '<td class="na">&mdash;</td>';
+
+    const best = entries[0];
+    const spans = [
+      ["stick", best.stick],
+      ["button", best.button],
+      ["polling", best.polling],
+    ]
+      .map(([metric, value]) => {
+        if (!value) return `<span class="metric" data-metric="${metric}"><span class="na">&mdash;</span></span>`;
+
+        const ms = metric === "polling" ? null : parseMs(value);
+        const bar =
+          ms === null
+            ? ""
+            : `<span class="bar-track"><span class="bar-fill ${msClass(ms)}" style="width:${Math.min(
+                100,
+                (ms / MS_SCALE) * 100
+              ).toFixed(1)}%"></span></span>`;
+        return `<span class="metric" data-metric="${metric}"><span class="metric-num">${esc(
+          value
+        )}</span>${bar}</span>`;
+      })
+      .join("");
+
+    // The Kaleid is measured at three report rates over one cable; flag that
+    // the cell is showing only the fastest of several configurations.
+    const more =
+      entries.length > 1
+        ? `<span class="metric-more" title="${esc(
+            entries.map((e) => e.mode).join(" / ")
+          )}">fastest of ${entries.length}</span>`
+        : "";
+
+    return `<td class="metric-cell">${spans}${more}</td>`;
+  };
+
+  const pivot = measured
+    .map((c) => {
+      const byFamily = latencyByFamily(c);
+      return `<tr><th><a href="controllers/${esc(c.id)}.html">${esc(c.name)}</a></th>${MODE_FAMILIES.map(
+        (f) => metricCell(byFamily[f.key])
+      ).join("")}</tr>`;
+    })
+    .join("\n");
+
+  // Fastest documented figure per connection family, for the summary strip.
+  const fastest = MODE_FAMILIES.map((f) => {
+    let best = null;
+    for (const c of measured) {
+      for (const l of latencyByFamily(c)[f.key] ?? []) {
+        const ms = parseMs(l.stick) ?? parseMs(l.button);
+        if (ms !== null && (best === null || ms < best.ms)) best = { ms, name: c.name, id: c.id };
+      }
+    }
+    return { ...f, best };
+  });
+
+  const strip = fastest
+    .map(
+      (f) => `<div class="stat">
+      <div class="stat-label">Fastest on ${esc(f.label.toLowerCase())}</div>
+      <div class="stat-value small-value">${
+        f.best ? `${f.best.ms} ms` : "&mdash;"
+      }</div>
+      <div class="stat-label">${
+        f.best ? `<a href="controllers/${esc(f.best.id)}.html">${esc(f.best.name)}</a>` : "no data"
+      }</div>
+    </div>`
+    )
+    .join("\n");
+
+  const detail = measured
+    .map(
+      (c) => `<details class="item">
+  <summary>${esc(c.name)} <span class="badge">${(c.measuredLatency ?? []).length} measurements</span></summary>
+  <div class="item-body">
+${latencyTable(c).replace(/\.\.\/latency\.html/g, "#top")}
+  </div>
+</details>`
+    )
+    .join("\n");
+
+  const noData = cs.filter((c) => !(c.measuredLatency ?? []).length);
+
+  const body = `<div class="wrap" id="top">
+  <div class="page-head">
+    <p class="eyebrow">Performance</p>
+    <h1>Measured latency</h1>
+    <p class="lede">
+      Independent latency measurements published by gamepadla.com, compared across every model covered here.
+      Connection mode is the largest single factor &mdash; on several controllers the dongle is markedly slower
+      than the cable for stick input, which is not something manufacturer specifications tell you.
+    </p>
+  </div>
+
+  <div class="stat-strip">
+${strip}
+  </div>
+
+  <h2 id="by-mode">Compared by connection mode</h2>
+  <p class="section-intro">
+    One row per controller, with each connection family in its own column. Switch which figure you are comparing
+    without the table growing.
+  </p>
+
+  <div class="toolbar">
+    <div class="metric-switch" id="metric-switch" role="group" aria-label="Choose which figure to compare">
+      <button class="chip" type="button" data-metric="stick" aria-pressed="true">Stick latency</button>
+      <button class="chip" type="button" data-metric="button" aria-pressed="false">Button latency</button>
+      <button class="chip" type="button" data-metric="polling" aria-pressed="false">Polling rate</button>
+    </div>
+  </div>
+
+  <div class="table-scroll">
+    <table class="spec-table pivot-table" id="latency-pivot" data-show="stick">
+      <thead><tr><th>Controller</th>${MODE_FAMILIES.map(
+        (f) => `<th>${esc(f.label)}</th>`
+      ).join("")}</tr></thead>
+      <tbody>
+${pivot}
+      </tbody>
+    </table>
+  </div>
+
+  <p class="small text-dim">
+    Each cell shows the fastest documented figure for that connection family. Bars use a fixed
+    0&ndash;16&nbsp;ms scale; a full-width bar exceeds 16&nbsp;ms. Green is at or under 3&nbsp;ms, amber to
+    8&nbsp;ms, red above &mdash; those bands are our editorial reading, not gamepadla's.
+  </p>
+
+  <div class="note">
+    <p><strong>Read these as indicative, not exact.</strong> Every figure is an average from a single tested
+    unit on one firmware version, and gamepadla's own results move between firmware revisions. Differences of a
+    millisecond or two between models are inside the noise; the difference between a cable and Bluetooth is not.</p>
+  </div>
+
+  <h2 id="all">Every measurement</h2>
+  <p class="section-intro">
+    The pivot above collapses each connection family to its fastest result. Expand a controller for the full
+    set, including the slower configurations.
+  </p>
+  <div class="accordion">
+${detail}
+  </div>
+
+  ${
+    noData.length
+      ? `<h2 id="unmeasured">Not independently measured</h2>
+<p class="section-intro">No published latency measurement exists for ${
+          noData.length === 1 ? "this model" : "these models"
+        }, so nothing is shown rather than an estimate: ${noData
+          .map((c) => `<a href="controllers/${esc(c.id)}.html">${esc(c.name)}</a>`)
+          .join(", ")}.</p>`
+      : ""
+  }
+</div>`;
+
+  return layout({
+    title: `Measured controller latency compared — ${SITE_NAME}`,
+    description:
+      "Independent button and stick latency measurements for GameSir controllers, compared by connection mode, with polling rates and the caveats that apply.",
+    current: "latency.html",
+    body,
+  });
+}
+
 function pageTroubleshooting(data) {
   const cs = data.controllers;
 
   const all = cs.flatMap((c) =>
-    (c.knownIssues ?? []).map((i) => ({ ...i, model: c.name, modelId: c.id }))
+    (c.knownIssues ?? []).map((i) => ({
+      ...i,
+      model: c.name,
+      modelId: c.id,
+      topics: topicsFor(i.symptom, i.cause, i.fix),
+    }))
   );
-
-  const chips = cs
-    .map(
-      (c) =>
-        `<button class="chip" type="button" data-filter="${esc(c.id)}" aria-pressed="false">${esc(c.name)}</button>`
-    )
-    .join("");
 
   const items = all
     .map(
-      (i) => `<div class="ts-entry" data-model="${esc(i.modelId)}" data-text="${esc(
-        (i.symptom + " " + i.cause + " " + i.fix).toLowerCase()
-      )}">
+      (i) => `<div class="ts-entry" data-model="${esc(i.modelId)}" data-topics="${esc(
+        i.topics.join(" ")
+      )}" data-text="${esc((i.symptom + " " + i.cause + " " + i.fix).toLowerCase())}">
 ${issueItem(i, i.model)}
 </div>`
     )
@@ -592,6 +1052,16 @@ ${issueItem(i, i.model)}
     <p>GameSir explicitly warns that applying the older hold-while-plugging-in procedure to a G7 Pro puts that
     controller into firmware update mode instead, leaving it unable to power on normally. Recovery requires a
     manual firmware upgrade from a Windows PC. Older guides and videos still circulate the wrong sequence.</p>
+  </div>
+
+  <div class="note danger">
+    <p><strong>Never cross-flash Kaleid firmware.</strong> GameSir sells three different controllers under the
+    Kaleid name &mdash; the <em>T4 Kaleid</em> (T4K), the <em>Kaleid</em> (K1) and the <em>Kaleid Flux</em>
+    (K1&nbsp;Flux) &mdash; and each takes its own firmware.</p>
+    <p>GameSir warns that installing the wrong file will likely brick the controller, and that flashing K1
+    firmware onto a T4 Kaleid leaves it unusable and unrecoverable. Always use the upgrader published for your
+    exact model. The K1 and K1 Flux look nearly identical, so confirm which one you own before downloading
+    anything.</p>
   </div>
 
   <h2 id="drift">Before you assume the sticks have failed</h2>
@@ -645,28 +1115,35 @@ ${issueItem(i, i.model)}
     </details>
   </div>
 
-  <h2 id="audio">If your 3.5 mm headset stopped working</h2>
+  <h2 id="audio">If your headset or trigger vibration stopped working</h2>
   <p class="section-intro">
-    Check your polling rate before troubleshooting the headset. On the G7 and G7 SE, and on the G7 HE, selecting
-    a report rate above 250&nbsp;Hz disables the controller's onboard audio entirely &mdash; no game sound and no
-    microphone. This is by design rather than a fault, and GameSir support advises locking the rate to 250&nbsp;Hz
-    if you use a headset through the controller.
+    Check your polling rate before troubleshooting either one. Across the G7 SE, G7 HE and Kaleid family,
+    selecting a report rate above 250&nbsp;Hz disables the controller's onboard 3.5&nbsp;mm audio entirely
+    &mdash; no game sound and no microphone. On the Kaleid, running at 1000&nbsp;Hz additionally disables native
+    trigger vibration. Both are by design rather than faults, and GameSir advises returning the rate to
+    250&nbsp;Hz if you use a headset through the controller.
   </p>
   <p class="section-intro">
     It is an easy trap to fall into, because raising the polling rate is one of the first things people do after
-    installing the app, and the audio failure shows up later with no obvious connection to it.
+    installing the app, and the audio failure surfaces later with no obvious connection to it.
+  </p>
+  <p class="section-intro">
+    The trade-off is real in both directions, though. On the Kaleid, gamepadla measured average stick latency of
+    7.62&nbsp;ms at 1000&nbsp;Hz, 14.21&nbsp;ms at 500&nbsp;Hz and 27.22&nbsp;ms at 250&nbsp;Hz &mdash; same
+    controller, same cable, only the report rate changed. So the safe setting for headset users is also
+    substantially the slowest one.
   </p>
 
   <h2 id="all">All documented issues</h2>
 
-  <div class="filter-bar">
-    <input class="search-input" id="ts-search" type="search" placeholder="Search symptoms, causes and fixes&hellip;" aria-label="Search troubleshooting entries">
-    <span class="result-count" id="ts-count"></span>
-  </div>
-  <div class="chip-row" id="ts-chips">
-    <button class="chip" type="button" data-filter="all" aria-pressed="true">All models</button>
-    ${chips}
-  </div>
+  ${filterToolbar({
+    topicLabel: "Symptom",
+    topicAllLabel: "All symptoms",
+    entries: all,
+    controllers: cs,
+    placeholder: "Search symptoms, causes and fixes&hellip;",
+    searchAria: "Search troubleshooting entries",
+  })}
 
   <div class="accordion" id="ts-list">
 ${items}
@@ -679,27 +1156,26 @@ ${items}
     description: "Searchable index of documented GameSir controller problems and their fixes, with sources.",
     current: "troubleshooting.html",
     body,
-    bodyEnd: `<script src="assets/js/filter.js" defer></script>`,
   });
 }
 
 function pageFaq(data) {
   const cs = data.controllers;
 
-  const all = cs.flatMap((c) => (c.faq ?? []).map((f) => ({ ...f, model: c.name, modelId: c.id })));
-
-  const chips = cs
-    .map(
-      (c) =>
-        `<button class="chip" type="button" data-filter="${esc(c.id)}" aria-pressed="false">${esc(c.name)}</button>`
-    )
-    .join("");
+  const all = cs.flatMap((c) =>
+    (c.faq ?? []).map((f) => ({
+      ...f,
+      model: c.name,
+      modelId: c.id,
+      topics: topicsFor(f.q, f.a),
+    }))
+  );
 
   const items = all
     .map(
-      (f) => `<div class="ts-entry" data-model="${esc(f.modelId)}" data-text="${esc(
-        (f.q + " " + f.a).toLowerCase()
-      )}">
+      (f) => `<div class="ts-entry" data-model="${esc(f.modelId)}" data-topics="${esc(
+        f.topics.join(" ")
+      )}" data-text="${esc((f.q + " " + f.a).toLowerCase())}">
 ${faqItem(f, f.model)}
 </div>`
     )
@@ -715,14 +1191,14 @@ ${faqItem(f, f.model)}
     </p>
   </div>
 
-  <div class="filter-bar">
-    <input class="search-input" id="ts-search" type="search" placeholder="Search questions and answers&hellip;" aria-label="Search FAQ entries">
-    <span class="result-count" id="ts-count"></span>
-  </div>
-  <div class="chip-row" id="ts-chips">
-    <button class="chip" type="button" data-filter="all" aria-pressed="true">All models</button>
-    ${chips}
-  </div>
+  ${filterToolbar({
+    topicLabel: "Topic",
+    topicAllLabel: "All topics",
+    entries: all,
+    controllers: cs,
+    placeholder: "Search questions and answers&hellip;",
+    searchAria: "Search FAQ entries",
+  })}
 
   <div class="accordion" id="ts-list">
 ${items}
@@ -735,7 +1211,6 @@ ${items}
     description: "Searchable FAQ for GameSir controllers, compiled from official manuals and FAQ pages with sources.",
     current: "faq.html",
     body,
-    bodyEnd: `<script src="assets/js/filter.js" defer></script>`,
   });
 }
 
@@ -803,26 +1278,241 @@ function pageAbout(data) {
 
 /* ----------------------------------------------------------------- build -- */
 
-const FILTER_JS = `/* Client-side search and model filtering for the troubleshooting and FAQ pages. */
+const FILTER_JS = `/* Progressive enhancement: section tabs, the latency metric switch, and
+   search/model filtering. Every page works without this file; it only makes
+   long pages shorter and the latency table switchable. */
+
+/* -- Section tabs on controller pages ------------------------------------- */
+(function () {
+  var tabs = document.getElementById("controller-tabs");
+  if (!tabs) return;
+
+  var links = Array.prototype.slice.call(tabs.querySelectorAll("[data-tab]"));
+  var panels = Array.prototype.slice.call(document.querySelectorAll("[data-panel]"));
+
+  function show(id, scroll) {
+    var match = panels.some(function (p) { return p.dataset.panel === id; });
+    if (!match) return false;
+
+    panels.forEach(function (p) { p.classList.toggle("is-active", p.dataset.panel === id); });
+    links.forEach(function (a) {
+      if (a.dataset.tab === id) a.setAttribute("aria-current", "true");
+      else a.removeAttribute("aria-current");
+    });
+    if (scroll) tabs.scrollIntoView({ block: "start", behavior: "smooth" });
+    document.dispatchEvent(new CustomEvent("sectionschanged"));
+    return true;
+  }
+
+  tabs.addEventListener("click", function (e) {
+    var link = e.target.closest("[data-tab]");
+    if (!link) return;
+    e.preventDefault();
+    if (show(link.dataset.tab, false)) {
+      history.replaceState(null, "", "#" + link.dataset.tab);
+    }
+  });
+
+  // Deep links from the troubleshooting and FAQ indexes point at a panel id.
+  window.addEventListener("hashchange", function () {
+    show(location.hash.slice(1), true);
+  });
+  if (location.hash) show(location.hash.slice(1), false);
+})();
+
+/* -- Section rail: a dot per section, marking where you are on the page ---- */
+(function () {
+  var main = document.querySelector("main");
+  if (!main) return;
+
+  var rail = document.createElement("nav");
+  rail.className = "section-rail";
+  rail.setAttribute("aria-label", "Sections on this page");
+  document.body.appendChild(rail);
+
+  var items = [];
+
+  function isVisible(el) {
+    return !!(el.offsetWidth || el.offsetHeight || el.getClientRects().length);
+  }
+
+  function slugify(s) {
+    return s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  }
+
+  function collect() {
+    var out = [];
+    // Top-level headings only. The h3 cards inside a spec panel sit in a
+    // two-column grid, so several share a vertical position and a single
+    // column of dots cannot represent them without appearing to skip one.
+    Array.prototype.forEach.call(main.querySelectorAll("h2"), function (h) {
+      if (!isVisible(h) || h.closest("a, .item, details, table")) return;
+
+      var text = (h.textContent || "").trim();
+      if (!text) return;
+      if (!h.id) h.id = slugify(text) || "section-" + out.length;
+      out.push({ el: h, text: text });
+    });
+    return out.length >= 2 ? out : [];
+  }
+
+  function mark() {
+    if (!items.length) return;
+
+    // -1 while still above the first heading, so nothing is falsely marked as
+    // the section you are reading.
+    var active = -1;
+    for (var i = 0; i < items.length; i++) {
+      // 140px clears the sticky header, so a heading counts as current once it
+      // has scrolled up to just beneath it.
+      if (items[i].el.getBoundingClientRect().top <= 140) active = i;
+    }
+    // At the very bottom the last section is what you are reading, even if its
+    // heading never reaches the line.
+    if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) {
+      active = items.length - 1;
+    }
+
+    items.forEach(function (it, i) {
+      it.link.classList.toggle("is-active", i === active);
+      if (i === active) it.link.setAttribute("aria-current", "true");
+      else it.link.removeAttribute("aria-current");
+    });
+  }
+
+  function render() {
+    var found = collect();
+    rail.textContent = "";
+    items = [];
+
+    found.forEach(function (s) {
+      var link = document.createElement("a");
+      link.className = "rail-item";
+      link.href = "#" + s.el.id;
+      // Collapsed, the visible target is just a dot, so name it for hover and
+      // for screen readers.
+      link.title = s.text;
+
+      var label = document.createElement("span");
+      label.className = "rail-label";
+      label.textContent = s.text;
+
+      var dot = document.createElement("span");
+      dot.className = "rail-dot";
+
+      link.appendChild(label);
+      link.appendChild(dot);
+      rail.appendChild(link);
+      items.push({ link: link, el: s.el });
+    });
+
+    mark();
+  }
+
+  var pending = false;
+  window.addEventListener(
+    "scroll",
+    function () {
+      if (pending) return;
+      pending = true;
+      requestAnimationFrame(function () {
+        pending = false;
+        mark();
+      });
+    },
+    { passive: true }
+  );
+
+  window.addEventListener("resize", render);
+  // Switching a controller-page tab changes which sections exist.
+  document.addEventListener("sectionschanged", render);
+
+  render();
+})();
+
+/* -- Header highlight follows the section you are reading -----------------
+   "Controllers" in the header is an anchor into the home page rather than a
+   page of its own, so nothing would ever mark it current. Hand the highlight
+   over while that section is the one on screen. */
+(function () {
+  var nav = document.querySelector(".site-nav");
+  var section = document.getElementById("controllers");
+  if (!nav || !section) return;
+
+  var home = nav.querySelector('a[href$="index.html"]');
+  var link = nav.querySelector('a[href$="index.html#controllers"]');
+  if (!home || !link) return;
+
+  var next = document.getElementById("start-here");
+
+  function update() {
+    var start = section.getBoundingClientRect().top;
+    var end = next ? next.getBoundingClientRect().top : Infinity;
+    var inside = start <= 140 && end > 140;
+
+    (inside ? link : home).setAttribute("aria-current", "page");
+    (inside ? home : link).removeAttribute("aria-current");
+  }
+
+  var pending = false;
+  window.addEventListener(
+    "scroll",
+    function () {
+      if (pending) return;
+      pending = true;
+      requestAnimationFrame(function () {
+        pending = false;
+        update();
+      });
+    },
+    { passive: true }
+  );
+
+  update();
+})();
+
+/* -- Latency metric switch ------------------------------------------------ */
+(function () {
+  var group = document.getElementById("metric-switch");
+  var table = document.getElementById("latency-pivot");
+  if (!group || !table) return;
+
+  group.addEventListener("click", function (e) {
+    var btn = e.target.closest("[data-metric]");
+    if (!btn) return;
+    table.dataset.show = btn.dataset.metric;
+    group.querySelectorAll("[data-metric]").forEach(function (b) {
+      b.setAttribute("aria-pressed", String(b === btn));
+    });
+  });
+})();
+
+/* -- Search, topic and model filtering ------------------------------------ */
 (function () {
   var search = document.getElementById("ts-search");
-  var chipRow = document.getElementById("ts-chips");
+  var modelSelect = document.getElementById("ts-model");
+  var topicSelect = document.getElementById("ts-topic");
+  var clear = document.getElementById("ts-clear");
   var list = document.getElementById("ts-list");
   var count = document.getElementById("ts-count");
   var empty = document.getElementById("ts-empty");
   if (!list) return;
 
   var entries = Array.prototype.slice.call(list.querySelectorAll(".ts-entry"));
-  var activeModel = "all";
 
   function apply() {
     var q = (search && search.value || "").trim().toLowerCase();
+    var model = modelSelect ? modelSelect.value : "all";
+    var topic = topicSelect ? topicSelect.value : "all";
     var shown = 0;
 
     entries.forEach(function (el) {
-      var matchesModel = activeModel === "all" || el.dataset.model === activeModel;
+      var matchesModel = model === "all" || el.dataset.model === model;
+      var matchesTopic =
+        topic === "all" ||
+        (" " + (el.dataset.topics || "") + " ").indexOf(" " + topic + " ") !== -1;
       var matchesText = !q || (el.dataset.text || "").indexOf(q) !== -1;
-      var visible = matchesModel && matchesText;
+      var visible = matchesModel && matchesTopic && matchesText;
       el.hidden = !visible;
       if (visible) shown++;
     });
@@ -833,22 +1523,26 @@ const FILTER_JS = `/* Client-side search and model filtering for the troubleshoo
         : shown + " of " + entries.length;
     }
     if (empty) empty.hidden = shown !== 0;
+    if (clear) clear.hidden = !q && model === "all" && topic === "all";
   }
 
   if (search) search.addEventListener("input", apply);
+  [modelSelect, topicSelect].forEach(function (sel) {
+    if (sel) sel.addEventListener("change", apply);
+  });
 
-  if (chipRow) {
-    chipRow.addEventListener("click", function (e) {
-      var btn = e.target.closest(".chip");
-      if (!btn) return;
-      activeModel = btn.dataset.filter;
-      chipRow.querySelectorAll(".chip").forEach(function (c) {
-        c.setAttribute("aria-pressed", String(c === btn));
-      });
+  if (clear) {
+    clear.addEventListener("click", function () {
+      if (search) search.value = "";
+      if (modelSelect) modelSelect.value = "all";
+      if (topicSelect) topicSelect.value = "all";
       apply();
+      if (search) search.focus();
     });
   }
 
+  // Not just an initial count: browsers restore select and search values on a
+  // back-navigation or reload, so the list has to be re-filtered to match.
   apply();
 })();
 `;
@@ -877,6 +1571,7 @@ async function build() {
 
   await writeFile(path.join(OUT, "index.html"), pageIndex(data));
   await writeFile(path.join(OUT, "compare.html"), pageCompare(data));
+  await writeFile(path.join(OUT, "latency.html"), pageLatency(data));
   await writeFile(path.join(OUT, "troubleshooting.html"), pageTroubleshooting(data));
   await writeFile(path.join(OUT, "faq.html"), pageFaq(data));
   await writeFile(path.join(OUT, "about.html"), pageAbout(data));
@@ -889,7 +1584,7 @@ async function build() {
   const faqs = data.controllers.reduce((n, c) => n + (c.faq?.length ?? 0), 0);
 
   console.log(
-    `Built ${data.controllers.length + 5} pages -> docs/\n` +
+    `Built ${data.controllers.length + 6} pages -> docs/\n` +
       `  ${data.controllers.length} controllers, ${issues} documented issues, ${faqs} FAQ entries`
   );
 }

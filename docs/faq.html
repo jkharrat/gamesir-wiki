@@ -6,6 +6,7 @@
 <title>FAQ — GameSir Wiki</title>
 <meta name="description" content="Searchable FAQ for GameSir controllers, compiled from official manuals and FAQ pages with sources.">
 <link rel="stylesheet" href="assets/css/style.css">
+<script>document.documentElement.className += " js";</script>
 </head>
 <body>
 
@@ -15,7 +16,7 @@
       <span class="brand-mark">GS</span>
       <span>GameSir Wiki</span>
     </a>
-    <nav class="site-nav"><a href="index.html">Home</a><a href="compare.html">Compare</a><a href="troubleshooting.html">Troubleshooting</a><a href="faq.html" aria-current="page">FAQ</a><a href="about.html">About</a></nav>
+    <nav class="site-nav"><a href="index.html">Home</a><a href="index.html#controllers">Controllers</a><a href="compare.html">Compare</a><a href="latency.html">Latency</a><a href="troubleshooting.html">Troubleshooting</a><a href="faq.html" aria-current="page">FAQ</a><a href="about.html">About</a></nav>
   </div>
 </header>
 
@@ -31,16 +32,51 @@
   </div>
 
   <div class="filter-bar">
-    <input class="search-input" id="ts-search" type="search" placeholder="Search questions and answers&hellip;" aria-label="Search FAQ entries">
-    <span class="result-count" id="ts-count"></span>
-  </div>
-  <div class="chip-row" id="ts-chips">
-    <button class="chip" type="button" data-filter="all" aria-pressed="true">All models</button>
-    <button class="chip" type="button" data-filter="cyclone-2" aria-pressed="false">GameSir Cyclone 2</button><button class="chip" type="button" data-filter="g7-he" aria-pressed="false">GameSir G7 HE</button><button class="chip" type="button" data-filter="g7-pro" aria-pressed="false">GameSir G7 Pro</button><button class="chip" type="button" data-filter="g7-pro-8k" aria-pressed="false">GameSir G7 Pro 8K</button><button class="chip" type="button" data-filter="g7-se" aria-pressed="false">GameSir G7 SE</button><button class="chip" type="button" data-filter="super-nova" aria-pressed="false">GameSir Super Nova</button><button class="chip" type="button" data-filter="tarantula-pro" aria-pressed="false">GameSir Tarantula Pro</button>
+    <div class="filter-field is-search">
+      <label class="filter-label" for="ts-search">Search</label>
+      <input class="search-input" id="ts-search" type="search" placeholder="Search questions and answers&hellip;" aria-label="Search FAQ entries">
+    </div>
+
+    <div class="filter-field is-select">
+      <label class="filter-label" for="ts-topic">Topic</label>
+      <select class="filter-select" id="ts-topic">
+        <option value="all">All topics</option>
+        <option value="detection">Not detected (6)</option>
+        <option value="sticks">Sticks &amp; drift (13)</option>
+        <option value="audio">Audio &amp; mic (10)</option>
+        <option value="connection">Connection drops (13)</option>
+        <option value="buttons">Buttons &amp; triggers (28)</option>
+        <option value="power">Power &amp; firmware (24)</option>
+        <option value="polling">Polling rate (8)</option>
+        <option value="profiles">Profiles &amp; mapping (31)</option>
+        <option value="platforms">Platform support (7)</option>
+      </select>
+    </div>
+
+    <div class="filter-field is-select">
+      <label class="filter-label" for="ts-model">Model</label>
+      <select class="filter-select" id="ts-model">
+        <option value="all">All models</option>
+        <option value="cyclone-2">GameSir Cyclone 2 (9)</option>
+        <option value="g7-he">GameSir G7 HE (9)</option>
+        <option value="g7-pro">GameSir G7 Pro (8)</option>
+        <option value="g7-pro-8k">GameSir G7 Pro 8K (5)</option>
+        <option value="g7-se">GameSir G7 SE (9)</option>
+        <option value="kaleid">GameSir Kaleid (9)</option>
+        <option value="super-nova">GameSir Super Nova (9)</option>
+        <option value="t7-pro">GameSir T7 Pro (9)</option>
+        <option value="tarantula-pro">GameSir Tarantula Pro (8)</option>
+      </select>
+    </div>
+
+    <div class="filter-actions">
+      <span class="result-count" id="ts-count"></span>
+      <button class="filter-clear" type="button" id="ts-clear" hidden>Clear filters</button>
+    </div>
   </div>
 
   <div class="accordion" id="ts-list">
-<div class="ts-entry" data-model="cyclone-2" data-text="which software does the cyclone 2 use? gamesir connect, connected via dongle or cable in xinput mode. gamesir nexus does not support it. the cyclone 2 is explicitly listed among gamesir connect's compatible products on gamesir's downloads page.">
+<div class="ts-entry" data-model="cyclone-2" data-topics="connection platforms" data-text="which software does the cyclone 2 use? gamesir connect, connected via dongle or cable in xinput mode. gamesir nexus does not support it. the cyclone 2 is explicitly listed among gamesir connect's compatible products on gamesir's downloads page.">
 <details class="item">
   <summary>Which software does the Cyclone 2 use? <span class="badge">GameSir Cyclone 2</span></summary>
   <div class="item-body">
@@ -49,7 +85,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="cyclone-2" data-text="what platforms does the cyclone 2 support? switch, ios, android, pc and steam. it is not compatible with xbox consoles.">
+<div class="ts-entry" data-model="cyclone-2" data-topics="platforms" data-text="what platforms does the cyclone 2 support? switch, ios, android, pc and steam. it is not compatible with xbox consoles.">
 <details class="item">
   <summary>What platforms does the Cyclone 2 support? <span class="badge">GameSir Cyclone 2</span></summary>
   <div class="item-body">
@@ -58,7 +94,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="cyclone-2" data-text="what firmware versions do i need for reliable dongle operation? dongle v1.1.9 or above and controller v3.4.4 or above. gamesir stresses these must be updated together — updating the dongle without updating the controller to the latest version causes disconnections.">
+<div class="ts-entry" data-model="cyclone-2" data-topics="connection power" data-text="what firmware versions do i need for reliable dongle operation? dongle v1.1.9 or above and controller v3.4.4 or above. gamesir stresses these must be updated together — updating the dongle without updating the controller to the latest version causes disconnections.">
 <details class="item">
   <summary>What firmware versions do I need for reliable dongle operation? <span class="badge">GameSir Cyclone 2</span></summary>
   <div class="item-body">
@@ -67,7 +103,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="cyclone-2" data-text="how do i switch between xinput, nintendo switch and ds4 input modes? hold the view button + menu button. xinput, shown by a green indicator light, is the standard mode for pc.">
+<div class="ts-entry" data-model="cyclone-2" data-topics="profiles" data-text="how do i switch between xinput, nintendo switch and ds4 input modes? hold the view button + menu button. xinput, shown by a green indicator light, is the standard mode for pc.">
 <details class="item">
   <summary>How do I switch between XInput, Nintendo Switch and DS4 input modes? <span class="badge">GameSir Cyclone 2</span></summary>
   <div class="item-body">
@@ -76,7 +112,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="cyclone-2" data-text="how do i force the controller back into pairing mode? hold the home button + share button for 2 seconds; the indicator should switch from slow blinking to fast blinking. for dongle pairing, also press the pairing button on the dongle.">
+<div class="ts-entry" data-model="cyclone-2" data-topics="connection" data-text="how do i force the controller back into pairing mode? hold the home button + share button for 2 seconds; the indicator should switch from slow blinking to fast blinking. for dongle pairing, also press the pairing button on the dongle.">
 <details class="item">
   <summary>How do I force the controller back into pairing mode? <span class="badge">GameSir Cyclone 2</span></summary>
   <div class="item-body">
@@ -85,7 +121,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="cyclone-2" data-text="how are the triggers configured? the hall effect analog triggers give linear input suited to racing games. a key combo switches them to hair-trigger mode for fps and action games, and physical trigger locks toggle between hall effect analog and micro-switch actuation.">
+<div class="ts-entry" data-model="cyclone-2" data-topics="buttons" data-text="how are the triggers configured? the hall effect analog triggers give linear input suited to racing games. a key combo switches them to hair-trigger mode for fps and action games, and physical trigger locks toggle between hall effect analog and micro-switch actuation.">
 <details class="item">
   <summary>How are the triggers configured? <span class="badge">GameSir Cyclone 2</span></summary>
   <div class="item-body">
@@ -94,7 +130,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="cyclone-2" data-text="how many mappable buttons does the cyclone 2 have? two mappable back buttons. the controller also stores four hot-swappable profiles on-board, indicated by the four lit segments in the center.">
+<div class="ts-entry" data-model="cyclone-2" data-topics="sticks buttons profiles" data-text="how many mappable buttons does the cyclone 2 have? two mappable back buttons. the controller also stores four hot-swappable profiles on-board, indicated by the four lit segments in the center.">
 <details class="item">
   <summary>How many mappable buttons does the Cyclone 2 have? <span class="badge">GameSir Cyclone 2</span></summary>
   <div class="item-body">
@@ -103,7 +139,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="cyclone-2" data-text="how long does the battery last? gamesir estimates about 10 hours from the 860mah cell, provided to techradar on request. independent testing lands nearer 8 hours with rgb and rumble active. gamesir connect shows only a color-coded indicator rather than a percentage.">
+<div class="ts-entry" data-model="cyclone-2" data-topics="power profiles" data-text="how long does the battery last? gamesir estimates about 10 hours from the 860mah cell, provided to techradar on request. independent testing lands nearer 8 hours with rgb and rumble active. gamesir connect shows only a color-coded indicator rather than a percentage.">
 <details class="item">
   <summary>How long does the battery last? <span class="badge">GameSir Cyclone 2</span></summary>
   <div class="item-body">
@@ -112,7 +148,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="cyclone-2" data-text="does it have a headphone jack? yes, a 3.5mm headphone jack on the bottom edge. techradar notes this as a bonus over the super nova, which lacks one.">
+<div class="ts-entry" data-model="cyclone-2" data-topics="audio" data-text="does it have a headphone jack? yes, a 3.5mm headphone jack on the bottom edge. techradar notes this as a bonus over the super nova, which lacks one.">
 <details class="item">
   <summary>Does it have a headphone jack? <span class="badge">GameSir Cyclone 2</span></summary>
   <div class="item-body">
@@ -121,7 +157,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="g7-he" data-text="what is the correct stick and trigger calibration procedure for the g7 he? (do not use the g7 pro procedure.) 1) hold view + menu + xbox buttons and, while still holding, insert the usb-c cable into your pc's usb port; release after plugging in. the indicator blinks slowly in white. 2) without touching lt, rt or either stick, press a. the indicator goes out. 3) press lt and rt to maximum travel and rotate both sticks at maximum angle three times, then press a. the indicator turns solid white to confirm completion. 4) unplug and replug before using. caveats: calibration must be performed with the faceplate installed or range values will be incorrect; move at a steady, gentle speed; manual calibration often works when in-app calibration fails; calibration applies only to analog trigger mode. critical: this hold-while-plugging-in procedure belongs to the older g7 series (g7 / g7 se / g7 he). gamesir explicitly warns that applying this older-g7 calibration procedure to a g7 pro will put that controller into firmware update mode and leave it unable to power on normally. the g7 pro instead uses view + menu + home held 2 seconds while already connected.">
+<div class="ts-entry" data-model="g7-he" data-topics="sticks buttons power profiles" data-text="what is the correct stick and trigger calibration procedure for the g7 he? (do not use the g7 pro procedure.) 1) hold view + menu + xbox buttons and, while still holding, insert the usb-c cable into your pc's usb port; release after plugging in. the indicator blinks slowly in white. 2) without touching lt, rt or either stick, press a. the indicator goes out. 3) press lt and rt to maximum travel and rotate both sticks at maximum angle three times, then press a. the indicator turns solid white to confirm completion. 4) unplug and replug before using. caveats: calibration must be performed with the faceplate installed or range values will be incorrect; move at a steady, gentle speed; manual calibration often works when in-app calibration fails; calibration applies only to analog trigger mode. critical: this hold-while-plugging-in procedure belongs to the older g7 series (g7 / g7 se / g7 he). gamesir explicitly warns that applying this older-g7 calibration procedure to a g7 pro will put that controller into firmware update mode and leave it unable to power on normally. the g7 pro instead uses view + menu + home held 2 seconds while already connected.">
 <details class="item">
   <summary>What is the correct stick and trigger calibration procedure for the G7 HE? (Do NOT use the G7 Pro procedure.) <span class="badge">GameSir G7 HE</span></summary>
   <div class="item-body">
@@ -130,7 +166,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="g7-he" data-text="what exactly is different between the g7 he and the g7 se? both are wired-only, share the same 152 x 103 x 63 mm shell, the same gamesir hall effect sticks and hall effect analog triggers, the same four rumble motors, the same two back buttons, the same 3.5 mm jack and mute button, the same magnetic faceplate, and the same gamesir nexus software. the differences: the he uses microswitch abxy and a microswitch d-pad (3 million press rating) where the se uses membrane; the he adds rubberized silicone grips; the he removes the se's two physical back-button lock latches; the he weighs 227 g versus the se's 221 g; and the he is $49.99 versus the se's $44.99. gamesir's own comparison faq answer is published only as an image with no text, so this comparison is assembled from the two product spec sheets plus pcgamingwiki and windows central.">
+<div class="ts-entry" data-model="g7-he" data-topics="audio buttons profiles" data-text="what exactly is different between the g7 he and the g7 se? both are wired-only, share the same 152 x 103 x 63 mm shell, the same gamesir hall effect sticks and hall effect analog triggers, the same four rumble motors, the same two back buttons, the same 3.5 mm jack and mute button, the same magnetic faceplate, and the same gamesir nexus software. the differences: the he uses microswitch abxy and a microswitch d-pad (3 million press rating) where the se uses membrane; the he adds rubberized silicone grips; the he removes the se's two physical back-button lock latches; the he weighs 227 g versus the se's 221 g; and the he is $49.99 versus the se's $44.99. gamesir's own comparison faq answer is published only as an image with no text, so this comparison is assembled from the two product spec sheets plus pcgamingwiki and windows central.">
 <details class="item">
   <summary>What exactly is different between the G7 HE and the G7 SE? <span class="badge">GameSir G7 HE</span></summary>
   <div class="item-body">
@@ -139,7 +175,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="g7-he" data-text="is the g7 he wireless, and does it have a battery? no. it is wired only, using a 3 m detachable usb-c cable, and gamesir's spec sheet lists 'battery: no'. there is nothing to charge and no battery-life figure of any kind. windows central's main criticism of the controller is precisely that it remains wired at a $49.99 price in 2024.">
+<div class="ts-entry" data-model="g7-he" data-topics="power" data-text="is the g7 he wireless, and does it have a battery? no. it is wired only, using a 3 m detachable usb-c cable, and gamesir's spec sheet lists 'battery: no'. there is nothing to charge and no battery-life figure of any kind. windows central's main criticism of the controller is precisely that it remains wired at a $49.99 price in 2024.">
 <details class="item">
   <summary>Is the G7 HE wireless, and does it have a battery? <span class="badge">GameSir G7 HE</span></summary>
   <div class="item-body">
@@ -148,7 +184,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="g7-he" data-text="how do i reset the g7 he to default settings? function reset: hold the xbox button + menu button for 5 seconds while connected. this is also gamesir's documented fix for a key bind you set incorrectly in nexus and cannot undo, and for buttons registering double or wrong inputs. full reset: hold view + menu + m until the logo button blinks, then hold the xbox button for 3 seconds, which resets the profile and all controller settings. you can also simply reapply the default profile with m + y.">
+<div class="ts-entry" data-model="g7-he" data-topics="power profiles" data-text="how do i reset the g7 he to default settings? function reset: hold the xbox button + menu button for 5 seconds while connected. this is also gamesir's documented fix for a key bind you set incorrectly in nexus and cannot undo, and for buttons registering double or wrong inputs. full reset: hold view + menu + m until the logo button blinks, then hold the xbox button for 3 seconds, which resets the profile and all controller settings. you can also simply reapply the default profile with m + y.">
 <details class="item">
   <summary>How do I reset the G7 HE to default settings? <span class="badge">GameSir G7 HE</span></summary>
   <div class="item-body">
@@ -157,7 +193,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="g7-he" data-text="how do i enable hair-trigger mode, switch profiles, and remap the back buttons? hair trigger: hold m + lt or m + rt for 2 seconds until the corresponding trigger vibrates. profiles: m + y for default, m + b for profile 1, m + a for profile 2, m + x for profile 3. back buttons: hold m + r4 or m + l4 for 3 seconds until the indicator blinks slowly, then tap the button you want assigned; the indicator turns solid to confirm. to cancel, repeat the combo and tap r4/l4 itself.">
+<div class="ts-entry" data-model="g7-he" data-topics="buttons profiles" data-text="how do i enable hair-trigger mode, switch profiles, and remap the back buttons? hair trigger: hold m + lt or m + rt for 2 seconds until the corresponding trigger vibrates. profiles: m + y for default, m + b for profile 1, m + a for profile 2, m + x for profile 3. back buttons: hold m + r4 or m + l4 for 3 seconds until the indicator blinks slowly, then tap the button you want assigned; the indicator turns solid to confirm. to cancel, repeat the combo and tap r4/l4 itself.">
 <details class="item">
   <summary>How do I enable hair-trigger mode, switch profiles, and remap the back buttons? <span class="badge">GameSir G7 HE</span></summary>
   <div class="item-body">
@@ -166,7 +202,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="g7-he" data-text="how do i control headset volume and the game/chat mix from the controller? a headset must be plugged into the 3.5 mm jack. hold m + d-pad up/down to raise or lower master volume; the g7 he connection tutorial documents 11 levels while the manual says 10, with a beep at maximum and minimum. hold m + d-pad left/right to shift the balance between game volume and voice chat volume, with a beep at maximum, middle and minimum. press the mic mute button to mute (indicator turns solid red) and press again to unmute; holding it while muted temporarily unmutes.">
+<div class="ts-entry" data-model="g7-he" data-topics="audio buttons" data-text="how do i control headset volume and the game/chat mix from the controller? a headset must be plugged into the 3.5 mm jack. hold m + d-pad up/down to raise or lower master volume; the g7 he connection tutorial documents 11 levels while the manual says 10, with a beep at maximum and minimum. hold m + d-pad left/right to shift the balance between game volume and voice chat volume, with a beep at maximum, middle and minimum. press the mic mute button to mute (indicator turns solid red) and press again to unmute; holding it while muted temporarily unmutes.">
 <details class="item">
   <summary>How do I control headset volume and the game/chat mix from the controller? <span class="badge">GameSir G7 HE</span></summary>
   <div class="item-body">
@@ -175,7 +211,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="g7-he" data-text="can the g7 he reach 1000 hz polling on an xbox console? no. gamesir states the xbox console enforces a 250 hz polling rate limit, so the 1000 hz option is only available on pc. gamesir additionally warns that any polling rate above 250 hz disables the onboard 3.5 mm audio, and support recommends locking to 250 hz if you use a headset through the controller.">
+<div class="ts-entry" data-model="g7-he" data-topics="audio polling" data-text="can the g7 he reach 1000 hz polling on an xbox console? no. gamesir states the xbox console enforces a 250 hz polling rate limit, so the 1000 hz option is only available on pc. gamesir additionally warns that any polling rate above 250 hz disables the onboard 3.5 mm audio, and support recommends locking to 250 hz if you use a headset through the controller.">
 <details class="item">
   <summary>Can the G7 HE reach 1000 Hz polling on an Xbox console? <span class="badge">GameSir G7 HE</span></summary>
   <div class="item-body">
@@ -184,7 +220,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="g7-he" data-text="does the g7 he have a gyroscope or trigger stops? neither. gamesir's official gyro-equipped xbox controller list covers the g7 pro, g7 pro wuchang, g7 pro zenless zone zero, tarantula pro xbox and t7 pro sugar whirl, and the g7 he is not among them; gamepadla's verified specs also record no gyroscope and no trigger lock. windows central lists the absence of trigger stops as a notable omission for fps players.">
+<div class="ts-entry" data-model="g7-he" data-topics="buttons profiles" data-text="does the g7 he have a gyroscope or trigger stops? neither. gamesir's official gyro-equipped xbox controller list covers the g7 pro, g7 pro wuchang, g7 pro zenless zone zero, tarantula pro xbox and t7 pro sugar whirl, and the g7 he is not among them; gamepadla's verified specs also record no gyroscope and no trigger lock. windows central lists the absence of trigger stops as a notable omission for fps players.">
 <details class="item">
   <summary>Does the G7 HE have a gyroscope or trigger stops? <span class="badge">GameSir G7 HE</span></summary>
   <div class="item-body">
@@ -193,7 +229,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="g7-he" data-text="what can i configure in gamesir nexus for the g7 he? three controller profiles covering button mapping, stick and trigger fine-tuning, vibration and more. for sticks: stick curves, initial and max deadzone, anti-deadzone, a true zero deadzone option, and a switch between default and gamesir's exclusive 'raw' mode. for triggers: impulse triggers for all games, hair trigger in static mode (any movement in range reads as a full 100% pull) or adaptive mode (100% on entering the range, instantly dropping to 0 on minimal release), and a continuous trigger toggle that holds an input until pressed again. firmware updates also run through nexus, with a standalone pc upgrader as a fallback.">
+<div class="ts-entry" data-model="g7-he" data-topics="sticks buttons power profiles" data-text="what can i configure in gamesir nexus for the g7 he? three controller profiles covering button mapping, stick and trigger fine-tuning, vibration and more. for sticks: stick curves, initial and max deadzone, anti-deadzone, a true zero deadzone option, and a switch between default and gamesir's exclusive 'raw' mode. for triggers: impulse triggers for all games, hair trigger in static mode (any movement in range reads as a full 100% pull) or adaptive mode (100% on entering the range, instantly dropping to 0 on minimal release), and a continuous trigger toggle that holds an input until pressed again. firmware updates also run through nexus, with a standalone pc upgrader as a fallback.">
 <details class="item">
   <summary>What can I configure in GameSir Nexus for the G7 HE? <span class="badge">GameSir G7 HE</span></summary>
   <div class="item-body">
@@ -202,7 +238,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="g7-pro" data-text="how do i calibrate the sticks and triggers? with the faceplate installed and the controller connected, hold view + xbox + menu until the xbox indicator flashes slowly white. without touching the sticks or triggers, press a — the indicator turns off. then pull lt and rt to full travel three times and rotate both sticks at full extent three times, and press a. a solid white indicator confirms completion. rotate slowly and steadily. calibration affects analog trigger mode only, not mouse-click mode.">
+<div class="ts-entry" data-model="g7-pro" data-topics="sticks buttons profiles" data-text="how do i calibrate the sticks and triggers? with the faceplate installed and the controller connected, hold view + xbox + menu until the xbox indicator flashes slowly white. without touching the sticks or triggers, press a — the indicator turns off. then pull lt and rt to full travel three times and rotate both sticks at full extent three times, and press a. a solid white indicator confirms completion. rotate slowly and steadily. calibration affects analog trigger mode only, not mouse-click mode.">
 <details class="item">
   <summary>How do I calibrate the sticks and triggers? <span class="badge">GameSir G7 Pro</span></summary>
   <div class="item-body">
@@ -211,7 +247,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="g7-pro" data-text="how do i reset all profiles and settings? hold view + mode + menu. the xbox led blinks three times to confirm all profiles and custom settings have been cleared. individual profiles can also be reset from within gamesir nexus.">
+<div class="ts-entry" data-model="g7-pro" data-topics="power profiles" data-text="how do i reset all profiles and settings? hold view + mode + menu. the xbox led blinks three times to confirm all profiles and custom settings have been cleared. individual profiles can also be reset from within gamesir nexus.">
 <details class="item">
   <summary>How do I reset all profiles and settings? <span class="badge">GameSir G7 Pro</span></summary>
   <div class="item-body">
@@ -220,7 +256,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="g7-pro" data-text="how do i map the rear buttons and mini bumpers? they are null inputs with no default function. hold mode + the remappable button until the indicator blinks, then press the target button to assign it. to clear a mapping, repeat and press the same remappable button again. they can also be configured in gamesir nexus.">
+<div class="ts-entry" data-model="g7-pro" data-topics="buttons profiles" data-text="how do i map the rear buttons and mini bumpers? they are null inputs with no default function. hold mode + the remappable button until the indicator blinks, then press the target button to assign it. to clear a mapping, repeat and press the same remappable button again. they can also be configured in gamesir nexus.">
 <details class="item">
   <summary>How do I map the rear buttons and mini bumpers? <span class="badge">GameSir G7 Pro</span></summary>
   <div class="item-body">
@@ -229,7 +265,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="g7-pro" data-text="which app does the g7 pro use? gamesir nexus, available from the xbox and windows stores. note that the g7 pro 8k pc uses gamesir connect instead — the two apps do not cover each other's hardware.">
+<div class="ts-entry" data-model="g7-pro" data-topics="detection" data-text="which app does the g7 pro use? gamesir nexus, available from the xbox and windows stores. note that the g7 pro 8k pc uses gamesir connect instead — the two apps do not cover each other's hardware.">
 <details class="item">
   <summary>Which app does the G7 Pro use? <span class="badge">GameSir G7 Pro</span></summary>
   <div class="item-body">
@@ -238,7 +274,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="g7-pro" data-text="can i get 1000 hz on an xbox console? no. xbox consoles enforce a 250 hz polling limit, so the 1000 hz option is available on pc only.">
+<div class="ts-entry" data-model="g7-pro" data-topics="polling" data-text="can i get 1000 hz on an xbox console? no. xbox consoles enforce a 250 hz polling limit, so the 1000 hz option is available on pc only.">
 <details class="item">
   <summary>Can I get 1000 Hz on an Xbox console? <span class="badge">GameSir G7 Pro</span></summary>
   <div class="item-body">
@@ -247,7 +283,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="g7-pro" data-text="how do i switch preset profiles? mode + y selects configuration 1, mode + b selects 2, mode + a selects 3, mode + x selects 4.">
+<div class="ts-entry" data-model="g7-pro" data-topics="power profiles" data-text="how do i switch preset profiles? mode + y selects configuration 1, mode + b selects 2, mode + a selects 3, mode + x selects 4.">
 <details class="item">
   <summary>How do I switch preset profiles? <span class="badge">GameSir G7 Pro</span></summary>
   <div class="item-body">
@@ -256,7 +292,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="g7-pro" data-text="how do i enable hair trigger mode? hold mode + lt or rt for 2 seconds to toggle hair trigger mode on or off.">
+<div class="ts-entry" data-model="g7-pro" data-topics="buttons" data-text="how do i enable hair trigger mode? hold mode + lt or rt for 2 seconds to toggle hair trigger mode on or off.">
 <details class="item">
   <summary>How do I enable hair trigger mode? <span class="badge">GameSir G7 Pro</span></summary>
   <div class="item-body">
@@ -265,7 +301,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="g7-pro" data-text="the gyro is behaving incorrectly. how do i recalibrate it? place the controller flat on a level surface and hold mode + share for 3 seconds. the logo led flashes orange and white alternately during calibration.">
+<div class="ts-entry" data-model="g7-pro" data-topics="sticks profiles" data-text="the gyro is behaving incorrectly. how do i recalibrate it? place the controller flat on a level surface and hold mode + share for 3 seconds. the logo led flashes orange and white alternately during calibration.">
 <details class="item">
   <summary>The gyro is behaving incorrectly. How do I recalibrate it? <span class="badge">GameSir G7 Pro</span></summary>
   <div class="item-body">
@@ -274,7 +310,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="g7-pro-8k" data-text="which app manages the g7 pro 8k? gamesir connect. this is the single most common source of confusion with this model — nexus is for gamesir's xbox-licensed controllers and will not list the 8k. per gamesir's own downloads page, connect covers the g7 pro 8k pc editions (aimlabs, champion, nioh 3, royal2), tarantula 8k pc, tegenaria lite, super nova, nova lite 2 and cyclone 2.">
+<div class="ts-entry" data-model="g7-pro-8k" data-topics="detection" data-text="which app manages the g7 pro 8k? gamesir connect. this is the single most common source of confusion with this model — nexus is for gamesir's xbox-licensed controllers and will not list the 8k. per gamesir's own downloads page, connect covers the g7 pro 8k pc editions (aimlabs, champion, nioh 3, royal2), tarantula 8k pc, tegenaria lite, super nova, nova lite 2 and cyclone 2.">
 <details class="item">
   <summary>Which app manages the G7 Pro 8K? <span class="badge">GameSir G7 Pro 8K</span></summary>
   <div class="item-body">
@@ -283,7 +319,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="g7-pro-8k" data-text="does it really reach 8000 hz on wireless? gamesir states 8000 hz is supported on both wired and 2.4 ghz. independent measurement of the aimlabs edition recorded a median around 7936 hz on both cable and dongle.">
+<div class="ts-entry" data-model="g7-pro-8k" data-topics="connection polling" data-text="does it really reach 8000 hz on wireless? gamesir states 8000 hz is supported on both wired and 2.4 ghz. independent measurement of the aimlabs edition recorded a median around 7936 hz on both cable and dongle.">
 <details class="item">
   <summary>Does it really reach 8000 Hz on wireless? <span class="badge">GameSir G7 Pro 8K</span></summary>
   <div class="item-body">
@@ -292,7 +328,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="g7-pro-8k" data-text="how do i toggle the stick deadzone? hold the m button and press in the left or right stick for 2 seconds to toggle that stick's deadzone on or off.">
+<div class="ts-entry" data-model="g7-pro-8k" data-topics="sticks" data-text="how do i toggle the stick deadzone? hold the m button and press in the left or right stick for 2 seconds to toggle that stick's deadzone on or off.">
 <details class="item">
   <summary>How do I toggle the stick deadzone? <span class="badge">GameSir G7 Pro 8K</span></summary>
   <div class="item-body">
@@ -301,7 +337,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="g7-pro-8k" data-text="how do i enable zero-deadzone (raw) mode? hold the mode button and press in the left or right stick until the controller vibrates. this toggles between raw mode (zero deadzone) and circular stick trajectory.">
+<div class="ts-entry" data-model="g7-pro-8k" data-topics="sticks" data-text="how do i enable zero-deadzone (raw) mode? hold the mode button and press in the left or right stick until the controller vibrates. this toggles between raw mode (zero deadzone) and circular stick trajectory.">
 <details class="item">
   <summary>How do I enable zero-deadzone (Raw) mode? <span class="badge">GameSir G7 Pro 8K</span></summary>
   <div class="item-body">
@@ -310,7 +346,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="g7-pro-8k" data-text="does it support 3.5 mm audio wirelessly? yes — gamesir states 3.5 mm audio output works over both wired and 2.4 ghz connections.">
+<div class="ts-entry" data-model="g7-pro-8k" data-topics="audio connection" data-text="does it support 3.5 mm audio wirelessly? yes — gamesir states 3.5 mm audio output works over both wired and 2.4 ghz connections.">
 <details class="item">
   <summary>Does it support 3.5 mm audio wirelessly? <span class="badge">GameSir G7 Pro 8K</span></summary>
   <div class="item-body">
@@ -319,7 +355,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="g7-se" data-text="what is the correct stick and trigger calibration procedure for the g7 se? (do not use the g7 pro procedure.) 1) hold view + menu + xbox buttons and, while still holding them, insert the usb-c cable into your pc's usb port; release after plugging in. the indicator blinks slowly in white. 2) without touching the triggers or sticks, press a. the indicator goes out. 3) press lt and rt to their maximum travel and rotate both sticks at maximum angle three times, then press a. the indicator turns solid white to confirm. 4) unplug and replug the controller before use. important caveats: calibration must be done with the faceplate installed or the range values will be wrong; move at a steady, gentle speed to avoid data-collection errors; manual calibration often succeeds when the in-app calibration fails. critical: this hold-while-plugging-in procedure is specific to the older g7 series (g7 / g7 se / g7 he). gamesir explicitly warns that using this older-g7 calibration procedure on a g7 pro will put that controller into firmware update mode and leave it unable to power on normally. the g7 pro instead uses view + menu + home held for 2 seconds while already connected.">
+<div class="ts-entry" data-model="g7-se" data-topics="sticks buttons power profiles" data-text="what is the correct stick and trigger calibration procedure for the g7 se? (do not use the g7 pro procedure.) 1) hold view + menu + xbox buttons and, while still holding them, insert the usb-c cable into your pc's usb port; release after plugging in. the indicator blinks slowly in white. 2) without touching the triggers or sticks, press a. the indicator goes out. 3) press lt and rt to their maximum travel and rotate both sticks at maximum angle three times, then press a. the indicator turns solid white to confirm. 4) unplug and replug the controller before use. important caveats: calibration must be done with the faceplate installed or the range values will be wrong; move at a steady, gentle speed to avoid data-collection errors; manual calibration often succeeds when the in-app calibration fails. critical: this hold-while-plugging-in procedure is specific to the older g7 series (g7 / g7 se / g7 he). gamesir explicitly warns that using this older-g7 calibration procedure on a g7 pro will put that controller into firmware update mode and leave it unable to power on normally. the g7 pro instead uses view + menu + home held for 2 seconds while already connected.">
 <details class="item">
   <summary>What is the correct stick and trigger calibration procedure for the G7 SE? (Do NOT use the G7 Pro procedure.) <span class="badge">GameSir G7 SE</span></summary>
   <div class="item-body">
@@ -328,7 +364,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="g7-se" data-text="how do i reset the g7 se to default settings? two documented options. function reset: hold the xbox button + menu button for 5 seconds while connected, which also fixes bad key binds you cannot undo. full profile/settings reset: hold view + menu + m until the logo button blinks, then hold the xbox button for 3 seconds; this resets the profile and all controller settings. you can also just reapply the default profile with m + y.">
+<div class="ts-entry" data-model="g7-se" data-topics="power profiles" data-text="how do i reset the g7 se to default settings? two documented options. function reset: hold the xbox button + menu button for 5 seconds while connected, which also fixes bad key binds you cannot undo. full profile/settings reset: hold view + menu + m until the logo button blinks, then hold the xbox button for 3 seconds; this resets the profile and all controller settings. you can also just reapply the default profile with m + y.">
 <details class="item">
   <summary>How do I reset the G7 SE to default settings? <span class="badge">GameSir G7 SE</span></summary>
   <div class="item-body">
@@ -337,7 +373,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="g7-se" data-text="is the g7 se wireless, and does it have a battery? no. it is wired only, using a 3 m detachable usb-c cable, and it has no battery at all. gamesir's own spec sheet lists 'battery: no', so there is no charge time or battery-life figure for this controller.">
+<div class="ts-entry" data-model="g7-se" data-topics="power" data-text="is the g7 se wireless, and does it have a battery? no. it is wired only, using a 3 m detachable usb-c cable, and it has no battery at all. gamesir's own spec sheet lists 'battery: no', so there is no charge time or battery-life figure for this controller.">
 <details class="item">
   <summary>Is the G7 SE wireless, and does it have a battery? <span class="badge">GameSir G7 SE</span></summary>
   <div class="item-body">
@@ -346,7 +382,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="g7-se" data-text="how do i get 1000 hz polling, and why does my headset stop working when i do? 1000 hz is pc-only; gamesir states the xbox console enforces a 250 hz cap. on pc you need windows 11, g7 se firmware 6.30 or higher, and gamesir nexus 1.2.9 or higher; select the report rate under profiles and restart the computer the first time. 500 hz works on windows 10 or higher and needs no script. running either 500 hz or 1000 hz disables the controller's headphone jack, which is expected behaviour. gamesir recommends 500 hz for general use and 1000 hz for competitive play.">
+<div class="ts-entry" data-model="g7-se" data-topics="audio power polling profiles" data-text="how do i get 1000 hz polling, and why does my headset stop working when i do? 1000 hz is pc-only; gamesir states the xbox console enforces a 250 hz cap. on pc you need windows 11, g7 se firmware 6.30 or higher, and gamesir nexus 1.2.9 or higher; select the report rate under profiles and restart the computer the first time. 500 hz works on windows 10 or higher and needs no script. running either 500 hz or 1000 hz disables the controller's headphone jack, which is expected behaviour. gamesir recommends 500 hz for general use and 1000 hz for competitive play.">
 <details class="item">
   <summary>How do I get 1000 Hz polling, and why does my headset stop working when I do? <span class="badge">GameSir G7 SE</span></summary>
   <div class="item-body">
@@ -355,7 +391,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="g7-se" data-text="how do i remap the back buttons and switch profiles without software? remap: hold m + r4 (or m + l4) for 3 seconds until the indicator blinks slowly, then tap the button you want mapped to it; the indicator turns solid to confirm. clear it: repeat the combo and tap r4/l4 itself. profiles: m + y is the default profile, m + b is profile 1, m + a is profile 2, m + x is profile 3. the two quick-latch sliders on the back mechanically enable or disable the back buttons entirely.">
+<div class="ts-entry" data-model="g7-se" data-topics="buttons profiles" data-text="how do i remap the back buttons and switch profiles without software? remap: hold m + r4 (or m + l4) for 3 seconds until the indicator blinks slowly, then tap the button you want mapped to it; the indicator turns solid to confirm. clear it: repeat the combo and tap r4/l4 itself. profiles: m + y is the default profile, m + b is profile 1, m + a is profile 2, m + x is profile 3. the two quick-latch sliders on the back mechanically enable or disable the back buttons entirely.">
 <details class="item">
   <summary>How do I remap the back buttons and switch profiles without software? <span class="badge">GameSir G7 SE</span></summary>
   <div class="item-body">
@@ -364,7 +400,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="g7-se" data-text="how do i enable hair-trigger mode and control headset volume from the pad? hair trigger: hold m + lt or m + rt for 2 seconds until the controller vibrates; repeat to disable. master volume: hold m + d-pad up/down (10 levels, with a beep at max and min). game/chat balance: hold m + d-pad left/right (beeps at max, middle and min). a headset must be plugged into the 3.5 mm jack for volume control to do anything. the mic mute button turns the indicator red when muted; holding it temporarily unmutes.">
+<div class="ts-entry" data-model="g7-se" data-topics="audio buttons" data-text="how do i enable hair-trigger mode and control headset volume from the pad? hair trigger: hold m + lt or m + rt for 2 seconds until the controller vibrates; repeat to disable. master volume: hold m + d-pad up/down (10 levels, with a beep at max and min). game/chat balance: hold m + d-pad left/right (beeps at max, middle and min). a headset must be plugged into the 3.5 mm jack for volume control to do anything. the mic mute button turns the indicator red when muted; holding it temporarily unmutes.">
 <details class="item">
   <summary>How do I enable hair-trigger mode and control headset volume from the pad? <span class="badge">GameSir G7 SE</span></summary>
   <div class="item-body">
@@ -373,7 +409,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="g7-se" data-text="what software does the g7 se use, and what can it change? gamesir nexus, available on both xbox and pc. it supports three custom profiles covering button mapping, d-pad diagonal tuning, stick and trigger fine-tuning (including stick curves, initial/max deadzone, anti-deadzone, hair-trigger static vs adaptive modes, and continuous trigger toggle), vibration configuration, report rate selection, and firmware updates. sticks can be set to zero deadzone and switched between default and gamesir's exclusive 'raw' mode. note the g7 se uses nexus, not gamesir connect, which is the app for the g7 pro family.">
+<div class="ts-entry" data-model="g7-se" data-topics="sticks buttons power polling profiles" data-text="what software does the g7 se use, and what can it change? gamesir nexus, available on both xbox and pc. it supports three custom profiles covering button mapping, d-pad diagonal tuning, stick and trigger fine-tuning (including stick curves, initial/max deadzone, anti-deadzone, hair-trigger static vs adaptive modes, and continuous trigger toggle), vibration configuration, report rate selection, and firmware updates. sticks can be set to zero deadzone and switched between default and gamesir's exclusive 'raw' mode. note the g7 se uses nexus, not gamesir connect, which is the app for the g7 pro family.">
 <details class="item">
   <summary>What software does the G7 SE use, and what can it change? <span class="badge">GameSir G7 SE</span></summary>
   <div class="item-body">
@@ -382,7 +418,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="g7-se" data-text="does the g7 se have a gyroscope? no. gamesir's official gyro-equipped list covers the g7 pro, g7 pro wuchang, g7 pro zenless zone zero, tarantula pro xbox and t7 pro sugar whirl on the xbox side. the g7 se is not included, and gamepadla's verified spec sheet also records no gyroscope.">
+<div class="ts-entry" data-model="g7-se" data-topics="profiles" data-text="does the g7 se have a gyroscope? no. gamesir's official gyro-equipped list covers the g7 pro, g7 pro wuchang, g7 pro zenless zone zero, tarantula pro xbox and t7 pro sugar whirl on the xbox side. the g7 se is not included, and gamepadla's verified spec sheet also records no gyroscope.">
 <details class="item">
   <summary>Does the G7 SE have a gyroscope? <span class="badge">GameSir G7 SE</span></summary>
   <div class="item-body">
@@ -391,7 +427,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="g7-se" data-text="are g7 pro faceplates compatible with the g7 se? no, not in that direction. the g7 pro can accept faceplates from the older g7 series, but the g7 pro's three-part split faceplate is not compatible with the g7, g7 se or g7 he. magnetic faceplates for the g7 series are one of the few parts gamesir sells separately; internal components, buttons and usb ports are not sold as spares.">
+<div class="ts-entry" data-model="g7-se" data-topics="platforms" data-text="are g7 pro faceplates compatible with the g7 se? no, not in that direction. the g7 pro can accept faceplates from the older g7 series, but the g7 pro's three-part split faceplate is not compatible with the g7, g7 se or g7 he. magnetic faceplates for the g7 series are one of the few parts gamesir sells separately; internal components, buttons and usb ports are not sold as spares.">
 <details class="item">
   <summary>Are G7 Pro faceplates compatible with the G7 SE? <span class="badge">GameSir G7 SE</span></summary>
   <div class="item-body">
@@ -400,7 +436,88 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="super-nova" data-text="which app should i use — gamesir connect, the gamesir app, or gamesir nexus? gamesir connect on pc, or the gamesir app on mobile. gamesir nexus does not support the super nova (it is for gamesir's xbox-licensed controllers). connect requires a wired or dongle connection in xinput mode; it cannot reach the controller over bluetooth.">
+<div class="ts-entry" data-model="kaleid" data-topics="connection power" data-text="is the kaleid wired or wireless? wired only, with a 3 m detachable usb-c cable. there is no battery and no bluetooth or 2.4 ghz option, and the same is true of the kaleid flux.">
+<details class="item">
+  <summary>Is the Kaleid wired or wireless? <span class="badge">GameSir Kaleid</span></summary>
+  <div class="item-body">
+    <p>Wired only, with a 3 m detachable USB-C cable. There is no battery and no Bluetooth or 2.4 GHz option, and the same is true of the Kaleid Flux.</p>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/pages/faq-questions-about-kaleid-series" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+</div>
+<div class="ts-entry" data-model="kaleid" data-topics="audio buttons power profiles" data-text="how does the kaleid flux differ from the kaleid? gamesir describes them as the same controller with nuanced variations. the kaleid has microswitch abxy face buttons; the kaleid flux has membrane abxy face buttons. they also have different printed pcb trace patterns and different default rgb light-strip colours — gamesir's launch press release says the kaleid uses default rainbow colours with a pcb printed 'kaleid', while the kaleid flux uses a default 'noble gold' colour with a damascus pattern. launch pricing differed ($49.99 vs $46.99). sticks, triggers, motors, back buttons, audio jack, dimensions, weight and software are the same. they use different firmware and must not be cross-flashed.">
+<details class="item">
+  <summary>How does the Kaleid Flux differ from the Kaleid? <span class="badge">GameSir Kaleid</span></summary>
+  <div class="item-body">
+    <p>GameSir describes them as the same controller with nuanced variations. The Kaleid has microswitch ABXY face buttons; the Kaleid Flux has membrane ABXY face buttons. They also have different printed PCB trace patterns and different default RGB light-strip colours — GameSir's launch press release says the Kaleid uses default rainbow colours with a PCB printed 'KALEID', while the Kaleid Flux uses a default 'noble gold' colour with a damascus pattern. Launch pricing differed ($49.99 vs $46.99). Sticks, triggers, motors, back buttons, audio jack, dimensions, weight and software are the same. They use DIFFERENT firmware and must not be cross-flashed.</p>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/pages/faq-questions-about-kaleid-series" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+</div>
+<div class="ts-entry" data-model="kaleid" data-topics="detection" data-text="which app do i need for the kaleid? gamesir nexus, from the microsoft store on pc or xbox. gamesir's download page lists kaleid and kaleid flux under nexus. gamesir connect is for pc-only controllers such as the g7 pro 8k and cyclone 2, and the gamesir mobile app is for mobile controllers — installing the wrong one is a common reason the controller appears 'not detected'.">
+<details class="item">
+  <summary>Which app do I need for the Kaleid? <span class="badge">GameSir Kaleid</span></summary>
+  <div class="item-body">
+    <p>GameSir Nexus, from the Microsoft Store on PC or Xbox. GameSir's download page lists Kaleid and Kaleid Flux under Nexus. GameSir Connect is for PC-only controllers such as the G7 Pro 8K and Cyclone 2, and the GameSir mobile app is for mobile controllers — installing the wrong one is a common reason the controller appears 'not detected'.</p>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/support/downloads" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+</div>
+<div class="ts-entry" data-model="kaleid" data-topics="power" data-text="is the kaleid the same as the t4 kaleid? no. gamesir explicitly warns that the t4 kaleid (t4k), kaleid (k1) and kaleid flux (k1 flux) are different controllers with different firmware. the t4 kaleid is not an xbox-console controller, and flashing k1 firmware onto a t4 kaleid makes it unusable and unrecoverable.">
+<details class="item">
+  <summary>Is the Kaleid the same as the T4 Kaleid? <span class="badge">GameSir Kaleid</span></summary>
+  <div class="item-body">
+    <p>No. GameSir explicitly warns that the T4 Kaleid (T4K), Kaleid (K1) and Kaleid Flux (K1 Flux) are different controllers with different firmware. The T4 Kaleid is not an Xbox-console controller, and flashing K1 firmware onto a T4 Kaleid makes it unusable and unrecoverable.</p>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/pages/kaleid-series-1000hz-polling-rate-upgrade-tutorial" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+</div>
+<div class="ts-entry" data-model="kaleid" data-topics="sticks buttons" data-text="how do i calibrate the sticks and triggers? hold view + menu + xbox and, while holding, plug the usb-c cable into a pc — the indicator blinks slowly white. without touching lt, rt or either stick, press a; the indicator goes out. then press lt and rt to maximum travel and rotate both sticks at full deflection three times, and press a; the indicator turns solid white. unplug and replug before using. (the printed k1 manual lists this combo as view + xbox; gamesir's web manual lists view + menu + xbox.)">
+<details class="item">
+  <summary>How do I calibrate the sticks and triggers? <span class="badge">GameSir Kaleid</span></summary>
+  <div class="item-body">
+    <p>Hold <kbd>View + Menu + Xbox</kbd> and, while holding, plug the USB-C cable into a PC — the indicator blinks slowly white. Without touching LT, RT or either stick, press A; the indicator goes out. Then press LT and RT to maximum travel and rotate both sticks at full deflection three times, and press A; the indicator turns solid white. Unplug and replug before using. (The printed K1 manual lists this combo as <kbd>View + Xbox</kbd>; GameSir's web manual lists <kbd>View + Menu + Xbox</kbd>.)</p>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/support/manuals/gamesir-kaleid-xbox-controller" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+</div>
+<div class="ts-entry" data-model="kaleid" data-topics="buttons profiles" data-text="how do i switch profiles and turn on hair trigger mode without software? profiles: m + y = default, m + b = profile 1, m + a = profile 2, m + x = profile 3. hair trigger: hold m + lt or m + rt for 2 seconds; with it enabled the matching led strip lights up when that trigger is pressed, and the setting persists across restarts. light effects: m plus left stick left/right cycles 4 effects (saved after restart). led brightness: m plus left stick up/down, 5 levels (not saved after restart).">
+<details class="item">
+  <summary>How do I switch profiles and turn on hair trigger mode without software? <span class="badge">GameSir Kaleid</span></summary>
+  <div class="item-body">
+    <p>Profiles: <kbd>M + Y</kbd> = default, <kbd>M + B</kbd> = profile 1, <kbd>M + A</kbd> = profile 2, <kbd>M + X</kbd> = profile 3. Hair trigger: hold <kbd>M + LT</kbd> or <kbd>M + RT</kbd> for 2 seconds; with it enabled the matching LED strip lights up when that trigger is pressed, and the setting persists across restarts. Light effects: M plus left stick left/right cycles 4 effects (saved after restart). LED brightness: M plus left stick up/down, 5 levels (not saved after restart).</p>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/support/manuals/gamesir-kaleid-xbox-controller" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+</div>
+<div class="ts-entry" data-model="kaleid" data-topics="audio buttons power polling profiles" data-text="how do i get 1000 hz polling, and what does it cost me? flash the kaleid (k1)-specific firmware upgrader — hold logo + menu while connecting the cable to a pc, open the upgrader and click download until it shows 'upgrade success' — then set the polling rate to 1000 hz in gamesir nexus. while 1000 hz is active the 3.5 mm earphone jack and native trigger vibration are temporarily disabled, and 1000 hz is pc-only because the xbox console caps polling at 250 hz.">
+<details class="item">
+  <summary>How do I get 1000 Hz polling, and what does it cost me? <span class="badge">GameSir Kaleid</span></summary>
+  <div class="item-body">
+    <p>Flash the Kaleid (K1)-specific firmware upgrader — hold LOGO + Menu while connecting the cable to a PC, open the upgrader and click Download until it shows 'Upgrade SUCCESS' — then set the polling rate to 1000 Hz in GameSir Nexus. While 1000 Hz is active the 3.5 mm earphone jack and native trigger vibration are temporarily disabled, and 1000 Hz is PC-only because the Xbox console caps polling at 250 Hz.</p>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/pages/kaleid-series-1000hz-polling-rate-upgrade-tutorial" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+</div>
+<div class="ts-entry" data-model="kaleid" data-topics="power profiles" data-text="how do i fully reset the controller? hold view + menu + m until the logo button blinks (gamesir's kaleid faq specifies 5 seconds). this resets the profile and all settings on the controller, and is also the documented fix for the controller not powering on or off correctly and for nexus failing to detect it.">
+<details class="item">
+  <summary>How do I fully reset the controller? <span class="badge">GameSir Kaleid</span></summary>
+  <div class="item-body">
+    <p>Hold <kbd>View + Menu + M</kbd> until the logo button blinks (GameSir's Kaleid FAQ specifies 5 seconds). This resets the profile and all settings on the controller, and is also the documented fix for the controller not powering on or off correctly and for Nexus failing to detect it.</p>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/support/manuals/gamesir-kaleid-xbox-controller" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+</div>
+<div class="ts-entry" data-model="kaleid" data-topics="sticks power polling" data-text="how much measured input lag does it have? gamepadla measured the k1 kaleid over cable in xinput at a 1000 hz median polling rate: average button latency 5.32 ms and average stick latency 7.62 ms (firmware 1.49). dropping to 500 hz raised average stick latency to 14.21 ms and 250 hz to 27.22 ms. no stick centering, circularity or linearity measurements have been published for this model.">
+<details class="item">
+  <summary>How much measured input lag does it have? <span class="badge">GameSir Kaleid</span></summary>
+  <div class="item-body">
+    <p>Gamepadla measured the K1 Kaleid over cable in XInput at a 1000 Hz median polling rate: average button latency 5.32 ms and average stick latency 7.62 ms (firmware 1.49). Dropping to 500 Hz raised average stick latency to 14.21 ms and 250 Hz to 27.22 ms. No stick centering, circularity or linearity measurements have been published for this model.</p>
+    <p class="small text-dim">Source: <a href="https://gamepadla.com/gamesir-k1-for-xbox.html" rel="nofollow noopener" target="_blank">gamepadla.com</a></p>
+  </div>
+</details>
+</div>
+<div class="ts-entry" data-model="super-nova" data-topics="detection connection" data-text="which app should i use — gamesir connect, the gamesir app, or gamesir nexus? gamesir connect on pc, or the gamesir app on mobile. gamesir nexus does not support the super nova (it is for gamesir's xbox-licensed controllers). connect requires a wired or dongle connection in xinput mode; it cannot reach the controller over bluetooth.">
 <details class="item">
   <summary>Which app should I use — GameSir Connect, the GameSir app, or GameSir Nexus? <span class="badge">GameSir Super Nova</span></summary>
   <div class="item-body">
@@ -409,7 +526,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="super-nova" data-text="how do i pair the super nova to a nintendo switch? on the switch home screen open controllers, then change grip/order, and leave that page open. set the rear mode switch to bluetooth and press home to power on. hold home + y for 2 seconds until the channel indicator flashes up and down rapidly, then wait for the connection. if it fails, hold home + screenshot to force pairing mode and retry.">
+<div class="ts-entry" data-model="super-nova" data-topics="connection power" data-text="how do i pair the super nova to a nintendo switch? on the switch home screen open controllers, then change grip/order, and leave that page open. set the rear mode switch to bluetooth and press home to power on. hold home + y for 2 seconds until the channel indicator flashes up and down rapidly, then wait for the connection. if it fails, hold home + screenshot to force pairing mode and retry.">
 <details class="item">
   <summary>How do I pair the Super Nova to a Nintendo Switch? <span class="badge">GameSir Super Nova</span></summary>
   <div class="item-body">
@@ -418,7 +535,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="super-nova" data-text="what are the bluetooth mode combos for each platform? with the mode switch in the bluetooth position: home + b for 2 seconds selects pc/other-device mode (appears as 'wireless controller'), home + y selects switch mode, and home + a selects android mode (appears as 'gamesir-nova pro'). home + screenshot held 2-3 seconds forces pairing mode from any of these.">
+<div class="ts-entry" data-model="super-nova" data-topics="connection platforms" data-text="what are the bluetooth mode combos for each platform? with the mode switch in the bluetooth position: home + b for 2 seconds selects pc/other-device mode (appears as 'wireless controller'), home + y selects switch mode, and home + a selects android mode (appears as 'gamesir-nova pro'). home + screenshot held 2-3 seconds forces pairing mode from any of these.">
 <details class="item">
   <summary>What are the Bluetooth mode combos for each platform? <span class="badge">GameSir Super Nova</span></summary>
   <div class="item-body">
@@ -427,7 +544,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="super-nova" data-text="how do i calibrate the sticks and triggers? set the triggers to long-travel mode first. hold [-] + [+] + home for 2 seconds to enter calibration — the home light flashes slowly in white. with nothing touching the sticks or triggers, press a once. then rotate both sticks in full circles 2-3 times and fully press both triggers three times, and press a to exit.">
+<div class="ts-entry" data-model="super-nova" data-topics="sticks buttons profiles" data-text="how do i calibrate the sticks and triggers? set the triggers to long-travel mode first. hold [-] + [+] + home for 2 seconds to enter calibration — the home light flashes slowly in white. with nothing touching the sticks or triggers, press a once. then rotate both sticks in full circles 2-3 times and fully press both triggers three times, and press a to exit.">
 <details class="item">
   <summary>How do I calibrate the sticks and triggers? <span class="badge">GameSir Super Nova</span></summary>
   <div class="item-body">
@@ -436,7 +553,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="super-nova" data-text="how do i switch between xinput, switch, and android/other input modes? hold the [-] (view) and [+] (menu) buttons to cycle through xinput, switch and other-device modes. this only works in dongle and wired modes, not over bluetooth. in xinput mode, indicator lights 2 and 4 illuminate.">
+<div class="ts-entry" data-model="super-nova" data-topics="connection profiles" data-text="how do i switch between xinput, switch, and android/other input modes? hold the [-] (view) and [+] (menu) buttons to cycle through xinput, switch and other-device modes. this only works in dongle and wired modes, not over bluetooth. in xinput mode, indicator lights 2 and 4 illuminate.">
 <details class="item">
   <summary>How do I switch between XInput, Switch, and Android/other input modes? <span class="badge">GameSir Super Nova</span></summary>
   <div class="item-body">
@@ -445,7 +562,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="super-nova" data-text="how do i reset the controller? there are two resets. for a hardware force-off when the controller will not power on or off, press the recessed reset button in the circular hole on the back with a paperclip. to reset the profile and all settings, hold home + menu until the logo button blinks (gamesir's support faq specifies 5 seconds, until the logo led flashes green twice).">
+<div class="ts-entry" data-model="super-nova" data-topics="power profiles" data-text="how do i reset the controller? there are two resets. for a hardware force-off when the controller will not power on or off, press the recessed reset button in the circular hole on the back with a paperclip. to reset the profile and all settings, hold home + menu until the logo button blinks (gamesir's support faq specifies 5 seconds, until the logo led flashes green twice).">
 <details class="item">
   <summary>How do I reset the controller? <span class="badge">GameSir Super Nova</span></summary>
   <div class="item-body">
@@ -454,7 +571,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="super-nova" data-text="how long does the battery last, and how do i check the level? gamesir's estimate, provided to techradar on request, is about 15 hours from the 1000mah cell; no figure is published on the product page. there is no percentage readout in the software or on the controller — the only battery indicator is the home light flashing red when charge drops below 15%. the controller auto-powers-off after 10 minutes of inactivity.">
+<div class="ts-entry" data-model="super-nova" data-topics="power profiles" data-text="how long does the battery last, and how do i check the level? gamesir's estimate, provided to techradar on request, is about 15 hours from the 1000mah cell; no figure is published on the product page. there is no percentage readout in the software or on the controller — the only battery indicator is the home light flashing red when charge drops below 15%. the controller auto-powers-off after 10 minutes of inactivity.">
 <details class="item">
   <summary>How long does the battery last, and how do I check the level? <span class="badge">GameSir Super Nova</span></summary>
   <div class="item-body">
@@ -463,7 +580,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="super-nova" data-text="does it work with xbox consoles? no. the super nova supports pc, switch, android and ios only. xbox consoles require an xbox-licensed gamesir model.">
+<div class="ts-entry" data-model="super-nova" data-topics="platforms" data-text="does it work with xbox consoles? no. the super nova supports pc, switch, android and ios only. xbox consoles require an xbox-licensed gamesir model.">
 <details class="item">
   <summary>Does it work with Xbox consoles? <span class="badge">GameSir Super Nova</span></summary>
   <div class="item-body">
@@ -472,7 +589,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="super-nova" data-text="can i change the button layout? yes, in two ways. physically, both the middle faceplate and the abxy buttons are detachable so you can rearrange the caps. in firmware, hold m + the south face button to swap the a-b and x-y button values.">
+<div class="ts-entry" data-model="super-nova" data-topics="buttons power" data-text="can i change the button layout? yes, in two ways. physically, both the middle faceplate and the abxy buttons are detachable so you can rearrange the caps. in firmware, hold m + the south face button to swap the a-b and x-y button values.">
 <details class="item">
   <summary>Can I change the button layout? <span class="badge">GameSir Super Nova</span></summary>
   <div class="item-body">
@@ -481,7 +598,88 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="tarantula-pro" data-text="which software do i need — gamesir nexus or gamesir connect? gamesir connect, connected via dongle or cable in xinput mode. gamesir nexus does not recognize the multiplatform tarantula pro. connect also will not see the controller if it is in ds or ns mode over bluetooth. the mobile gamesir app can also configure it. (the separate 'tarantula pro for xbox' is the opposite case — it uses gamesir nexus.)">
+<div class="ts-entry" data-model="t7-pro" data-topics="connection" data-text="is the t7 pro wired or wireless? the base t7 pro (floral, retro green wired) is wired only, with a 3 m detachable usb-c cable. wireless versions are sold as separate products: the t7 pro sugar whirl (tri-mode: 2.4 ghz dongle, bluetooth, usb-c, and officially wireless on xbox via the receiver) and the t7 pro tri-mode, which gamesir documents as 2.4g + wired on pc, wired only on xbox, and bluetooth for android.">
+<details class="item">
+  <summary>Is the T7 Pro wired or wireless? <span class="badge">GameSir T7 Pro</span></summary>
+  <div class="item-body">
+    <p>The base T7 Pro (Floral, Retro Green Wired) is wired only, with a 3 m detachable USB-C cable. Wireless versions are sold as separate products: the T7 Pro Sugar Whirl (tri-mode: 2.4 GHz dongle, Bluetooth, USB-C, and officially wireless on Xbox via the receiver) and the T7 Pro Tri-Mode, which GameSir documents as 2.4G + wired on PC, wired only on Xbox, and Bluetooth for Android.</p>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/products/gamesir-t7-pro-floral" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+</div>
+<div class="ts-entry" data-model="t7-pro" data-topics="detection" data-text="which app do i need — gamesir nexus, gamesir connect, or the gamesir mobile app? gamesir nexus, on pc or xbox from the microsoft store. gamesir's download page lists t7 pro floral and t7 pro sugar whirl under nexus. gamesir connect is for pc-only models such as the g7 pro 8k, tarantula 8k and cyclone 2, and the gamesir mobile app is for mobile controllers — using the wrong one is a common cause of 'controller not detected'.">
+<details class="item">
+  <summary>Which app do I need — GameSir Nexus, GameSir Connect, or the GameSir mobile app? <span class="badge">GameSir T7 Pro</span></summary>
+  <div class="item-body">
+    <p>GameSir Nexus, on PC or Xbox from the Microsoft Store. GameSir's download page lists T7 Pro Floral and T7 Pro Sugar Whirl under Nexus. GameSir Connect is for PC-only models such as the G7 Pro 8K, Tarantula 8K and Cyclone 2, and the GameSir mobile app is for mobile controllers — using the wrong one is a common cause of 'controller not detected'.</p>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/support/downloads" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+</div>
+<div class="ts-entry" data-model="t7-pro" data-topics="sticks" data-text="what stick sensor technology does it use? the wired t7 pro uses gamesir hall effect (non-contact magnetic) sticks, which gamesir rates for up to 5 million cycles. the t7 pro sugar whirl wireless and t7 pro tri-mode instead use gamesir mag-res tmr (tunnelling magnetoresistance) sticks, which gamesir describes as combining potentiometer-like precision and low power draw with hall effect durability. neither is a potentiometer.">
+<details class="item">
+  <summary>What stick sensor technology does it use? <span class="badge">GameSir T7 Pro</span></summary>
+  <div class="item-body">
+    <p>The wired T7 Pro uses GameSir Hall Effect (non-contact magnetic) sticks, which GameSir rates for up to 5 million cycles. The T7 Pro Sugar Whirl Wireless and T7 Pro Tri-Mode instead use GameSir Mag-Res TMR (tunnelling magnetoresistance) sticks, which GameSir describes as combining potentiometer-like precision and low power draw with Hall Effect durability. Neither is a potentiometer.</p>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/pages/faq-questions-about-t7-pro-tri-mode" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+</div>
+<div class="ts-entry" data-model="t7-pro" data-topics="buttons" data-text="how do i switch to hair trigger mode? hold the m button together with lt or rt for about 2 seconds (gamesir's t7 pro wireless tutorial says 2 seconds; some gamesir pages say hold until the corresponding trigger vibrates). this is separate from the physical two-stage trigger-stop gear switch, which mechanically changes between long and short trigger pull.">
+<details class="item">
+  <summary>How do I switch to hair trigger mode? <span class="badge">GameSir T7 Pro</span></summary>
+  <div class="item-body">
+    <p>Hold the M button together with LT or RT for about 2 seconds (GameSir's T7 Pro Wireless tutorial says 2 seconds; some GameSir pages say hold until the corresponding trigger vibrates). This is separate from the physical two-stage trigger-stop gear switch, which mechanically changes between long and short trigger pull.</p>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/pages/tutorials-t7-pro-wireless" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+</div>
+<div class="ts-entry" data-model="t7-pro" data-topics="power profiles" data-text="how do i switch between saved profiles without opening software? press m + y for configuration 1, m + b for configuration 2, m + a for configuration 3 and m + x for configuration 4 (the wireless t7 pro documents four presets; gamesir's older t7-family pages document three custom profiles plus default).">
+<details class="item">
+  <summary>How do I switch between saved profiles without opening software? <span class="badge">GameSir T7 Pro</span></summary>
+  <div class="item-body">
+    <p>Press <kbd>M + Y</kbd> for configuration 1, <kbd>M + B</kbd> for configuration 2, <kbd>M + A</kbd> for configuration 3 and <kbd>M + X</kbd> for configuration 4 (the wireless T7 Pro documents four presets; GameSir's older T7-family pages document three custom profiles plus default).</p>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/pages/tutorials-t7-pro-wireless" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+</div>
+<div class="ts-entry" data-model="t7-pro" data-topics="audio polling" data-text="can i get 1000 hz polling on an xbox console? no. gamesir states the xbox console enforces a 250 hz polling-rate limit, so the 1000 hz option is pc-only. gamesir also advises reverting to 250 hz if you hit headset problems.">
+<details class="item">
+  <summary>Can I get 1000 Hz polling on an Xbox console? <span class="badge">GameSir T7 Pro</span></summary>
+  <div class="item-body">
+    <p>No. GameSir states the Xbox console enforces a 250 Hz polling-rate limit, so the 1000 Hz option is PC-only. GameSir also advises reverting to 250 Hz if you hit headset problems.</p>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/support/manuals/gamesir-t7-pro-retro-green-xbox-wired-controller" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+</div>
+<div class="ts-entry" data-model="t7-pro" data-topics="profiles" data-text="does the t7 pro have a gyroscope? the wired t7 pro does not. gamesir's list of gyro-equipped xbox controllers includes the t7 pro sugar whirl (6-axis, pc only), g7 pro, g7 pro wuchang, g7 pro zenless zone zero and tarantula pro xbox — the wired t7 pro is not on it, and gamepadla contributors also record 'gyroscope function: no' for the t7 pro floral.">
+<details class="item">
+  <summary>Does the T7 Pro have a gyroscope? <span class="badge">GameSir T7 Pro</span></summary>
+  <div class="item-body">
+    <p>The wired T7 Pro does not. GameSir's list of gyro-equipped Xbox controllers includes the T7 Pro Sugar Whirl (6-axis, PC only), G7 Pro, G7 Pro Wuchang, G7 Pro Zenless Zone Zero and Tarantula Pro Xbox — the wired T7 Pro is not on it, and Gamepadla contributors also record 'Gyroscope function: No' for the T7 Pro Floral.</p>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/support/manuals/gamesir-gamesir-t7-pro-sugar-whirl" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+</div>
+<div class="ts-entry" data-model="t7-pro" data-topics="buttons" data-text="where is the m (mode) button? directly underneath the d-pad.">
+<details class="item">
+  <summary>Where is the M (Mode) button? <span class="badge">GameSir T7 Pro</span></summary>
+  <div class="item-body">
+    <p>Directly underneath the D-pad.</p>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/support/manuals/gamesir-t7-pro-retro-green-xbox-wired-controller" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+</div>
+<div class="ts-entry" data-model="t7-pro" data-topics="profiles" data-text="pressing the xbox button opens the console shutdown menu instead of the guide — is the controller faulty? no, this is an hdmi-cec interaction. open the guide, go to profile &amp; system &gt; settings &gt; general &gt; tv &amp; display options &gt; device control and fully disable hdmi-cec, or make sure 'console turns on other devices' and 'switch tv input using controller' are not both enabled.">
+<details class="item">
+  <summary>Pressing the Xbox button opens the console shutdown menu instead of the guide — is the controller faulty? <span class="badge">GameSir T7 Pro</span></summary>
+  <div class="item-body">
+    <p>No, this is an HDMI-CEC interaction. Open the guide, go to Profile &amp; system &gt; Settings &gt; General &gt; TV &amp; display options &gt; Device Control and fully disable HDMI-CEC, or make sure 'Console turns on other devices' and 'Switch TV input using controller' are not both enabled.</p>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/support/manuals/gamesir-t7-pro-retro-green-xbox-wired-controller" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+</div>
+<div class="ts-entry" data-model="tarantula-pro" data-topics="detection connection platforms" data-text="which software do i need — gamesir nexus or gamesir connect? gamesir connect, connected via dongle or cable in xinput mode. gamesir nexus does not recognize the multiplatform tarantula pro. connect also will not see the controller if it is in ds or ns mode over bluetooth. the mobile gamesir app can also configure it. (the separate 'tarantula pro for xbox' is the opposite case — it uses gamesir nexus.)">
 <details class="item">
   <summary>Which software do I need — GameSir Nexus or GameSir Connect? <span class="badge">GameSir Tarantula Pro</span></summary>
   <div class="item-body">
@@ -490,7 +688,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="tarantula-pro" data-text="what platforms does the tarantula pro support? pc, switch, ios, android, and steam. it does not support xbox consoles — that requires the separate wired 'tarantula pro for xbox' model.">
+<div class="ts-entry" data-model="tarantula-pro" data-topics="platforms" data-text="what platforms does the tarantula pro support? pc, switch, ios, android, and steam. it does not support xbox consoles — that requires the separate wired 'tarantula pro for xbox' model.">
 <details class="item">
   <summary>What platforms does the Tarantula Pro support? <span class="badge">GameSir Tarantula Pro</span></summary>
   <div class="item-body">
@@ -499,7 +697,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="tarantula-pro" data-text="how do i change the face button layout between xbox and nintendo? gamesir's faq says to hold the combo for 2 seconds until the gear rotates and changes both the layout and the key values; the default is the xbox layout. reviewers document the combo as m + a for the xbox layout and m + b for the switch layout. the buttons physically rotate and change color to match.">
+<div class="ts-entry" data-model="tarantula-pro" data-topics="buttons" data-text="how do i change the face button layout between xbox and nintendo? gamesir's faq says to hold the combo for 2 seconds until the gear rotates and changes both the layout and the key values; the default is the xbox layout. reviewers document the combo as m + a for the xbox layout and m + b for the switch layout. the buttons physically rotate and change color to match.">
 <details class="item">
   <summary>How do I change the face button layout between Xbox and Nintendo? <span class="badge">GameSir Tarantula Pro</span></summary>
   <div class="item-body">
@@ -508,7 +706,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="tarantula-pro" data-text="how many remappable buttons are there and what can they do? nine: r4, l4, c1, c2, c3, c4, t1, t2, t3. each can be mapped to a single button or a sequence of up to 12. assignable values include a, b, x, y, lb, rb, lt, rt, ls, rs, view, menu, d-pad, and both sticks.">
+<div class="ts-entry" data-model="tarantula-pro" data-topics="buttons" data-text="how many remappable buttons are there and what can they do? nine: r4, l4, c1, c2, c3, c4, t1, t2, t3. each can be mapped to a single button or a sequence of up to 12. assignable values include a, b, x, y, lb, rb, lt, rt, ls, rs, view, menu, d-pad, and both sticks.">
 <details class="item">
   <summary>How many remappable buttons are there and what can they do? <span class="badge">GameSir Tarantula Pro</span></summary>
   <div class="item-body">
@@ -517,7 +715,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="tarantula-pro" data-text="what do the back button latches do? they mechanically enable or disable the l4/r4 back buttons so you can prevent unintended input when you are not using them.">
+<div class="ts-entry" data-model="tarantula-pro" data-topics="buttons" data-text="what do the back button latches do? they mechanically enable or disable the l4/r4 back buttons so you can prevent unintended input when you are not using them.">
 <details class="item">
   <summary>What do the back button latches do? <span class="badge">GameSir Tarantula Pro</span></summary>
   <div class="item-body">
@@ -526,7 +724,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="tarantula-pro" data-text="how do i pair the tarantula pro to a phone over bluetooth? hold the controller's combo for 2 seconds until channel indicators 1 and 5 flash, then release. open your phone's bluetooth list, find 'gamesir- tarantula pro' and connect. the channel indicator goes solid when connected.">
+<div class="ts-entry" data-model="tarantula-pro" data-topics="connection" data-text="how do i pair the tarantula pro to a phone over bluetooth? hold the controller's combo for 2 seconds until channel indicators 1 and 5 flash, then release. open your phone's bluetooth list, find 'gamesir- tarantula pro' and connect. the channel indicator goes solid when connected.">
 <details class="item">
   <summary>How do I pair the Tarantula Pro to a phone over Bluetooth? <span class="badge">GameSir Tarantula Pro</span></summary>
   <div class="item-body">
@@ -535,7 +733,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="tarantula-pro" data-text="does it have a turbo/rapid-fire function? yes, with four modes: slow (8hz), medium (12hz), fast (20hz), and off.">
+<div class="ts-entry" data-model="tarantula-pro" data-topics="buttons" data-text="does it have a turbo/rapid-fire function? yes, with four modes: slow (8hz), medium (12hz), fast (20hz), and off.">
 <details class="item">
   <summary>Does it have a turbo/rapid-fire function? <span class="badge">GameSir Tarantula Pro</span></summary>
   <div class="item-body">
@@ -544,7 +742,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="tarantula-pro" data-text="how many rumble motors does it have? two hd rumble motors. this differs by variant: the wired 'tarantula pro for xbox' has four (one in each grip and each trigger), and the tarantula 8k pc has none.">
+<div class="ts-entry" data-model="tarantula-pro" data-topics="buttons" data-text="how many rumble motors does it have? two hd rumble motors. this differs by variant: the wired 'tarantula pro for xbox' has four (one in each grip and each trigger), and the tarantula 8k pc has none.">
 <details class="item">
   <summary>How many rumble motors does it have? <span class="badge">GameSir Tarantula Pro</span></summary>
   <div class="item-body">
@@ -570,6 +768,7 @@
     <p class="small">Found an error? Open an issue or a pull request with a source and it will be corrected.</p>
   </div>
 </footer>
+
 <script src="assets/js/filter.js" defer></script>
 </body>
 </html>

@@ -6,6 +6,7 @@
 <title>GameSir G7 HE — specs, fixes and FAQ | GameSir Wiki</title>
 <meta name="description" content="GameSir G7 HE: full specifications, measured performance, documented problems and fixes, and frequently asked questions. Officially Xbox-licensed wired controller that keeps the G7 SE's Hall Effect sticks and triggers but swaps in microswitch face buttons and d-pad, adds silicone grips, and drops the back-button lock latches.">
 <link rel="stylesheet" href="../assets/css/style.css">
+<script>document.documentElement.className += " js";</script>
 </head>
 <body>
 
@@ -15,103 +16,125 @@
       <span class="brand-mark">GS</span>
       <span>GameSir Wiki</span>
     </a>
-    <nav class="site-nav"><a href="../index.html">Home</a><a href="../compare.html">Compare</a><a href="../troubleshooting.html">Troubleshooting</a><a href="../faq.html">FAQ</a><a href="../about.html">About</a></nav>
+    <nav class="site-nav"><a href="../index.html">Home</a><a href="../index.html#controllers">Controllers</a><a href="../compare.html">Compare</a><a href="../latency.html">Latency</a><a href="../troubleshooting.html">Troubleshooting</a><a href="../faq.html">FAQ</a><a href="../about.html">About</a></nav>
   </div>
 </header>
 
 <main>
 <div class="wrap narrow">
   <div class="page-head">
-    <p class="breadcrumb"><a href="../index.html">Home</a> / GameSir G7 HE</p>
+    <p class="breadcrumb"><a href="../index.html">Home</a> / <a href="../index.html#controllers">Controllers</a> / GameSir G7 HE</p>
     <p class="eyebrow">Mid-range &middot; Xbox-style</p>
     <h1>GameSir G7 HE</h1>
     <p class="lede">Officially Xbox-licensed wired controller that keeps the G7 SE's Hall Effect sticks and triggers but swaps in microswitch face buttons and d-pad, adds silicone grips, and drops the back-button lock latches.</p>
-    <div class="badges"><span class="badge tier-mid-range">Mid-range</span><span class="badge badge-hall">Hall Effect</span><span class="badge badge-info">250 Hz default; 500 Hz and 1000 Hz selectable in GameSir Nexus</span><span class="badge">GameSir Nexus (Xbox and PC; a 'Legacy GameSir Nexus' build also exists). The G7 HE does not use GameSir Connect, which is the app for the G7 Pro line. One gamepadla commenter reports Nexus failing to surface the newest firmware, matching GameSir's own instruction to fall back to a standalone PC upgrader.</span></div>
+    <div class="badges"><span class="badge tier-mid-range">Mid-range</span><span class="badge badge-hall">Hall Effect</span><span class="badge badge-info" title="250 Hz default; 500 Hz and 1000 Hz selectable in GameSir Nexus">1000 Hz</span><span class="badge" title="GameSir Nexus (Xbox and PC; a 'Legacy GameSir Nexus' build also exists). The G7 HE does not use GameSir Connect, which is the app for the G7 Pro line. One gamepadla commenter reports Nexus failing to surface the newest firmware, matching GameSir's own instruction to fall back to a standalone PC upgrader.">Nexus</span></div>
   </div>
 
-  <h2 id="specs">Specifications</h2>
-  <div class="spec-section">
-    <h3>Overview</h3>
-    <div class="spec-grid">
-      <div class="spec-row"><span class="spec-key">Released</span><span class="spec-val">2024</span></div>
-      <div class="spec-row"><span class="spec-key">Launch price</span><span class="spec-val">$49.99</span></div>
-      <div class="spec-row"><span class="spec-key">Weight</span><span class="spec-val">227 g</span></div>
-      <div class="spec-row"><span class="spec-key">Dimensions</span><span class="spec-val">152 x 103 x 63 mm</span></div>
-      <div class="spec-row"><span class="spec-key">Software</span><span class="spec-val">GameSir Nexus (Xbox and PC; a 'Legacy GameSir Nexus' build also exists). The G7 HE does not use GameSir Connect, which is the app for the G7 Pro line. One gamepadla commenter reports Nexus failing to surface the newest firmware, matching GameSir's own instruction to fall back to a standalone PC upgrader.</span></div>
-      <div class="spec-row"><span class="spec-key">Platforms</span><span class="spec-val">Xbox Series X|S, Xbox One, PC</span></div>
+  <nav class="tabs" id="controller-tabs" aria-label="Sections of this page"><a href="#specs" data-tab="specs" aria-current="true">Specifications</a><a href="#performance" data-tab="performance">Performance</a><a href="#features" data-tab="features">Features<span class="tab-count">10</span></a><a href="#issues" data-tab="issues">Problems<span class="tab-count">7</span></a><a href="#faq" data-tab="faq">FAQ<span class="tab-count">9</span></a><a href="#sources" data-tab="sources">Sources<span class="tab-count">13</span></a></nav>
+
+<section class="tab-panel is-active" id="specs" data-panel="specs">
+  <h2>Specifications</h2>
+  <p class="section-intro">Values that could not be verified against a source read &ldquo;not documented&rdquo; rather than being estimated.</p>
+  <div class="spec-columns">
+    <div class="spec-card">
+      <h3>Overview</h3>
+      <div class="spec-grid">
+        <div class="spec-row"><span class="spec-key">Released</span><span class="spec-val">2024</span></div>
+        <div class="spec-row"><span class="spec-key">Launch price</span><span class="spec-val">$49.99</span></div>
+        <div class="spec-row"><span class="spec-key">Weight</span><span class="spec-val">227 g</span></div>
+        <div class="spec-row"><span class="spec-key">Dimensions</span><span class="spec-val">152 x 103 x 63 mm</span></div>
+        <div class="spec-row"><span class="spec-key">Platforms</span><span class="spec-val">Xbox, PC</span></div>
+        <div class="spec-row"><span class="spec-key">Configuration app</span><span class="spec-val">Nexus</span></div>
+      </div>
+      
+      <details class="spec-note"><summary>Which app, and the exact platform wording</summary><p>GameSir Nexus (Xbox and PC; a 'Legacy GameSir Nexus' build also exists). The G7 HE does not use GameSir Connect, which is the app for the G7 Pro line. One gamepadla commenter reports Nexus failing to surface the newest firmware, matching GameSir's own instruction to fall back to a standalone PC upgrader.</p></details>
     </div>
 
-    <h3>Sticks</h3>
-    <div class="spec-grid">
-      <div class="spec-row"><span class="spec-key">Sensor technology</span><span class="spec-val">Hall Effect</span></div>
-      <div class="spec-row"><span class="spec-key">Resolution</span><span class="spec-val unknown">Not documented</span></div>
-      <div class="spec-row"><span class="spec-key">Durability</span><span class="spec-val">Up to 5 million cycles (GameSir manufacturer claim, from the G7 HE launch announcement)</span></div>
-      <div class="spec-row"><span class="spec-key">Measured center error</span><span class="spec-val unknown">Not documented</span></div>
-      <div class="spec-row"><span class="spec-key">Measured resolution</span><span class="spec-val unknown">Not documented</span></div>
+    <div class="spec-card">
+      <h3>Sticks</h3>
+      <div class="spec-grid">
+        <div class="spec-row"><span class="spec-key">Sensor technology</span><span class="spec-val">Hall Effect</span></div>
+        <div class="spec-row"><span class="spec-key">Resolution</span><span class="spec-val unknown">Not documented</span></div>
+        <div class="spec-row is-long"><span class="spec-key">Durability</span><span class="spec-val">Up to 5 million cycles (GameSir manufacturer claim, from the G7 HE launch announcement)</span></div>
+        <div class="spec-row"><span class="spec-key">Measured center error</span><span class="spec-val unknown">Not documented</span></div>
+        <div class="spec-row"><span class="spec-key">Measured resolution</span><span class="spec-val unknown">Not documented</span></div>
+      </div>
+      <details class="spec-note"><summary>How these measurements were arrived at</summary><p>Gamepadla has no full stick test for the G7 HE, only a linearity test, so center error, circle error, asymmetry and measured bit resolution are unavailable. That linearity test (firmware 6.33, cable, XInput) measured 91.5% linearity, 4.3% tremor, 172 total positions and 0.00580 step resolution. GameSir's own marketing claim of '0 Fluctuation, 0 Deviation and 0 Circularity error' is unverified marketing language, not a measurement.</p></details>
     </div>
-    <div class="note"><p>Gamepadla has no full stick test for the G7 HE, only a linearity test, so center error, circle error, asymmetry and measured bit resolution are unavailable. That linearity test (firmware 6.33, cable, XInput) measured 91.5% linearity, 4.3% tremor, 172 total positions and 0.00580 step resolution. GameSir's own marketing claim of '0 Fluctuation, 0 Deviation and 0 Circularity error' is unverified marketing language, not a measurement.</p></div>
 
-    <h3>Triggers, D-pad and buttons</h3>
-    <div class="spec-grid">
-      <div class="spec-row"><span class="spec-key">Trigger technology</span><span class="spec-val">Hall Effect analog</span></div>
-      <div class="spec-row"><span class="spec-key">Trigger stops</span><span class="spec-val">No</span></div>
-      <div class="spec-row"><span class="spec-key">D-pad</span><span class="spec-val">Microswitch (tactile switch) d-pad, a change from the G7 SE's membrane d-pad, giving crisp clicky feedback. Doubles as headset volume and game/chat balance control when held with the M button.</span></div>
-      <div class="spec-row"><span class="spec-key">Face buttons</span><span class="spec-val">Microswitch ABXY rated by GameSir for a 3 million press lifespan, with clicky tactile feedback. This is the headline difference from the G7 SE's membrane buttons and is a return to the original G7's design.</span></div>
-      <div class="spec-row"><span class="spec-key">Rear buttons</span><span class="spec-val">2</span></div>
-      <div class="spec-row"><span class="spec-key">Extra bumpers</span><span class="spec-val">0</span></div>
+    <div class="spec-card">
+      <h3>Triggers, D-pad and buttons</h3>
+      <div class="spec-grid">
+        <div class="spec-row"><span class="spec-key">Trigger technology</span><span class="spec-val">Hall Effect analog</span></div>
+        <div class="spec-row"><span class="spec-key">Trigger stops</span><span class="spec-val">No</span></div>
+        <div class="spec-row"><span class="spec-key">D-pad</span><span class="spec-val">Microswitch</span></div>
+        <div class="spec-row is-long"><span class="spec-key">Face buttons</span><span class="spec-val">Microswitch ABXY rated by GameSir for a 3 million press lifespan, with clicky tactile feedback. This is the headline difference from the G7 SE's membrane buttons and is a return to the original G7's design.</span></div>
+        <div class="spec-row"><span class="spec-key">Rear buttons</span><span class="spec-val">2</span></div>
+        <div class="spec-row"><span class="spec-key">Extra bumpers</span><span class="spec-val">0</span></div>
+      </div>
+      <details class="spec-note"><summary>Trigger detail</summary><p>No physical trigger stops or trigger locks; Windows Central calls this out as a specific omission. Hair-trigger mode is toggled by holding M + LT or M + RT for 2 seconds until the corresponding trigger vibrates. GameSir claims '100% response area'. Trigger travel distance is not documented.</p></details>
+      <details class="spec-note"><summary>Mapping the extra buttons</summary><p>Two rear paddles (L4/R4), a front 'M' (Mode) button below the d-pad, and a mic mute button. Unlike the G7 SE, the G7 HE has NO physical lock latches for the back buttons: GameSir's product spec list omits the 'Back Button Quick Latches' line that the SE spec list carries, Windows Central specifically flags the removal, and PCGamingWiki and comparison tables agree. Be aware GameSir's own G7 HE manual page still says 'two lockable back buttons' and even refers to 'the G7 SE' in its body text, which appears to be copy-pasted from the SE manual. Remap by holding M + R4/L4 for 3 seconds until the indicator blinks slowly, then tapping the target button.</p></details>
     </div>
-    <p class="small text-muted">No physical trigger stops or trigger locks; Windows Central calls this out as a specific omission. Hair-trigger mode is toggled by holding M + LT or M + RT for 2 seconds until the corresponding trigger vibrates. GameSir claims '100% response area'. Trigger travel distance is not documented.</p>
-    <p class="small text-muted">Two rear paddles (L4/R4), a front 'M' (Mode) button below the d-pad, and a mic mute button. Unlike the G7 SE, the G7 HE has NO physical lock latches for the back buttons: GameSir's product spec list omits the 'Back Button Quick Latches' line that the SE spec list carries, Windows Central specifically flags the removal, and PCGamingWiki and comparison tables agree. Be aware GameSir's own G7 HE manual page still says 'two lockable back buttons' and even refers to 'the G7 SE' in its body text, which appears to be copy-pasted from the SE manual. Remap by holding M + R4/L4 for 3 seconds until the indicator blinks slowly, then tapping the target button.</p>
 
-    <h3>Connectivity and performance</h3>
-    <div class="spec-grid">
-      <div class="spec-row"><span class="spec-key">Connection modes</span><span class="spec-val">Wired</span></div>
-      <div class="spec-row"><span class="spec-key">Polling rate (PC)</span><span class="spec-val">250 Hz default; 500 Hz and 1000 Hz selectable in GameSir Nexus</span></div>
-      <div class="spec-row"><span class="spec-key">Polling rate (Xbox)</span><span class="spec-val">250 Hz</span></div>
-      <div class="spec-row"><span class="spec-key">Audio jack</span><span class="spec-val">3.5 mm</span></div>
-      <div class="spec-row"><span class="spec-key">Gyro</span><span class="spec-val">No</span></div>
-      <div class="spec-row"><span class="spec-key">Rumble</span><span class="spec-val">Four rumble motors: one in each grip plus one behind each trigger (impulse triggers). Vibration is configurable per profile in GameSir Nexus, and impulse triggers can be forced on for all games.</span></div>
+    <div class="spec-card">
+      <h3>Connectivity</h3>
+      <div class="spec-grid">
+        <div class="spec-row"><span class="spec-key">Connection modes</span><span class="spec-val">Wired</span></div>
+        <div class="spec-row"><span class="spec-key">Polling rate (PC)</span><span class="spec-val">1000 Hz</span></div>
+        <div class="spec-row"><span class="spec-key">Polling rate (Xbox)</span><span class="spec-val">250 Hz</span></div>
+        <div class="spec-row"><span class="spec-key">Audio jack</span><span class="spec-val">3.5 mm</span></div>
+        <div class="spec-row"><span class="spec-key">Gyro</span><span class="spec-val">No</span></div>
+        <div class="spec-row is-long"><span class="spec-key">Rumble</span><span class="spec-val">Four rumble motors: one in each grip plus one behind each trigger (impulse triggers). Vibration is configurable per profile in GameSir Nexus, and impulse triggers can be forced on for all games.</span></div>
+      </div>
+      <details class="spec-note"><summary>Which modes work on which platform</summary><p>Wired only, via a 3 m detachable USB-C cable. No battery and no wireless mode. GameSir's product page additionally lists Steam as a supported platform; the manual tech-spec block also lists Android, but this is not repeated on the product page or FAQ and is unconfirmed.</p></details>
+      <details class="spec-note"><summary>Polling rate caveats</summary><p>GameSir states the Xbox console enforces a 250 Hz cap so 1000 Hz is PC-only, and support advises locking to 250 Hz if you use the 3.5 mm headset jack. Gamepadla verified roughly 988 Hz, 499 Hz and 250 Hz operating points on firmware 6.40. GameSir's published Windows 11 / firmware 6.30+ / Nexus 1.2.9+ prerequisites for 1000 Hz are written for the G7 and G7 SE; whether identical prerequisites apply to the HE is not separately documented.</p></details>
+      <details class="spec-note"><summary>Gyro detail</summary><p>GameSir's official gyroscope list does not include the G7 HE, and gamepadla's verified specs also record no gyroscope.</p></details>
     </div>
-    <div class="note"><p>Wired only, via a 3 m detachable USB-C cable. No battery and no wireless mode. GameSir's product page additionally lists Steam as a supported platform; the manual tech-spec block also lists Android, but this is not repeated on the product page or FAQ and is unconfirmed.</p></div>
-    <p class="small text-muted">GameSir states the Xbox console enforces a 250 Hz cap so 1000 Hz is PC-only, and support advises locking to 250 Hz if you use the 3.5 mm headset jack. Gamepadla verified roughly 988 Hz, 499 Hz and 250 Hz operating points on firmware 6.40. GameSir's published Windows 11 / firmware 6.30+ / Nexus 1.2.9+ prerequisites for 1000 Hz are written for the G7 and G7 SE; whether identical prerequisites apply to the HE is not separately documented.</p>
-    <p class="small text-muted">Gyro: GameSir's official gyroscope list does not include the G7 HE, and gamepadla's verified specs also record no gyroscope.</p>
 
-    <h3>Battery and build</h3>
-    <div class="spec-grid">
-      <div class="spec-row"><span class="spec-key">Battery capacity</span><span class="spec-val unknown">Not documented</span></div>
-      <div class="spec-row"><span class="spec-key">Claimed battery life</span><span class="spec-val unknown">Not documented</span></div>
-      <div class="spec-row"><span class="spec-key">Swappable faceplates</span><span class="spec-val">Yes</span></div>
+    <div class="spec-card">
+      <h3>Battery and build</h3>
+      <div class="spec-grid">
+        <div class="spec-row"><span class="spec-key">Battery capacity</span><span class="spec-val unknown">Not documented</span></div>
+        <div class="spec-row"><span class="spec-key">Claimed battery life</span><span class="spec-val">No battery (wired)</span></div>
+        <div class="spec-row"><span class="spec-key">Swappable faceplates</span><span class="spec-val">Yes</span></div>
+      </div>
+      <details class="spec-note"><summary>Battery detail</summary><p>Wired only. GameSir's spec sheet lists 'Battery: No' and gamepadla's verified spec list records 'No battery'. There is no battery-life claim to attribute, measured or manufacturer.</p></details>
+      <details class="spec-note"><summary>Faceplate detail</summary><p>Magnetic swappable faceplate with painting support. G7 series faceplates fit the newer G7 Pro, but the G7 Pro's three-part split faceplate does NOT fit the G7, G7 SE or G7 HE. Calibration must be performed with the faceplate installed or the stick range values will be wrong.</p></details>
     </div>
-    <p class="small text-muted">Wired only. GameSir's spec sheet lists 'Battery: No' and gamepadla's verified spec list records 'No battery'. There is no battery-life claim to attribute, measured or manufacturer.</p>
-    <p class="small text-muted">Magnetic swappable faceplate with painting support. G7 series faceplates fit the newer G7 Pro, but the G7 Pro's three-part split faceplate does NOT fit the G7, G7 SE or G7 HE. Calibration must be performed with the faceplate installed or the stick range values will be wrong.</p>
   </div>
-
-  <h3 id="latency">Measured latency</h3>
-<p class="section-intro small">Bar length reflects stick latency on a fixed 0&ndash;16&nbsp;ms scale, so bars are comparable between models. Measured and published by gamepadla.com; polling rate and latency are measured by different methods and are not the same thing.</p>
-<div class="latency-list">
-<div class="latency-row">
-  <div class="latency-head"><span class="latency-mode">Wired (XInput, FW 6.40)</span><span class="latency-num">button 2.84 ms avg · stick 11.56 ms avg · ~988 Hz</span></div>
-  <div class="bar-track"><div class="bar-fill is-bad" style="width:72.3%"></div></div>
+</section>
+<section class="tab-panel" id="performance" data-panel="performance">
+  <h2>Measured performance</h2>
+  <p class="section-intro">Independent measurement, kept separate from the manufacturer's own figures above.</p>
+  <div class="table-scroll">
+  <table class="spec-table latency-table">
+    <thead><tr><th>Connection mode</th><th>Button</th><th>Stick</th><th>Polling</th><th>Stick latency</th></tr></thead>
+    <tbody>
+<tr><th>Wired (XInput, FW 6.40)</th><td>2.84 ms avg</td><td>11.56 ms avg</td><td>~988 Hz</td><td class="bar-cell"><span class="bar-track"><span class="bar-fill is-bad" style="width:72.3%"></span></span></td></tr>
+    </tbody>
+  </table>
 </div>
-</div>
-
-  <h2 id="features">Notable features</h2>
-<ul>
-  <li>Microswitch ABXY and microswitch d-pad rated for 3 million presses, the main upgrade over the G7 SE</li>
-  <li>Hall Effect sticks claimed at up to 5 million cycles, with anti-friction glide rings</li>
-  <li>Hall Effect analog triggers with hair-trigger toggle (hold M + LT/RT for 2 seconds)</li>
-  <li>Rubberized silicone rear grips, not present on the G7 SE</li>
-  <li>Four rumble motors including impulse triggers</li>
-  <li>Three custom profiles plus default, switched on-pad with M + Y (default), M + B (1), M + A (2), M + X (3)</li>
-  <li>3.5 mm audio jack with on-pad volume and game/chat balance via M + d-pad, plus a dedicated mic mute button</li>
-  <li>Zero-deadzone option and exclusive 'Raw' stick mode in GameSir Nexus</li>
-  <li>Magnetic swappable paint-friendly faceplate</li>
-  <li>Gamepadla measured 2.84 ms button latency at roughly 988 Hz on firmware 6.40, but notably high stick latency of 11.56 ms in the same run (versus 3.23 ms for the G7 SE)</li>
-</ul>
-
-  <h2 id="issues">Known issues and fixes</h2>
-<p class="section-intro">Documented problems with documented solutions. Each entry cites where the fix comes from.</p>
-<div class="accordion">
+<p class="small text-dim">Bars use a fixed 0&ndash;16&nbsp;ms scale so they compare with every other page on this site; a full-width bar exceeds 16&nbsp;ms. Measured and published by gamepadla.com from a single unit on one firmware. Polling rate and latency are measured by different methods and are not the same thing. <a href="../latency.html">Compare against every other model</a>.</p>
+</section>
+<section class="tab-panel" id="features" data-panel="features">
+  <h2>Notable features</h2>
+  <ul>
+    <li>Microswitch ABXY and microswitch d-pad rated for 3 million presses, the main upgrade over the G7 SE</li>
+    <li>Hall Effect sticks claimed at up to 5 million cycles, with anti-friction glide rings</li>
+    <li>Hall Effect analog triggers with hair-trigger toggle (hold M + LT/RT for 2 seconds)</li>
+    <li>Rubberized silicone rear grips, not present on the G7 SE</li>
+    <li>Four rumble motors including impulse triggers</li>
+    <li>Three custom profiles plus default, switched on-pad with M + Y (default), M + B (1), M + A (2), M + X (3)</li>
+    <li>3.5 mm audio jack with on-pad volume and game/chat balance via M + d-pad, plus a dedicated mic mute button</li>
+    <li>Zero-deadzone option and exclusive 'Raw' stick mode in GameSir Nexus</li>
+    <li>Magnetic swappable paint-friendly faceplate</li>
+    <li>Gamepadla measured 2.84 ms button latency at roughly 988 Hz on firmware 6.40, but notably high stick latency of 11.56 ms in the same run (versus 3.23 ms for the G7 SE)</li>
+  </ul>
+</section>
+<section class="tab-panel" id="issues" data-panel="issues">
+  <h2>Known issues and fixes</h2>
+  <p class="section-intro">Documented problems with documented solutions. Each entry cites where the fix comes from.</p>
+  <div class="accordion">
 <details class="item">
   <summary>Controller is connected and lit but registers no input, disconnects constantly, or will not power on.</summary>
   <div class="item-body">
@@ -168,10 +191,11 @@
     <p class="small text-dim">Source: <a href="https://www.windowscentral.com/gaming/gamesir-g7-he-review" rel="nofollow noopener" target="_blank">www.windowscentral.com</a></p>
   </div>
 </details>
-</div>
-
-  <h2 id="faq">Frequently asked questions</h2>
-<div class="accordion">
+  </div>
+</section>
+<section class="tab-panel" id="faq" data-panel="faq">
+  <h2>Frequently asked questions</h2>
+  <div class="accordion">
 <details class="item">
   <summary>What is the correct stick and trigger calibration procedure for the G7 HE? (Do NOT use the G7 Pro procedure.)</summary>
   <div class="item-body">
@@ -235,10 +259,12 @@
     <p class="small text-dim">Source: <a href="https://gamesir.com/support/manuals/gamesir-g7-he-xbox-controller" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
   </div>
 </details>
-</div>
-
-  <h2 id="sources">Sources</h2>
-<ul class="source-list">
+  </div>
+</section>
+<section class="tab-panel" id="sources" data-panel="sources">
+  <h2>Sources</h2>
+  <p class="section-intro">Everything on this page traces back to one of these.</p>
+  <ul class="source-list">
 <li><a href="https://gamesir.com/products/gamesir-g7-he-xbox-controller" rel="nofollow noopener" target="_blank">GameSir official G7 HE product page (tech specs, 227 g, microswitch ABXY, no back-button latch line)</a></li>
 <li><a href="https://gamesir.com/support/manuals/gamesir-g7-he-xbox-controller" rel="nofollow noopener" target="_blank">GameSir official G7 HE manual / how-to (calibration, resets, combos, Nexus feature summary)</a></li>
 <li><a href="https://gamesir.com/cs/pages/faq-questions-about-g7-he" rel="nofollow noopener" target="_blank">GameSir official G7 HE FAQ (troubleshooting, function reset, 0-deadzone answer, firmware V6.40, audio fix)</a></li>
@@ -252,7 +278,58 @@
 <li><a href="https://www.pcgamingwiki.com/wiki/Controller:GameSir_G7" rel="nofollow noopener" target="_blank">PCGamingWiki G7 family entry (G7 HE released 22 July 2024, mechanical d-pad and face buttons, rubberized grips)</a></li>
 <li><a href="https://www.argos.co.uk/product/4353416" rel="nofollow noopener" target="_blank">Argos UK listing (release date 30 August 2024, £49.99, 2-year guarantee)</a></li>
 <li><a href="https://www.newegg.com/p/232-00AM-000E8" rel="nofollow noopener" target="_blank">Newegg GameSir Official Store listing ($49.99, 3 million click microswitch face buttons)</a></li>
-</ul>
+  </ul>
+</section>
+
+  <nav class="pager" aria-label="Nearby controllers">
+    <a class="pager-link" href="cyclone-2.html" rel="prev">
+      <span class="pager-dir">&larr; Previous</span>
+      <span class="pager-name">GameSir Cyclone 2</span>
+    </a>
+    <a class="pager-link is-next" href="g7-pro.html" rel="next">
+      <span class="pager-dir">Next &rarr;</span>
+      <span class="pager-name">GameSir G7 Pro</span>
+    </a>
+  </nav>
+
+  <details class="switcher">
+    <summary>Jump to another controller</summary>
+    <div class="switch-grid">
+<a class="switch-item" href="cyclone-2.html">
+      <span class="switch-name">GameSir Cyclone 2</span>
+      <span class="switch-meta">Mag-Res TMR &middot; $49.99</span>
+    </a>
+<a class="switch-item" href="g7-pro.html">
+      <span class="switch-name">GameSir G7 Pro</span>
+      <span class="switch-meta">Mag-Res TMR &middot; $79.99</span>
+    </a>
+<a class="switch-item" href="g7-pro-8k.html">
+      <span class="switch-name">GameSir G7 Pro 8K</span>
+      <span class="switch-meta">Gen-2 TMR</span>
+    </a>
+<a class="switch-item" href="g7-se.html">
+      <span class="switch-name">GameSir G7 SE</span>
+      <span class="switch-meta">Hall Effect &middot; $44.99</span>
+    </a>
+<a class="switch-item" href="kaleid.html">
+      <span class="switch-name">GameSir Kaleid</span>
+      <span class="switch-meta">Hall Effect &middot; $49.99</span>
+    </a>
+<a class="switch-item" href="super-nova.html">
+      <span class="switch-name">GameSir Super Nova</span>
+      <span class="switch-meta">Hall Effect &middot; $49.99</span>
+    </a>
+<a class="switch-item" href="t7-pro.html">
+      <span class="switch-name">GameSir T7 Pro</span>
+      <span class="switch-meta">Hall Effect &middot; $49.99</span>
+    </a>
+<a class="switch-item" href="tarantula-pro.html">
+      <span class="switch-name">GameSir Tarantula Pro</span>
+      <span class="switch-meta">Mag-Res TMR &middot; $79.99</span>
+    </a>
+    </div>
+    <p class="small text-dim">Or <a href="../compare.html">compare all 9 side by side</a>.</p>
+  </details>
 
   <p class="small text-dim">Data last reviewed 2026-09-06. Figures are compiled from the sources above rather than first-hand testing.</p>
 </div>
@@ -271,5 +348,6 @@
   </div>
 </footer>
 
+<script src="../assets/js/filter.js" defer></script>
 </body>
 </html>

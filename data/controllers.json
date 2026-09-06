@@ -251,7 +251,19 @@
           "stick": null,
           "polling": "250-400 Hz"
         }
-      ]
+      ],
+      "short": {
+        "msrp": "$49.99",
+        "software": "Connect",
+        "sticks": "Mag-Res TMR",
+        "triggers": "Hall Effect + microswitch",
+        "dpad": "Tactile switch",
+        "polling": "1000 Hz",
+        "claimedLife": "~10 h (maker estimate)",
+        "centerError": "3.5% / 2.0%",
+        "resolution": "12-bit / 4096",
+        "platforms": "PC, Switch, Mobile"
+      }
     },
     {
       "id": "g7-he",
@@ -482,7 +494,19 @@
           "stick": "11.56 ms avg",
           "polling": "~988 Hz"
         }
-      ]
+      ],
+      "short": {
+        "msrp": "$49.99",
+        "software": "Nexus",
+        "sticks": "Hall Effect",
+        "triggers": "Hall Effect analog",
+        "dpad": "Microswitch",
+        "polling": "1000 Hz",
+        "claimedLife": "No battery (wired)",
+        "centerError": null,
+        "resolution": null,
+        "platforms": "Xbox, PC"
+      }
     },
     {
       "id": "g7-pro",
@@ -686,7 +710,19 @@
           "label": "PC Gamer G7 Pro Tri-Mode review",
           "url": "https://www.pcgamer.com/hardware/controllers/gamesir-g7-pro-tri-mode-review/"
         }
-      ]
+      ],
+      "short": {
+        "msrp": "$79.99",
+        "software": "Nexus",
+        "sticks": "Mag-Res TMR",
+        "triggers": "Hall Effect + stops",
+        "dpad": "Microswitch",
+        "polling": "1000 Hz",
+        "claimedLife": null,
+        "centerError": "2.3% / 1.9%",
+        "resolution": "12-bit / 4096",
+        "platforms": "Xbox, PC, Android"
+      }
     },
     {
       "id": "g7-pro-8k",
@@ -848,7 +884,19 @@
           "label": "gamepadla measured data (8K Aimlabs Edition)",
           "url": "https://gamepadla.com/gamesir-g7-pro-8k.html"
         }
-      ]
+      ],
+      "short": {
+        "msrp": null,
+        "software": "Connect",
+        "sticks": "Gen-2 TMR",
+        "triggers": "Hall Effect + stops",
+        "dpad": "Microswitch",
+        "polling": "8000 Hz",
+        "claimedLife": null,
+        "centerError": "2.0% / 2.9%",
+        "resolution": null,
+        "platforms": "PC"
+      }
     },
     {
       "id": "g7-se",
@@ -1078,7 +1126,289 @@
           "stick": "3.23 ms avg",
           "polling": "1000 Hz"
         }
-      ]
+      ],
+      "short": {
+        "msrp": "$44.99",
+        "software": "Nexus",
+        "sticks": "Hall Effect",
+        "triggers": "Hall Effect analog",
+        "dpad": "Membrane",
+        "polling": "1000 Hz",
+        "claimedLife": "No battery (wired)",
+        "centerError": "1.8% / 1.7%",
+        "resolution": null,
+        "platforms": "Xbox, PC"
+      }
+    },
+    {
+      "id": "kaleid",
+      "name": "GameSir Kaleid",
+      "tagline": "Wired-only, officially licensed Xbox controller with a transparent shell, RGB light strips, Hall Effect sticks and triggers, and microswitch face buttons.",
+      "releaseYear": 2024,
+      "msrp": "$49.99 / £59.99 (launch RRP, May 30, 2024). The Kaleid Flux variant launched at $46.99 / £55.99.",
+      "platforms": [
+        "PC (Windows 10/11)",
+        "Xbox Series X|S",
+        "Xbox One",
+        "Steam"
+      ],
+      "connectivity": {
+        "wired": true,
+        "dongle24g": false,
+        "bluetooth": false,
+        "notes": "CONFIRMED WIRED-ONLY. GameSir's Kaleid FAQ answers 'Is it wired or wireless?' with 'Wired, with a 3m detachable USB-C cable', the official spec sheet lists 'Battery: No', and Gamepadla records 'No battery' with Cable as the only interface. TechRadar's review also calls out the lack of wireless as its main drawback. The Kaleid Flux is likewise wired-only. Note the Kaleid (model K1) is a different controller from the older PC-oriented T4 Kaleid (T4K)."
+      },
+      "sticks": {
+        "tech": "GameSir Hall Effect (non-contact magnetic) sticks with anti-friction glide rings. GameSir Nexus allows a 0% dead zone and an exclusive 'Raw' stick mode.",
+        "resolution": null,
+        "durability": "Up to 5 million cycles (manufacturer claim)",
+        "driftResistant": true,
+        "measuredCenterError": null,
+        "measuredResolution": null,
+        "measuredNotes": "No stick centering, circularity or linearity figure has been published for this model — gamepadla's stick test sections are empty. GameSir markets the sticks as having '0 Fluctuation, 0 Deviation and 0 Circularity error', which is marketing copy rather than a measurement and should not be read as a measured center error of zero."
+      },
+      "triggers": {
+        "tech": "Hall Effect analog triggers (GameSir 'precision-tuned', described as 100% response area)",
+        "triggerStops": false,
+        "notes": "No physical trigger-stop switch or trigger lock — Gamepadla contributors record 'Trigger lock: No'. Instead there is a firmware Hair Trigger mode toggled by holding M + LT or M + RT for 2 seconds (GameSir's launch press release says 3 seconds; the FAQ and manual say 2 seconds). With hair trigger on, the corresponding left/right LED strip lights up when LT/RT is pressed, and the setting survives a restart. Trigger dead zones/ranges are also adjustable in GameSir Nexus."
+      },
+      "dpad": "GameSir's official spec sheet does not state the D-pad switch type; only 'ABXY Buttons: Microswitch' is specified. Gamepadla contributors record 'D-pad buttons type: Mechanical' for the K1 Kaleid, and TechRadar's review says the Kaleid's D-pad is a step up from the T4 Kaleid's. Treat the exact D-pad switch type as not officially documented.",
+      "faceButtons": "Microswitch ABXY on the Kaleid — this is the headline difference from the Kaleid Flux, which uses membrane ABXY. Reviewers describe the Kaleid's buttons as noticeably clicky and tactile.",
+      "pollingRate": {
+        "pc": "250 Hz by default; up to 1000 Hz on PC after a firmware update, then selected in GameSir Nexus. GameSir publishes model-specific firmware upgraders for Kaleid (K1) and Kaleid Flux (K1 Flux) to unlock the 1000 Hz report rate.",
+        "xbox": "250 Hz (GameSir states the Xbox console enforces a 250 Hz polling-rate limit)",
+        "notes": "IMPORTANT trade-off documented by GameSir: while running at 1000 Hz, the 3.5 mm earphone jack and native trigger vibration are temporarily disabled. Gamepadla measured the K1 Kaleid over cable/XInput at 1000 Hz median (947.12 Hz average): average button latency 5.32 ms (min 2.15, max 9.74, jitter 1.78) and average stick latency 7.62 ms (min 6.73, max 9.79, jitter 0.47), on firmware 1.49. At 500 Hz stick latency rose to 14.21 ms avg and at 250 Hz to 27.22 ms avg."
+      },
+      "battery": {
+        "capacity": null,
+        "claimedLife": null,
+        "notes": "Wired-only — there is no battery. GameSir's official spec sheet lists 'Battery: No' and Gamepadla records 'No battery'. Reviewers cite 'never a worry about batteries' as a selling point. Battery fields are therefore null rather than unknown."
+      },
+      "weight": "213 g / 0.47 lbs net (GameSir official). Note TechRadar's review table lists 422 g, which matches boxed/gross weight territory rather than GameSir's 213 g net figure (GameSir lists gross weight as 393 g).",
+      "dimensions": "156 x 107 x 60 mm / 6.14 x 4.21 x 2.36 in (GameSir official)",
+      "extraButtons": {
+        "backButtons": 2,
+        "extraBumpers": 0,
+        "remappable": true,
+        "notes": "L4/R4 back buttons ship with no preset values. Assign: hold M + L4 (or R4) for 3 s; when the Xbox button blinks slowly, press the button to map. Cancel: repeat and press L4/R4 itself. Assignable values are A/B/X/Y/LB/RB/LT/RT/LS/RS/D-pad/Menu/View/Share. Setting mode auto-exits after 10 s of inactivity with values unchanged. Gamepadla records 'Paddles: 2', 'Shoulder buttons: No' (i.e. no extra bumpers)."
+      },
+      "gyro": {
+        "present": false,
+        "notes": "No gyroscope. Gamepadla contributors record 'Gyroscope function: No', and GameSir's official list of gyro-equipped controllers does not include Kaleid or Kaleid Flux."
+      },
+      "audioJack": true,
+      "rumble": "4 rumble motors — two asymmetric motors in the grips and one in each trigger. Vibration level is adjustable in GameSir Nexus. Native trigger vibration is disabled while the 1000 Hz report rate is active.",
+      "faceplates": {
+        "swappable": false,
+        "notes": "No swappable faceplate. The shell is a fixed transparent design showing the printed PCB, with two customizable RGB light strips."
+      },
+      "software": "GameSir Nexus (PC and Xbox app, Microsoft Store). NOT GameSir Connect and NOT the GameSir mobile app. GameSir's download page lists Kaleid and Kaleid Flux under Nexus. Nexus provides 3 custom profiles, button remapping, D-pad diagonal tuning, stick and trigger dead-zone/range adjustment, 0% dead zone and 'Raw' stick mode, turbo/rapid-fire, vibration level, light effects, report rate and firmware updates. TechRadar notes Nexus cannot swap the left and right stick inputs with each other.",
+      "notableFeatures": [
+        "Officially licensed for Xbox Series X|S and Xbox One; plug-and-play with a 3 m detachable USB-C cable",
+        "Hall Effect sticks AND Hall Effect analog triggers, both rated by GameSir for up to 5 million cycles on the sticks",
+        "Microswitch ABXY face buttons (the key differentiator from the Kaleid Flux's membrane buttons)",
+        "Transparent shell with a printed PCB visible through it, plus two customizable RGB light strips — 4 light effects and 5 brightness levels, switchable on-controller",
+        "3.5 mm audio jack with a dedicated microphone mute function (double-tap M; solid red LED indicates muted)",
+        "Four rumble motors — two asymmetric in the grips, one per trigger",
+        "Two remappable back buttons, configurable on-controller or in GameSir Nexus",
+        "On-controller profile switching: M + Y = default, M + B = profile 1, M + A = profile 2, M + X = profile 3",
+        "Optional 1000 Hz report rate on PC after a firmware update (disables headset audio and native trigger vibration while active)",
+        "Auto-sleep after 10 minutes of inactivity; wake by pressing Xbox/A/B/X/Y",
+        "Variant: Kaleid Flux is mechanically near-identical but uses membrane ABXY buttons, a different PCB trace pattern and a different default RGB colour, at a lower launch price"
+      ],
+      "knownIssues": [
+        {
+          "symptom": "Controller repeatedly disconnects and reconnects during use.",
+          "cause": "Bad or partially seated USB cable, marginal USB port, outdated firmware, or a physically defective USB port on the controller.",
+          "fix": "GameSir's documented order: 1) try another USB-C cable and make sure it is pushed all the way in; 2) try different USB ports, preferably on the back of the PC (motherboard ports, not hubs or front panel); 3) update the Kaleid firmware to the latest version in GameSir Nexus — GameSir cites V1.63 — and if that version does not appear in Nexus, use the model-specific manual upgrader on PC; 4) if none of that helps GameSir says it is most likely a port defect and to submit a video or seek a return.",
+          "sourceUrl": "https://gamesir.com/pages/faq-questions-about-kaleid-series"
+        },
+        {
+          "symptom": "A/B/X/Y or the D-pad double-clicks or registers extra presses; a bumper auto-clicks; buttons stop registering input.",
+          "cause": "Corrupted profile/settings state or outdated firmware.",
+          "fix": "Run the function reset by holding View + Menu + M for 5 seconds, then make sure the Kaleid firmware is updated to the latest version (GameSir cites V1.63) in GameSir Nexus, using the manual PC upgrader if Nexus does not offer it.",
+          "sourceUrl": "https://gamesir.com/pages/faq-questions-about-kaleid-series"
+        },
+        {
+          "symptom": "Headset audio and/or trigger vibration stop working after enabling 1000 Hz polling.",
+          "cause": "Documented hardware/firmware limitation, not a fault — the 3.5 mm earphone jack and native trigger vibration are disabled while the 1000 Hz report rate is active.",
+          "fix": "Set the report rate back to 250 Hz in GameSir Nexus to restore headset audio and native trigger vibration. GameSir explicitly advises reverting to 250 Hz when troubleshooting audio problems.",
+          "sourceUrl": "https://gamesir.com/pages/solve-the-disconnecting-problem-for-kaleid-kaleid-flux"
+        },
+        {
+          "symptom": "Controller is bricked or permanently unusable after a manual firmware update.",
+          "cause": "Flashing firmware intended for a different Kaleid model. T4 Kaleid (T4K), Kaleid (K1) and Kaleid Flux (K1 Flux) are three different controllers with three different firmwares.",
+          "fix": "Prevention only — use the upgrader for your exact model. GameSir warns that installing the wrong firmware will likely brick the controller, and that flashing any of these firmwares onto a T4 Kaleid renders it unusable and unrecoverable. Update procedure for Kaleid (K1): hold LOGO + Menu while connecting the cable to a PC, open the upgrader, click Download, and wait for 'Upgrade SUCCESS'.",
+          "sourceUrl": "https://gamesir.com/pages/kaleid-series-1000hz-polling-rate-upgrade-tutorial"
+        },
+        {
+          "symptom": "GameSir Nexus or games do not detect the Kaleid, or it will not turn on / shows light but no input.",
+          "cause": "USB PID recognition failure, wrong input mode (GIP vs XInput), incompletely seated cable, or an unstable firmware version.",
+          "fix": "1) Reseat the cable firmly — GameSir notes it can require real force and may click when properly seated. 2) Hold View + Menu + M to reset the controller. 3) While connected, hold Xbox + M for 3 seconds then unplug and replug to restore the original PID. 4) If still not detected, hold Xbox + Share for 3 seconds while connected to force-switch between XInput and GIP modes. 5) Change USB ports and cables and verify firmware in Nexus (Firmware Upgrade arrow, top right).",
+          "sourceUrl": "https://gamesir.com/support/manuals/gamesir-kaleid-xbox-controller"
+        },
+        {
+          "symptom": "Controller works on PC but the Xbox console does not detect it at all.",
+          "cause": "Console-side USB/cache state, or the cable is in a low-power or flaky console port.",
+          "fix": "Plug the controller into the rear USB port of the console. With the console on, hold the console power button for more than 10 seconds until it fully shuts down, unplug the power cord for about 30 seconds, then press the console power button 10 times to discharge residual power. Reconnect power with the controller still in the rear port, boot the console and retest. GameSir notes this full power cycle clears the Xbox cache and often restores detection.",
+          "sourceUrl": "https://gamesir.com/support/manuals/gamesir-kaleid-xbox-controller"
+        },
+        {
+          "symptom": "Headset plugged into the controller has no audio, or the microphone does not work.",
+          "cause": "Plug not fully seated in a slightly stiff jack, Xbox headset audio format, mic muted, or a non-default polling rate.",
+          "fix": "Unplug and slowly push the headset plug back in until you feel it click and it sits flush. Set Xbox Settings > General > Volume & audio output > Headset audio > Stereo uncompressed. Revert the report rate to 250 Hz in Nexus. Confirm the mic is not muted — double-tap M toggles mute (solid red LED = muted), and holding M temporarily unmutes. Update firmware in Nexus. If it persists, test another CTIA-standard headset; GameSir notes open-back headphones at high volume are prone to echo.",
+          "sourceUrl": "https://gamesir.com/pages/faq-questions-about-kaleid-series"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Is the Kaleid wired or wireless?",
+          "a": "Wired only, with a 3 m detachable USB-C cable. There is no battery and no Bluetooth or 2.4 GHz option, and the same is true of the Kaleid Flux.",
+          "sourceUrl": "https://gamesir.com/pages/faq-questions-about-kaleid-series"
+        },
+        {
+          "q": "How does the Kaleid Flux differ from the Kaleid?",
+          "a": "GameSir describes them as the same controller with nuanced variations. The Kaleid has microswitch ABXY face buttons; the Kaleid Flux has membrane ABXY face buttons. They also have different printed PCB trace patterns and different default RGB light-strip colours — GameSir's launch press release says the Kaleid uses default rainbow colours with a PCB printed 'KALEID', while the Kaleid Flux uses a default 'noble gold' colour with a damascus pattern. Launch pricing differed ($49.99 vs $46.99). Sticks, triggers, motors, back buttons, audio jack, dimensions, weight and software are the same. They use DIFFERENT firmware and must not be cross-flashed.",
+          "sourceUrl": "https://gamesir.com/pages/faq-questions-about-kaleid-series"
+        },
+        {
+          "q": "Which app do I need for the Kaleid?",
+          "a": "GameSir Nexus, from the Microsoft Store on PC or Xbox. GameSir's download page lists Kaleid and Kaleid Flux under Nexus. GameSir Connect is for PC-only controllers such as the G7 Pro 8K and Cyclone 2, and the GameSir mobile app is for mobile controllers — installing the wrong one is a common reason the controller appears 'not detected'.",
+          "sourceUrl": "https://gamesir.com/support/downloads"
+        },
+        {
+          "q": "Is the Kaleid the same as the T4 Kaleid?",
+          "a": "No. GameSir explicitly warns that the T4 Kaleid (T4K), Kaleid (K1) and Kaleid Flux (K1 Flux) are different controllers with different firmware. The T4 Kaleid is not an Xbox-console controller, and flashing K1 firmware onto a T4 Kaleid makes it unusable and unrecoverable.",
+          "sourceUrl": "https://gamesir.com/pages/kaleid-series-1000hz-polling-rate-upgrade-tutorial"
+        },
+        {
+          "q": "How do I calibrate the sticks and triggers?",
+          "a": "Hold View + Menu + Xbox and, while holding, plug the USB-C cable into a PC — the indicator blinks slowly white. Without touching LT, RT or either stick, press A; the indicator goes out. Then press LT and RT to maximum travel and rotate both sticks at full deflection three times, and press A; the indicator turns solid white. Unplug and replug before using. (The printed K1 manual lists this combo as View + Xbox; GameSir's web manual lists View + Menu + Xbox.)",
+          "sourceUrl": "https://gamesir.com/support/manuals/gamesir-kaleid-xbox-controller"
+        },
+        {
+          "q": "How do I switch profiles and turn on hair trigger mode without software?",
+          "a": "Profiles: M + Y = default, M + B = profile 1, M + A = profile 2, M + X = profile 3. Hair trigger: hold M + LT or M + RT for 2 seconds; with it enabled the matching LED strip lights up when that trigger is pressed, and the setting persists across restarts. Light effects: M plus left stick left/right cycles 4 effects (saved after restart). LED brightness: M plus left stick up/down, 5 levels (not saved after restart).",
+          "sourceUrl": "https://gamesir.com/support/manuals/gamesir-kaleid-xbox-controller"
+        },
+        {
+          "q": "How do I get 1000 Hz polling, and what does it cost me?",
+          "a": "Flash the Kaleid (K1)-specific firmware upgrader — hold LOGO + Menu while connecting the cable to a PC, open the upgrader and click Download until it shows 'Upgrade SUCCESS' — then set the polling rate to 1000 Hz in GameSir Nexus. While 1000 Hz is active the 3.5 mm earphone jack and native trigger vibration are temporarily disabled, and 1000 Hz is PC-only because the Xbox console caps polling at 250 Hz.",
+          "sourceUrl": "https://gamesir.com/pages/kaleid-series-1000hz-polling-rate-upgrade-tutorial"
+        },
+        {
+          "q": "How do I fully reset the controller?",
+          "a": "Hold View + Menu + M until the logo button blinks (GameSir's Kaleid FAQ specifies 5 seconds). This resets the profile and all settings on the controller, and is also the documented fix for the controller not powering on or off correctly and for Nexus failing to detect it.",
+          "sourceUrl": "https://gamesir.com/support/manuals/gamesir-kaleid-xbox-controller"
+        },
+        {
+          "q": "How much measured input lag does it have?",
+          "a": "Gamepadla measured the K1 Kaleid over cable in XInput at a 1000 Hz median polling rate: average button latency 5.32 ms and average stick latency 7.62 ms (firmware 1.49). Dropping to 500 Hz raised average stick latency to 14.21 ms and 250 Hz to 27.22 ms. No stick centering, circularity or linearity measurements have been published for this model.",
+          "sourceUrl": "https://gamepadla.com/gamesir-k1-for-xbox.html"
+        }
+      ],
+      "sources": [
+        {
+          "label": "GameSir official FAQ: Questions about Kaleid / Kaleid Flux (not T4K/T4Kaleid)",
+          "url": "https://gamesir.com/pages/faq-questions-about-kaleid-series"
+        },
+        {
+          "label": "GameSir official manual: How to Use the GameSir Kaleid (button combos, calibration, reset, troubleshooting FAQ)",
+          "url": "https://gamesir.com/support/manuals/gamesir-kaleid-xbox-controller"
+        },
+        {
+          "label": "GameSir official manuals hub: Kaleid Flux / Kaleid e-manual PDFs",
+          "url": "https://gamesir.com/pages/manuals-gamesir-k1-for-xbox"
+        },
+        {
+          "label": "GameSir official firmware upgrade tutorial for Kaleid (K1) — 1000 Hz unlock and bricking warning",
+          "url": "https://gamesir.com/pages/kaleid-series-1000hz-polling-rate-upgrade-tutorial"
+        },
+        {
+          "label": "GameSir official firmware update steps for Kaleid Flux (K1 Flux) — 1000 Hz disables earphone and trigger vibration",
+          "url": "https://gamesir.com/pages/solve-the-disconnecting-problem-for-kaleid-kaleid-flux"
+        },
+        {
+          "label": "GameSir official launch announcement: Kaleid & Kaleid Flux available today (variant differences, 5 million cycle claim)",
+          "url": "https://gamesir.com/blogs/news/gamesir-kaleid-kaleid-flux-is-available-today"
+        },
+        {
+          "label": "GameSir official Kaleid product page (spec sheet: 213 g, 156x107x60 mm, microswitch ABXY, Battery: No)",
+          "url": "https://gamesir.com/products/gamesir-kaleid-xbox-controller"
+        },
+        {
+          "label": "GameSir official software downloads page (confirms Kaleid and Kaleid Flux are GameSir Nexus devices, Nexus v2.4.3)",
+          "url": "https://gamesir.com/support/downloads"
+        },
+        {
+          "label": "GameSir official Nexus software page (compatible controller list and feature list)",
+          "url": "https://gamesir.com/pages/gamesir-nexus"
+        },
+        {
+          "label": "Gamepadla measured data: GameSir K1 Kaleid for Xbox (5.32 ms button / 7.62 ms stick at 1000 Hz; verified spec table; stick tests missing)",
+          "url": "https://gamepadla.com/gamesir-k1-for-xbox.html"
+        },
+        {
+          "label": "TechRadar review: GameSir Kaleid (pricing, microswitch buttons, wired-only drawback, Nexus limitations)",
+          "url": "https://www.techradar.com/gaming/gamesir-kaleid-review"
+        },
+        {
+          "label": "TechRadar review: GameSir Kaleid Flux (M button shortcuts, back button mapping)",
+          "url": "https://www.techradar.com/gaming/gamesir-kaleid-flux-review"
+        },
+        {
+          "label": "Tom's Guide review: GameSir Kaleid",
+          "url": "https://www.tomsguide.com/gaming/gaming-peripherals/gamesir-kaleid-controller-review"
+        },
+        {
+          "label": "The Gadgeteer review: GameSir Kaleid and Kaleid Flux (side-by-side variant comparison)",
+          "url": "https://the-gadgeteer.com/2024/05/30/gamesir-kaleid-and-kaleid-flux-gaming-controller-review-a-surprising-new-xbox-controller/"
+        },
+        {
+          "label": "Games Press / Armchair Arcade: GameSir Kaleid launch press release (May 30, 2024, $49.99 / $46.99, full spec list)",
+          "url": "https://www.gamespress.com/GameSir-unveils-its-Kaleid-and-Kaleid-Flux-controllers-featuring-a-stu"
+        },
+        {
+          "label": "Manuals.plus mirror of the printed GameSir K1 Kaleid user guide (auto-sleep, profile switch, calibration)",
+          "url": "https://manuals.plus/gamesir/k1-kaleid-wired-controller-manual"
+        }
+      ],
+      "fullName": "GameSir Kaleid",
+      "tier": "mid-range",
+      "category": "Xbox-style",
+      "measuredLatency": [
+        {
+          "mode": "Wired (XInput) at 1000 Hz, FW 1.49",
+          "button": "5.32 ms avg",
+          "stick": "7.62 ms avg",
+          "polling": "1000 Hz median"
+        },
+        {
+          "mode": "Wired (XInput) at 500 Hz",
+          "button": null,
+          "stick": "14.21 ms avg",
+          "polling": "500 Hz"
+        },
+        {
+          "mode": "Wired (XInput) at 250 Hz",
+          "button": null,
+          "stick": "27.22 ms avg",
+          "polling": "250 Hz"
+        }
+      ],
+      "short": {
+        "msrp": "$49.99",
+        "software": "Nexus",
+        "sticks": "Hall Effect",
+        "triggers": "Hall Effect analog",
+        "dpad": "Not documented",
+        "polling": "1000 Hz",
+        "claimedLife": "No battery (wired)",
+        "centerError": null,
+        "resolution": null,
+        "platforms": "Xbox, PC, Steam",
+        "weight": "213 g"
+      }
     },
     {
       "id": "super-nova",
@@ -1320,7 +1650,274 @@
           "stick": null,
           "polling": "125-391 Hz"
         }
-      ]
+      ],
+      "short": {
+        "msrp": "$49.99",
+        "software": "Connect",
+        "sticks": "Hall Effect",
+        "triggers": "Hall Effect + stops",
+        "dpad": "Membrane",
+        "polling": "1000 Hz",
+        "claimedLife": "~15 h (maker estimate)",
+        "centerError": "0.0-2.3% / 0.0-2.7%",
+        "resolution": null,
+        "platforms": "PC, Switch, Mobile"
+      }
+    },
+    {
+      "id": "t7-pro",
+      "name": "GameSir T7 Pro",
+      "tagline": "Officially licensed wired Xbox/PC controller with GameSir Hall Effect sticks, Hall Effect analog triggers with two-stage trigger stops, RGB lighting and two remappable back buttons.",
+      "releaseYear": 2025,
+      "msrp": "$49.99 / £49.99 (T7 Pro Floral launch price, GameSir and Best Buy, June 2025)",
+      "platforms": [
+        "PC (Windows 10/11)",
+        "Xbox Series X|S",
+        "Xbox One",
+        "Steam"
+      ],
+      "connectivity": {
+        "wired": true,
+        "dongle24g": false,
+        "bluetooth": false,
+        "notes": "The base T7 Pro (Floral, Retro Green Wired) is wired-only via a 3 m detachable USB-C cable. VARIANTS: the 'T7 Pro Sugar Whirl' (a.k.a. T7 Pro Wireless) is tri-mode — 2.4 GHz dongle, Bluetooth and USB-C — and is officially wireless on Xbox via the bundled receiver; it is Bluetooth-only on Android. A separate 'T7 Pro Tri-Mode' (Retro Green) is documented by GameSir as 2.4G + wired on PC, wired only on Xbox, Bluetooth for Android. GameSir also notes XInput is unavailable over Bluetooth on the wireless models due to Microsoft restrictions, so the 2.4 GHz receiver is recommended on PC."
+      },
+      "sticks": {
+        "tech": "GameSir Hall Effect (non-contact magnetic) on the wired T7 Pro. The T7 Pro Sugar Whirl Wireless and T7 Pro Tri-Mode variants use GameSir Mag-Res TMR (tunnelling magnetoresistance) sticks instead.",
+        "resolution": null,
+        "durability": "Up to 5 million cycles (GameSir manufacturer claim, stated for both the Hall Effect and Mag-Res TMR stick modules)",
+        "driftResistant": true,
+        "measuredCenterError": null,
+        "measuredResolution": null,
+        "measuredNotes": "No stick centering, circularity or linearity figure has been published for the wired T7 Pro or its wireless variants — gamepadla marks its T7 Pro Floral stick tests as missing."
+      },
+      "triggers": {
+        "tech": "Hall Effect analog triggers",
+        "triggerStops": true,
+        "notes": "Two-stage physical trigger stops (long or short pull) selected with a gear switch; GameSir instructs you to gently press each trigger fully three times after switching to recalibrate. A firmware Hair Trigger mode is toggled by holding M + LT or M + RT (2-3 s depending on model documentation). Gamepadla contributors record 'Trigger lock: Yes' for the T7 Pro Floral. On the Sugar Whirl Wireless, GameSir describes the dual-mode trigger stop as switching between Hall Effect analog triggers and micro switch (digital) triggers."
+      },
+      "dpad": "Membrane D-pad with RGB illumination (GameSir official spec sheet; Gamepadla contributors also record 'D-pad buttons type: Membrane').",
+      "faceButtons": "Membrane ABXY with RGB illumination (GameSir official spec sheet). Bumpers are tactile/clicky switches. Reviewers of the Sugar Whirl variant note the membrane ABXY feels softer than the microswitch buttons on GameSir's Kaleid.",
+      "pollingRate": {
+        "pc": "Up to 1000 Hz (GameSir support FAQ on the T7 Pro manual page states the 1000 Hz option is PC-only). The T7 Pro Sugar Whirl product page states this explicitly as 'up to 1000 Hz on PC'.",
+        "xbox": "250 Hz (GameSir states the Xbox console enforces a 250 Hz polling-rate limit)",
+        "notes": "GameSir's own T7 Pro Floral spec sheet does not list a polling rate; the 1000 Hz figure comes from GameSir's shared support FAQ and from the Sugar Whirl spec sheet. Gamepadla measured the T7 Pro Floral at 249.88 Hz median over cable/XInput at default settings, with average button latency 3.96 ms (min 1.44, max 6.32, jitter 1.20) — i.e. the tester did not have 1000 Hz enabled. No independent 1000 Hz measurement for a T7 Pro exists on Gamepadla. GameSir warns that changing polling rate can cause headset issues and advises reverting to 250 Hz."
+      },
+      "battery": {
+        "capacity": null,
+        "claimedLife": null,
+        "notes": "The base T7 Pro is wired-only and has no battery — GameSir's spec sheet lists 'Battery: No', and Gamepadla records 'No battery'. VARIANT: the T7 Pro Sugar Whirl Wireless has a 1050 mAh battery plus an included charging dock (metal pin contacts). GameSir publishes NO battery-life hour claim for it, and no reviewer published a measured runtime — PC Gamer/Gamer Fridge only reported qualitatively that it lasted through 'marathon sessions' and noted 1000 Hz polling plus RGB drains it much faster. GameSir states all its controllers have overcharge protection and stop charging when full."
+      },
+      "weight": "217 g / 0.48 lbs (GameSir official, wired T7 Pro). Variant: T7 Pro Sugar Whirl Wireless is listed as 236 g on GameSir's product page but 272 g on GameSir's own manual page — GameSir's figures conflict.",
+      "dimensions": "145 x 93 x 59 mm / 5.71 x 3.66 x 2.32 in (GameSir official; the Sugar Whirl Wireless shares these dimensions)",
+      "extraButtons": {
+        "backButtons": 2,
+        "extraBumpers": 0,
+        "remappable": true,
+        "notes": "L4/R4 back buttons ship as 'null inputs' with no assigned function. Map on-controller: hold M + L4 (or R4) for ~3 s until the Xbox indicator blinks slowly, then press the button you want assigned; the indicator returns to solid. Clear a mapping by repeating and pressing L4/R4 itself. Setting mode auto-exits after ~10 s of inactivity. Assignable values include A/B/X/Y/LB/RB/LT/RT/LS/RS/D-pad/Menu/View/Share. Can also be mapped in GameSir Nexus. On the Sugar Whirl the back buttons are described as tactile with no latches."
+      },
+      "gyro": {
+        "present": false,
+        "notes": "The wired T7 Pro has no gyroscope (Gamepadla: 'Gyroscope function: No'; GameSir's official gyro-equipped list does not include it). VARIANT: the T7 Pro Sugar Whirl DOES have a 6-axis gyroscope, and GameSir states motion control works on PC only, not on Xbox."
+      },
+      "audioJack": true,
+      "rumble": "4 rumble motors — one in each grip and one in each trigger. GameSir describes the grip actuators as asymmetric. Vibration intensity is adjustable in GameSir Nexus. Note: GameSir documents that native trigger vibration is disabled while running at the 1000 Hz report rate on its Xbox-licensed controllers.",
+      "faceplates": {
+        "swappable": false,
+        "notes": "No swappable/magnetic faceplate is listed in GameSir's T7 Pro or T7 Pro Sugar Whirl spec sheets. GameSir's shared support text warning that 'calibration must be performed with the faceplate installed' is generic boilerplate that also covers faceplate-equipped models such as the G7 Pro series, so treat it as not applicable here. PC Gamer explicitly contrasts the T7 Pro Sugar Whirl with the G7 Pro Tri-Mode, which does have a magnetic faceplate."
+      },
+      "software": "GameSir Nexus (PC and Xbox app, Microsoft Store). NOT GameSir Connect and NOT the GameSir mobile app — GameSir's own download page lists T7 Pro Floral and T7 Pro Sugar Whirl under Nexus (v2.4.3 at time of research), while GameSir Connect covers PC-only models such as the G7 Pro 8K, Tarantula 8K and Cyclone 2. Nexus supports up to 3-4 saved profiles depending on model, button remapping, stick/trigger dead-zone and range tuning, 'Raw' stick mode, vibration level, RGB, report rate and firmware updates.",
+      "notableFeatures": [
+        "Officially licensed for Xbox Series X|S and Xbox One; works natively without an adapter",
+        "GameSir Hall Effect sticks (wired model) rated by GameSir for up to 5 million cycles",
+        "Hall Effect analog triggers with a physical two-stage trigger-stop switch plus a firmware Hair Trigger mode (M + LT/RT)",
+        "Dynamic RGB lighting across ABXY, D-pad, stick rings and rear grips; 4 light effects (M + left stick left/right) and 5 brightness levels (M + left stick up/down)",
+        "Two remappable back buttons configurable on-controller or via GameSir Nexus",
+        "3.5 mm headset jack with on-controller volume and game/chat mix control (M + D-pad) and microphone mute (double-tap M)",
+        "Four rumble motors including trigger vibration",
+        "3 m detachable USB-C cable (wired model)",
+        "On-controller profile switching: M + Y / M + B / M + A / M + X",
+        "Variant: T7 Pro Sugar Whirl Wireless adds Mag-Res TMR sticks, tri-mode connectivity with official Xbox 2.4 GHz wireless, a 6-axis gyro (PC only), a 1050 mAh battery and a charging dock at $89.99"
+      ],
+      "knownIssues": [
+        {
+          "symptom": "Controller is plugged in and the indicator LED is lit, but no inputs register on PC or Xbox.",
+          "cause": "USB PID/device-recognition failure, or the controller is in the wrong input mode (GIP vs XInput), or the USB-C plug is not fully seated.",
+          "fix": "1) Reseat the cable firmly — GameSir notes the connector often needs real force and may click when properly seated, and cable guards can make a half-inserted plug feel fully home. 2) While connected, hold Xbox + M for 3 seconds (an indicator tone plays), then unplug and replug to switch back to the original PID. 3) If that fails, hold Xbox + Share for 3 seconds while connected to force-switch between XInput and GIP modes. 4) For the wired T7 Pro, hold View + Menu + M to reset the controller. 5) Try a different data-capable cable and a motherboard rear USB port rather than a hub or case front port.",
+          "sourceUrl": "https://gamesir.com/support/manuals/gamesir-t7-pro-retro-green-xbox-wired-controller"
+        },
+        {
+          "symptom": "GameSir Nexus (or a game) does not detect the controller at all.",
+          "cause": "The controller is stuck in a non-app input mode, so Nexus cannot claim it.",
+          "fix": "With the controller connected in wired mode, hold View + Menu + M simultaneously to reset the device and restore its detection mode. Note this reset also clears profiles and custom settings. Also confirm you installed GameSir Nexus (Microsoft Store, PC/Xbox) and not GameSir Connect or the GameSir mobile app — the T7 Pro family is a Nexus device.",
+          "sourceUrl": "https://gamesir.com/support/manuals/gamesir-t7-pro-retro-green-xbox-wired-controller"
+        },
+        {
+          "symptom": "Stick drift, off-center resting position, or triggers that do not reach 0% / 100%.",
+          "cause": "Stick or trigger range calibration data is wrong, commonly after switching the two-stage trigger stop or after a firmware update.",
+          "fix": "Run the manual Stick & Trigger Calibration: 1) Hold View + Menu + Xbox and, while holding, plug the USB-C cable into a PC; release after plugging in — the indicator blinks slowly white. 2) Without touching sticks or triggers, press A; the indicator goes out. 3) Fully press LT and RT and rotate both sticks at full deflection three times, then press A; the indicator turns solid white. 4) Unplug and replug before using. GameSir notes manual calibration often succeeds when in-app calibration fails, that movements should be slow and steady, and that calibration only applies to analog trigger mode. Separately, after changing the two-stage trigger stop, gently press each trigger fully three times to recalibrate its range.",
+          "sourceUrl": "https://gamesir.com/pages/faq-questions-about-t7-pro-tri-mode"
+        },
+        {
+          "symptom": "Back buttons (L4/R4) and extra bumpers appear dead and do nothing in game.",
+          "cause": "They are shipped as unassigned 'null inputs' by design, not broken.",
+          "fix": "Hold M + the remappable button until the indicator blinks, then press the button value you want to assign. Repeat and press the remappable button again to clear it. Alternatively map them in GameSir Nexus.",
+          "sourceUrl": "https://gamesir.com/support/manuals/gamesir-t7-pro-retro-green-xbox-wired-controller"
+        },
+        {
+          "symptom": "Headset plugged into the 3.5 mm jack produces no audio, or the microphone does not work.",
+          "cause": "Headset plug not fully seated, Xbox headset audio format, muted mic, or a non-default polling rate.",
+          "fix": "Push the headset plug in firmly until it clicks and sits flush (GameSir calls this a surprisingly common fix). On Xbox set Settings > General > Volume & audio output > Headset audio > Stereo uncompressed. If you changed the report rate, set it back to 250 Hz in GameSir Nexus. Check the mic is not muted — double-tap M to toggle mute (solid red LED = muted); hold M to temporarily unmute. Adjust volume with M + D-pad Up/Down (11 levels) and game/chat mix with M + D-pad Left/Right. Update firmware in Nexus, and test another CTIA-standard headset.",
+          "sourceUrl": "https://gamesir.com/support/manuals/gamesir-t7-pro-retro-green-xbox-wired-controller"
+        },
+        {
+          "symptom": "On PC the controller moves the mouse cursor and fires keyboard shortcuts instead of acting as a gamepad.",
+          "cause": "The controller is in HID mode and Steam Input's Desktop Layout is capturing it.",
+          "fix": "In Steam go to Steam > Settings > Controller, select Desktop Layout, click Edit and choose Disable Steam Input.",
+          "sourceUrl": "https://gamesir.com/support/manuals/gamesir-t7-pro-retro-green-xbox-wired-controller"
+        },
+        {
+          "symptom": "T7 Pro Sugar Whirl Wireless works over Bluetooth but games do not see it as an Xbox/XInput pad.",
+          "cause": "Microsoft restrictions mean XInput is not available over Bluetooth on GameSir's Xbox-licensed controllers.",
+          "fix": "Use the bundled 2.4 GHz USB receiver for PC, which supports wireless XInput with lower latency. If you must stay on Bluetooth, launch games through Steam and use Steam's controller mapping; for generic HID mapping enable 'Enable Steam Input for Generic Gamepads' under Steam > Settings > Controller > General Controller Settings, and skip the Home/Guide and Share prompts during setup by pressing A.",
+          "sourceUrl": "https://gamesir.com/support/manuals/gamesir-gamesir-t7-pro-sugar-whirl"
+        },
+        {
+          "symptom": "T7 Pro Sugar Whirl will not power on or off normally, or buttons stop responding entirely.",
+          "cause": "Corrupted profile/settings state, or a firmware hang.",
+          "fix": "Hold View + Menu + M until the logo LED flashes — this resets all profiles and custom settings. If buttons are still unresponsive, insert a thin object such as a paperclip into the small circular hole on the rear of the controller to press the hardware reset button and force a shutdown.",
+          "sourceUrl": "https://gamesir.com/support/manuals/gamesir-gamesir-t7-pro-sugar-whirl"
+        }
+      ],
+      "faq": [
+        {
+          "q": "Is the T7 Pro wired or wireless?",
+          "a": "The base T7 Pro (Floral, Retro Green Wired) is wired only, with a 3 m detachable USB-C cable. Wireless versions are sold as separate products: the T7 Pro Sugar Whirl (tri-mode: 2.4 GHz dongle, Bluetooth, USB-C, and officially wireless on Xbox via the receiver) and the T7 Pro Tri-Mode, which GameSir documents as 2.4G + wired on PC, wired only on Xbox, and Bluetooth for Android.",
+          "sourceUrl": "https://gamesir.com/products/gamesir-t7-pro-floral"
+        },
+        {
+          "q": "Which app do I need — GameSir Nexus, GameSir Connect, or the GameSir mobile app?",
+          "a": "GameSir Nexus, on PC or Xbox from the Microsoft Store. GameSir's download page lists T7 Pro Floral and T7 Pro Sugar Whirl under Nexus. GameSir Connect is for PC-only models such as the G7 Pro 8K, Tarantula 8K and Cyclone 2, and the GameSir mobile app is for mobile controllers — using the wrong one is a common cause of 'controller not detected'.",
+          "sourceUrl": "https://gamesir.com/support/downloads"
+        },
+        {
+          "q": "What stick sensor technology does it use?",
+          "a": "The wired T7 Pro uses GameSir Hall Effect (non-contact magnetic) sticks, which GameSir rates for up to 5 million cycles. The T7 Pro Sugar Whirl Wireless and T7 Pro Tri-Mode instead use GameSir Mag-Res TMR (tunnelling magnetoresistance) sticks, which GameSir describes as combining potentiometer-like precision and low power draw with Hall Effect durability. Neither is a potentiometer.",
+          "sourceUrl": "https://gamesir.com/pages/faq-questions-about-t7-pro-tri-mode"
+        },
+        {
+          "q": "How do I switch to hair trigger mode?",
+          "a": "Hold the M button together with LT or RT for about 2 seconds (GameSir's T7 Pro Wireless tutorial says 2 seconds; some GameSir pages say hold until the corresponding trigger vibrates). This is separate from the physical two-stage trigger-stop gear switch, which mechanically changes between long and short trigger pull.",
+          "sourceUrl": "https://gamesir.com/pages/tutorials-t7-pro-wireless"
+        },
+        {
+          "q": "How do I switch between saved profiles without opening software?",
+          "a": "Press M + Y for configuration 1, M + B for configuration 2, M + A for configuration 3 and M + X for configuration 4 (the wireless T7 Pro documents four presets; GameSir's older T7-family pages document three custom profiles plus default).",
+          "sourceUrl": "https://gamesir.com/pages/tutorials-t7-pro-wireless"
+        },
+        {
+          "q": "Can I get 1000 Hz polling on an Xbox console?",
+          "a": "No. GameSir states the Xbox console enforces a 250 Hz polling-rate limit, so the 1000 Hz option is PC-only. GameSir also advises reverting to 250 Hz if you hit headset problems.",
+          "sourceUrl": "https://gamesir.com/support/manuals/gamesir-t7-pro-retro-green-xbox-wired-controller"
+        },
+        {
+          "q": "Does the T7 Pro have a gyroscope?",
+          "a": "The wired T7 Pro does not. GameSir's list of gyro-equipped Xbox controllers includes the T7 Pro Sugar Whirl (6-axis, PC only), G7 Pro, G7 Pro Wuchang, G7 Pro Zenless Zone Zero and Tarantula Pro Xbox — the wired T7 Pro is not on it, and Gamepadla contributors also record 'Gyroscope function: No' for the T7 Pro Floral.",
+          "sourceUrl": "https://gamesir.com/support/manuals/gamesir-gamesir-t7-pro-sugar-whirl"
+        },
+        {
+          "q": "Where is the M (Mode) button?",
+          "a": "Directly underneath the D-pad.",
+          "sourceUrl": "https://gamesir.com/support/manuals/gamesir-t7-pro-retro-green-xbox-wired-controller"
+        },
+        {
+          "q": "Pressing the Xbox button opens the console shutdown menu instead of the guide — is the controller faulty?",
+          "a": "No, this is an HDMI-CEC interaction. Open the guide, go to Profile & system > Settings > General > TV & display options > Device Control and fully disable HDMI-CEC, or make sure 'Console turns on other devices' and 'Switch TV input using controller' are not both enabled.",
+          "sourceUrl": "https://gamesir.com/support/manuals/gamesir-t7-pro-retro-green-xbox-wired-controller"
+        }
+      ],
+      "sources": [
+        {
+          "label": "GameSir official T7 Pro Floral product page (full spec sheet)",
+          "url": "https://gamesir.com/products/gamesir-t7-pro-floral"
+        },
+        {
+          "label": "GameSir official manual: How to Use the GameSir T7 Pro Wired (T7 Pro Floral / Retro Green Wired) — includes troubleshooting FAQ",
+          "url": "https://gamesir.com/support/manuals/gamesir-t7-pro-retro-green-xbox-wired-controller"
+        },
+        {
+          "label": "GameSir official FAQ: Questions about T7 Pro Tri-Mode",
+          "url": "https://gamesir.com/pages/faq-questions-about-t7-pro-tri-mode"
+        },
+        {
+          "label": "GameSir official FAQ: Questions about T7 Pro Wireless (Sugar Whirl)",
+          "url": "https://gamesir.com/pages/faq-t7-pro-wireless"
+        },
+        {
+          "label": "GameSir official tutorial: How to use T7 Pro Wireless (button combinations, indicator states)",
+          "url": "https://gamesir.com/pages/tutorials-t7-pro-wireless"
+        },
+        {
+          "label": "GameSir official manual: How to Use the GameSir T7 Pro Sugar Whirl",
+          "url": "https://gamesir.com/support/manuals/gamesir-gamesir-t7-pro-sugar-whirl"
+        },
+        {
+          "label": "GameSir official T7 Pro Sugar Whirl Wireless product page (1050 mAh, 236 g, polling rate, gyro)",
+          "url": "https://gamesir.com/products/gamesir-gamesir-t7-pro-sugar-whirl"
+        },
+        {
+          "label": "GameSir official software downloads page (confirms T7 Pro Floral and Sugar Whirl are GameSir Nexus devices)",
+          "url": "https://gamesir.com/support/downloads"
+        },
+        {
+          "label": "GameSir official FAQ: Questions about T7 (calibration procedure, PID/input-mode combos)",
+          "url": "https://gamesir.com/pages/faq-questions-about-t7"
+        },
+        {
+          "label": "Gamepadla measured data: GameSir T7 Pro Floral (button latency 3.96 ms avg, 249.88 Hz median; stick tests missing)",
+          "url": "https://gamepadla.com/gamesir-t7-pro-floral.html"
+        },
+        {
+          "label": "TechPowerUp: GameSir launches the T7 Pro Floral Wired Controller (June 6, 2025 launch, $49.99)",
+          "url": "https://www.techpowerup.com/337766/gamesir-launches-the-t7-pro-floral-wired-controller"
+        },
+        {
+          "label": "TechPowerUp: GameSir T7 Pro Sugar Whirl Wireless now available ($89.99 / £99.99 / €109.99)",
+          "url": "https://www.techpowerup.com/349153/gamesir-t7-pro-sugar-whirl-wireless-controller-for-xbox-now-available"
+        },
+        {
+          "label": "PC Gamer review: GameSir T7 Pro Sugar Whirl (TMR sticks, 1050 mAh, 1000 Hz PC / 250 Hz Xbox, 236 g)",
+          "url": "https://www.pcgamer.com/hardware/game-pads/gamesir-t7-pro-sugar-whirl-review/"
+        },
+        {
+          "label": "Windows Central review: GameSir T7 Pro Sugar Whirl",
+          "url": "https://www.windowscentral.com/gaming/xbox/gamesir-t7-pro-sugar-whirl-review"
+        }
+      ],
+      "fullName": "GameSir T7 Pro",
+      "tier": "mid-range",
+      "category": "Xbox-style",
+      "measuredLatency": [
+        {
+          "mode": "Wired (XInput) at default rate",
+          "button": "3.96 ms avg",
+          "stick": null,
+          "polling": "249.88 Hz median"
+        }
+      ],
+      "short": {
+        "msrp": "$49.99",
+        "software": "Nexus",
+        "sticks": "Hall Effect",
+        "triggers": "Hall Effect + stops",
+        "dpad": "Membrane",
+        "polling": "1000 Hz",
+        "claimedLife": "No battery (wired)",
+        "centerError": null,
+        "resolution": null,
+        "platforms": "Xbox, PC, Steam",
+        "weight": "217 g"
+      }
     },
     {
       "id": "tarantula-pro",
@@ -1551,7 +2148,20 @@
           "stick": null,
           "polling": "1000-1001 Hz"
         }
-      ]
+      ],
+      "short": {
+        "msrp": "$79.99",
+        "software": "Connect",
+        "sticks": "Mag-Res TMR",
+        "triggers": "Hall Effect + microswitch",
+        "dpad": "Tactile switch",
+        "polling": "1000 Hz",
+        "claimedLife": "~25 h (unconfirmed)",
+        "centerError": "0.6% / 1.0% (cable)",
+        "resolution": null,
+        "platforms": "PC, Switch, Mobile",
+        "weight": "263 g"
+      }
     }
   ]
 }

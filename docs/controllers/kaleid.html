@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GameSir Kaleid — specs, fixes and FAQ | GameSir Wiki</title>
+<meta name="description" content="GameSir Kaleid: full specifications, measured performance, documented problems and fixes, and frequently asked questions. Wired-only, officially licensed Xbox controller with a transparent shell, RGB light strips, Hall Effect sticks and triggers, and microswitch face buttons.">
+<link rel="stylesheet" href="../assets/css/style.css">
+<script>document.documentElement.className += " js";</script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="../index.html">
+      <span class="brand-mark">GS</span>
+      <span>GameSir Wiki</span>
+    </a>
+    <nav class="site-nav"><a href="../index.html">Home</a><a href="../index.html#controllers">Controllers</a><a href="../compare.html">Compare</a><a href="../latency.html">Latency</a><a href="../troubleshooting.html">Troubleshooting</a><a href="../faq.html">FAQ</a><a href="../about.html">About</a></nav>
+  </div>
+</header>
+
+<main>
+<div class="wrap narrow">
+  <div class="page-head">
+    <p class="breadcrumb"><a href="../index.html">Home</a> / <a href="../index.html#controllers">Controllers</a> / GameSir Kaleid</p>
+    <p class="eyebrow">Mid-range &middot; Xbox-style</p>
+    <h1>GameSir Kaleid</h1>
+    <p class="lede">Wired-only, officially licensed Xbox controller with a transparent shell, RGB light strips, Hall Effect sticks and triggers, and microswitch face buttons.</p>
+    <div class="badges"><span class="badge tier-mid-range">Mid-range</span><span class="badge badge-hall" title="GameSir Hall Effect (non-contact magnetic) sticks with anti-friction glide rings. GameSir Nexus allows a 0% dead zone and an exclusive 'Raw' stick mode.">Hall Effect</span><span class="badge badge-info" title="250 Hz by default; up to 1000 Hz on PC after a firmware update, then selected in GameSir Nexus. GameSir publishes model-specific firmware upgraders for Kaleid (K1) and Kaleid Flux (K1 Flux) to unlock the 1000 Hz report rate.">1000 Hz</span><span class="badge" title="GameSir Nexus (PC and Xbox app, Microsoft Store). NOT GameSir Connect and NOT the GameSir mobile app. GameSir's download page lists Kaleid and Kaleid Flux under Nexus. Nexus provides 3 custom profiles, button remapping, D-pad diagonal tuning, stick and trigger dead-zone/range adjustment, 0% dead zone and 'Raw' stick mode, turbo/rapid-fire, vibration level, light effects, report rate and firmware updates. TechRadar notes Nexus cannot swap the left and right stick inputs with each other.">Nexus</span></div>
+  </div>
+
+  <nav class="tabs" id="controller-tabs" aria-label="Sections of this page"><a href="#specs" data-tab="specs" aria-current="true">Specifications</a><a href="#performance" data-tab="performance">Performance</a><a href="#features" data-tab="features">Features<span class="tab-count">11</span></a><a href="#issues" data-tab="issues">Problems<span class="tab-count">7</span></a><a href="#faq" data-tab="faq">FAQ<span class="tab-count">9</span></a><a href="#sources" data-tab="sources">Sources<span class="tab-count">16</span></a></nav>
+
+<section class="tab-panel is-active" id="specs" data-panel="specs">
+  <h2>Specifications</h2>
+  <p class="section-intro">Values that could not be verified against a source read &ldquo;not documented&rdquo; rather than being estimated.</p>
+  <div class="spec-columns">
+    <div class="spec-card">
+      <h3>Overview</h3>
+      <div class="spec-grid">
+        <div class="spec-row"><span class="spec-key">Released</span><span class="spec-val">2024</span></div>
+        <div class="spec-row"><span class="spec-key">Launch price</span><span class="spec-val">$49.99</span></div>
+        <div class="spec-row"><span class="spec-key">Weight</span><span class="spec-val">213 g</span></div>
+        <div class="spec-row is-long"><span class="spec-key">Dimensions</span><span class="spec-val">156 x 107 x 60 mm / 6.14 x 4.21 x 2.36 in (GameSir official)</span></div>
+        <div class="spec-row"><span class="spec-key">Platforms</span><span class="spec-val">Xbox, PC, Steam</span></div>
+        <div class="spec-row"><span class="spec-key">Configuration app</span><span class="spec-val">Nexus</span></div>
+      </div>
+      <details class="spec-note"><summary>Conflicting published weights</summary><p>213 g / 0.47 lbs net (GameSir official). Note TechRadar's review table lists 422 g, which matches boxed/gross weight territory rather than GameSir's 213 g net figure (GameSir lists gross weight as 393 g).</p></details>
+      <details class="spec-note"><summary>Which app, and the exact platform wording</summary><p>GameSir Nexus (PC and Xbox app, Microsoft Store). NOT GameSir Connect and NOT the GameSir mobile app. GameSir's download page lists Kaleid and Kaleid Flux under Nexus. Nexus provides 3 custom profiles, button remapping, D-pad diagonal tuning, stick and trigger dead-zone/range adjustment, 0% dead zone and 'Raw' stick mode, turbo/rapid-fire, vibration level, light effects, report rate and firmware updates. TechRadar notes Nexus cannot swap the left and right stick inputs with each other.</p></details>
+    </div>
+
+    <div class="spec-card">
+      <h3>Sticks</h3>
+      <div class="spec-grid">
+        <div class="spec-row is-long"><span class="spec-key">Sensor technology</span><span class="spec-val">GameSir Hall Effect (non-contact magnetic) sticks with anti-friction glide rings. GameSir Nexus allows a 0% dead zone and an exclusive 'Raw' stick mode.</span></div>
+        <div class="spec-row"><span class="spec-key">Resolution</span><span class="spec-val unknown">Not documented</span></div>
+        <div class="spec-row is-long"><span class="spec-key">Durability</span><span class="spec-val">Up to 5 million cycles (manufacturer claim)</span></div>
+        <div class="spec-row"><span class="spec-key">Measured center error</span><span class="spec-val unknown">Not documented</span></div>
+        <div class="spec-row"><span class="spec-key">Measured resolution</span><span class="spec-val unknown">Not documented</span></div>
+      </div>
+      <details class="spec-note"><summary>How these measurements were arrived at</summary><p>No stick centering, circularity or linearity figure has been published for this model — gamepadla's stick test sections are empty. GameSir markets the sticks as having '0 Fluctuation, 0 Deviation and 0 Circularity error', which is marketing copy rather than a measurement and should not be read as a measured center error of zero.</p></details>
+    </div>
+
+    <div class="spec-card">
+      <h3>Triggers, D-pad and buttons</h3>
+      <div class="spec-grid">
+        <div class="spec-row is-long"><span class="spec-key">Trigger technology</span><span class="spec-val">Hall Effect analog triggers (GameSir 'precision-tuned', described as 100% response area)</span></div>
+        <div class="spec-row"><span class="spec-key">Trigger stops</span><span class="spec-val">No</span></div>
+        <div class="spec-row"><span class="spec-key">D-pad</span><span class="spec-val">Not documented</span></div>
+        <div class="spec-row is-long"><span class="spec-key">Face buttons</span><span class="spec-val">Microswitch ABXY on the Kaleid — this is the headline difference from the Kaleid Flux, which uses membrane ABXY. Reviewers describe the Kaleid's buttons as noticeably clicky and tactile.</span></div>
+        <div class="spec-row"><span class="spec-key">Rear buttons</span><span class="spec-val">2</span></div>
+        <div class="spec-row"><span class="spec-key">Extra bumpers</span><span class="spec-val">0</span></div>
+      </div>
+      <details class="spec-note"><summary>Trigger detail</summary><p>No physical trigger-stop switch or trigger lock — Gamepadla contributors record 'Trigger lock: No'. Instead there is a firmware Hair Trigger mode toggled by holding M + LT or M + RT for 2 seconds (GameSir's launch press release says 3 seconds; the FAQ and manual say 2 seconds). With hair trigger on, the corresponding left/right LED strip lights up when LT/RT is pressed, and the setting survives a restart. Trigger dead zones/ranges are also adjustable in GameSir Nexus.</p></details>
+      <details class="spec-note"><summary>Mapping the extra buttons</summary><p>L4/R4 back buttons ship with no preset values. Assign: hold M + L4 (or R4) for 3 s; when the Xbox button blinks slowly, press the button to map. Cancel: repeat and press L4/R4 itself. Assignable values are A/B/X/Y/LB/RB/LT/RT/LS/RS/D-pad/Menu/View/Share. Setting mode auto-exits after 10 s of inactivity with values unchanged. Gamepadla records 'Paddles: 2', 'Shoulder buttons: No' (i.e. no extra bumpers).</p></details>
+    </div>
+
+    <div class="spec-card">
+      <h3>Connectivity</h3>
+      <div class="spec-grid">
+        <div class="spec-row"><span class="spec-key">Connection modes</span><span class="spec-val">Wired</span></div>
+        <div class="spec-row"><span class="spec-key">Polling rate (PC)</span><span class="spec-val">1000 Hz</span></div>
+        <div class="spec-row is-long"><span class="spec-key">Polling rate (Xbox)</span><span class="spec-val">250 Hz (GameSir states the Xbox console enforces a 250 Hz polling-rate limit)</span></div>
+        <div class="spec-row"><span class="spec-key">Audio jack</span><span class="spec-val">3.5 mm</span></div>
+        <div class="spec-row"><span class="spec-key">Gyro</span><span class="spec-val">No</span></div>
+        <div class="spec-row is-long"><span class="spec-key">Rumble</span><span class="spec-val">4 rumble motors — two asymmetric motors in the grips and one in each trigger. Vibration level is adjustable in GameSir Nexus. Native trigger vibration is disabled while the 1000 Hz report rate is active.</span></div>
+      </div>
+      <details class="spec-note"><summary>Which modes work on which platform</summary><p>CONFIRMED WIRED-ONLY. GameSir's Kaleid FAQ answers 'Is it wired or wireless?' with 'Wired, with a 3m detachable USB-C cable', the official spec sheet lists 'Battery: No', and Gamepadla records 'No battery' with Cable as the only interface. TechRadar's review also calls out the lack of wireless as its main drawback. The Kaleid Flux is likewise wired-only. Note the Kaleid (model K1) is a different controller from the older PC-oriented T4 Kaleid (T4K).</p></details>
+      <details class="spec-note"><summary>Polling rate caveats</summary><p>IMPORTANT trade-off documented by GameSir: while running at 1000 Hz, the 3.5 mm earphone jack and native trigger vibration are temporarily disabled. Gamepadla measured the K1 Kaleid over cable/XInput at 1000 Hz median (947.12 Hz average): average button latency 5.32 ms (min 2.15, max 9.74, jitter 1.78) and average stick latency 7.62 ms (min 6.73, max 9.79, jitter 0.47), on firmware 1.49. At 500 Hz stick latency rose to 14.21 ms avg and at 250 Hz to 27.22 ms avg.</p></details>
+      <details class="spec-note"><summary>Gyro detail</summary><p>No gyroscope. Gamepadla contributors record 'Gyroscope function: No', and GameSir's official list of gyro-equipped controllers does not include Kaleid or Kaleid Flux.</p></details>
+    </div>
+
+    <div class="spec-card">
+      <h3>Battery and build</h3>
+      <div class="spec-grid">
+        <div class="spec-row"><span class="spec-key">Battery capacity</span><span class="spec-val unknown">Not documented</span></div>
+        <div class="spec-row"><span class="spec-key">Claimed battery life</span><span class="spec-val">No battery (wired)</span></div>
+        <div class="spec-row"><span class="spec-key">Swappable faceplates</span><span class="spec-val">No</span></div>
+      </div>
+      <details class="spec-note"><summary>Battery detail</summary><p>Wired-only — there is no battery. GameSir's official spec sheet lists 'Battery: No' and Gamepadla records 'No battery'. Reviewers cite 'never a worry about batteries' as a selling point. Battery fields are therefore null rather than unknown.</p></details>
+      <details class="spec-note"><summary>Faceplate detail</summary><p>No swappable faceplate. The shell is a fixed transparent design showing the printed PCB, with two customizable RGB light strips.</p></details>
+    </div>
+  </div>
+</section>
+<section class="tab-panel" id="performance" data-panel="performance">
+  <h2>Measured performance</h2>
+  <p class="section-intro">Independent measurement, kept separate from the manufacturer's own figures above.</p>
+  <div class="table-scroll">
+  <table class="spec-table latency-table">
+    <thead><tr><th>Connection mode</th><th>Button</th><th>Stick</th><th>Polling</th><th>Stick latency</th></tr></thead>
+    <tbody>
+<tr><th>Wired (XInput) at 1000 Hz, FW 1.49</th><td>5.32 ms avg</td><td>7.62 ms avg</td><td>1000 Hz median</td><td class="bar-cell"><span class="bar-track"><span class="bar-fill is-warn" style="width:47.6%"></span></span></td></tr>
+<tr><th>Wired (XInput) at 500 Hz</th><td class="na">&mdash;</td><td>14.21 ms avg</td><td>500 Hz</td><td class="bar-cell"><span class="bar-track"><span class="bar-fill is-bad" style="width:88.8%"></span></span></td></tr>
+<tr><th>Wired (XInput) at 250 Hz</th><td class="na">&mdash;</td><td>27.22 ms avg</td><td>250 Hz</td><td class="bar-cell"><span class="bar-track"><span class="bar-fill is-bad" style="width:100.0%"></span></span></td></tr>
+    </tbody>
+  </table>
+</div>
+<p class="small text-dim">Bars use a fixed 0&ndash;16&nbsp;ms scale so they compare with every other page on this site; a full-width bar exceeds 16&nbsp;ms. Measured and published by gamepadla.com from a single unit on one firmware. Polling rate and latency are measured by different methods and are not the same thing. <a href="../latency.html">Compare against every other model</a>.</p>
+</section>
+<section class="tab-panel" id="features" data-panel="features">
+  <h2>Notable features</h2>
+  <ul>
+    <li>Officially licensed for Xbox Series X|S and Xbox One; plug-and-play with a 3 m detachable USB-C cable</li>
+    <li>Hall Effect sticks AND Hall Effect analog triggers, both rated by GameSir for up to 5 million cycles on the sticks</li>
+    <li>Microswitch ABXY face buttons (the key differentiator from the Kaleid Flux's membrane buttons)</li>
+    <li>Transparent shell with a printed PCB visible through it, plus two customizable RGB light strips — 4 light effects and 5 brightness levels, switchable on-controller</li>
+    <li>3.5 mm audio jack with a dedicated microphone mute function (double-tap M; solid red LED indicates muted)</li>
+    <li>Four rumble motors — two asymmetric in the grips, one per trigger</li>
+    <li>Two remappable back buttons, configurable on-controller or in GameSir Nexus</li>
+    <li>On-controller profile switching: M + Y = default, M + B = profile 1, M + A = profile 2, M + X = profile 3</li>
+    <li>Optional 1000 Hz report rate on PC after a firmware update (disables headset audio and native trigger vibration while active)</li>
+    <li>Auto-sleep after 10 minutes of inactivity; wake by pressing Xbox/A/B/X/Y</li>
+    <li>Variant: Kaleid Flux is mechanically near-identical but uses membrane ABXY buttons, a different PCB trace pattern and a different default RGB colour, at a lower launch price</li>
+  </ul>
+</section>
+<section class="tab-panel" id="issues" data-panel="issues">
+  <h2>Known issues and fixes</h2>
+  <p class="section-intro">Documented problems with documented solutions. Each entry cites where the fix comes from.</p>
+  <div class="accordion">
+<details class="item">
+  <summary>Controller repeatedly disconnects and reconnects during use.</summary>
+  <div class="item-body">
+    <div class="qa-block"><span class="qa-label">Likely cause</span>Bad or partially seated USB cable, marginal USB port, outdated firmware, or a physically defective USB port on the controller.</div>
+    <div class="qa-block"><span class="qa-label">Fix</span>GameSir's documented order: 1) try another USB-C cable and make sure it is pushed all the way in; 2) try different USB ports, preferably on the back of the PC (motherboard ports, not hubs or front panel); 3) update the Kaleid firmware to the latest version in GameSir Nexus — GameSir cites V1.63 — and if that version does not appear in Nexus, use the model-specific manual upgrader on PC; 4) if none of that helps GameSir says it is most likely a port defect and to submit a video or seek a return.</div>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/pages/faq-questions-about-kaleid-series" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+<details class="item">
+  <summary>A/B/X/Y or the D-pad double-clicks or registers extra presses; a bumper auto-clicks; buttons stop registering input.</summary>
+  <div class="item-body">
+    <div class="qa-block"><span class="qa-label">Likely cause</span>Corrupted profile/settings state or outdated firmware.</div>
+    <div class="qa-block"><span class="qa-label">Fix</span>Run the function reset by holding <kbd>View + Menu + M</kbd> for 5 seconds, then make sure the Kaleid firmware is updated to the latest version (GameSir cites V1.63) in GameSir Nexus, using the manual PC upgrader if Nexus does not offer it.</div>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/pages/faq-questions-about-kaleid-series" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+<details class="item">
+  <summary>Headset audio and/or trigger vibration stop working after enabling 1000 Hz polling.</summary>
+  <div class="item-body">
+    <div class="qa-block"><span class="qa-label">Likely cause</span>Documented hardware/firmware limitation, not a fault — the 3.5 mm earphone jack and native trigger vibration are disabled while the 1000 Hz report rate is active.</div>
+    <div class="qa-block"><span class="qa-label">Fix</span>Set the report rate back to 250 Hz in GameSir Nexus to restore headset audio and native trigger vibration. GameSir explicitly advises reverting to 250 Hz when troubleshooting audio problems.</div>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/pages/solve-the-disconnecting-problem-for-kaleid-kaleid-flux" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+<details class="item">
+  <summary>Controller is bricked or permanently unusable after a manual firmware update.</summary>
+  <div class="item-body">
+    <div class="qa-block"><span class="qa-label">Likely cause</span>Flashing firmware intended for a different Kaleid model. T4 Kaleid (T4K), Kaleid (K1) and Kaleid Flux (K1 Flux) are three different controllers with three different firmwares.</div>
+    <div class="qa-block"><span class="qa-label">Fix</span>Prevention only — use the upgrader for your exact model. GameSir warns that installing the wrong firmware will likely brick the controller, and that flashing any of these firmwares onto a T4 Kaleid renders it unusable and unrecoverable. Update procedure for Kaleid (K1): hold LOGO + Menu while connecting the cable to a PC, open the upgrader, click Download, and wait for 'Upgrade SUCCESS'.</div>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/pages/kaleid-series-1000hz-polling-rate-upgrade-tutorial" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+<details class="item">
+  <summary>GameSir Nexus or games do not detect the Kaleid, or it will not turn on / shows light but no input.</summary>
+  <div class="item-body">
+    <div class="qa-block"><span class="qa-label">Likely cause</span>USB PID recognition failure, wrong input mode (GIP vs XInput), incompletely seated cable, or an unstable firmware version.</div>
+    <div class="qa-block"><span class="qa-label">Fix</span>1) Reseat the cable firmly — GameSir notes it can require real force and may click when properly seated. 2) Hold <kbd>View + Menu + M</kbd> to reset the controller. 3) While connected, hold <kbd>Xbox + M</kbd> for 3 seconds then unplug and replug to restore the original PID. 4) If still not detected, hold <kbd>Xbox + Share</kbd> for 3 seconds while connected to force-switch between XInput and GIP modes. 5) Change USB ports and cables and verify firmware in Nexus (Firmware Upgrade arrow, top right).</div>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/support/manuals/gamesir-kaleid-xbox-controller" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+<details class="item">
+  <summary>Controller works on PC but the Xbox console does not detect it at all.</summary>
+  <div class="item-body">
+    <div class="qa-block"><span class="qa-label">Likely cause</span>Console-side USB/cache state, or the cable is in a low-power or flaky console port.</div>
+    <div class="qa-block"><span class="qa-label">Fix</span>Plug the controller into the rear USB port of the console. With the console on, hold the console power button for more than 10 seconds until it fully shuts down, unplug the power cord for about 30 seconds, then press the console power button 10 times to discharge residual power. Reconnect power with the controller still in the rear port, boot the console and retest. GameSir notes this full power cycle clears the Xbox cache and often restores detection.</div>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/support/manuals/gamesir-kaleid-xbox-controller" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+<details class="item">
+  <summary>Headset plugged into the controller has no audio, or the microphone does not work.</summary>
+  <div class="item-body">
+    <div class="qa-block"><span class="qa-label">Likely cause</span>Plug not fully seated in a slightly stiff jack, Xbox headset audio format, mic muted, or a non-default polling rate.</div>
+    <div class="qa-block"><span class="qa-label">Fix</span>Unplug and slowly push the headset plug back in until you feel it click and it sits flush. Set Xbox Settings &gt; General &gt; Volume &amp; audio output &gt; Headset audio &gt; Stereo uncompressed. Revert the report rate to 250 Hz in Nexus. Confirm the mic is not muted — double-tap M toggles mute (solid red LED = muted), and holding M temporarily unmutes. Update firmware in Nexus. If it persists, test another CTIA-standard headset; GameSir notes open-back headphones at high volume are prone to echo.</div>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/pages/faq-questions-about-kaleid-series" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+  </div>
+</section>
+<section class="tab-panel" id="faq" data-panel="faq">
+  <h2>Frequently asked questions</h2>
+  <div class="accordion">
+<details class="item">
+  <summary>Is the Kaleid wired or wireless?</summary>
+  <div class="item-body">
+    <p>Wired only, with a 3 m detachable USB-C cable. There is no battery and no Bluetooth or 2.4 GHz option, and the same is true of the Kaleid Flux.</p>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/pages/faq-questions-about-kaleid-series" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+<details class="item">
+  <summary>How does the Kaleid Flux differ from the Kaleid?</summary>
+  <div class="item-body">
+    <p>GameSir describes them as the same controller with nuanced variations. The Kaleid has microswitch ABXY face buttons; the Kaleid Flux has membrane ABXY face buttons. They also have different printed PCB trace patterns and different default RGB light-strip colours — GameSir's launch press release says the Kaleid uses default rainbow colours with a PCB printed 'KALEID', while the Kaleid Flux uses a default 'noble gold' colour with a damascus pattern. Launch pricing differed ($49.99 vs $46.99). Sticks, triggers, motors, back buttons, audio jack, dimensions, weight and software are the same. They use DIFFERENT firmware and must not be cross-flashed.</p>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/pages/faq-questions-about-kaleid-series" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+<details class="item">
+  <summary>Which app do I need for the Kaleid?</summary>
+  <div class="item-body">
+    <p>GameSir Nexus, from the Microsoft Store on PC or Xbox. GameSir's download page lists Kaleid and Kaleid Flux under Nexus. GameSir Connect is for PC-only controllers such as the G7 Pro 8K and Cyclone 2, and the GameSir mobile app is for mobile controllers — installing the wrong one is a common reason the controller appears 'not detected'.</p>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/support/downloads" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+<details class="item">
+  <summary>Is the Kaleid the same as the T4 Kaleid?</summary>
+  <div class="item-body">
+    <p>No. GameSir explicitly warns that the T4 Kaleid (T4K), Kaleid (K1) and Kaleid Flux (K1 Flux) are different controllers with different firmware. The T4 Kaleid is not an Xbox-console controller, and flashing K1 firmware onto a T4 Kaleid makes it unusable and unrecoverable.</p>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/pages/kaleid-series-1000hz-polling-rate-upgrade-tutorial" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+<details class="item">
+  <summary>How do I calibrate the sticks and triggers?</summary>
+  <div class="item-body">
+    <p>Hold <kbd>View + Menu + Xbox</kbd> and, while holding, plug the USB-C cable into a PC — the indicator blinks slowly white. Without touching LT, RT or either stick, press A; the indicator goes out. Then press LT and RT to maximum travel and rotate both sticks at full deflection three times, and press A; the indicator turns solid white. Unplug and replug before using. (The printed K1 manual lists this combo as <kbd>View + Xbox</kbd>; GameSir's web manual lists <kbd>View + Menu + Xbox</kbd>.)</p>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/support/manuals/gamesir-kaleid-xbox-controller" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+<details class="item">
+  <summary>How do I switch profiles and turn on hair trigger mode without software?</summary>
+  <div class="item-body">
+    <p>Profiles: <kbd>M + Y</kbd> = default, <kbd>M + B</kbd> = profile 1, <kbd>M + A</kbd> = profile 2, <kbd>M + X</kbd> = profile 3. Hair trigger: hold <kbd>M + LT</kbd> or <kbd>M + RT</kbd> for 2 seconds; with it enabled the matching LED strip lights up when that trigger is pressed, and the setting persists across restarts. Light effects: M plus left stick left/right cycles 4 effects (saved after restart). LED brightness: M plus left stick up/down, 5 levels (not saved after restart).</p>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/support/manuals/gamesir-kaleid-xbox-controller" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+<details class="item">
+  <summary>How do I get 1000 Hz polling, and what does it cost me?</summary>
+  <div class="item-body">
+    <p>Flash the Kaleid (K1)-specific firmware upgrader — hold LOGO + Menu while connecting the cable to a PC, open the upgrader and click Download until it shows 'Upgrade SUCCESS' — then set the polling rate to 1000 Hz in GameSir Nexus. While 1000 Hz is active the 3.5 mm earphone jack and native trigger vibration are temporarily disabled, and 1000 Hz is PC-only because the Xbox console caps polling at 250 Hz.</p>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/pages/kaleid-series-1000hz-polling-rate-upgrade-tutorial" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+<details class="item">
+  <summary>How do I fully reset the controller?</summary>
+  <div class="item-body">
+    <p>Hold <kbd>View + Menu + M</kbd> until the logo button blinks (GameSir's Kaleid FAQ specifies 5 seconds). This resets the profile and all settings on the controller, and is also the documented fix for the controller not powering on or off correctly and for Nexus failing to detect it.</p>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/support/manuals/gamesir-kaleid-xbox-controller" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+<details class="item">
+  <summary>How much measured input lag does it have?</summary>
+  <div class="item-body">
+    <p>Gamepadla measured the K1 Kaleid over cable in XInput at a 1000 Hz median polling rate: average button latency 5.32 ms and average stick latency 7.62 ms (firmware 1.49). Dropping to 500 Hz raised average stick latency to 14.21 ms and 250 Hz to 27.22 ms. No stick centering, circularity or linearity measurements have been published for this model.</p>
+    <p class="small text-dim">Source: <a href="https://gamepadla.com/gamesir-k1-for-xbox.html" rel="nofollow noopener" target="_blank">gamepadla.com</a></p>
+  </div>
+</details>
+  </div>
+</section>
+<section class="tab-panel" id="sources" data-panel="sources">
+  <h2>Sources</h2>
+  <p class="section-intro">Everything on this page traces back to one of these.</p>
+  <ul class="source-list">
+<li><a href="https://gamesir.com/pages/faq-questions-about-kaleid-series" rel="nofollow noopener" target="_blank">GameSir official FAQ: Questions about Kaleid / Kaleid Flux (not T4K/T4Kaleid)</a></li>
+<li><a href="https://gamesir.com/support/manuals/gamesir-kaleid-xbox-controller" rel="nofollow noopener" target="_blank">GameSir official manual: How to Use the GameSir Kaleid (button combos, calibration, reset, troubleshooting FAQ)</a></li>
+<li><a href="https://gamesir.com/pages/manuals-gamesir-k1-for-xbox" rel="nofollow noopener" target="_blank">GameSir official manuals hub: Kaleid Flux / Kaleid e-manual PDFs</a></li>
+<li><a href="https://gamesir.com/pages/kaleid-series-1000hz-polling-rate-upgrade-tutorial" rel="nofollow noopener" target="_blank">GameSir official firmware upgrade tutorial for Kaleid (K1) — 1000 Hz unlock and bricking warning</a></li>
+<li><a href="https://gamesir.com/pages/solve-the-disconnecting-problem-for-kaleid-kaleid-flux" rel="nofollow noopener" target="_blank">GameSir official firmware update steps for Kaleid Flux (K1 Flux) — 1000 Hz disables earphone and trigger vibration</a></li>
+<li><a href="https://gamesir.com/blogs/news/gamesir-kaleid-kaleid-flux-is-available-today" rel="nofollow noopener" target="_blank">GameSir official launch announcement: Kaleid &amp; Kaleid Flux available today (variant differences, 5 million cycle claim)</a></li>
+<li><a href="https://gamesir.com/products/gamesir-kaleid-xbox-controller" rel="nofollow noopener" target="_blank">GameSir official Kaleid product page (spec sheet: 213 g, 156x107x60 mm, microswitch ABXY, Battery: No)</a></li>
+<li><a href="https://gamesir.com/support/downloads" rel="nofollow noopener" target="_blank">GameSir official software downloads page (confirms Kaleid and Kaleid Flux are GameSir Nexus devices, Nexus v2.4.3)</a></li>
+<li><a href="https://gamesir.com/pages/gamesir-nexus" rel="nofollow noopener" target="_blank">GameSir official Nexus software page (compatible controller list and feature list)</a></li>
+<li><a href="https://gamepadla.com/gamesir-k1-for-xbox.html" rel="nofollow noopener" target="_blank">Gamepadla measured data: GameSir K1 Kaleid for Xbox (5.32 ms button / 7.62 ms stick at 1000 Hz; verified spec table; stick tests missing)</a></li>
+<li><a href="https://www.techradar.com/gaming/gamesir-kaleid-review" rel="nofollow noopener" target="_blank">TechRadar review: GameSir Kaleid (pricing, microswitch buttons, wired-only drawback, Nexus limitations)</a></li>
+<li><a href="https://www.techradar.com/gaming/gamesir-kaleid-flux-review" rel="nofollow noopener" target="_blank">TechRadar review: GameSir Kaleid Flux (M button shortcuts, back button mapping)</a></li>
+<li><a href="https://www.tomsguide.com/gaming/gaming-peripherals/gamesir-kaleid-controller-review" rel="nofollow noopener" target="_blank">Tom's Guide review: GameSir Kaleid</a></li>
+<li><a href="https://the-gadgeteer.com/2024/05/30/gamesir-kaleid-and-kaleid-flux-gaming-controller-review-a-surprising-new-xbox-controller/" rel="nofollow noopener" target="_blank">The Gadgeteer review: GameSir Kaleid and Kaleid Flux (side-by-side variant comparison)</a></li>
+<li><a href="https://www.gamespress.com/GameSir-unveils-its-Kaleid-and-Kaleid-Flux-controllers-featuring-a-stu" rel="nofollow noopener" target="_blank">Games Press / Armchair Arcade: GameSir Kaleid launch press release (May 30, 2024, $49.99 / $46.99, full spec list)</a></li>
+<li><a href="https://manuals.plus/gamesir/k1-kaleid-wired-controller-manual" rel="nofollow noopener" target="_blank">Manuals.plus mirror of the printed GameSir K1 Kaleid user guide (auto-sleep, profile switch, calibration)</a></li>
+  </ul>
+</section>
+
+  <nav class="pager" aria-label="Nearby controllers">
+    <a class="pager-link" href="g7-se.html" rel="prev">
+      <span class="pager-dir">&larr; Previous</span>
+      <span class="pager-name">GameSir G7 SE</span>
+    </a>
+    <a class="pager-link is-next" href="super-nova.html" rel="next">
+      <span class="pager-dir">Next &rarr;</span>
+      <span class="pager-name">GameSir Super Nova</span>
+    </a>
+  </nav>
+
+  <details class="switcher">
+    <summary>Jump to another controller</summary>
+    <div class="switch-grid">
+<a class="switch-item" href="cyclone-2.html">
+      <span class="switch-name">GameSir Cyclone 2</span>
+      <span class="switch-meta">Mag-Res TMR &middot; $49.99</span>
+    </a>
+<a class="switch-item" href="g7-he.html">
+      <span class="switch-name">GameSir G7 HE</span>
+      <span class="switch-meta">Hall Effect &middot; $49.99</span>
+    </a>
+<a class="switch-item" href="g7-pro.html">
+      <span class="switch-name">GameSir G7 Pro</span>
+      <span class="switch-meta">Mag-Res TMR &middot; $79.99</span>
+    </a>
+<a class="switch-item" href="g7-pro-8k.html">
+      <span class="switch-name">GameSir G7 Pro 8K</span>
+      <span class="switch-meta">Gen-2 TMR</span>
+    </a>
+<a class="switch-item" href="g7-se.html">
+      <span class="switch-name">GameSir G7 SE</span>
+      <span class="switch-meta">Hall Effect &middot; $44.99</span>
+    </a>
+<a class="switch-item" href="super-nova.html">
+      <span class="switch-name">GameSir Super Nova</span>
+      <span class="switch-meta">Hall Effect &middot; $49.99</span>
+    </a>
+<a class="switch-item" href="t7-pro.html">
+      <span class="switch-name">GameSir T7 Pro</span>
+      <span class="switch-meta">Hall Effect &middot; $49.99</span>
+    </a>
+<a class="switch-item" href="tarantula-pro.html">
+      <span class="switch-name">GameSir Tarantula Pro</span>
+      <span class="switch-meta">Mag-Res TMR &middot; $79.99</span>
+    </a>
+    </div>
+    <p class="small text-dim">Or <a href="../compare.html">compare all 9 side by side</a>.</p>
+  </details>
+
+  <p class="small text-dim">Data last reviewed 2026-09-06. Figures are compiled from the sources above rather than first-hand testing.</p>
+</div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p class="disclaimer">
+      <strong>Unofficial and community-maintained.</strong> Not affiliated with, endorsed by, or operated by
+      GameSir. Specifications are compiled from GameSir's published product pages, manuals and FAQ documents,
+      from independent measurement data published by gamepadla.com, and from published reviews &mdash; not from
+      first-hand testing, unless a figure says otherwise. Values that could not be verified are marked
+      &ldquo;not documented&rdquo; rather than estimated. Manufacturer claims are labelled as claims.
+    </p>
+    <p class="small">Found an error? Open an issue or a pull request with a source and it will be corrected.</p>
+  </div>
+</footer>
+
+<script src="../assets/js/filter.js" defer></script>
+</body>
+</html>

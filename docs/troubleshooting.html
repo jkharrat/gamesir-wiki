@@ -6,6 +6,7 @@
 <title>Troubleshooting index — GameSir Wiki</title>
 <meta name="description" content="Searchable index of documented GameSir controller problems and their fixes, with sources.">
 <link rel="stylesheet" href="assets/css/style.css">
+<script>document.documentElement.className += " js";</script>
 </head>
 <body>
 
@@ -15,7 +16,7 @@
       <span class="brand-mark">GS</span>
       <span>GameSir Wiki</span>
     </a>
-    <nav class="site-nav"><a href="index.html">Home</a><a href="compare.html">Compare</a><a href="troubleshooting.html" aria-current="page">Troubleshooting</a><a href="faq.html">FAQ</a><a href="about.html">About</a></nav>
+    <nav class="site-nav"><a href="index.html">Home</a><a href="index.html#controllers">Controllers</a><a href="compare.html">Compare</a><a href="latency.html">Latency</a><a href="troubleshooting.html" aria-current="page">Troubleshooting</a><a href="faq.html">FAQ</a><a href="about.html">About</a></nav>
   </div>
 </header>
 
@@ -39,6 +40,16 @@
     <p>GameSir explicitly warns that applying the older hold-while-plugging-in procedure to a G7 Pro puts that
     controller into firmware update mode instead, leaving it unable to power on normally. Recovery requires a
     manual firmware upgrade from a Windows PC. Older guides and videos still circulate the wrong sequence.</p>
+  </div>
+
+  <div class="note danger">
+    <p><strong>Never cross-flash Kaleid firmware.</strong> GameSir sells three different controllers under the
+    Kaleid name &mdash; the <em>T4 Kaleid</em> (T4K), the <em>Kaleid</em> (K1) and the <em>Kaleid Flux</em>
+    (K1&nbsp;Flux) &mdash; and each takes its own firmware.</p>
+    <p>GameSir warns that installing the wrong file will likely brick the controller, and that flashing K1
+    firmware onto a T4 Kaleid leaves it unusable and unrecoverable. Always use the upgrader published for your
+    exact model. The K1 and K1 Flux look nearly identical, so confirm which one you own before downloading
+    anything.</p>
   </div>
 
   <h2 id="drift">Before you assume the sticks have failed</h2>
@@ -92,31 +103,73 @@
     </details>
   </div>
 
-  <h2 id="audio">If your 3.5 mm headset stopped working</h2>
+  <h2 id="audio">If your headset or trigger vibration stopped working</h2>
   <p class="section-intro">
-    Check your polling rate before troubleshooting the headset. On the G7 and G7 SE, and on the G7 HE, selecting
-    a report rate above 250&nbsp;Hz disables the controller's onboard audio entirely &mdash; no game sound and no
-    microphone. This is by design rather than a fault, and GameSir support advises locking the rate to 250&nbsp;Hz
-    if you use a headset through the controller.
+    Check your polling rate before troubleshooting either one. Across the G7 SE, G7 HE and Kaleid family,
+    selecting a report rate above 250&nbsp;Hz disables the controller's onboard 3.5&nbsp;mm audio entirely
+    &mdash; no game sound and no microphone. On the Kaleid, running at 1000&nbsp;Hz additionally disables native
+    trigger vibration. Both are by design rather than faults, and GameSir advises returning the rate to
+    250&nbsp;Hz if you use a headset through the controller.
   </p>
   <p class="section-intro">
     It is an easy trap to fall into, because raising the polling rate is one of the first things people do after
-    installing the app, and the audio failure shows up later with no obvious connection to it.
+    installing the app, and the audio failure surfaces later with no obvious connection to it.
+  </p>
+  <p class="section-intro">
+    The trade-off is real in both directions, though. On the Kaleid, gamepadla measured average stick latency of
+    7.62&nbsp;ms at 1000&nbsp;Hz, 14.21&nbsp;ms at 500&nbsp;Hz and 27.22&nbsp;ms at 250&nbsp;Hz &mdash; same
+    controller, same cable, only the report rate changed. So the safe setting for headset users is also
+    substantially the slowest one.
   </p>
 
   <h2 id="all">All documented issues</h2>
 
   <div class="filter-bar">
-    <input class="search-input" id="ts-search" type="search" placeholder="Search symptoms, causes and fixes&hellip;" aria-label="Search troubleshooting entries">
-    <span class="result-count" id="ts-count"></span>
-  </div>
-  <div class="chip-row" id="ts-chips">
-    <button class="chip" type="button" data-filter="all" aria-pressed="true">All models</button>
-    <button class="chip" type="button" data-filter="cyclone-2" aria-pressed="false">GameSir Cyclone 2</button><button class="chip" type="button" data-filter="g7-he" aria-pressed="false">GameSir G7 HE</button><button class="chip" type="button" data-filter="g7-pro" aria-pressed="false">GameSir G7 Pro</button><button class="chip" type="button" data-filter="g7-pro-8k" aria-pressed="false">GameSir G7 Pro 8K</button><button class="chip" type="button" data-filter="g7-se" aria-pressed="false">GameSir G7 SE</button><button class="chip" type="button" data-filter="super-nova" aria-pressed="false">GameSir Super Nova</button><button class="chip" type="button" data-filter="tarantula-pro" aria-pressed="false">GameSir Tarantula Pro</button>
+    <div class="filter-field is-search">
+      <label class="filter-label" for="ts-search">Search</label>
+      <input class="search-input" id="ts-search" type="search" placeholder="Search symptoms, causes and fixes&hellip;" aria-label="Search troubleshooting entries">
+    </div>
+
+    <div class="filter-field is-select">
+      <label class="filter-label" for="ts-topic">Symptom</label>
+      <select class="filter-select" id="ts-topic">
+        <option value="all">All symptoms</option>
+        <option value="detection">Not detected (13)</option>
+        <option value="sticks">Sticks &amp; drift (14)</option>
+        <option value="audio">Audio &amp; mic (5)</option>
+        <option value="connection">Connection drops (19)</option>
+        <option value="buttons">Buttons &amp; triggers (19)</option>
+        <option value="power">Power &amp; firmware (31)</option>
+        <option value="polling">Polling rate (10)</option>
+        <option value="profiles">Profiles &amp; mapping (31)</option>
+        <option value="platforms">Platform support (3)</option>
+      </select>
+    </div>
+
+    <div class="filter-field is-select">
+      <label class="filter-label" for="ts-model">Model</label>
+      <select class="filter-select" id="ts-model">
+        <option value="all">All models</option>
+        <option value="cyclone-2">GameSir Cyclone 2 (7)</option>
+        <option value="g7-he">GameSir G7 HE (7)</option>
+        <option value="g7-pro">GameSir G7 Pro (7)</option>
+        <option value="g7-pro-8k">GameSir G7 Pro 8K (4)</option>
+        <option value="g7-se">GameSir G7 SE (7)</option>
+        <option value="kaleid">GameSir Kaleid (7)</option>
+        <option value="super-nova">GameSir Super Nova (7)</option>
+        <option value="t7-pro">GameSir T7 Pro (8)</option>
+        <option value="tarantula-pro">GameSir Tarantula Pro (6)</option>
+      </select>
+    </div>
+
+    <div class="filter-actions">
+      <span class="result-count" id="ts-count"></span>
+      <button class="filter-clear" type="button" id="ts-clear" hidden>Clear filters</button>
+    </div>
   </div>
 
   <div class="accordion" id="ts-list">
-<div class="ts-entry" data-model="cyclone-2" data-text="the 2.4ghz dongle connection keeps dropping, sometimes with jittery button and stick input. mismatched controller and dongle firmware is the primary cause. gamesir also cites rf interference from 8k wireless devices and nearlink devices, and thick obstructions between the dongle and controller. match the firmware: dongle v1.1.9 or above and controller v3.4.4 or above — gamesir stresses that updating one requires updating the other. update the dongle from gamesir connect while the controller is connected through it, or force it by holding the dongle's sync button as you plug it in (the light should stay off) with connect open. update the controller by plugging it in via cable and pressing 'update firmware', or force it by holding logo + menu while plugging it in with connect open. for interference, move the dongle closer using a usb extension or the charging dock's usb port.">
+<div class="ts-entry" data-model="cyclone-2" data-topics="connection power profiles" data-text="the 2.4ghz dongle connection keeps dropping, sometimes with jittery button and stick input. mismatched controller and dongle firmware is the primary cause. gamesir also cites rf interference from 8k wireless devices and nearlink devices, and thick obstructions between the dongle and controller. match the firmware: dongle v1.1.9 or above and controller v3.4.4 or above — gamesir stresses that updating one requires updating the other. update the dongle from gamesir connect while the controller is connected through it, or force it by holding the dongle's sync button as you plug it in (the light should stay off) with connect open. update the controller by plugging it in via cable and pressing 'update firmware', or force it by holding logo + menu while plugging it in with connect open. for interference, move the dongle closer using a usb extension or the charging dock's usb port.">
 <details class="item">
   <summary>The 2.4GHz dongle connection keeps dropping, sometimes with jittery button and stick input. <span class="badge">GameSir Cyclone 2</span></summary>
   <div class="item-body">
@@ -126,7 +179,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="cyclone-2" data-text="the controller shows a blue rather than green indicator light when connected to a pc, and games behave incorrectly. the controller has been accidentally switched into ds4 or ns input mode instead of xinput. hold the view button + menu button to cycle between xinput, ns and ds4 modes. xinput, indicated by a green light, is the correct mode for most pc use and is required for gamesir connect.">
+<div class="ts-entry" data-model="cyclone-2" data-topics="profiles" data-text="the controller shows a blue rather than green indicator light when connected to a pc, and games behave incorrectly. the controller has been accidentally switched into ds4 or ns input mode instead of xinput. hold the view button + menu button to cycle between xinput, ns and ds4 modes. xinput, indicated by a green light, is the correct mode for most pc use and is required for gamesir connect.">
 <details class="item">
   <summary>The controller shows a blue rather than green indicator light when connected to a PC, and games behave incorrectly. <span class="badge">GameSir Cyclone 2</span></summary>
   <div class="item-body">
@@ -136,7 +189,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="cyclone-2" data-text="the controller will not power on at all after a firmware upgrade failed in gamesir connect. interrupted or failed firmware flash leaving the controller soft-locked. thesixthaxis describes this as a known bug affecting both the cyclone 2 and super nova. reset the controller by poking the reset hole on the back with a small object, then retry the update.">
+<div class="ts-entry" data-model="cyclone-2" data-topics="power profiles" data-text="the controller will not power on at all after a firmware upgrade failed in gamesir connect. interrupted or failed firmware flash leaving the controller soft-locked. thesixthaxis describes this as a known bug affecting both the cyclone 2 and super nova. reset the controller by poking the reset hole on the back with a small object, then retry the update.">
 <details class="item">
   <summary>The controller will not power on at all after a firmware upgrade failed in GameSir Connect. <span class="badge">GameSir Cyclone 2</span></summary>
   <div class="item-body">
@@ -146,7 +199,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="cyclone-2" data-text="a single button press registers as continuous rapid presses and the light flashes red. turbo (rapid-fire) mode is enabled. double-tap the m button to turn turbo off.">
+<div class="ts-entry" data-model="cyclone-2" data-topics="buttons profiles" data-text="a single button press registers as continuous rapid presses and the light flashes red. turbo (rapid-fire) mode is enabled. double-tap the m button to turn turbo off.">
 <details class="item">
   <summary>A single button press registers as continuous rapid presses and the light flashes red. <span class="badge">GameSir Cyclone 2</span></summary>
   <div class="item-body">
@@ -156,7 +209,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="cyclone-2" data-text="cannot connect over bluetooth or dongle; the indicator light keeps blinking slowly. slow blinking means reconnecting mode — the controller is trying to reach a previously paired device rather than accepting a new one. hold the home button + share button for 2 seconds to force pairing mode; the light should then blink fast. for a dongle connection, also hold the pairing button on the dongle so the two re-pair.">
+<div class="ts-entry" data-model="cyclone-2" data-topics="connection profiles" data-text="cannot connect over bluetooth or dongle; the indicator light keeps blinking slowly. slow blinking means reconnecting mode — the controller is trying to reach a previously paired device rather than accepting a new one. hold the home button + share button for 2 seconds to force pairing mode; the light should then blink fast. for a dongle connection, also hold the pairing button on the dongle so the two re-pair.">
 <details class="item">
   <summary>Cannot connect over Bluetooth or dongle; the indicator light keeps blinking slowly. <span class="badge">GameSir Cyclone 2</span></summary>
   <div class="item-body">
@@ -166,7 +219,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="cyclone-2" data-text="gamesir nexus does not recognize the cyclone 2. wrong application — the cyclone 2 is a gamesir connect device. nexus is only for gamesir's xbox-licensed controllers. use gamesir connect with the controller connected via dongle or cable in xinput mode.">
+<div class="ts-entry" data-model="cyclone-2" data-topics="detection connection" data-text="gamesir nexus does not recognize the cyclone 2. wrong application — the cyclone 2 is a gamesir connect device. nexus is only for gamesir's xbox-licensed controllers. use gamesir connect with the controller connected via dongle or cable in xinput mode.">
 <details class="item">
   <summary>GameSir Nexus does not recognize the Cyclone 2. <span class="badge">GameSir Cyclone 2</span></summary>
   <div class="item-body">
@@ -176,7 +229,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="cyclone-2" data-text="stick drift or trigger problems during use. sticks or triggers out of calibration. run the on-board stick &amp; trigger calibration procedure from the manual; gamesir links a cyclone 2 specific calibration tutorial video from the faq page. deadzones can also be tuned in gamesir connect or on-board.">
+<div class="ts-entry" data-model="cyclone-2" data-topics="sticks buttons" data-text="stick drift or trigger problems during use. sticks or triggers out of calibration. run the on-board stick &amp; trigger calibration procedure from the manual; gamesir links a cyclone 2 specific calibration tutorial video from the faq page. deadzones can also be tuned in gamesir connect or on-board.">
 <details class="item">
   <summary>Stick drift or trigger problems during use. <span class="badge">GameSir Cyclone 2</span></summary>
   <div class="item-body">
@@ -186,7 +239,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="g7-he" data-text="controller is connected and lit but registers no input, disconnects constantly, or will not power on. pid recognition failure between controller and host, or the controller sitting in the wrong input mode (xinput vs gip). while connected, hold the xbox/home button + m button for 3 seconds (an indicator tone should sound), then unplug and replug to restore the original pid and device recognition. if that fails, hold the xbox/home button + share button for 3 seconds while connected to force-switch to xinput. also move to a rear motherboard usb port rather than a case port or hub, and swap in a verified data-capable cable.">
+<div class="ts-entry" data-model="g7-he" data-topics="detection connection power" data-text="controller is connected and lit but registers no input, disconnects constantly, or will not power on. pid recognition failure between controller and host, or the controller sitting in the wrong input mode (xinput vs gip). while connected, hold the xbox/home button + m button for 3 seconds (an indicator tone should sound), then unplug and replug to restore the original pid and device recognition. if that fails, hold the xbox/home button + share button for 3 seconds while connected to force-switch to xinput. also move to a rear motherboard usb port rather than a case port or hub, and swap in a verified data-capable cable.">
 <details class="item">
   <summary>Controller is connected and lit but registers no input, disconnects constantly, or will not power on. <span class="badge">GameSir G7 HE</span></summary>
   <div class="item-body">
@@ -196,7 +249,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="g7-he" data-text="random disconnects, failure to power on, or dead inputs traced to the installed firmware. gamesir names firmware 6.33, 6.38 and 6.5.6 as known problematic versions for the g7 se and g7 he that cause connection-related issues. check your version in gamesir nexus (the 'firmware upgrade' arrow at top right) or legacy gamesir nexus ('updates' on the controller page) and update to a current stable build. if nexus does not offer the update, use gamesir's standalone manual upgrader for g7 he/se on a pc.">
+<div class="ts-entry" data-model="g7-he" data-topics="connection power profiles" data-text="random disconnects, failure to power on, or dead inputs traced to the installed firmware. gamesir names firmware 6.33, 6.38 and 6.5.6 as known problematic versions for the g7 se and g7 he that cause connection-related issues. check your version in gamesir nexus (the 'firmware upgrade' arrow at top right) or legacy gamesir nexus ('updates' on the controller page) and update to a current stable build. if nexus does not offer the update, use gamesir's standalone manual upgrader for g7 he/se on a pc.">
 <details class="item">
   <summary>Random disconnects, failure to power on, or dead inputs traced to the installed firmware. <span class="badge">GameSir G7 HE</span></summary>
   <div class="item-body">
@@ -206,7 +259,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="g7-he" data-text="microswitch face buttons or the d-pad double-click or send the wrong input; a bumper auto-clicks on its own. corrupted mapping/profile state or outdated firmware. hold the xbox button + menu button for 5 seconds while connected to run the function reset, then update firmware to the latest version in gamesir nexus (gamesir's page cites v6.40 as the target at time of writing), falling back to the standalone pc upgrader if nexus does not show it.">
+<div class="ts-entry" data-model="g7-he" data-topics="buttons power profiles" data-text="microswitch face buttons or the d-pad double-click or send the wrong input; a bumper auto-clicks on its own. corrupted mapping/profile state or outdated firmware. hold the xbox button + menu button for 5 seconds while connected to run the function reset, then update firmware to the latest version in gamesir nexus (gamesir's page cites v6.40 as the target at time of writing), falling back to the standalone pc upgrader if nexus does not show it.">
 <details class="item">
   <summary>Microswitch face buttons or the d-pad double-click or send the wrong input; a bumper auto-clicks on its own. <span class="badge">GameSir G7 HE</span></summary>
   <div class="item-body">
@@ -216,7 +269,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="g7-he" data-text="3.5 mm headset produces no audio and the mic does not work. report rates above 250 hz disable the controller's onboard audio by design; secondary causes are an incompletely inserted headset plug or an outdated firmware build. gamesir support says the polling rate in gamesir nexus on pc 'should be locked at 250hz to avoid potential problems'. push the headset plug fully flush, confirm the mic is not muted (red led near the bottom of the pad, or double-tap m to toggle), and on xbox set settings &gt; general &gt; volume &amp; audio output &gt; headset audio to 'stereo uncompressed'. if it persists after a firmware update, test a different ctia-standard headset.">
+<div class="ts-entry" data-model="g7-he" data-topics="audio power polling profiles" data-text="3.5 mm headset produces no audio and the mic does not work. report rates above 250 hz disable the controller's onboard audio by design; secondary causes are an incompletely inserted headset plug or an outdated firmware build. gamesir support says the polling rate in gamesir nexus on pc 'should be locked at 250hz to avoid potential problems'. push the headset plug fully flush, confirm the mic is not muted (red led near the bottom of the pad, or double-tap m to toggle), and on xbox set settings &gt; general &gt; volume &amp; audio output &gt; headset audio to 'stereo uncompressed'. if it persists after a firmware update, test a different ctia-standard headset.">
 <details class="item">
   <summary>3.5 mm headset produces no audio and the mic does not work. <span class="badge">GameSir G7 HE</span></summary>
   <div class="item-body">
@@ -226,7 +279,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="g7-he" data-text="sticks appear to drift straight out of the box after the initial deadzone is set to 0 in gamesir nexus. not hardware drift. zero deadzone is a true physical zero, making the stick hypersensitive to residual movement. gamesir's official answer is to set the initial deadzone to roughly 3-5 rather than 0. for genuine stick or trigger faults, run the manual stick &amp; trigger calibration and the function reset (xbox + menu held 5 seconds).">
+<div class="ts-entry" data-model="g7-he" data-topics="sticks buttons power" data-text="sticks appear to drift straight out of the box after the initial deadzone is set to 0 in gamesir nexus. not hardware drift. zero deadzone is a true physical zero, making the stick hypersensitive to residual movement. gamesir's official answer is to set the initial deadzone to roughly 3-5 rather than 0. for genuine stick or trigger faults, run the manual stick &amp; trigger calibration and the function reset (xbox + menu held 5 seconds).">
 <details class="item">
   <summary>Sticks appear to drift straight out of the box after the initial deadzone is set to 0 in GameSir Nexus. <span class="badge">GameSir G7 HE</span></summary>
   <div class="item-body">
@@ -236,7 +289,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="g7-he" data-text="controller becomes unresponsive or refuses to power on after a button combo was held while the cable was inserted. holding xbox + menu, or view + xbox + menu, while plugging in enters dfu (firmware update) mode or manual calibration mode instead of normal operation. gamesir also warns that cable guards can make a half-seated cable feel fully inserted. unplug, reinsert the cable firmly with no buttons held until it clicks, then hold the xbox button to power on. if still unresponsive, perform a manual firmware upgrade from a windows pc using gamesir's standalone g7 series upgrader.">
+<div class="ts-entry" data-model="g7-he" data-topics="sticks power" data-text="controller becomes unresponsive or refuses to power on after a button combo was held while the cable was inserted. holding xbox + menu, or view + xbox + menu, while plugging in enters dfu (firmware update) mode or manual calibration mode instead of normal operation. gamesir also warns that cable guards can make a half-seated cable feel fully inserted. unplug, reinsert the cable firmly with no buttons held until it clicks, then hold the xbox button to power on. if still unresponsive, perform a manual firmware upgrade from a windows pc using gamesir's standalone g7 series upgrader.">
 <details class="item">
   <summary>Controller becomes unresponsive or refuses to power on after a button combo was held while the cable was inserted. <span class="badge">GameSir G7 HE</span></summary>
   <div class="item-body">
@@ -246,7 +299,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="g7-he" data-text="back buttons are pressed accidentally during normal play. the g7 he removed the two physical quick-latch lock switches that the g7 se has on its back buttons, so the paddles cannot be mechanically disabled. no hardware workaround exists. clear the mapping instead: hold m + r4 (or m + l4) for 3 seconds until the indicator blinks slowly, then tap r4 (or l4) itself to cancel its assigned value, or use a profile with the back buttons unmapped.">
+<div class="ts-entry" data-model="g7-he" data-topics="buttons profiles" data-text="back buttons are pressed accidentally during normal play. the g7 he removed the two physical quick-latch lock switches that the g7 se has on its back buttons, so the paddles cannot be mechanically disabled. no hardware workaround exists. clear the mapping instead: hold m + r4 (or m + l4) for 3 seconds until the indicator blinks slowly, then tap r4 (or l4) itself to cancel its assigned value, or use a profile with the back buttons unmapped.">
 <details class="item">
   <summary>Back buttons are pressed accidentally during normal play. <span class="badge">GameSir G7 HE</span></summary>
   <div class="item-body">
@@ -256,7 +309,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="g7-pro" data-text="sticks appear to drift even though the controller is nearly new tmr sticks are magnetic and do not wear like potentiometers, so this is rarely mechanical. the g7 pro applies no inner deadzone, so its natural center error is visible to games. a misconfigured anti-deadzone in nexus can also produce it — gamesir's own documentation states improper anti-deadzone configuration 'may appear similar to stick drift'. set anti-deadzone initial back to 0 in nexus, confirm you are not in raw (zero deadzone) trajectory mode, recalibrate, then add a small initial deadzone only if needed.">
+<div class="ts-entry" data-model="g7-pro" data-topics="sticks" data-text="sticks appear to drift even though the controller is nearly new tmr sticks are magnetic and do not wear like potentiometers, so this is rarely mechanical. the g7 pro applies no inner deadzone, so its natural center error is visible to games. a misconfigured anti-deadzone in nexus can also produce it — gamesir's own documentation states improper anti-deadzone configuration 'may appear similar to stick drift'. set anti-deadzone initial back to 0 in nexus, confirm you are not in raw (zero deadzone) trajectory mode, recalibrate, then add a small initial deadzone only if needed.">
 <details class="item">
   <summary>Sticks appear to drift even though the controller is nearly new <span class="badge">GameSir G7 Pro</span></summary>
   <div class="item-body">
@@ -266,7 +319,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="g7-pro" data-text="stick ranges are wrong or inconsistent after calibration calibration performed with the magnetic faceplate removed. gamesir documentation states calibration must be performed with the faceplate installed; calibrating without it produces incorrect range values. reinstall the faceplate and recalibrate.">
+<div class="ts-entry" data-model="g7-pro" data-topics="sticks profiles" data-text="stick ranges are wrong or inconsistent after calibration calibration performed with the magnetic faceplate removed. gamesir documentation states calibration must be performed with the faceplate installed; calibrating without it produces incorrect range values. reinstall the faceplate and recalibrate.">
 <details class="item">
   <summary>Stick ranges are wrong or inconsistent after calibration <span class="badge">GameSir G7 Pro</span></summary>
   <div class="item-body">
@@ -276,7 +329,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="g7-pro" data-text="sticks feel too fast or too twitchy after calibrating rotation speed during calibration affects the resulting sensitivity. recalibrate using slow, steady, gentle full rotations. gamesir notes faster rotation during calibration yields higher sensitivity than slower rotation.">
+<div class="ts-entry" data-model="g7-pro" data-topics="sticks" data-text="sticks feel too fast or too twitchy after calibrating rotation speed during calibration affects the resulting sensitivity. recalibrate using slow, steady, gentle full rotations. gamesir notes faster rotation during calibration yields higher sensitivity than slower rotation.">
 <details class="item">
   <summary>Sticks feel too fast or too twitchy after calibrating <span class="badge">GameSir G7 Pro</span></summary>
   <div class="item-body">
@@ -286,7 +339,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="g7-pro" data-text="controller shows in windows as 'xbox 360 controller' and disconnects when gamesir nexus is closed expected behaviour. 1000 hz polling and keyboard/mouse bindings require the controller to switch protocol from gip (xbox gaming device) to xinput, which renames the device and forces a brief reconnect. this is not a fault. the mode can be switched manually by holding xbox + share for about 3 seconds.">
+<div class="ts-entry" data-model="g7-pro" data-topics="connection polling" data-text="controller shows in windows as 'xbox 360 controller' and disconnects when gamesir nexus is closed expected behaviour. 1000 hz polling and keyboard/mouse bindings require the controller to switch protocol from gip (xbox gaming device) to xinput, which renames the device and forces a brief reconnect. this is not a fault. the mode can be switched manually by holding xbox + share for about 3 seconds.">
 <details class="item">
   <summary>Controller shows in Windows as 'Xbox 360 Controller' and disconnects when GameSir Nexus is closed <span class="badge">GameSir G7 Pro</span></summary>
   <div class="item-body">
@@ -296,7 +349,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="g7-pro" data-text="controller is powered on and connected but invisible to games and to gamesir nexus the controller is stuck in hid (android support) mode. hold xbox + mode for roughly 4 seconds until the xbox indicator blinks twice to reset the pid. alternatively hold share + menu for about 4 seconds to toggle the mode.">
+<div class="ts-entry" data-model="g7-pro" data-topics="detection power" data-text="controller is powered on and connected but invisible to games and to gamesir nexus the controller is stuck in hid (android support) mode. hold xbox + mode for roughly 4 seconds until the xbox indicator blinks twice to reset the pid. alternatively hold share + menu for about 4 seconds to toggle the mode.">
 <details class="item">
   <summary>Controller is powered on and connected but invisible to games and to GameSir Nexus <span class="badge">GameSir G7 Pro</span></summary>
   <div class="item-body">
@@ -306,7 +359,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="g7-pro" data-text="controller will not power on after attempting calibration found in an older guide or video the calibration procedure for the older g7 / g7 se / g7 he puts a g7 pro into firmware update mode instead of calibration mode. do not use the older g7 sequence. use view + xbox + menu on the g7 pro. if the controller is already stuck, gamesir directs users to perform a manual firmware upgrade from a windows pc.">
+<div class="ts-entry" data-model="g7-pro" data-topics="sticks power" data-text="controller will not power on after attempting calibration found in an older guide or video the calibration procedure for the older g7 / g7 se / g7 he puts a g7 pro into firmware update mode instead of calibration mode. do not use the older g7 sequence. use view + xbox + menu on the g7 pro. if the controller is already stuck, gamesir directs users to perform a manual firmware upgrade from a windows pc.">
 <details class="item">
   <summary>Controller will not power on after attempting calibration found in an older guide or video <span class="badge">GameSir G7 Pro</span></summary>
   <div class="item-body">
@@ -316,7 +369,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="g7-pro" data-text="set polling to 1000 hz but measured rate is lower the controller has not completed the switch into xinput mode, or the usb path cannot sustain the rate. fully close nexus to trigger the mode switch, or hold xbox + share for 3 seconds to force it. prefer rear motherboard usb ports over front-panel ports and hubs, and use a known data-capable cable. two indicator blinks mean the mode swap failed.">
+<div class="ts-entry" data-model="g7-pro" data-topics="buttons polling profiles" data-text="set polling to 1000 hz but measured rate is lower the controller has not completed the switch into xinput mode, or the usb path cannot sustain the rate. fully close nexus to trigger the mode switch, or hold xbox + share for 3 seconds to force it. prefer rear motherboard usb ports over front-panel ports and hubs, and use a known data-capable cable. two indicator blinks mean the mode swap failed.">
 <details class="item">
   <summary>Set polling to 1000 Hz but measured rate is lower <span class="badge">GameSir G7 Pro</span></summary>
   <div class="item-body">
@@ -326,7 +379,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="g7-pro-8k" data-text="controller never appears in gamesir nexus the g7 pro 8k pc is not a nexus device. gamesir has stated publicly that it does not work with nexus, which is intended for its xbox-licensed controllers. use gamesir connect instead. nexus not listing the controller is expected behaviour, not a fault. connect also requires the controller to be in xinput mode via cable or dongle to list it.">
+<div class="ts-entry" data-model="g7-pro-8k" data-topics="connection" data-text="controller never appears in gamesir nexus the g7 pro 8k pc is not a nexus device. gamesir has stated publicly that it does not work with nexus, which is intended for its xbox-licensed controllers. use gamesir connect instead. nexus not listing the controller is expected behaviour, not a fault. connect also requires the controller to be in xinput mode via cable or dongle to list it.">
 <details class="item">
   <summary>Controller never appears in GameSir Nexus <span class="badge">GameSir G7 Pro 8K</span></summary>
   <div class="item-body">
@@ -336,7 +389,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="g7-pro-8k" data-text="gyro, rear paddles or extra bumpers do nothing in a game plain xinput does not expose those inputs. choose the connection mode that exposes what you need rather than looking for a single setting, or clone the inputs onto standard buttons in gamesir connect.">
+<div class="ts-entry" data-model="g7-pro-8k" data-topics="buttons profiles" data-text="gyro, rear paddles or extra bumpers do nothing in a game plain xinput does not expose those inputs. choose the connection mode that exposes what you need rather than looking for a single setting, or clone the inputs onto standard buttons in gamesir connect.">
 <details class="item">
   <summary>Gyro, rear paddles or extra bumpers do nothing in a game <span class="badge">GameSir G7 Pro 8K</span></summary>
   <div class="item-body">
@@ -346,7 +399,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="g7-pro-8k" data-text="intermittent disconnects or odd behaviour after raising the polling rate high polling rates can conflict with some usb paths and software. set the polling rate back to 250 hz to confirm, then raise it again. prefer rear motherboard usb ports and avoid hubs.">
+<div class="ts-entry" data-model="g7-pro-8k" data-topics="connection polling" data-text="intermittent disconnects or odd behaviour after raising the polling rate high polling rates can conflict with some usb paths and software. set the polling rate back to 250 hz to confirm, then raise it again. prefer rear motherboard usb ports and avoid hubs.">
 <details class="item">
   <summary>Intermittent disconnects or odd behaviour after raising the polling rate <span class="badge">GameSir G7 Pro 8K</span></summary>
   <div class="item-body">
@@ -356,7 +409,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="g7-pro-8k" data-text="sticks or triggers reading incorrectly calibration data is off. calibrate from the app via the test icon with mode + menu, or manually: hold view + home + menu until the home indicator flashes slowly white, press a with nothing touched, then pull both triggers fully three times and rotate both sticks fully three times and press a.">
+<div class="ts-entry" data-model="g7-pro-8k" data-topics="sticks buttons" data-text="sticks or triggers reading incorrectly calibration data is off. calibrate from the app via the test icon with mode + menu, or manually: hold view + home + menu until the home indicator flashes slowly white, press a with nothing touched, then pull both triggers fully three times and rotate both sticks fully three times and press a.">
 <details class="item">
   <summary>Sticks or triggers reading incorrectly <span class="badge">GameSir G7 Pro 8K</span></summary>
   <div class="item-body">
@@ -366,7 +419,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="g7-se" data-text="controller is plugged in and the light is on, but no inputs register, or it repeatedly disconnects, or it will not power on at all. pid recognition failure between the controller and host, or the controller being in the wrong input mode (xinput vs gip). while connected, hold the xbox button + m button for 3 seconds (you should hear an indicator tone), then unplug and replug to switch back to the original pid and restore device recognition. if that fails, hold the xbox button + share button for 3 seconds while connected to force-switch between xinput and gip modes. also try motherboard-rear usb ports rather than case ports or hubs, and a known-good data cable.">
+<div class="ts-entry" data-model="g7-se" data-topics="detection connection power profiles" data-text="controller is plugged in and the light is on, but no inputs register, or it repeatedly disconnects, or it will not power on at all. pid recognition failure between the controller and host, or the controller being in the wrong input mode (xinput vs gip). while connected, hold the xbox button + m button for 3 seconds (you should hear an indicator tone), then unplug and replug to switch back to the original pid and restore device recognition. if that fails, hold the xbox button + share button for 3 seconds while connected to force-switch between xinput and gip modes. also try motherboard-rear usb ports rather than case ports or hubs, and a known-good data cable.">
 <details class="item">
   <summary>Controller is plugged in and the light is on, but no inputs register, or it repeatedly disconnects, or it will not power on at all. <span class="badge">GameSir G7 SE</span></summary>
   <div class="item-body">
@@ -376,7 +429,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="g7-se" data-text="connection instability: random disconnects, failure to power on, or no input, on specific firmware builds. gamesir names firmware 6.33, 6.38 and 6.5.6 as known problematic versions for the g7 se and g7 he that cause connection-related issues. check your version in gamesir nexus (the upward arrow labelled 'firmware upgrade' at top right) or in legacy gamesir nexus (the 'updates' button on the controller page), then update to a current stable build. if nexus does not offer the update, gamesir provides a standalone manual upgrader for g7 se/he on pc.">
+<div class="ts-entry" data-model="g7-se" data-topics="detection connection power profiles" data-text="connection instability: random disconnects, failure to power on, or no input, on specific firmware builds. gamesir names firmware 6.33, 6.38 and 6.5.6 as known problematic versions for the g7 se and g7 he that cause connection-related issues. check your version in gamesir nexus (the upward arrow labelled 'firmware upgrade' at top right) or in legacy gamesir nexus (the 'updates' button on the controller page), then update to a current stable build. if nexus does not offer the update, gamesir provides a standalone manual upgrader for g7 se/he on pc.">
 <details class="item">
   <summary>Connection instability: random disconnects, failure to power on, or no input, on specific firmware builds. <span class="badge">GameSir G7 SE</span></summary>
   <div class="item-body">
@@ -386,7 +439,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="g7-se" data-text="the 3.5 mm headset jack goes completely dead: no game audio and no mic. selecting a 500 hz or 1000 hz report rate disables the controller's onboard audio. this is by design, not a fault. set the report rate back to 250 hz in gamesir nexus on pc. gamesir support explicitly says the polling rate 'should be locked at 250hz to avoid potential problems' for headset use. also ensure the headset is pushed fully flush into the jack, and on xbox set settings &gt; general &gt; volume &amp; audio output &gt; headset audio to 'stereo uncompressed'.">
+<div class="ts-entry" data-model="g7-se" data-topics="audio polling" data-text="the 3.5 mm headset jack goes completely dead: no game audio and no mic. selecting a 500 hz or 1000 hz report rate disables the controller's onboard audio. this is by design, not a fault. set the report rate back to 250 hz in gamesir nexus on pc. gamesir support explicitly says the polling rate 'should be locked at 250hz to avoid potential problems' for headset use. also ensure the headset is pushed fully flush into the jack, and on xbox set settings &gt; general &gt; volume &amp; audio output &gt; headset audio to 'stereo uncompressed'.">
 <details class="item">
   <summary>The 3.5 mm headset jack goes completely dead: no game audio and no mic. <span class="badge">GameSir G7 SE</span></summary>
   <div class="item-body">
@@ -396,7 +449,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="g7-se" data-text="the sticks appear to drift immediately out of the box after setting the initial deadzone to 0 in gamesir nexus. not hardware drift. a 0 deadzone is a true physical zero, which makes the stick extremely sensitive to the smallest residual movement. gamesir's official answer: set the initial deadzone to roughly 3-5 instead of 0 and behaviour returns to normal.">
+<div class="ts-entry" data-model="g7-se" data-topics="sticks" data-text="the sticks appear to drift immediately out of the box after setting the initial deadzone to 0 in gamesir nexus. not hardware drift. a 0 deadzone is a true physical zero, which makes the stick extremely sensitive to the smallest residual movement. gamesir's official answer: set the initial deadzone to roughly 3-5 instead of 0 and behaviour returns to normal.">
 <details class="item">
   <summary>The sticks appear to drift immediately out of the box after setting the initial deadzone to 0 in GameSir Nexus. <span class="badge">GameSir G7 SE</span></summary>
   <div class="item-body">
@@ -406,7 +459,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="g7-se" data-text="face buttons or the d-pad double-click or register the wrong input; a bumper auto-clicks by itself. corrupted profile/mapping state or outdated firmware. run the function reset by holding the xbox button + menu button for 5 seconds while the controller is connected, then update the firmware to the latest version in gamesir nexus (gamesir's page cites v6.40 as the target at the time of writing), using the standalone pc upgrader if nexus does not offer it.">
+<div class="ts-entry" data-model="g7-se" data-topics="buttons power profiles" data-text="face buttons or the d-pad double-click or register the wrong input; a bumper auto-clicks by itself. corrupted profile/mapping state or outdated firmware. run the function reset by holding the xbox button + menu button for 5 seconds while the controller is connected, then update the firmware to the latest version in gamesir nexus (gamesir's page cites v6.40 as the target at the time of writing), using the standalone pc upgrader if nexus does not offer it.">
 <details class="item">
   <summary>Face buttons or the d-pad double-click or register the wrong input; a bumper auto-clicks by itself. <span class="badge">GameSir G7 SE</span></summary>
   <div class="item-body">
@@ -416,7 +469,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="g7-se" data-text="the controller becomes unresponsive or refuses to power on after a button combination was held while plugging in the usb cable. holding xbox + menu, or view + xbox + menu, while plugging in the cable puts the controller into dfu (firmware update) mode or manual calibration mode rather than normal operation. gamesir also notes that controllers with cable guards can feel fully seated when only half inserted. unplug, plug the cable in firmly with no buttons held until it audibly clicks, then hold the xbox button to power on. if it stays unresponsive, perform a manual firmware upgrade from a windows pc using gamesir's standalone g7 series upgrader package.">
+<div class="ts-entry" data-model="g7-se" data-topics="sticks power" data-text="the controller becomes unresponsive or refuses to power on after a button combination was held while plugging in the usb cable. holding xbox + menu, or view + xbox + menu, while plugging in the cable puts the controller into dfu (firmware update) mode or manual calibration mode rather than normal operation. gamesir also notes that controllers with cable guards can feel fully seated when only half inserted. unplug, plug the cable in firmly with no buttons held until it audibly clicks, then hold the xbox button to power on. if it stays unresponsive, perform a manual firmware upgrade from a windows pc using gamesir's standalone g7 series upgrader package.">
 <details class="item">
   <summary>The controller becomes unresponsive or refuses to power on after a button combination was held while plugging in the USB cable. <span class="badge">GameSir G7 SE</span></summary>
   <div class="item-body">
@@ -426,7 +479,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="g7-se" data-text="controller works perfectly on pc but is not detected by the xbox console at all. stale console state / cached usb enumeration. full power cycle: plug the controller into the console's rear usb port, hold the console power button for 10+ seconds until it fully shuts down, unplug the power cord for about 30 seconds, press the console power button 10 times to discharge residual power, then power back on with the controller still in the rear port.">
+<div class="ts-entry" data-model="g7-se" data-topics="detection power" data-text="controller works perfectly on pc but is not detected by the xbox console at all. stale console state / cached usb enumeration. full power cycle: plug the controller into the console's rear usb port, hold the console power button for 10+ seconds until it fully shuts down, unplug the power cord for about 30 seconds, press the console power button 10 times to discharge residual power, then power back on with the controller still in the rear port.">
 <details class="item">
   <summary>Controller works perfectly on PC but is not detected by the Xbox console at all. <span class="badge">GameSir G7 SE</span></summary>
   <div class="item-body">
@@ -436,7 +489,77 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="super-nova" data-text="gamesir connect cannot see the super nova when it is connected over bluetooth. by design. over bluetooth the super nova presents to a pc only as a ds4 device, which gamesir connect cannot access. connect by cable or 2.4ghz dongle in xinput mode instead. bluetooth cannot be used with gamesir connect at all.">
+<div class="ts-entry" data-model="kaleid" data-topics="detection connection power" data-text="controller repeatedly disconnects and reconnects during use. bad or partially seated usb cable, marginal usb port, outdated firmware, or a physically defective usb port on the controller. gamesir's documented order: 1) try another usb-c cable and make sure it is pushed all the way in; 2) try different usb ports, preferably on the back of the pc (motherboard ports, not hubs or front panel); 3) update the kaleid firmware to the latest version in gamesir nexus — gamesir cites v1.63 — and if that version does not appear in nexus, use the model-specific manual upgrader on pc; 4) if none of that helps gamesir says it is most likely a port defect and to submit a video or seek a return.">
+<details class="item">
+  <summary>Controller repeatedly disconnects and reconnects during use. <span class="badge">GameSir Kaleid</span></summary>
+  <div class="item-body">
+    <div class="qa-block"><span class="qa-label">Likely cause</span>Bad or partially seated USB cable, marginal USB port, outdated firmware, or a physically defective USB port on the controller.</div>
+    <div class="qa-block"><span class="qa-label">Fix</span>GameSir's documented order: 1) try another USB-C cable and make sure it is pushed all the way in; 2) try different USB ports, preferably on the back of the PC (motherboard ports, not hubs or front panel); 3) update the Kaleid firmware to the latest version in GameSir Nexus — GameSir cites V1.63 — and if that version does not appear in Nexus, use the model-specific manual upgrader on PC; 4) if none of that helps GameSir says it is most likely a port defect and to submit a video or seek a return.</div>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/pages/faq-questions-about-kaleid-series" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+</div>
+<div class="ts-entry" data-model="kaleid" data-topics="buttons power profiles" data-text="a/b/x/y or the d-pad double-clicks or registers extra presses; a bumper auto-clicks; buttons stop registering input. corrupted profile/settings state or outdated firmware. run the function reset by holding view + menu + m for 5 seconds, then make sure the kaleid firmware is updated to the latest version (gamesir cites v1.63) in gamesir nexus, using the manual pc upgrader if nexus does not offer it.">
+<details class="item">
+  <summary>A/B/X/Y or the D-pad double-clicks or registers extra presses; a bumper auto-clicks; buttons stop registering input. <span class="badge">GameSir Kaleid</span></summary>
+  <div class="item-body">
+    <div class="qa-block"><span class="qa-label">Likely cause</span>Corrupted profile/settings state or outdated firmware.</div>
+    <div class="qa-block"><span class="qa-label">Fix</span>Run the function reset by holding <kbd>View + Menu + M</kbd> for 5 seconds, then make sure the Kaleid firmware is updated to the latest version (GameSir cites V1.63) in GameSir Nexus, using the manual PC upgrader if Nexus does not offer it.</div>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/pages/faq-questions-about-kaleid-series" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+</div>
+<div class="ts-entry" data-model="kaleid" data-topics="audio buttons power polling profiles" data-text="headset audio and/or trigger vibration stop working after enabling 1000 hz polling. documented hardware/firmware limitation, not a fault — the 3.5 mm earphone jack and native trigger vibration are disabled while the 1000 hz report rate is active. set the report rate back to 250 hz in gamesir nexus to restore headset audio and native trigger vibration. gamesir explicitly advises reverting to 250 hz when troubleshooting audio problems.">
+<details class="item">
+  <summary>Headset audio and/or trigger vibration stop working after enabling 1000 Hz polling. <span class="badge">GameSir Kaleid</span></summary>
+  <div class="item-body">
+    <div class="qa-block"><span class="qa-label">Likely cause</span>Documented hardware/firmware limitation, not a fault — the 3.5 mm earphone jack and native trigger vibration are disabled while the 1000 Hz report rate is active.</div>
+    <div class="qa-block"><span class="qa-label">Fix</span>Set the report rate back to 250 Hz in GameSir Nexus to restore headset audio and native trigger vibration. GameSir explicitly advises reverting to 250 Hz when troubleshooting audio problems.</div>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/pages/solve-the-disconnecting-problem-for-kaleid-kaleid-flux" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+</div>
+<div class="ts-entry" data-model="kaleid" data-topics="power" data-text="controller is bricked or permanently unusable after a manual firmware update. flashing firmware intended for a different kaleid model. t4 kaleid (t4k), kaleid (k1) and kaleid flux (k1 flux) are three different controllers with three different firmwares. prevention only — use the upgrader for your exact model. gamesir warns that installing the wrong firmware will likely brick the controller, and that flashing any of these firmwares onto a t4 kaleid renders it unusable and unrecoverable. update procedure for kaleid (k1): hold logo + menu while connecting the cable to a pc, open the upgrader, click download, and wait for 'upgrade success'.">
+<details class="item">
+  <summary>Controller is bricked or permanently unusable after a manual firmware update. <span class="badge">GameSir Kaleid</span></summary>
+  <div class="item-body">
+    <div class="qa-block"><span class="qa-label">Likely cause</span>Flashing firmware intended for a different Kaleid model. T4 Kaleid (T4K), Kaleid (K1) and Kaleid Flux (K1 Flux) are three different controllers with three different firmwares.</div>
+    <div class="qa-block"><span class="qa-label">Fix</span>Prevention only — use the upgrader for your exact model. GameSir warns that installing the wrong firmware will likely brick the controller, and that flashing any of these firmwares onto a T4 Kaleid renders it unusable and unrecoverable. Update procedure for Kaleid (K1): hold LOGO + Menu while connecting the cable to a PC, open the upgrader, click Download, and wait for 'Upgrade SUCCESS'.</div>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/pages/kaleid-series-1000hz-polling-rate-upgrade-tutorial" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+</div>
+<div class="ts-entry" data-model="kaleid" data-topics="detection power profiles" data-text="gamesir nexus or games do not detect the kaleid, or it will not turn on / shows light but no input. usb pid recognition failure, wrong input mode (gip vs xinput), incompletely seated cable, or an unstable firmware version. 1) reseat the cable firmly — gamesir notes it can require real force and may click when properly seated. 2) hold view + menu + m to reset the controller. 3) while connected, hold xbox + m for 3 seconds then unplug and replug to restore the original pid. 4) if still not detected, hold xbox + share for 3 seconds while connected to force-switch between xinput and gip modes. 5) change usb ports and cables and verify firmware in nexus (firmware upgrade arrow, top right).">
+<details class="item">
+  <summary>GameSir Nexus or games do not detect the Kaleid, or it will not turn on / shows light but no input. <span class="badge">GameSir Kaleid</span></summary>
+  <div class="item-body">
+    <div class="qa-block"><span class="qa-label">Likely cause</span>USB PID recognition failure, wrong input mode (GIP vs XInput), incompletely seated cable, or an unstable firmware version.</div>
+    <div class="qa-block"><span class="qa-label">Fix</span>1) Reseat the cable firmly — GameSir notes it can require real force and may click when properly seated. 2) Hold <kbd>View + Menu + M</kbd> to reset the controller. 3) While connected, hold <kbd>Xbox + M</kbd> for 3 seconds then unplug and replug to restore the original PID. 4) If still not detected, hold <kbd>Xbox + Share</kbd> for 3 seconds while connected to force-switch between XInput and GIP modes. 5) Change USB ports and cables and verify firmware in Nexus (Firmware Upgrade arrow, top right).</div>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/support/manuals/gamesir-kaleid-xbox-controller" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+</div>
+<div class="ts-entry" data-model="kaleid" data-topics="detection connection power" data-text="controller works on pc but the xbox console does not detect it at all. console-side usb/cache state, or the cable is in a low-power or flaky console port. plug the controller into the rear usb port of the console. with the console on, hold the console power button for more than 10 seconds until it fully shuts down, unplug the power cord for about 30 seconds, then press the console power button 10 times to discharge residual power. reconnect power with the controller still in the rear port, boot the console and retest. gamesir notes this full power cycle clears the xbox cache and often restores detection.">
+<details class="item">
+  <summary>Controller works on PC but the Xbox console does not detect it at all. <span class="badge">GameSir Kaleid</span></summary>
+  <div class="item-body">
+    <div class="qa-block"><span class="qa-label">Likely cause</span>Console-side USB/cache state, or the cable is in a low-power or flaky console port.</div>
+    <div class="qa-block"><span class="qa-label">Fix</span>Plug the controller into the rear USB port of the console. With the console on, hold the console power button for more than 10 seconds until it fully shuts down, unplug the power cord for about 30 seconds, then press the console power button 10 times to discharge residual power. Reconnect power with the controller still in the rear port, boot the console and retest. GameSir notes this full power cycle clears the Xbox cache and often restores detection.</div>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/support/manuals/gamesir-kaleid-xbox-controller" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+</div>
+<div class="ts-entry" data-model="kaleid" data-topics="audio power polling profiles" data-text="headset plugged into the controller has no audio, or the microphone does not work. plug not fully seated in a slightly stiff jack, xbox headset audio format, mic muted, or a non-default polling rate. unplug and slowly push the headset plug back in until you feel it click and it sits flush. set xbox settings &gt; general &gt; volume &amp; audio output &gt; headset audio &gt; stereo uncompressed. revert the report rate to 250 hz in nexus. confirm the mic is not muted — double-tap m toggles mute (solid red led = muted), and holding m temporarily unmutes. update firmware in nexus. if it persists, test another ctia-standard headset; gamesir notes open-back headphones at high volume are prone to echo.">
+<details class="item">
+  <summary>Headset plugged into the controller has no audio, or the microphone does not work. <span class="badge">GameSir Kaleid</span></summary>
+  <div class="item-body">
+    <div class="qa-block"><span class="qa-label">Likely cause</span>Plug not fully seated in a slightly stiff jack, Xbox headset audio format, mic muted, or a non-default polling rate.</div>
+    <div class="qa-block"><span class="qa-label">Fix</span>Unplug and slowly push the headset plug back in until you feel it click and it sits flush. Set Xbox Settings &gt; General &gt; Volume &amp; audio output &gt; Headset audio &gt; Stereo uncompressed. Revert the report rate to 250 Hz in Nexus. Confirm the mic is not muted — double-tap M toggles mute (solid red LED = muted), and holding M temporarily unmutes. Update firmware in Nexus. If it persists, test another CTIA-standard headset; GameSir notes open-back headphones at high volume are prone to echo.</div>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/pages/faq-questions-about-kaleid-series" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+</div>
+<div class="ts-entry" data-model="super-nova" data-topics="connection" data-text="gamesir connect cannot see the super nova when it is connected over bluetooth. by design. over bluetooth the super nova presents to a pc only as a ds4 device, which gamesir connect cannot access. connect by cable or 2.4ghz dongle in xinput mode instead. bluetooth cannot be used with gamesir connect at all.">
 <details class="item">
   <summary>GameSir Connect cannot see the Super Nova when it is connected over Bluetooth. <span class="badge">GameSir Super Nova</span></summary>
   <div class="item-body">
@@ -446,7 +569,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="super-nova" data-text="the super nova appears in gamesir connect's device list but still will not connect, even on wired or dongle mode. the controller is in the wrong input mode, has the wrong usb pid selected, or a stale windows driver is bound to it. gamesir's documented sequence: (1) press [-] + [+] for 3 seconds to cycle to xinput mode — indicator lights 2 and 4 illuminate; (2) press m + home for 3 seconds to switch pid; (3) press logo + [+] for 5 seconds to force xinput mode; (4) uninstall the driver in device manager and scan for hardware changes.">
+<div class="ts-entry" data-model="super-nova" data-topics="connection profiles" data-text="the super nova appears in gamesir connect's device list but still will not connect, even on wired or dongle mode. the controller is in the wrong input mode, has the wrong usb pid selected, or a stale windows driver is bound to it. gamesir's documented sequence: (1) press [-] + [+] for 3 seconds to cycle to xinput mode — indicator lights 2 and 4 illuminate; (2) press m + home for 3 seconds to switch pid; (3) press logo + [+] for 5 seconds to force xinput mode; (4) uninstall the driver in device manager and scan for hardware changes.">
 <details class="item">
   <summary>The Super Nova appears in GameSir Connect's device list but still will not connect, even on wired or dongle mode. <span class="badge">GameSir Super Nova</span></summary>
   <div class="item-body">
@@ -456,7 +579,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="super-nova" data-text="the controller soft-locks and will not power on or off after pressing 'update firmware' in gamesir connect. a known bug in the firmware update flow, reported for both the super nova and cyclone 2. press the recessed reset button inside the circular hole on the back of the controller using a paperclip-sized object to force it off. a separate settings/profile reset is done by holding home + menu until the logo button blinks. firmware can also be updated with gamesir's standalone manual updater: connect via usb, hold home + x + y for 3 seconds to enter update mode, then click update firmware.">
+<div class="ts-entry" data-model="super-nova" data-topics="power profiles" data-text="the controller soft-locks and will not power on or off after pressing 'update firmware' in gamesir connect. a known bug in the firmware update flow, reported for both the super nova and cyclone 2. press the recessed reset button inside the circular hole on the back of the controller using a paperclip-sized object to force it off. a separate settings/profile reset is done by holding home + menu until the logo button blinks. firmware can also be updated with gamesir's standalone manual updater: connect via usb, hold home + x + y for 3 seconds to enter update mode, then click update firmware.">
 <details class="item">
   <summary>The controller soft-locks and will not power on or off after pressing 'update firmware' in GameSir Connect. <span class="badge">GameSir Super Nova</span></summary>
   <div class="item-body">
@@ -466,7 +589,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="super-nova" data-text="buttons fire repeatedly from a single press and the indicator light flashes red. turbo (rapid-fire) mode has been enabled accidentally, usually by an m-button combo. double-press the m button to clear all turbo settings. turbo is toggled per-button by holding m and pressing a/b/x/y/lb/rb/lt/rt.">
+<div class="ts-entry" data-model="super-nova" data-topics="buttons profiles" data-text="buttons fire repeatedly from a single press and the indicator light flashes red. turbo (rapid-fire) mode has been enabled accidentally, usually by an m-button combo. double-press the m button to clear all turbo settings. turbo is toggled per-button by holding m and pressing a/b/x/y/lb/rb/lt/rt.">
 <details class="item">
   <summary>Buttons fire repeatedly from a single press and the indicator light flashes red. <span class="badge">GameSir Super Nova</span></summary>
   <div class="item-body">
@@ -476,7 +599,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="super-nova" data-text="the trigger lock is enabled but the trigger does not reach 100% output. gamesir states the trigger lock function is firmware-controlled and may not register the physical switch position on the first attempt. toggle the trigger gear switch several times until the controller registers the setting. gamesir separately instructs pressing the trigger fully down three times after switching so the pull distance auto-calibrates.">
+<div class="ts-entry" data-model="super-nova" data-topics="sticks buttons power profiles" data-text="the trigger lock is enabled but the trigger does not reach 100% output. gamesir states the trigger lock function is firmware-controlled and may not register the physical switch position on the first attempt. toggle the trigger gear switch several times until the controller registers the setting. gamesir separately instructs pressing the trigger fully down three times after switching so the pull distance auto-calibrates.">
 <details class="item">
   <summary>The trigger lock is enabled but the trigger does not reach 100% output. <span class="badge">GameSir Super Nova</span></summary>
   <div class="item-body">
@@ -486,7 +609,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="super-nova" data-text="the rear buttons do nothing at all when pressed. not a fault. the rear extra buttons ship as 'null inputs' with no assigned function until they are remapped. map them via gamesir connect, the gamesir mobile app, or on-controller: hold m + l4/r4 until the rgb strip flashes white, press the target button, then press l4/r4 again to save. to clear a mapping, press the same rear button again instead of a target. note gamesir's manual page incorrectly names 'gamesir nexus' here — nexus does not support the super nova.">
+<div class="ts-entry" data-model="super-nova" data-topics="buttons profiles" data-text="the rear buttons do nothing at all when pressed. not a fault. the rear extra buttons ship as 'null inputs' with no assigned function until they are remapped. map them via gamesir connect, the gamesir mobile app, or on-controller: hold m + l4/r4 until the rgb strip flashes white, press the target button, then press l4/r4 again to save. to clear a mapping, press the same rear button again instead of a target. note gamesir's manual page incorrectly names 'gamesir nexus' here — nexus does not support the super nova.">
 <details class="item">
   <summary>The rear buttons do nothing at all when pressed. <span class="badge">GameSir Super Nova</span></summary>
   <div class="item-body">
@@ -496,7 +619,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="super-nova" data-text="gamesir connect is installed but does not detect the controller, and the app never updates itself. a microsoft store glitch prevents gamesir connect from receiving automatic updates, leaving users on a version that predates super nova support. uninstall and reinstall gamesir connect from the microsoft store, or download it directly from gamesir's software page instead of relying on store updates.">
+<div class="ts-entry" data-model="super-nova" data-topics="detection profiles" data-text="gamesir connect is installed but does not detect the controller, and the app never updates itself. a microsoft store glitch prevents gamesir connect from receiving automatic updates, leaving users on a version that predates super nova support. uninstall and reinstall gamesir connect from the microsoft store, or download it directly from gamesir's software page instead of relying on store updates.">
 <details class="item">
   <summary>GameSir Connect is installed but does not detect the controller, and the app never updates itself. <span class="badge">GameSir Super Nova</span></summary>
   <div class="item-body">
@@ -506,7 +629,87 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="tarantula-pro" data-text="double-clicking d-pad, reversed/reverted joystick axes, low polling rate, and the controller not being recognized by gamesir connect over the dongle. gamesir states there were many bugs in early firmware versions of the tarantula pro, in both the controller and the dongle. update both the controller and dongle firmware to the latest version. controller: connect via usb, open the updater, press logo + x + y simultaneously until the device status shows online, then click update firmware. dongle: exit gamesir connect, insert the receiver, hold the pairing button for 5 seconds until device status shows online in green, then click upgrade firmware. warning: gamesir provides different controller firmware files by serial number (v2.06 for sn starting with 1 or 2, a separate v2.06 for sn starting with 3) and warns that the wrong file may brick the controller.">
+<div class="ts-entry" data-model="t7-pro" data-topics="detection power profiles" data-text="controller is plugged in and the indicator led is lit, but no inputs register on pc or xbox. usb pid/device-recognition failure, or the controller is in the wrong input mode (gip vs xinput), or the usb-c plug is not fully seated. 1) reseat the cable firmly — gamesir notes the connector often needs real force and may click when properly seated, and cable guards can make a half-inserted plug feel fully home. 2) while connected, hold xbox + m for 3 seconds (an indicator tone plays), then unplug and replug to switch back to the original pid. 3) if that fails, hold xbox + share for 3 seconds while connected to force-switch between xinput and gip modes. 4) for the wired t7 pro, hold view + menu + m to reset the controller. 5) try a different data-capable cable and a motherboard rear usb port rather than a hub or case front port.">
+<details class="item">
+  <summary>Controller is plugged in and the indicator LED is lit, but no inputs register on PC or Xbox. <span class="badge">GameSir T7 Pro</span></summary>
+  <div class="item-body">
+    <div class="qa-block"><span class="qa-label">Likely cause</span>USB PID/device-recognition failure, or the controller is in the wrong input mode (GIP vs XInput), or the USB-C plug is not fully seated.</div>
+    <div class="qa-block"><span class="qa-label">Fix</span>1) Reseat the cable firmly — GameSir notes the connector often needs real force and may click when properly seated, and cable guards can make a half-inserted plug feel fully home. 2) While connected, hold <kbd>Xbox + M</kbd> for 3 seconds (an indicator tone plays), then unplug and replug to switch back to the original PID. 3) If that fails, hold <kbd>Xbox + Share</kbd> for 3 seconds while connected to force-switch between XInput and GIP modes. 4) For the wired T7 Pro, hold <kbd>View + Menu + M</kbd> to reset the controller. 5) Try a different data-capable cable and a motherboard rear USB port rather than a hub or case front port.</div>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/support/manuals/gamesir-t7-pro-retro-green-xbox-wired-controller" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+</div>
+<div class="ts-entry" data-model="t7-pro" data-topics="detection power profiles" data-text="gamesir nexus (or a game) does not detect the controller at all. the controller is stuck in a non-app input mode, so nexus cannot claim it. with the controller connected in wired mode, hold view + menu + m simultaneously to reset the device and restore its detection mode. note this reset also clears profiles and custom settings. also confirm you installed gamesir nexus (microsoft store, pc/xbox) and not gamesir connect or the gamesir mobile app — the t7 pro family is a nexus device.">
+<details class="item">
+  <summary>GameSir Nexus (or a game) does not detect the controller at all. <span class="badge">GameSir T7 Pro</span></summary>
+  <div class="item-body">
+    <div class="qa-block"><span class="qa-label">Likely cause</span>The controller is stuck in a non-app input mode, so Nexus cannot claim it.</div>
+    <div class="qa-block"><span class="qa-label">Fix</span>With the controller connected in wired mode, hold <kbd>View + Menu + M</kbd> simultaneously to reset the device and restore its detection mode. Note this reset also clears profiles and custom settings. Also confirm you installed GameSir Nexus (Microsoft Store, PC/Xbox) and not GameSir Connect or the GameSir mobile app — the T7 Pro family is a Nexus device.</div>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/support/manuals/gamesir-t7-pro-retro-green-xbox-wired-controller" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+</div>
+<div class="ts-entry" data-model="t7-pro" data-topics="sticks buttons power" data-text="stick drift, off-center resting position, or triggers that do not reach 0% / 100%. stick or trigger range calibration data is wrong, commonly after switching the two-stage trigger stop or after a firmware update. run the manual stick &amp; trigger calibration: 1) hold view + menu + xbox and, while holding, plug the usb-c cable into a pc; release after plugging in — the indicator blinks slowly white. 2) without touching sticks or triggers, press a; the indicator goes out. 3) fully press lt and rt and rotate both sticks at full deflection three times, then press a; the indicator turns solid white. 4) unplug and replug before using. gamesir notes manual calibration often succeeds when in-app calibration fails, that movements should be slow and steady, and that calibration only applies to analog trigger mode. separately, after changing the two-stage trigger stop, gently press each trigger fully three times to recalibrate its range.">
+<details class="item">
+  <summary>Stick drift, off-center resting position, or triggers that do not reach 0% / 100%. <span class="badge">GameSir T7 Pro</span></summary>
+  <div class="item-body">
+    <div class="qa-block"><span class="qa-label">Likely cause</span>Stick or trigger range calibration data is wrong, commonly after switching the two-stage trigger stop or after a firmware update.</div>
+    <div class="qa-block"><span class="qa-label">Fix</span>Run the manual Stick &amp; Trigger Calibration: 1) Hold <kbd>View + Menu + Xbox</kbd> and, while holding, plug the USB-C cable into a PC; release after plugging in — the indicator blinks slowly white. 2) Without touching sticks or triggers, press A; the indicator goes out. 3) Fully press LT and RT and rotate both sticks at full deflection three times, then press A; the indicator turns solid white. 4) Unplug and replug before using. GameSir notes manual calibration often succeeds when in-app calibration fails, that movements should be slow and steady, and that calibration only applies to analog trigger mode. Separately, after changing the two-stage trigger stop, gently press each trigger fully three times to recalibrate its range.</div>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/pages/faq-questions-about-t7-pro-tri-mode" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+</div>
+<div class="ts-entry" data-model="t7-pro" data-topics="buttons" data-text="back buttons (l4/r4) and extra bumpers appear dead and do nothing in game. they are shipped as unassigned 'null inputs' by design, not broken. hold m + the remappable button until the indicator blinks, then press the button value you want to assign. repeat and press the remappable button again to clear it. alternatively map them in gamesir nexus.">
+<details class="item">
+  <summary>Back buttons (L4/R4) and extra bumpers appear dead and do nothing in game. <span class="badge">GameSir T7 Pro</span></summary>
+  <div class="item-body">
+    <div class="qa-block"><span class="qa-label">Likely cause</span>They are shipped as unassigned 'null inputs' by design, not broken.</div>
+    <div class="qa-block"><span class="qa-label">Fix</span>Hold <kbd>M + the remappable</kbd> button until the indicator blinks, then press the button value you want to assign. Repeat and press the remappable button again to clear it. Alternatively map them in GameSir Nexus.</div>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/support/manuals/gamesir-t7-pro-retro-green-xbox-wired-controller" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+</div>
+<div class="ts-entry" data-model="t7-pro" data-topics="audio buttons power polling profiles" data-text="headset plugged into the 3.5 mm jack produces no audio, or the microphone does not work. headset plug not fully seated, xbox headset audio format, muted mic, or a non-default polling rate. push the headset plug in firmly until it clicks and sits flush (gamesir calls this a surprisingly common fix). on xbox set settings &gt; general &gt; volume &amp; audio output &gt; headset audio &gt; stereo uncompressed. if you changed the report rate, set it back to 250 hz in gamesir nexus. check the mic is not muted — double-tap m to toggle mute (solid red led = muted); hold m to temporarily unmute. adjust volume with m + d-pad up/down (11 levels) and game/chat mix with m + d-pad left/right. update firmware in nexus, and test another ctia-standard headset.">
+<details class="item">
+  <summary>Headset plugged into the 3.5 mm jack produces no audio, or the microphone does not work. <span class="badge">GameSir T7 Pro</span></summary>
+  <div class="item-body">
+    <div class="qa-block"><span class="qa-label">Likely cause</span>Headset plug not fully seated, Xbox headset audio format, muted mic, or a non-default polling rate.</div>
+    <div class="qa-block"><span class="qa-label">Fix</span>Push the headset plug in firmly until it clicks and sits flush (GameSir calls this a surprisingly common fix). On Xbox set Settings &gt; General &gt; Volume &amp; audio output &gt; Headset audio &gt; Stereo uncompressed. If you changed the report rate, set it back to 250 Hz in GameSir Nexus. Check the mic is not muted — double-tap M to toggle mute (solid red LED = muted); hold M to temporarily unmute. Adjust volume with <kbd>M + D-pad</kbd> Up/Down (11 levels) and game/chat mix with <kbd>M + D-pad</kbd> Left/Right. Update firmware in Nexus, and test another CTIA-standard headset.</div>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/support/manuals/gamesir-t7-pro-retro-green-xbox-wired-controller" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+</div>
+<div class="ts-entry" data-model="t7-pro" data-topics="platforms" data-text="on pc the controller moves the mouse cursor and fires keyboard shortcuts instead of acting as a gamepad. the controller is in hid mode and steam input's desktop layout is capturing it. in steam go to steam &gt; settings &gt; controller, select desktop layout, click edit and choose disable steam input.">
+<details class="item">
+  <summary>On PC the controller moves the mouse cursor and fires keyboard shortcuts instead of acting as a gamepad. <span class="badge">GameSir T7 Pro</span></summary>
+  <div class="item-body">
+    <div class="qa-block"><span class="qa-label">Likely cause</span>The controller is in HID mode and Steam Input's Desktop Layout is capturing it.</div>
+    <div class="qa-block"><span class="qa-label">Fix</span>In Steam go to Steam &gt; Settings &gt; Controller, select Desktop Layout, click Edit and choose Disable Steam Input.</div>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/support/manuals/gamesir-t7-pro-retro-green-xbox-wired-controller" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+</div>
+<div class="ts-entry" data-model="t7-pro" data-topics="connection profiles platforms" data-text="t7 pro sugar whirl wireless works over bluetooth but games do not see it as an xbox/xinput pad. microsoft restrictions mean xinput is not available over bluetooth on gamesir's xbox-licensed controllers. use the bundled 2.4 ghz usb receiver for pc, which supports wireless xinput with lower latency. if you must stay on bluetooth, launch games through steam and use steam's controller mapping; for generic hid mapping enable 'enable steam input for generic gamepads' under steam &gt; settings &gt; controller &gt; general controller settings, and skip the home/guide and share prompts during setup by pressing a.">
+<details class="item">
+  <summary>T7 Pro Sugar Whirl Wireless works over Bluetooth but games do not see it as an Xbox/XInput pad. <span class="badge">GameSir T7 Pro</span></summary>
+  <div class="item-body">
+    <div class="qa-block"><span class="qa-label">Likely cause</span>Microsoft restrictions mean XInput is not available over Bluetooth on GameSir's Xbox-licensed controllers.</div>
+    <div class="qa-block"><span class="qa-label">Fix</span>Use the bundled 2.4 GHz USB receiver for PC, which supports wireless XInput with lower latency. If you must stay on Bluetooth, launch games through Steam and use Steam's controller mapping; for generic HID mapping enable 'Enable Steam Input for Generic Gamepads' under Steam &gt; Settings &gt; Controller &gt; General Controller Settings, and skip the Home/Guide and Share prompts during setup by pressing A.</div>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/support/manuals/gamesir-gamesir-t7-pro-sugar-whirl" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+</div>
+<div class="ts-entry" data-model="t7-pro" data-topics="power profiles" data-text="t7 pro sugar whirl will not power on or off normally, or buttons stop responding entirely. corrupted profile/settings state, or a firmware hang. hold view + menu + m until the logo led flashes — this resets all profiles and custom settings. if buttons are still unresponsive, insert a thin object such as a paperclip into the small circular hole on the rear of the controller to press the hardware reset button and force a shutdown.">
+<details class="item">
+  <summary>T7 Pro Sugar Whirl will not power on or off normally, or buttons stop responding entirely. <span class="badge">GameSir T7 Pro</span></summary>
+  <div class="item-body">
+    <div class="qa-block"><span class="qa-label">Likely cause</span>Corrupted profile/settings state, or a firmware hang.</div>
+    <div class="qa-block"><span class="qa-label">Fix</span>Hold <kbd>View + Menu + M</kbd> until the logo LED flashes — this resets all profiles and custom settings. If buttons are still unresponsive, insert a thin object such as a paperclip into the small circular hole on the rear of the controller to press the hardware reset button and force a shutdown.</div>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/support/manuals/gamesir-gamesir-t7-pro-sugar-whirl" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+</div>
+<div class="ts-entry" data-model="tarantula-pro" data-topics="connection buttons power polling" data-text="double-clicking d-pad, reversed/reverted joystick axes, low polling rate, and the controller not being recognized by gamesir connect over the dongle. gamesir states there were many bugs in early firmware versions of the tarantula pro, in both the controller and the dongle. update both the controller and dongle firmware to the latest version. controller: connect via usb, open the updater, press logo + x + y simultaneously until the device status shows online, then click update firmware. dongle: exit gamesir connect, insert the receiver, hold the pairing button for 5 seconds until device status shows online in green, then click upgrade firmware. warning: gamesir provides different controller firmware files by serial number (v2.06 for sn starting with 1 or 2, a separate v2.06 for sn starting with 3) and warns that the wrong file may brick the controller.">
 <details class="item">
   <summary>Double-clicking D-pad, reversed/reverted joystick axes, low polling rate, and the controller not being recognized by GameSir Connect over the dongle. <span class="badge">GameSir Tarantula Pro</span></summary>
   <div class="item-body">
@@ -516,7 +719,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="tarantula-pro" data-text="gamesir nexus does not detect the tarantula pro at all. wrong application. the multiplatform tarantula pro is a gamesir connect device; nexus is only for gamesir's xbox-licensed controllers (including the separate 'tarantula pro for xbox'). use gamesir connect, connected via dongle or cable in xinput mode. gamesir explicitly notes connect will not detect the controller when it is in ds or ns mode over a bluetooth connection.">
+<div class="ts-entry" data-model="tarantula-pro" data-topics="detection connection platforms" data-text="gamesir nexus does not detect the tarantula pro at all. wrong application. the multiplatform tarantula pro is a gamesir connect device; nexus is only for gamesir's xbox-licensed controllers (including the separate 'tarantula pro for xbox'). use gamesir connect, connected via dongle or cable in xinput mode. gamesir explicitly notes connect will not detect the controller when it is in ds or ns mode over a bluetooth connection.">
 <details class="item">
   <summary>GameSir Nexus does not detect the Tarantula Pro at all. <span class="badge">GameSir Tarantula Pro</span></summary>
   <div class="item-body">
@@ -526,7 +729,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="tarantula-pro" data-text="apparent stick drift straight out of the box after setting the initial deadzone to 0 in gamesir connect. not a defect. a 0 deadzone is a true physical zero, which makes the stick extremely sensitive to any resting-position noise. set the inner deadzone to 3-5 in gamesir connect.">
+<div class="ts-entry" data-model="tarantula-pro" data-topics="sticks" data-text="apparent stick drift straight out of the box after setting the initial deadzone to 0 in gamesir connect. not a defect. a 0 deadzone is a true physical zero, which makes the stick extremely sensitive to any resting-position noise. set the inner deadzone to 3-5 in gamesir connect.">
 <details class="item">
   <summary>Apparent stick drift straight out of the box after setting the initial deadzone to 0 in GameSir Connect. <span class="badge">GameSir Tarantula Pro</span></summary>
   <div class="item-body">
@@ -536,7 +739,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="tarantula-pro" data-text="cannot connect over bluetooth or dongle; the indicator light keeps blinking slowly. slow blinking means the controller is in reconnecting mode, trying to reach a previously paired device, rather than in pairing mode. hold the pairing button on the controller for 2 seconds to force pairing mode — the light should then blink fast. for a dongle connection, also hold the pairing button on the dongle until it blinks fast so the two re-pair.">
+<div class="ts-entry" data-model="tarantula-pro" data-topics="connection profiles" data-text="cannot connect over bluetooth or dongle; the indicator light keeps blinking slowly. slow blinking means the controller is in reconnecting mode, trying to reach a previously paired device, rather than in pairing mode. hold the pairing button on the controller for 2 seconds to force pairing mode — the light should then blink fast. for a dongle connection, also hold the pairing button on the dongle until it blinks fast so the two re-pair.">
 <details class="item">
   <summary>Cannot connect over Bluetooth or dongle; the indicator light keeps blinking slowly. <span class="badge">GameSir Tarantula Pro</span></summary>
   <div class="item-body">
@@ -546,7 +749,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="tarantula-pro" data-text="stick drift or trigger inaccuracy during use. sticks and/or triggers have lost calibration. run the on-board stick &amp; trigger calibration procedure documented in the manual; gamesir links a video calibration tutorial from the faq page.">
+<div class="ts-entry" data-model="tarantula-pro" data-topics="sticks buttons" data-text="stick drift or trigger inaccuracy during use. sticks and/or triggers have lost calibration. run the on-board stick &amp; trigger calibration procedure documented in the manual; gamesir links a video calibration tutorial from the faq page.">
 <details class="item">
   <summary>Stick drift or trigger inaccuracy during use. <span class="badge">GameSir Tarantula Pro</span></summary>
   <div class="item-body">
@@ -556,7 +759,7 @@
   </div>
 </details>
 </div>
-<div class="ts-entry" data-model="tarantula-pro" data-text="higher-than-expected input latency, especially over the 2.4ghz dongle. firmware/internal processing rather than polling rate. the controller reports a genuine 1000 hz polling rate, but measured hardware latency is much higher than similarly specced gamesir models. no documented fix. gamepadla measured 7.83 ms average button latency wired and 31.73 ms via dongle on firmware 2.0.6, versus 2.33 ms wired for the cyclone 2, and rates it b wired / d wireless. prefer the wired connection for latency-sensitive play and keep firmware current.">
+<div class="ts-entry" data-model="tarantula-pro" data-topics="connection power polling" data-text="higher-than-expected input latency, especially over the 2.4ghz dongle. firmware/internal processing rather than polling rate. the controller reports a genuine 1000 hz polling rate, but measured hardware latency is much higher than similarly specced gamesir models. no documented fix. gamepadla measured 7.83 ms average button latency wired and 31.73 ms via dongle on firmware 2.0.6, versus 2.33 ms wired for the cyclone 2, and rates it b wired / d wireless. prefer the wired connection for latency-sensitive play and keep firmware current.">
 <details class="item">
   <summary>Higher-than-expected input latency, especially over the 2.4GHz dongle. <span class="badge">GameSir Tarantula Pro</span></summary>
   <div class="item-body">
@@ -583,6 +786,7 @@
     <p class="small">Found an error? Open an issue or a pull request with a source and it will be corrected.</p>
   </div>
 </footer>
+
 <script src="assets/js/filter.js" defer></script>
 </body>
 </html>

@@ -4,8 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>GameSir Wiki — sourced specs, fixes and FAQ for GameSir controllers</title>
-<meta name="description" content="Community-maintained reference covering specifications, documented fixes and FAQs for 7 GameSir controllers, with every figure traced to a source.">
+<meta name="description" content="Community-maintained reference covering specifications, documented fixes and FAQs for 9 GameSir controllers, with every figure traced to a source.">
 <link rel="stylesheet" href="assets/css/style.css">
+<script>document.documentElement.className += " js";</script>
 </head>
 <body>
 
@@ -15,7 +16,7 @@
       <span class="brand-mark">GS</span>
       <span>GameSir Wiki</span>
     </a>
-    <nav class="site-nav"><a href="index.html" aria-current="page">Home</a><a href="compare.html">Compare</a><a href="troubleshooting.html">Troubleshooting</a><a href="faq.html">FAQ</a><a href="about.html">About</a></nav>
+    <nav class="site-nav"><a href="index.html" aria-current="page">Home</a><a href="index.html#controllers">Controllers</a><a href="compare.html">Compare</a><a href="latency.html">Latency</a><a href="troubleshooting.html">Troubleshooting</a><a href="faq.html">FAQ</a><a href="about.html">About</a></nav>
   </div>
 </header>
 
@@ -24,7 +25,7 @@
   <section class="hero">
     <h1>A sourced reference for GameSir controllers</h1>
     <p class="lede">
-      Specifications, documented fixes and frequently asked questions for 7 GameSir controllers,
+      Specifications, documented fixes and frequently asked questions for 9 GameSir controllers,
       each traceable to an official manual, an independent measurement, or a published review. Nothing here is
       estimated &mdash; unverified values are left blank on purpose.
     </p>
@@ -35,76 +36,94 @@
   </section>
 
   <div class="stat-strip">
-    <div class="stat"><div class="stat-value">7</div><div class="stat-label">Controllers</div></div>
-    <div class="stat"><div class="stat-value">45</div><div class="stat-label">Documented fixes</div></div>
-    <div class="stat"><div class="stat-value">57</div><div class="stat-label">FAQ entries</div></div>
-    <div class="stat"><div class="stat-value">68</div><div class="stat-label">Cited sources</div></div>
+    <div class="stat"><div class="stat-value">9</div><div class="stat-label">Controllers</div></div>
+    <div class="stat"><div class="stat-value">60</div><div class="stat-label">Documented fixes</div></div>
+    <div class="stat"><div class="stat-value">75</div><div class="stat-label">FAQ entries</div></div>
+    <div class="stat"><div class="stat-value">96</div><div class="stat-label">Cited sources</div></div>
   </div>
 
   <h2 id="controllers">Controllers</h2>
   <p class="section-intro">Each page covers full specifications, measured performance where independent data exists, documented problems with their fixes, and sources.</p>
   <div class="card-grid">
 <a class="controller-card" href="controllers/cyclone-2.html">
-  <div class="badges"><span class="badge tier-mid-range">Mid-range</span><span class="badge badge-tmr">GameSir Mag-Res TMR (tunneling magnetoresistance), non-contact</span><span class="badge badge-info">1000 Hz</span><span class="badge">Gyro</span><span class="badge">GameSir Connect</span></div>
+  <div class="badges"><span class="badge tier-mid-range">Mid-range</span><span class="badge badge-tmr" title="GameSir Mag-Res TMR (tunneling magnetoresistance), non-contact">Mag-Res TMR</span><span class="badge badge-info" title="1000 Hz (wired and 2.4GHz dongle); Gamepadla measured 1000-1002 Hz median">1000 Hz</span><span class="badge">Gyro</span><span class="badge" title="GameSir Connect">Connect</span></div>
   <h3>GameSir Cyclone 2</h3>
   <p class="tagline">An Xbox-layout tri-mode wireless controller with Mag-Res TMR sticks, micro-switch face buttons and dual-mode Hall Effect triggers, measured among the lowest-latency controllers in its price class.</p>
   <div class="card-foot">
     <span>Wired / 2.4 GHz / Bluetooth</span>
-    <span>$49.99 / £49.99 standalone, $55.99 / £55.99 for the charging-dock bundle (launch pricing, 26 November 2024)</span>
+    <span class="card-price" title="$49.99 / £49.99 standalone, $55.99 / £55.99 for the charging-dock bundle (launch pricing, 26 November 2024)">$49.99</span>
   </div>
 </a>
 <a class="controller-card" href="controllers/g7-he.html">
-  <div class="badges"><span class="badge tier-mid-range">Mid-range</span><span class="badge badge-hall">Hall Effect</span><span class="badge badge-info">250 Hz default; 500 Hz and 1000 Hz selectable in GameSir Nexus</span><span class="badge">GameSir Nexus (Xbox and PC; a 'Legacy GameSir Nexus' build also exists). The G7 HE does not use GameSir Connect, which is the app for the G7 Pro line. One gamepadla commenter reports Nexus failing to surface the newest firmware, matching GameSir's own instruction to fall back to a standalone PC upgrader.</span></div>
+  <div class="badges"><span class="badge tier-mid-range">Mid-range</span><span class="badge badge-hall">Hall Effect</span><span class="badge badge-info" title="250 Hz default; 500 Hz and 1000 Hz selectable in GameSir Nexus">1000 Hz</span><span class="badge" title="GameSir Nexus (Xbox and PC; a 'Legacy GameSir Nexus' build also exists). The G7 HE does not use GameSir Connect, which is the app for the G7 Pro line. One gamepadla commenter reports Nexus failing to surface the newest firmware, matching GameSir's own instruction to fall back to a standalone PC upgrader.">Nexus</span></div>
   <h3>GameSir G7 HE</h3>
   <p class="tagline">Officially Xbox-licensed wired controller that keeps the G7 SE's Hall Effect sticks and triggers but swaps in microswitch face buttons and d-pad, adds silicone grips, and drops the back-button lock latches.</p>
   <div class="card-foot">
     <span>Wired</span>
-    <span>$49.99</span>
+    <span class="card-price">$49.99</span>
   </div>
 </a>
 <a class="controller-card" href="controllers/g7-pro.html">
-  <div class="badges"><span class="badge tier-high-end">High-end</span><span class="badge badge-tmr">GameSir Mag-Res TMR</span><span class="badge badge-info">1000 Hz</span><span class="badge">Gyro</span><span class="badge">GameSir Nexus</span></div>
+  <div class="badges"><span class="badge tier-high-end">High-end</span><span class="badge badge-tmr" title="GameSir Mag-Res TMR">Mag-Res TMR</span><span class="badge badge-info" title="1000 Hz (wired and 2.4 GHz)">1000 Hz</span><span class="badge">Gyro</span><span class="badge" title="GameSir Nexus">Nexus</span></div>
   <h3>GameSir G7 Pro</h3>
   <p class="tagline">Xbox-licensed tri-mode controller with Mag-Res TMR sticks, microswitch face buttons and 1000 Hz polling on PC.</p>
   <div class="card-foot">
     <span>Wired / 2.4 GHz / Bluetooth</span>
-    <span>$79.99</span>
+    <span class="card-price">$79.99</span>
   </div>
 </a>
 <a class="controller-card" href="controllers/g7-pro-8k.html">
-  <div class="badges"><span class="badge tier-flagship">Flagship</span><span class="badge badge-tmr">Gen-2 TMR</span><span class="badge badge-info">8000 Hz</span><span class="badge">Gyro</span><span class="badge">GameSir Connect</span></div>
+  <div class="badges"><span class="badge tier-flagship">Flagship</span><span class="badge badge-tmr">Gen-2 TMR</span><span class="badge badge-info" title="8000 Hz (wired and 2.4 GHz)">8000 Hz</span><span class="badge">Gyro</span><span class="badge" title="GameSir Connect">Connect</span></div>
   <h3>GameSir G7 Pro 8K</h3>
   <p class="tagline">PC-focused variant with Gen-2 TMR sticks and an 8000 Hz polling rate, managed by GameSir Connect rather than Nexus.</p>
   <div class="card-foot">
     <span>Wired / 2.4 GHz</span>
-    <span></span>
+    <span class="card-price"></span>
   </div>
 </a>
 <a class="controller-card" href="controllers/g7-se.html">
-  <div class="badges"><span class="badge tier-mid-range">Mid-range</span><span class="badge badge-hall">Hall Effect</span><span class="badge badge-info">250 Hz default; 500 Hz and 1000 Hz selectable in GameSir Nexus</span><span class="badge">GameSir Nexus (available on both Xbox and PC via the Microsoft Store; a 'Legacy GameSir Nexus' build also exists). The G7 SE does not use GameSir Connect, which is the app for the G7 Pro line.</span></div>
+  <div class="badges"><span class="badge tier-mid-range">Mid-range</span><span class="badge badge-hall">Hall Effect</span><span class="badge badge-info" title="250 Hz default; 500 Hz and 1000 Hz selectable in GameSir Nexus">1000 Hz</span><span class="badge" title="GameSir Nexus (available on both Xbox and PC via the Microsoft Store; a 'Legacy GameSir Nexus' build also exists). The G7 SE does not use GameSir Connect, which is the app for the G7 Pro line.">Nexus</span></div>
   <h3>GameSir G7 SE</h3>
   <p class="tagline">Officially Xbox-licensed wired controller and the first Xbox controller with Hall Effect sticks, using membrane face buttons and lockable back buttons.</p>
   <div class="card-foot">
     <span>Wired</span>
-    <span>$44.99</span>
+    <span class="card-price">$44.99</span>
+  </div>
+</a>
+<a class="controller-card" href="controllers/kaleid.html">
+  <div class="badges"><span class="badge tier-mid-range">Mid-range</span><span class="badge badge-hall" title="GameSir Hall Effect (non-contact magnetic) sticks with anti-friction glide rings. GameSir Nexus allows a 0% dead zone and an exclusive 'Raw' stick mode.">Hall Effect</span><span class="badge badge-info" title="250 Hz by default; up to 1000 Hz on PC after a firmware update, then selected in GameSir Nexus. GameSir publishes model-specific firmware upgraders for Kaleid (K1) and Kaleid Flux (K1 Flux) to unlock the 1000 Hz report rate.">1000 Hz</span><span class="badge" title="GameSir Nexus (PC and Xbox app, Microsoft Store). NOT GameSir Connect and NOT the GameSir mobile app. GameSir's download page lists Kaleid and Kaleid Flux under Nexus. Nexus provides 3 custom profiles, button remapping, D-pad diagonal tuning, stick and trigger dead-zone/range adjustment, 0% dead zone and 'Raw' stick mode, turbo/rapid-fire, vibration level, light effects, report rate and firmware updates. TechRadar notes Nexus cannot swap the left and right stick inputs with each other.">Nexus</span></div>
+  <h3>GameSir Kaleid</h3>
+  <p class="tagline">Wired-only, officially licensed Xbox controller with a transparent shell, RGB light strips, Hall Effect sticks and triggers, and microswitch face buttons.</p>
+  <div class="card-foot">
+    <span>Wired</span>
+    <span class="card-price" title="$49.99 / £59.99 (launch RRP, May 30, 2024). The Kaleid Flux variant launched at $46.99 / £55.99.">$49.99</span>
   </div>
 </a>
 <a class="controller-card" href="controllers/super-nova.html">
-  <div class="badges"><span class="badge tier-mid-range">Mid-range</span><span class="badge badge-tmr">GameSir Hall Effect (non-contact magnetic), with anti-friction glide rings — NOT TMR</span><span class="badge badge-info">1000 Hz</span><span class="badge">Gyro</span><span class="badge">GameSir Connect (PC) and the GameSir app (mobile). Note that GameSir's own Super Nova manual page contains an error telling users to configure the rear buttons via GameSir Nexus — Nexus does not support this model.</span></div>
+  <div class="badges"><span class="badge tier-mid-range">Mid-range</span><span class="badge badge-hall" title="GameSir Hall Effect (non-contact magnetic), with anti-friction glide rings — NOT TMR">Hall Effect</span><span class="badge badge-info" title="1000 Hz (wired and 2.4GHz dongle)">1000 Hz</span><span class="badge">Gyro</span><span class="badge" title="GameSir Connect (PC) and the GameSir app (mobile). Note that GameSir's own Super Nova manual page contains an error telling users to configure the rear buttons via GameSir Nexus — Nexus does not support this model.">Connect</span></div>
   <h3>GameSir Super Nova</h3>
   <p class="tagline">A $49.99 tri-mode multiplatform controller with Hall Effect sticks and triggers, magnetic swappable faceplates, and an auto start-stop charging dock.</p>
   <div class="card-foot">
     <span>Wired / 2.4 GHz / Bluetooth</span>
-    <span>$49.99 / £49.99</span>
+    <span class="card-price" title="$49.99 / £49.99">$49.99</span>
+  </div>
+</a>
+<a class="controller-card" href="controllers/t7-pro.html">
+  <div class="badges"><span class="badge tier-mid-range">Mid-range</span><span class="badge badge-hall" title="GameSir Hall Effect (non-contact magnetic) on the wired T7 Pro. The T7 Pro Sugar Whirl Wireless and T7 Pro Tri-Mode variants use GameSir Mag-Res TMR (tunnelling magnetoresistance) sticks instead.">Hall Effect</span><span class="badge badge-info" title="Up to 1000 Hz (GameSir support FAQ on the T7 Pro manual page states the 1000 Hz option is PC-only). The T7 Pro Sugar Whirl product page states this explicitly as 'up to 1000 Hz on PC'.">1000 Hz</span><span class="badge" title="GameSir Nexus (PC and Xbox app, Microsoft Store). NOT GameSir Connect and NOT the GameSir mobile app — GameSir's own download page lists T7 Pro Floral and T7 Pro Sugar Whirl under Nexus (v2.4.3 at time of research), while GameSir Connect covers PC-only models such as the G7 Pro 8K, Tarantula 8K and Cyclone 2. Nexus supports up to 3-4 saved profiles depending on model, button remapping, stick/trigger dead-zone and range tuning, 'Raw' stick mode, vibration level, RGB, report rate and firmware updates.">Nexus</span></div>
+  <h3>GameSir T7 Pro</h3>
+  <p class="tagline">Officially licensed wired Xbox/PC controller with GameSir Hall Effect sticks, Hall Effect analog triggers with two-stage trigger stops, RGB lighting and two remappable back buttons.</p>
+  <div class="card-foot">
+    <span>Wired</span>
+    <span class="card-price" title="$49.99 / £49.99 (T7 Pro Floral launch price, GameSir and Best Buy, June 2025)">$49.99</span>
   </div>
 </a>
 <a class="controller-card" href="controllers/tarantula-pro.html">
-  <div class="badges"><span class="badge tier-high-end">High-end</span><span class="badge badge-tmr">GameSir Mag-Res TMR (Gen-1) — tunneling magnetoresistance, non-contact</span><span class="badge badge-info">1000 Hz</span><span class="badge">Gyro</span><span class="badge">GameSir Connect (PC) and the GameSir app (mobile). GameSir Nexus does not support this model. Worth knowing: GameSir's downloads page does not list the multiplatform Tarantula Pro under any application — it lists only the Tarantula 8K PC under Connect and Tarantula Pro for Xbox under Nexus — while the official Tarantula Pro FAQ directs users to Connect. Treat the FAQ as authoritative and the downloads listing as incomplete.</span></div>
+  <div class="badges"><span class="badge tier-high-end">High-end</span><span class="badge badge-tmr" title="GameSir Mag-Res TMR (Gen-1) — tunneling magnetoresistance, non-contact">Mag-Res TMR</span><span class="badge badge-info" title="1000 Hz (wired and 2.4GHz dongle); Gamepadla measured 1000-1002 Hz median wired and 1000-1001 Hz via dongle">1000 Hz</span><span class="badge">Gyro</span><span class="badge" title="GameSir Connect (PC) and the GameSir app (mobile). GameSir Nexus does not support this model. Worth knowing: GameSir's downloads page does not list the multiplatform Tarantula Pro under any application — it lists only the Tarantula 8K PC under Connect and Tarantula Pro for Xbox under Nexus — while the official Tarantula Pro FAQ directs users to Connect. Treat the FAQ as authoritative and the downloads listing as incomplete.">Connect</span></div>
   <h3>GameSir Tarantula Pro</h3>
   <p class="tagline">A tri-mode multiplatform controller with a symmetric PlayStation-style stick layout, Mag-Res TMR sticks, and a motorized gear that physically rotates the face buttons between Xbox and Nintendo layouts.</p>
   <div class="card-foot">
     <span>Wired / 2.4 GHz / Bluetooth</span>
-    <span>$79.99 / £79.99 at launch (October 2024); currently listed at $69.99 on gamesir.com</span>
+    <span class="card-price" title="$79.99 / £79.99 at launch (October 2024); currently listed at $69.99 on gamesir.com">$79.99</span>
   </div>
 </a>
   </div>
@@ -167,5 +186,6 @@
   </div>
 </footer>
 
+<script src="assets/js/filter.js" defer></script>
 </body>
 </html>

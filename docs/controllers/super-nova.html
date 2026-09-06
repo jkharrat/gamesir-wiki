@@ -6,6 +6,7 @@
 <title>GameSir Super Nova — specs, fixes and FAQ | GameSir Wiki</title>
 <meta name="description" content="GameSir Super Nova: full specifications, measured performance, documented problems and fixes, and frequently asked questions. A $49.99 tri-mode multiplatform controller with Hall Effect sticks and triggers, magnetic swappable faceplates, and an auto start-stop charging dock.">
 <link rel="stylesheet" href="../assets/css/style.css">
+<script>document.documentElement.className += " js";</script>
 </head>
 <body>
 
@@ -15,109 +16,125 @@
       <span class="brand-mark">GS</span>
       <span>GameSir Wiki</span>
     </a>
-    <nav class="site-nav"><a href="../index.html">Home</a><a href="../compare.html">Compare</a><a href="../troubleshooting.html">Troubleshooting</a><a href="../faq.html">FAQ</a><a href="../about.html">About</a></nav>
+    <nav class="site-nav"><a href="../index.html">Home</a><a href="../index.html#controllers">Controllers</a><a href="../compare.html">Compare</a><a href="../latency.html">Latency</a><a href="../troubleshooting.html">Troubleshooting</a><a href="../faq.html">FAQ</a><a href="../about.html">About</a></nav>
   </div>
 </header>
 
 <main>
 <div class="wrap narrow">
   <div class="page-head">
-    <p class="breadcrumb"><a href="../index.html">Home</a> / GameSir Super Nova</p>
+    <p class="breadcrumb"><a href="../index.html">Home</a> / <a href="../index.html#controllers">Controllers</a> / GameSir Super Nova</p>
     <p class="eyebrow">Mid-range &middot; Multi-platform</p>
     <h1>GameSir Super Nova</h1>
     <p class="lede">A $49.99 tri-mode multiplatform controller with Hall Effect sticks and triggers, magnetic swappable faceplates, and an auto start-stop charging dock.</p>
-    <div class="badges"><span class="badge tier-mid-range">Mid-range</span><span class="badge badge-tmr">GameSir Hall Effect (non-contact magnetic), with anti-friction glide rings — NOT TMR</span><span class="badge badge-info">1000 Hz</span><span class="badge">Gyro</span><span class="badge">GameSir Connect (PC) and the GameSir app (mobile). Note that GameSir's own Super Nova manual page contains an error telling users to configure the rear buttons via GameSir Nexus — Nexus does not support this model.</span></div>
+    <div class="badges"><span class="badge tier-mid-range">Mid-range</span><span class="badge badge-hall" title="GameSir Hall Effect (non-contact magnetic), with anti-friction glide rings — NOT TMR">Hall Effect</span><span class="badge badge-info" title="1000 Hz (wired and 2.4GHz dongle)">1000 Hz</span><span class="badge">Gyro</span><span class="badge" title="GameSir Connect (PC) and the GameSir app (mobile). Note that GameSir's own Super Nova manual page contains an error telling users to configure the rear buttons via GameSir Nexus — Nexus does not support this model.">Connect</span></div>
   </div>
 
-  <h2 id="specs">Specifications</h2>
-  <div class="spec-section">
-    <h3>Overview</h3>
-    <div class="spec-grid">
-      <div class="spec-row"><span class="spec-key">Released</span><span class="spec-val">2025</span></div>
-      <div class="spec-row"><span class="spec-key">Launch price</span><span class="spec-val">$49.99 / £49.99</span></div>
-      <div class="spec-row"><span class="spec-key">Weight</span><span class="spec-val">263 g / 0.58 lbs</span></div>
-      <div class="spec-row"><span class="spec-key">Dimensions</span><span class="spec-val">156 x 106 x 59 mm / 6.14 x 4.17 x 2.32 in</span></div>
-      <div class="spec-row"><span class="spec-key">Software</span><span class="spec-val">GameSir Connect (PC) and the GameSir app (mobile). Note that GameSir's own Super Nova manual page contains an error telling users to configure the rear buttons via GameSir Nexus — Nexus does not support this model.</span></div>
-      <div class="spec-row"><span class="spec-key">Platforms</span><span class="spec-val">PC, Switch, Android, iOS</span></div>
+  <nav class="tabs" id="controller-tabs" aria-label="Sections of this page"><a href="#specs" data-tab="specs" aria-current="true">Specifications</a><a href="#performance" data-tab="performance">Performance</a><a href="#features" data-tab="features">Features<span class="tab-count">8</span></a><a href="#issues" data-tab="issues">Problems<span class="tab-count">7</span></a><a href="#faq" data-tab="faq">FAQ<span class="tab-count">9</span></a><a href="#sources" data-tab="sources">Sources<span class="tab-count">13</span></a></nav>
+
+<section class="tab-panel is-active" id="specs" data-panel="specs">
+  <h2>Specifications</h2>
+  <p class="section-intro">Values that could not be verified against a source read &ldquo;not documented&rdquo; rather than being estimated.</p>
+  <div class="spec-columns">
+    <div class="spec-card">
+      <h3>Overview</h3>
+      <div class="spec-grid">
+        <div class="spec-row"><span class="spec-key">Released</span><span class="spec-val">2025</span></div>
+        <div class="spec-row"><span class="spec-key">Launch price</span><span class="spec-val">$49.99</span></div>
+        <div class="spec-row"><span class="spec-key">Weight</span><span class="spec-val">263 g / 0.58 lbs</span></div>
+        <div class="spec-row is-long"><span class="spec-key">Dimensions</span><span class="spec-val">156 x 106 x 59 mm / 6.14 x 4.17 x 2.32 in</span></div>
+        <div class="spec-row"><span class="spec-key">Platforms</span><span class="spec-val">PC, Switch, Mobile</span></div>
+        <div class="spec-row"><span class="spec-key">Configuration app</span><span class="spec-val">Connect</span></div>
+      </div>
+      
+      <details class="spec-note"><summary>Which app, and the exact platform wording</summary><p>GameSir Connect (PC) and the GameSir app (mobile). Note that GameSir's own Super Nova manual page contains an error telling users to configure the rear buttons via GameSir Nexus — Nexus does not support this model.</p></details>
     </div>
 
-    <h3>Sticks</h3>
-    <div class="spec-grid">
-      <div class="spec-row"><span class="spec-key">Sensor technology</span><span class="spec-val">GameSir Hall Effect (non-contact magnetic), with anti-friction glide rings — NOT TMR</span></div>
-      <div class="spec-row"><span class="spec-key">Resolution</span><span class="spec-val unknown">Not documented</span></div>
-      <div class="spec-row"><span class="spec-key">Durability</span><span class="spec-val">Up to 5 million cycles (GameSir manufacturer claim)</span></div>
-      <div class="spec-row"><span class="spec-key">Measured center error</span><span class="spec-val">0.0-2.3% left / 0.0-2.7% right across four test runs</span></div>
-      <div class="spec-row"><span class="spec-key">Measured resolution</span><span class="spec-val">8.0-bit, ~256 steps (gamepadla, dongle in DS4 mode, FW 1.0.6) — likely reflects the reporting mode rather than the sensor ceiling</span></div>
+    <div class="spec-card">
+      <h3>Sticks</h3>
+      <div class="spec-grid">
+        <div class="spec-row is-long"><span class="spec-key">Sensor technology</span><span class="spec-val">GameSir Hall Effect (non-contact magnetic), with anti-friction glide rings — NOT TMR</span></div>
+        <div class="spec-row"><span class="spec-key">Resolution</span><span class="spec-val unknown">Not documented</span></div>
+        <div class="spec-row is-long"><span class="spec-key">Durability</span><span class="spec-val">Up to 5 million cycles (GameSir manufacturer claim)</span></div>
+        <div class="spec-row is-long"><span class="spec-key">Measured center error</span><span class="spec-val">0.0-2.3% left / 0.0-2.7% right across four test runs</span></div>
+        <div class="spec-row is-long"><span class="spec-key">Measured resolution</span><span class="spec-val">8.0-bit, ~256 steps (gamepadla, dongle in DS4 mode, FW 1.0.6) — likely reflects the reporting mode rather than the sensor ceiling</span></div>
+      </div>
+      <details class="spec-note"><summary>How these measurements were arrived at</summary><p>Four gamepadla Stick Tracer runs on firmware 1.0.6 produced center errors from 0.0% to 2.3% on the left stick and 0.0% to 2.7% on the right. The 0.0% results were attributed to the controller's built-in inner deadzone masking the true figure. Unlike the G7 Pro family, the Super Nova does apply an inner deadzone, which is why apparent drift is less common on it.</p></details>
     </div>
-    <div class="note"><p>Four gamepadla Stick Tracer runs on firmware 1.0.6 produced center errors from 0.0% to 2.3% on the left stick and 0.0% to 2.7% on the right. The 0.0% results were attributed to the controller's built-in inner deadzone masking the true figure. Unlike the G7 Pro family, the Super Nova does apply an inner deadzone, which is why apparent drift is less common on it.</p></div>
 
-    <h3>Triggers, D-pad and buttons</h3>
-    <div class="spec-grid">
-      <div class="spec-row"><span class="spec-key">Trigger technology</span><span class="spec-val">Hall Effect analog triggers with a 100% response area</span></div>
-      <div class="spec-row"><span class="spec-key">Trigger stops</span><span class="spec-val">Yes</span></div>
-      <div class="spec-row"><span class="spec-key">D-pad</span><span class="spec-val">Membrane D-pad. TechRadar's review specifically calls the D-pad the weakest part of the controller ('isn't best in class').</span></div>
-      <div class="spec-row"><span class="spec-key">Face buttons</span><span class="spec-val">Membrane ABXY, marketed as noise-free/silent. The ABXY buttons are physically detachable so the layout can be rearranged between Xbox and Nintendo positions by hand. Button VALUES can be swapped separately in firmware by holding M + the south face button, which swaps A-B and X-Y.</span></div>
-      <div class="spec-row"><span class="spec-key">Rear buttons</span><span class="spec-val">2</span></div>
-      <div class="spec-row"><span class="spec-key">Extra bumpers</span><span class="spec-val">0</span></div>
+    <div class="spec-card">
+      <h3>Triggers, D-pad and buttons</h3>
+      <div class="spec-grid">
+        <div class="spec-row is-long"><span class="spec-key">Trigger technology</span><span class="spec-val">Hall Effect analog triggers with a 100% response area</span></div>
+        <div class="spec-row"><span class="spec-key">Trigger stops</span><span class="spec-val">Yes</span></div>
+        <div class="spec-row"><span class="spec-key">D-pad</span><span class="spec-val">Membrane</span></div>
+        <div class="spec-row is-long"><span class="spec-key">Face buttons</span><span class="spec-val">Membrane ABXY, marketed as noise-free/silent. The ABXY buttons are physically detachable so the layout can be rearranged between Xbox and Nintendo positions by hand. Button VALUES can be swapped separately in firmware by holding M + the south face button, which swaps A-B and X-Y.</span></div>
+        <div class="spec-row"><span class="spec-key">Rear buttons</span><span class="spec-val">2</span></div>
+        <div class="spec-row"><span class="spec-key">Extra bumpers</span><span class="spec-val">0</span></div>
+      </div>
+      <details class="spec-note"><summary>Trigger detail</summary><p>A physical trigger gear switch selects long-pull or short-pull position. After switching, GameSir instructs you to press the trigger fully three times so it auto-calibrates the new pull distance. Hair trigger mode is a separate software toggle: hold M + LT/RT, and it requires the trigger to be set to the long-pull position first.</p></details>
+      <details class="spec-note"><summary>Mapping the extra buttons</summary><p>Two rear buttons (L4/R4) supporting single-button mapping and macro recording, plus an M (mode/macro) button. The rear buttons ship as 'null inputs' with no function until mapped. On-controller mapping: hold M + L4/R4 until the corresponding RGB strip slowly flashes white, press the button to assign, then press L4/R4 again to save. Exiting without pressing a target button clears the assignment.</p></details>
     </div>
-    <p class="small text-muted">A physical trigger gear switch selects long-pull or short-pull position. After switching, GameSir instructs you to press the trigger fully three times so it auto-calibrates the new pull distance. Hair trigger mode is a separate software toggle: hold M + LT/RT, and it requires the trigger to be set to the long-pull position first.</p>
-    <p class="small text-muted">Two rear buttons (L4/R4) supporting single-button mapping and macro recording, plus an M (mode/macro) button. The rear buttons ship as 'null inputs' with no function until mapped. On-controller mapping: hold M + L4/R4 until the corresponding RGB strip slowly flashes white, press the button to assign, then press L4/R4 again to save. Exiting without pressing a target button clears the assignment.</p>
 
-    <h3>Connectivity and performance</h3>
-    <div class="spec-grid">
-      <div class="spec-row"><span class="spec-key">Connection modes</span><span class="spec-val">Wired / 2.4 GHz / Bluetooth</span></div>
-      <div class="spec-row"><span class="spec-key">Polling rate (PC)</span><span class="spec-val">1000 Hz (wired and 2.4GHz dongle)</span></div>
-      <div class="spec-row"><span class="spec-key">Polling rate (Xbox)</span><span class="spec-val unknown">Not documented</span></div>
-      <div class="spec-row"><span class="spec-key">Audio jack</span><span class="spec-val">None</span></div>
-      <div class="spec-row"><span class="spec-key">Gyro</span><span class="spec-val">Yes</span></div>
-      <div class="spec-row"><span class="spec-key">Rumble</span><span class="spec-val">Two rumble motors, one in each grip, described by GameSir as dual asymmetric motors. Vibration intensity is adjustable on the fly by holding M and pressing - or +.</span></div>
+    <div class="spec-card">
+      <h3>Connectivity</h3>
+      <div class="spec-grid">
+        <div class="spec-row"><span class="spec-key">Connection modes</span><span class="spec-val">Wired / 2.4 GHz / Bluetooth</span></div>
+        <div class="spec-row"><span class="spec-key">Polling rate (PC)</span><span class="spec-val">1000 Hz</span></div>
+        <div class="spec-row"><span class="spec-key">Polling rate (Xbox)</span><span class="spec-val unknown">Not documented</span></div>
+        <div class="spec-row"><span class="spec-key">Audio jack</span><span class="spec-val">None</span></div>
+        <div class="spec-row"><span class="spec-key">Gyro</span><span class="spec-val">Yes</span></div>
+        <div class="spec-row is-long"><span class="spec-key">Rumble</span><span class="spec-val">Two rumble motors, one in each grip, described by GameSir as dual asymmetric motors. Vibration intensity is adjustable on the fly by holding M and pressing - or +.</span></div>
+      </div>
+      <details class="spec-note"><summary>Which modes work on which platform</summary><p>Tri-mode: USB-C wired, 2.4GHz dongle, Bluetooth 5.0. A three-position rear mode switch selects 2.4G / Off / Bluetooth. Does NOT support Xbox consoles. GameSir's own manual lists platforms as 'PC, Switch, and Android' while the product page and retail listings add iOS; Switch 2 support is claimed on retail listings. Bluetooth connects to PC only as a DS4 device, which is why GameSir Connect cannot see it over Bluetooth.</p></details>
+      <details class="spec-note"><summary>Polling rate caveats</summary><p>Xbox consoles are not supported. Bluetooth is 125 Hz. Gamepadla measured 996-1000 Hz median wired, 999-1000 Hz via dongle, and 125-391 Hz over Bluetooth; measured button latency was 7.32 ms wired (XInput), 12.1-20.4 ms via dongle, and 14.5-26.9 ms over Bluetooth (GPDL method, firmware 1.0.6/1.3). Note that connecting by cable while in Switch mode drops polling to 125 Hz.</p></details>
+      <details class="spec-note"><summary>Gyro detail</summary><p>Built-in 6-axis gyroscope. Calibrated on-device by placing the controller on a flat surface and holding M + Screenshot for 2 seconds; the Home light flashes red and blue alternately during the process.</p></details>
     </div>
-    <div class="note"><p>Tri-mode: USB-C wired, 2.4GHz dongle, Bluetooth 5.0. A three-position rear mode switch selects 2.4G / Off / Bluetooth. Does NOT support Xbox consoles. GameSir's own manual lists platforms as 'PC, Switch, and Android' while the product page and retail listings add iOS; Switch 2 support is claimed on retail listings. Bluetooth connects to PC only as a DS4 device, which is why GameSir Connect cannot see it over Bluetooth.</p></div>
-    <p class="small text-muted">Xbox consoles are not supported. Bluetooth is 125 Hz. Gamepadla measured 996-1000 Hz median wired, 999-1000 Hz via dongle, and 125-391 Hz over Bluetooth; measured button latency was 7.32 ms wired (XInput), 12.1-20.4 ms via dongle, and 14.5-26.9 ms over Bluetooth (GPDL method, firmware 1.0.6/1.3). Note that connecting by cable while in Switch mode drops polling to 125 Hz.</p>
-    <p class="small text-muted">Gyro: Built-in 6-axis gyroscope. Calibrated on-device by placing the controller on a flat surface and holding M + Screenshot for 2 seconds; the Home light flashes red and blue alternately during the process.</p>
 
-    <h3>Battery and build</h3>
-    <div class="spec-grid">
-      <div class="spec-row"><span class="spec-key">Battery capacity</span><span class="spec-val">1000mAh</span></div>
-      <div class="spec-row"><span class="spec-key">Claimed battery life</span><span class="spec-val">Manufacturer estimate of about 15 hours. GameSir publishes no battery-life figure on its product page or manual; TechRadar states that GameSir supplied the 15-hour figure on request.</span></div>
-      <div class="spec-row"><span class="spec-key">Swappable faceplates</span><span class="spec-val">Yes</span></div>
+    <div class="spec-card">
+      <h3>Battery and build</h3>
+      <div class="spec-grid">
+        <div class="spec-row"><span class="spec-key">Battery capacity</span><span class="spec-val">1000mAh</span></div>
+        <div class="spec-row"><span class="spec-key">Claimed battery life</span><span class="spec-val">~15 h (maker estimate)</span></div>
+        <div class="spec-row"><span class="spec-key">Swappable faceplates</span><span class="spec-val">Yes</span></div>
+      </div>
+      <details class="spec-note"><summary>Battery detail</summary><p>Third-party review estimates vary widely and are less reliable: roughly 16 hours at 50% RGB brightness and up to ~20 hours with RGB off (Techxreviews); some reseller spec tables claim 'up to 25 hours,' which is not supported by GameSir's own 15-hour estimate. There is no battery percentage readout in the software or on the controller — the only indicator is the Home light flashing red below 15%. Ships with a smart auto start-stop charging dock; lifting the controller can be set to power it on.</p></details>
+      <details class="spec-note"><summary>Faceplate detail</summary><p>Magnetic detachable middle faceplate, sold in additional colors by GameSir. The ABXY buttons themselves are also detachable for layout rearrangement. Thin RGB light strips on the front sync with a matching strip on the charging dock.</p></details>
     </div>
-    <p class="small text-muted">Third-party review estimates vary widely and are less reliable: roughly 16 hours at 50% RGB brightness and up to ~20 hours with RGB off (Techxreviews); some reseller spec tables claim 'up to 25 hours,' which is not supported by GameSir's own 15-hour estimate. There is no battery percentage readout in the software or on the controller — the only indicator is the Home light flashing red below 15%. Ships with a smart auto start-stop charging dock; lifting the controller can be set to power it on.</p>
-    <p class="small text-muted">Magnetic detachable middle faceplate, sold in additional colors by GameSir. The ABXY buttons themselves are also detachable for layout rearrangement. Thin RGB light strips on the front sync with a matching strip on the charging dock.</p>
   </div>
-
-  <h3 id="latency">Measured latency</h3>
-<p class="section-intro small">Bar length reflects stick latency on a fixed 0&ndash;16&nbsp;ms scale, so bars are comparable between models. Measured and published by gamepadla.com; polling rate and latency are measured by different methods and are not the same thing.</p>
-<div class="latency-list">
-<div class="latency-row">
-  <div class="latency-head"><span class="latency-mode">Wired (XInput, FW 1.0.6)</span><span class="latency-num">button 7.32 ms avg · 996-1000 Hz</span></div>
-  <div class="bar-track"><div class="bar-fill is-warn" style="width:45.8%"></div></div>
+</section>
+<section class="tab-panel" id="performance" data-panel="performance">
+  <h2>Measured performance</h2>
+  <p class="section-intro">Independent measurement, kept separate from the manufacturer's own figures above.</p>
+  <div class="table-scroll">
+  <table class="spec-table latency-table">
+    <thead><tr><th>Connection mode</th><th>Button</th><th>Stick</th><th>Polling</th><th>Stick latency</th></tr></thead>
+    <tbody>
+<tr><th>Wired (XInput, FW 1.0.6)</th><td>7.32 ms avg</td><td class="na">&mdash;</td><td>996-1000 Hz</td><td class="bar-cell"><span class="bar-track"><span class="bar-fill is-warn" style="width:45.8%"></span></span></td></tr>
+<tr><th>2.4 GHz dongle</th><td>12.1-20.4 ms avg</td><td class="na">&mdash;</td><td>999-1000 Hz</td><td class="bar-cell"><span class="bar-track"><span class="bar-fill is-bad" style="width:100.0%"></span></span></td></tr>
+<tr><th>Bluetooth</th><td>14.5-26.9 ms avg</td><td class="na">&mdash;</td><td>125-391 Hz</td><td class="bar-cell"><span class="bar-track"><span class="bar-fill is-bad" style="width:100.0%"></span></span></td></tr>
+    </tbody>
+  </table>
 </div>
-<div class="latency-row">
-  <div class="latency-head"><span class="latency-mode">2.4 GHz dongle</span><span class="latency-num">button 12.1-20.4 ms avg · 999-1000 Hz</span></div>
-  <div class="bar-track"><div class="bar-fill is-bad" style="width:100.0%"></div></div>
-</div>
-<div class="latency-row">
-  <div class="latency-head"><span class="latency-mode">Bluetooth</span><span class="latency-num">button 14.5-26.9 ms avg · 125-391 Hz</span></div>
-  <div class="bar-track"><div class="bar-fill is-bad" style="width:100.0%"></div></div>
-</div>
-</div>
-
-  <h2 id="features">Notable features</h2>
-<ul>
-  <li>Hall Effect sticks AND Hall Effect triggers at a $49.99 price point</li>
-  <li>Magnetic detachable middle faceplate plus physically detachable, rearrangeable ABXY buttons</li>
-  <li>Smart auto start-stop charging dock included, with RGB that syncs to the controller</li>
-  <li>1000 Hz polling over both wired and 2.4GHz connections</li>
-  <li>Trigger gear for long/short pull plus a separate software hair-trigger mode</li>
-  <li>Extensive on-controller configuration via M-button combos (turbo, deadzone, vibration intensity, RGB, layout swap) with no software required</li>
-  <li>Membrane ABXY marketed as noise-free/silent</li>
-  <li>Rubber-coated textured grips</li>
-</ul>
-
-  <h2 id="issues">Known issues and fixes</h2>
-<p class="section-intro">Documented problems with documented solutions. Each entry cites where the fix comes from.</p>
-<div class="accordion">
+<p class="small text-dim">Bars use a fixed 0&ndash;16&nbsp;ms scale so they compare with every other page on this site; a full-width bar exceeds 16&nbsp;ms. Measured and published by gamepadla.com from a single unit on one firmware. Polling rate and latency are measured by different methods and are not the same thing. <a href="../latency.html">Compare against every other model</a>.</p>
+</section>
+<section class="tab-panel" id="features" data-panel="features">
+  <h2>Notable features</h2>
+  <ul>
+    <li>Hall Effect sticks AND Hall Effect triggers at a $49.99 price point</li>
+    <li>Magnetic detachable middle faceplate plus physically detachable, rearrangeable ABXY buttons</li>
+    <li>Smart auto start-stop charging dock included, with RGB that syncs to the controller</li>
+    <li>1000 Hz polling over both wired and 2.4GHz connections</li>
+    <li>Trigger gear for long/short pull plus a separate software hair-trigger mode</li>
+    <li>Extensive on-controller configuration via M-button combos (turbo, deadzone, vibration intensity, RGB, layout swap) with no software required</li>
+    <li>Membrane ABXY marketed as noise-free/silent</li>
+    <li>Rubber-coated textured grips</li>
+  </ul>
+</section>
+<section class="tab-panel" id="issues" data-panel="issues">
+  <h2>Known issues and fixes</h2>
+  <p class="section-intro">Documented problems with documented solutions. Each entry cites where the fix comes from.</p>
+  <div class="accordion">
 <details class="item">
   <summary>GameSir Connect cannot see the Super Nova when it is connected over Bluetooth.</summary>
   <div class="item-body">
@@ -174,10 +191,11 @@
     <p class="small text-dim">Source: <a href="https://gamesir.com/pages/faq-questions-about-super-nova-ns" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
   </div>
 </details>
-</div>
-
-  <h2 id="faq">Frequently asked questions</h2>
-<div class="accordion">
+  </div>
+</section>
+<section class="tab-panel" id="faq" data-panel="faq">
+  <h2>Frequently asked questions</h2>
+  <div class="accordion">
 <details class="item">
   <summary>Which app should I use — GameSir Connect, the GameSir app, or GameSir Nexus?</summary>
   <div class="item-body">
@@ -241,10 +259,12 @@
     <p class="small text-dim">Source: <a href="https://gamesir.com/support/manuals/gamesir-super-nova" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
   </div>
 </details>
-</div>
-
-  <h2 id="sources">Sources</h2>
-<ul class="source-list">
+  </div>
+</section>
+<section class="tab-panel" id="sources" data-panel="sources">
+  <h2>Sources</h2>
+  <p class="section-intro">Everything on this page traces back to one of these.</p>
+  <ul class="source-list">
 <li><a href="https://gamesir.com/support/manuals/gamesir-super-nova" rel="nofollow noopener" target="_blank">GameSir official manual — How to Use the GameSir Super Nova</a></li>
 <li><a href="https://gamesir.com/pages/faq-questions-about-super-nova-ns" rel="nofollow noopener" target="_blank">GameSir official FAQ and troubleshooting — Super Nova</a></li>
 <li><a href="https://gamesir.com/pages/tutorials-how-to-connect-super-nova-ns" rel="nofollow noopener" target="_blank">GameSir official connection tutorial — Super Nova</a></li>
@@ -258,7 +278,58 @@
 <li><a href="https://www.techradar.com/gaming/gaming-accessories/ive-tested-two-of-gamesirs-best-controllers-and-for-me-theres-one-clear-winner" rel="nofollow noopener" target="_blank">TechRadar Super Nova vs Cyclone 2 comparison (battery claims, 3.5mm jack difference)</a></li>
 <li><a href="https://www.windowscentral.com/gaming/gamesir-super-nova-controller-review" rel="nofollow noopener" target="_blank">Windows Central review (specs, no Xbox support)</a></li>
 <li><a href="https://www.thesixthaxis.com/2025/03/05/gamesir-super-nova-controller-review/" rel="nofollow noopener" target="_blank">TheSixthAxis review (firmware update soft-lock bug)</a></li>
-</ul>
+  </ul>
+</section>
+
+  <nav class="pager" aria-label="Nearby controllers">
+    <a class="pager-link" href="kaleid.html" rel="prev">
+      <span class="pager-dir">&larr; Previous</span>
+      <span class="pager-name">GameSir Kaleid</span>
+    </a>
+    <a class="pager-link is-next" href="t7-pro.html" rel="next">
+      <span class="pager-dir">Next &rarr;</span>
+      <span class="pager-name">GameSir T7 Pro</span>
+    </a>
+  </nav>
+
+  <details class="switcher">
+    <summary>Jump to another controller</summary>
+    <div class="switch-grid">
+<a class="switch-item" href="cyclone-2.html">
+      <span class="switch-name">GameSir Cyclone 2</span>
+      <span class="switch-meta">Mag-Res TMR &middot; $49.99</span>
+    </a>
+<a class="switch-item" href="g7-he.html">
+      <span class="switch-name">GameSir G7 HE</span>
+      <span class="switch-meta">Hall Effect &middot; $49.99</span>
+    </a>
+<a class="switch-item" href="g7-pro.html">
+      <span class="switch-name">GameSir G7 Pro</span>
+      <span class="switch-meta">Mag-Res TMR &middot; $79.99</span>
+    </a>
+<a class="switch-item" href="g7-pro-8k.html">
+      <span class="switch-name">GameSir G7 Pro 8K</span>
+      <span class="switch-meta">Gen-2 TMR</span>
+    </a>
+<a class="switch-item" href="g7-se.html">
+      <span class="switch-name">GameSir G7 SE</span>
+      <span class="switch-meta">Hall Effect &middot; $44.99</span>
+    </a>
+<a class="switch-item" href="kaleid.html">
+      <span class="switch-name">GameSir Kaleid</span>
+      <span class="switch-meta">Hall Effect &middot; $49.99</span>
+    </a>
+<a class="switch-item" href="t7-pro.html">
+      <span class="switch-name">GameSir T7 Pro</span>
+      <span class="switch-meta">Hall Effect &middot; $49.99</span>
+    </a>
+<a class="switch-item" href="tarantula-pro.html">
+      <span class="switch-name">GameSir Tarantula Pro</span>
+      <span class="switch-meta">Mag-Res TMR &middot; $79.99</span>
+    </a>
+    </div>
+    <p class="small text-dim">Or <a href="../compare.html">compare all 9 side by side</a>.</p>
+  </details>
 
   <p class="small text-dim">Data last reviewed 2026-09-06. Figures are compiled from the sources above rather than first-hand testing.</p>
 </div>
@@ -277,5 +348,6 @@
   </div>
 </footer>
 
+<script src="../assets/js/filter.js" defer></script>
 </body>
 </html>

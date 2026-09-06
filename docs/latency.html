@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Measured controller latency compared — GameSir Wiki</title>
+<meta name="description" content="Independent button and stick latency measurements for GameSir controllers, compared by connection mode, with polling rates and the caveats that apply.">
+<link rel="stylesheet" href="assets/css/style.css">
+<script>document.documentElement.className += " js";</script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <span class="brand-mark">GS</span>
+      <span>GameSir Wiki</span>
+    </a>
+    <nav class="site-nav"><a href="index.html">Home</a><a href="index.html#controllers">Controllers</a><a href="compare.html">Compare</a><a href="latency.html" aria-current="page">Latency</a><a href="troubleshooting.html">Troubleshooting</a><a href="faq.html">FAQ</a><a href="about.html">About</a></nav>
+  </div>
+</header>
+
+<main>
+<div class="wrap" id="top">
+  <div class="page-head">
+    <p class="eyebrow">Performance</p>
+    <h1>Measured latency</h1>
+    <p class="lede">
+      Independent latency measurements published by gamepadla.com, compared across every model covered here.
+      Connection mode is the largest single factor &mdash; on several controllers the dongle is markedly slower
+      than the cable for stick input, which is not something manufacturer specifications tell you.
+    </p>
+  </div>
+
+  <div class="stat-strip">
+<div class="stat">
+      <div class="stat-label">Fastest on wired</div>
+      <div class="stat-value small-value">0.69 ms</div>
+      <div class="stat-label"><a href="controllers/g7-pro-8k.html">GameSir G7 Pro 8K</a></div>
+    </div>
+<div class="stat">
+      <div class="stat-label">Fastest on 2.4 ghz</div>
+      <div class="stat-value small-value">3.56 ms</div>
+      <div class="stat-label"><a href="controllers/g7-pro-8k.html">GameSir G7 Pro 8K</a></div>
+    </div>
+<div class="stat">
+      <div class="stat-label">Fastest on bluetooth</div>
+      <div class="stat-value small-value">3.45 ms</div>
+      <div class="stat-label"><a href="controllers/g7-pro-8k.html">GameSir G7 Pro 8K</a></div>
+    </div>
+  </div>
+
+  <h2 id="by-mode">Compared by connection mode</h2>
+  <p class="section-intro">
+    One row per controller, with each connection family in its own column. Switch which figure you are comparing
+    without the table growing.
+  </p>
+
+  <div class="toolbar">
+    <div class="metric-switch" id="metric-switch" role="group" aria-label="Choose which figure to compare">
+      <button class="chip" type="button" data-metric="stick" aria-pressed="true">Stick latency</button>
+      <button class="chip" type="button" data-metric="button" aria-pressed="false">Button latency</button>
+      <button class="chip" type="button" data-metric="polling" aria-pressed="false">Polling rate</button>
+    </div>
+  </div>
+
+  <div class="table-scroll">
+    <table class="spec-table pivot-table" id="latency-pivot" data-show="stick">
+      <thead><tr><th>Controller</th><th>Wired</th><th>2.4 GHz</th><th>Bluetooth</th></tr></thead>
+      <tbody>
+<tr><th><a href="controllers/cyclone-2.html">GameSir Cyclone 2</a></th><td class="metric-cell"><span class="metric" data-metric="stick"><span class="metric-num">4.70 ms avg</span><span class="bar-track"><span class="bar-fill is-warn" style="width:29.4%"></span></span></span><span class="metric" data-metric="button"><span class="metric-num">2.33 ms avg</span><span class="bar-track"><span class="bar-fill is-good" style="width:14.6%"></span></span></span><span class="metric" data-metric="polling"><span class="metric-num">1000-1002 Hz</span></span></td><td class="metric-cell"><span class="metric" data-metric="stick"><span class="na">&mdash;</span></span><span class="metric" data-metric="button"><span class="metric-num">7.40 ms avg</span><span class="bar-track"><span class="bar-fill is-warn" style="width:46.3%"></span></span></span><span class="metric" data-metric="polling"><span class="metric-num">1000 Hz</span></span></td><td class="metric-cell"><span class="metric" data-metric="stick"><span class="na">&mdash;</span></span><span class="metric" data-metric="button"><span class="metric-num">~6 ms avg, spikes past 26 ms</span><span class="bar-track"><span class="bar-fill is-warn" style="width:37.5%"></span></span></span><span class="metric" data-metric="polling"><span class="metric-num">250-400 Hz</span></span></td></tr>
+<tr><th><a href="controllers/g7-he.html">GameSir G7 HE</a></th><td class="metric-cell"><span class="metric" data-metric="stick"><span class="metric-num">11.56 ms avg</span><span class="bar-track"><span class="bar-fill is-bad" style="width:72.3%"></span></span></span><span class="metric" data-metric="button"><span class="metric-num">2.84 ms avg</span><span class="bar-track"><span class="bar-fill is-good" style="width:17.8%"></span></span></span><span class="metric" data-metric="polling"><span class="metric-num">~988 Hz</span></span></td><td class="na">&mdash;</td><td class="na">&mdash;</td></tr>
+<tr><th><a href="controllers/g7-pro.html">GameSir G7 Pro</a></th><td class="metric-cell"><span class="metric" data-metric="stick"><span class="metric-num">2.70 ms avg</span><span class="bar-track"><span class="bar-fill is-good" style="width:16.9%"></span></span></span><span class="metric" data-metric="button"><span class="metric-num">2.43 ms avg</span><span class="bar-track"><span class="bar-fill is-good" style="width:15.2%"></span></span></span><span class="metric" data-metric="polling"><span class="metric-num">1001 Hz</span></span></td><td class="metric-cell"><span class="metric" data-metric="stick"><span class="metric-num">14.96 ms avg</span><span class="bar-track"><span class="bar-fill is-bad" style="width:93.5%"></span></span></span><span class="metric" data-metric="button"><span class="metric-num">5.69 ms avg</span><span class="bar-track"><span class="bar-fill is-warn" style="width:35.6%"></span></span></span><span class="metric" data-metric="polling"><span class="metric-num">1000 Hz</span></span></td><td class="metric-cell"><span class="metric" data-metric="stick"><span class="metric-num">5.82 ms avg</span><span class="bar-track"><span class="bar-fill is-warn" style="width:36.4%"></span></span></span><span class="metric" data-metric="button"><span class="metric-num">5.37 ms avg</span><span class="bar-track"><span class="bar-fill is-warn" style="width:33.6%"></span></span></span><span class="metric" data-metric="polling"><span class="metric-num">400 Hz</span></span></td></tr>
+<tr><th><a href="controllers/g7-pro-8k.html">GameSir G7 Pro 8K</a></th><td class="metric-cell"><span class="metric" data-metric="stick"><span class="metric-num">0.69 ms avg</span><span class="bar-track"><span class="bar-fill is-good" style="width:4.3%"></span></span></span><span class="metric" data-metric="button"><span class="metric-num">1.39 ms avg</span><span class="bar-track"><span class="bar-fill is-good" style="width:8.7%"></span></span></span><span class="metric" data-metric="polling"><span class="metric-num">7936 Hz</span></span></td><td class="metric-cell"><span class="metric" data-metric="stick"><span class="metric-num">3.56 ms avg</span><span class="bar-track"><span class="bar-fill is-warn" style="width:22.3%"></span></span></span><span class="metric" data-metric="button"><span class="metric-num">3.47 ms avg</span><span class="bar-track"><span class="bar-fill is-warn" style="width:21.7%"></span></span></span><span class="metric" data-metric="polling"><span class="metric-num">7936 Hz</span></span></td><td class="metric-cell"><span class="metric" data-metric="stick"><span class="metric-num">3.45 ms avg</span><span class="bar-track"><span class="bar-fill is-warn" style="width:21.6%"></span></span></span><span class="metric" data-metric="button"><span class="metric-num">3.58 ms avg</span><span class="bar-track"><span class="bar-fill is-warn" style="width:22.4%"></span></span></span><span class="metric" data-metric="polling"><span class="metric-num">800 Hz</span></span></td></tr>
+<tr><th><a href="controllers/g7-se.html">GameSir G7 SE</a></th><td class="metric-cell"><span class="metric" data-metric="stick"><span class="metric-num">3.23 ms avg</span><span class="bar-track"><span class="bar-fill is-warn" style="width:20.2%"></span></span></span><span class="metric" data-metric="button"><span class="metric-num">3.00 ms avg</span><span class="bar-track"><span class="bar-fill is-good" style="width:18.8%"></span></span></span><span class="metric" data-metric="polling"><span class="metric-num">1000 Hz</span></span></td><td class="na">&mdash;</td><td class="na">&mdash;</td></tr>
+<tr><th><a href="controllers/kaleid.html">GameSir Kaleid</a></th><td class="metric-cell"><span class="metric" data-metric="stick"><span class="metric-num">7.62 ms avg</span><span class="bar-track"><span class="bar-fill is-warn" style="width:47.6%"></span></span></span><span class="metric" data-metric="button"><span class="metric-num">5.32 ms avg</span><span class="bar-track"><span class="bar-fill is-warn" style="width:33.3%"></span></span></span><span class="metric" data-metric="polling"><span class="metric-num">1000 Hz median</span></span><span class="metric-more" title="Wired (XInput) at 1000 Hz, FW 1.49 / Wired (XInput) at 500 Hz / Wired (XInput) at 250 Hz">fastest of 3</span></td><td class="na">&mdash;</td><td class="na">&mdash;</td></tr>
+<tr><th><a href="controllers/super-nova.html">GameSir Super Nova</a></th><td class="metric-cell"><span class="metric" data-metric="stick"><span class="na">&mdash;</span></span><span class="metric" data-metric="button"><span class="metric-num">7.32 ms avg</span><span class="bar-track"><span class="bar-fill is-warn" style="width:45.8%"></span></span></span><span class="metric" data-metric="polling"><span class="metric-num">996-1000 Hz</span></span></td><td class="metric-cell"><span class="metric" data-metric="stick"><span class="na">&mdash;</span></span><span class="metric" data-metric="button"><span class="metric-num">12.1-20.4 ms avg</span><span class="bar-track"><span class="bar-fill is-bad" style="width:100.0%"></span></span></span><span class="metric" data-metric="polling"><span class="metric-num">999-1000 Hz</span></span></td><td class="metric-cell"><span class="metric" data-metric="stick"><span class="na">&mdash;</span></span><span class="metric" data-metric="button"><span class="metric-num">14.5-26.9 ms avg</span><span class="bar-track"><span class="bar-fill is-bad" style="width:100.0%"></span></span></span><span class="metric" data-metric="polling"><span class="metric-num">125-391 Hz</span></span></td></tr>
+<tr><th><a href="controllers/t7-pro.html">GameSir T7 Pro</a></th><td class="metric-cell"><span class="metric" data-metric="stick"><span class="na">&mdash;</span></span><span class="metric" data-metric="button"><span class="metric-num">3.96 ms avg</span><span class="bar-track"><span class="bar-fill is-warn" style="width:24.8%"></span></span></span><span class="metric" data-metric="polling"><span class="metric-num">249.88 Hz median</span></span></td><td class="na">&mdash;</td><td class="na">&mdash;</td></tr>
+<tr><th><a href="controllers/tarantula-pro.html">GameSir Tarantula Pro</a></th><td class="metric-cell"><span class="metric" data-metric="stick"><span class="na">&mdash;</span></span><span class="metric" data-metric="button"><span class="metric-num">7.83 ms avg</span><span class="bar-track"><span class="bar-fill is-warn" style="width:48.9%"></span></span></span><span class="metric" data-metric="polling"><span class="metric-num">1000-1002 Hz</span></span></td><td class="metric-cell"><span class="metric" data-metric="stick"><span class="na">&mdash;</span></span><span class="metric" data-metric="button"><span class="metric-num">31.73 ms avg</span><span class="bar-track"><span class="bar-fill is-bad" style="width:100.0%"></span></span></span><span class="metric" data-metric="polling"><span class="metric-num">1000-1001 Hz</span></span></td><td class="na">&mdash;</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="small text-dim">
+    Each cell shows the fastest documented figure for that connection family. Bars use a fixed
+    0&ndash;16&nbsp;ms scale; a full-width bar exceeds 16&nbsp;ms. Green is at or under 3&nbsp;ms, amber to
+    8&nbsp;ms, red above &mdash; those bands are our editorial reading, not gamepadla's.
+  </p>
+
+  <div class="note">
+    <p><strong>Read these as indicative, not exact.</strong> Every figure is an average from a single tested
+    unit on one firmware version, and gamepadla's own results move between firmware revisions. Differences of a
+    millisecond or two between models are inside the noise; the difference between a cable and Bluetooth is not.</p>
+  </div>
+
+  <h2 id="all">Every measurement</h2>
+  <p class="section-intro">
+    The pivot above collapses each connection family to its fastest result. Expand a controller for the full
+    set, including the slower configurations.
+  </p>
+  <div class="accordion">
+<details class="item">
+  <summary>GameSir Cyclone 2 <span class="badge">3 measurements</span></summary>
+  <div class="item-body">
+<div class="table-scroll">
+  <table class="spec-table latency-table">
+    <thead><tr><th>Connection mode</th><th>Button</th><th>Stick</th><th>Polling</th><th>Stick latency</th></tr></thead>
+    <tbody>
+<tr><th>Wired (XInput, FW 3.5.2)</th><td>2.33 ms avg</td><td>4.70 ms avg</td><td>1000-1002 Hz</td><td class="bar-cell"><span class="bar-track"><span class="bar-fill is-warn" style="width:29.4%"></span></span></td></tr>
+<tr><th>2.4 GHz dongle</th><td>7.40 ms avg</td><td class="na">&mdash;</td><td>1000 Hz</td><td class="bar-cell"><span class="bar-track"><span class="bar-fill is-warn" style="width:46.3%"></span></span></td></tr>
+<tr><th>Bluetooth</th><td>~6 ms avg, spikes past 26 ms</td><td class="na">&mdash;</td><td>250-400 Hz</td><td class="bar-cell"><span class="bar-track"><span class="bar-fill is-warn" style="width:37.5%"></span></span></td></tr>
+    </tbody>
+  </table>
+</div>
+<p class="small text-dim">Bars use a fixed 0&ndash;16&nbsp;ms scale so they compare with every other page on this site; a full-width bar exceeds 16&nbsp;ms. Measured and published by gamepadla.com from a single unit on one firmware. Polling rate and latency are measured by different methods and are not the same thing. <a href="#top">Compare against every other model</a>.</p>
+  </div>
+</details>
+<details class="item">
+  <summary>GameSir G7 HE <span class="badge">1 measurements</span></summary>
+  <div class="item-body">
+<div class="table-scroll">
+  <table class="spec-table latency-table">
+    <thead><tr><th>Connection mode</th><th>Button</th><th>Stick</th><th>Polling</th><th>Stick latency</th></tr></thead>
+    <tbody>
+<tr><th>Wired (XInput, FW 6.40)</th><td>2.84 ms avg</td><td>11.56 ms avg</td><td>~988 Hz</td><td class="bar-cell"><span class="bar-track"><span class="bar-fill is-bad" style="width:72.3%"></span></span></td></tr>
+    </tbody>
+  </table>
+</div>
+<p class="small text-dim">Bars use a fixed 0&ndash;16&nbsp;ms scale so they compare with every other page on this site; a full-width bar exceeds 16&nbsp;ms. Measured and published by gamepadla.com from a single unit on one firmware. Polling rate and latency are measured by different methods and are not the same thing. <a href="#top">Compare against every other model</a>.</p>
+  </div>
+</details>
+<details class="item">
+  <summary>GameSir G7 Pro <span class="badge">3 measurements</span></summary>
+  <div class="item-body">
+<div class="table-scroll">
+  <table class="spec-table latency-table">
+    <thead><tr><th>Connection mode</th><th>Button</th><th>Stick</th><th>Polling</th><th>Stick latency</th></tr></thead>
+    <tbody>
+<tr><th>Wired (XInput)</th><td>2.43 ms avg</td><td>2.70 ms avg</td><td>1001 Hz</td><td class="bar-cell"><span class="bar-track"><span class="bar-fill is-good" style="width:16.9%"></span></span></td></tr>
+<tr><th>2.4 GHz dongle (XInput)</th><td>5.69 ms avg</td><td>14.96 ms avg</td><td>1000 Hz</td><td class="bar-cell"><span class="bar-track"><span class="bar-fill is-bad" style="width:93.5%"></span></span></td></tr>
+<tr><th>Bluetooth (DInput)</th><td>5.37 ms avg</td><td>5.82 ms avg</td><td>400 Hz</td><td class="bar-cell"><span class="bar-track"><span class="bar-fill is-warn" style="width:36.4%"></span></span></td></tr>
+    </tbody>
+  </table>
+</div>
+<p class="small text-dim">Bars use a fixed 0&ndash;16&nbsp;ms scale so they compare with every other page on this site; a full-width bar exceeds 16&nbsp;ms. Measured and published by gamepadla.com from a single unit on one firmware. Polling rate and latency are measured by different methods and are not the same thing. <a href="#top">Compare against every other model</a>.</p>
+  </div>
+</details>
+<details class="item">
+  <summary>GameSir G7 Pro 8K <span class="badge">3 measurements</span></summary>
+  <div class="item-body">
+<div class="table-scroll">
+  <table class="spec-table latency-table">
+    <thead><tr><th>Connection mode</th><th>Button</th><th>Stick</th><th>Polling</th><th>Stick latency</th></tr></thead>
+    <tbody>
+<tr><th>Wired (XInput)</th><td>1.39 ms avg</td><td>0.69 ms avg</td><td>7936 Hz</td><td class="bar-cell"><span class="bar-track"><span class="bar-fill is-good" style="width:4.3%"></span></span></td></tr>
+<tr><th>2.4 GHz dongle (XInput)</th><td>3.47 ms avg</td><td>3.56 ms avg</td><td>7936 Hz</td><td class="bar-cell"><span class="bar-track"><span class="bar-fill is-warn" style="width:22.3%"></span></span></td></tr>
+<tr><th>Bluetooth (Sony mode)</th><td>3.58 ms avg</td><td>3.45 ms avg</td><td>800 Hz</td><td class="bar-cell"><span class="bar-track"><span class="bar-fill is-warn" style="width:21.6%"></span></span></td></tr>
+    </tbody>
+  </table>
+</div>
+<p class="small text-dim">Bars use a fixed 0&ndash;16&nbsp;ms scale so they compare with every other page on this site; a full-width bar exceeds 16&nbsp;ms. Measured and published by gamepadla.com from a single unit on one firmware. Polling rate and latency are measured by different methods and are not the same thing. <a href="#top">Compare against every other model</a>.</p>
+  </div>
+</details>
+<details class="item">
+  <summary>GameSir G7 SE <span class="badge">1 measurements</span></summary>
+  <div class="item-body">
+<div class="table-scroll">
+  <table class="spec-table latency-table">
+    <thead><tr><th>Connection mode</th><th>Button</th><th>Stick</th><th>Polling</th><th>Stick latency</th></tr></thead>
+    <tbody>
+<tr><th>Wired (XInput, FW 6.6.4)</th><td>3.00 ms avg</td><td>3.23 ms avg</td><td>1000 Hz</td><td class="bar-cell"><span class="bar-track"><span class="bar-fill is-warn" style="width:20.2%"></span></span></td></tr>
+    </tbody>
+  </table>
+</div>
+<p class="small text-dim">Bars use a fixed 0&ndash;16&nbsp;ms scale so they compare with every other page on this site; a full-width bar exceeds 16&nbsp;ms. Measured and published by gamepadla.com from a single unit on one firmware. Polling rate and latency are measured by different methods and are not the same thing. <a href="#top">Compare against every other model</a>.</p>
+  </div>
+</details>
+<details class="item">
+  <summary>GameSir Kaleid <span class="badge">3 measurements</span></summary>
+  <div class="item-body">
+<div class="table-scroll">
+  <table class="spec-table latency-table">
+    <thead><tr><th>Connection mode</th><th>Button</th><th>Stick</th><th>Polling</th><th>Stick latency</th></tr></thead>
+    <tbody>
+<tr><th>Wired (XInput) at 1000 Hz, FW 1.49</th><td>5.32 ms avg</td><td>7.62 ms avg</td><td>1000 Hz median</td><td class="bar-cell"><span class="bar-track"><span class="bar-fill is-warn" style="width:47.6%"></span></span></td></tr>
+<tr><th>Wired (XInput) at 500 Hz</th><td class="na">&mdash;</td><td>14.21 ms avg</td><td>500 Hz</td><td class="bar-cell"><span class="bar-track"><span class="bar-fill is-bad" style="width:88.8%"></span></span></td></tr>
+<tr><th>Wired (XInput) at 250 Hz</th><td class="na">&mdash;</td><td>27.22 ms avg</td><td>250 Hz</td><td class="bar-cell"><span class="bar-track"><span class="bar-fill is-bad" style="width:100.0%"></span></span></td></tr>
+    </tbody>
+  </table>
+</div>
+<p class="small text-dim">Bars use a fixed 0&ndash;16&nbsp;ms scale so they compare with every other page on this site; a full-width bar exceeds 16&nbsp;ms. Measured and published by gamepadla.com from a single unit on one firmware. Polling rate and latency are measured by different methods and are not the same thing. <a href="#top">Compare against every other model</a>.</p>
+  </div>
+</details>
+<details class="item">
+  <summary>GameSir Super Nova <span class="badge">3 measurements</span></summary>
+  <div class="item-body">
+<div class="table-scroll">
+  <table class="spec-table latency-table">
+    <thead><tr><th>Connection mode</th><th>Button</th><th>Stick</th><th>Polling</th><th>Stick latency</th></tr></thead>
+    <tbody>
+<tr><th>Wired (XInput, FW 1.0.6)</th><td>7.32 ms avg</td><td class="na">&mdash;</td><td>996-1000 Hz</td><td class="bar-cell"><span class="bar-track"><span class="bar-fill is-warn" style="width:45.8%"></span></span></td></tr>
+<tr><th>2.4 GHz dongle</th><td>12.1-20.4 ms avg</td><td class="na">&mdash;</td><td>999-1000 Hz</td><td class="bar-cell"><span class="bar-track"><span class="bar-fill is-bad" style="width:100.0%"></span></span></td></tr>
+<tr><th>Bluetooth</th><td>14.5-26.9 ms avg</td><td class="na">&mdash;</td><td>125-391 Hz</td><td class="bar-cell"><span class="bar-track"><span class="bar-fill is-bad" style="width:100.0%"></span></span></td></tr>
+    </tbody>
+  </table>
+</div>
+<p class="small text-dim">Bars use a fixed 0&ndash;16&nbsp;ms scale so they compare with every other page on this site; a full-width bar exceeds 16&nbsp;ms. Measured and published by gamepadla.com from a single unit on one firmware. Polling rate and latency are measured by different methods and are not the same thing. <a href="#top">Compare against every other model</a>.</p>
+  </div>
+</details>
+<details class="item">
+  <summary>GameSir T7 Pro <span class="badge">1 measurements</span></summary>
+  <div class="item-body">
+<div class="table-scroll">
+  <table class="spec-table latency-table">
+    <thead><tr><th>Connection mode</th><th>Button</th><th>Stick</th><th>Polling</th><th>Stick latency</th></tr></thead>
+    <tbody>
+<tr><th>Wired (XInput) at default rate</th><td>3.96 ms avg</td><td class="na">&mdash;</td><td>249.88 Hz median</td><td class="bar-cell"><span class="bar-track"><span class="bar-fill is-warn" style="width:24.8%"></span></span></td></tr>
+    </tbody>
+  </table>
+</div>
+<p class="small text-dim">Bars use a fixed 0&ndash;16&nbsp;ms scale so they compare with every other page on this site; a full-width bar exceeds 16&nbsp;ms. Measured and published by gamepadla.com from a single unit on one firmware. Polling rate and latency are measured by different methods and are not the same thing. <a href="#top">Compare against every other model</a>.</p>
+  </div>
+</details>
+<details class="item">
+  <summary>GameSir Tarantula Pro <span class="badge">2 measurements</span></summary>
+  <div class="item-body">
+<div class="table-scroll">
+  <table class="spec-table latency-table">
+    <thead><tr><th>Connection mode</th><th>Button</th><th>Stick</th><th>Polling</th><th>Stick latency</th></tr></thead>
+    <tbody>
+<tr><th>Wired (XInput, FW 2.0.6)</th><td>7.83 ms avg</td><td class="na">&mdash;</td><td>1000-1002 Hz</td><td class="bar-cell"><span class="bar-track"><span class="bar-fill is-warn" style="width:48.9%"></span></span></td></tr>
+<tr><th>2.4 GHz dongle (XInput, FW 2.0.6)</th><td>31.73 ms avg</td><td class="na">&mdash;</td><td>1000-1001 Hz</td><td class="bar-cell"><span class="bar-track"><span class="bar-fill is-bad" style="width:100.0%"></span></span></td></tr>
+    </tbody>
+  </table>
+</div>
+<p class="small text-dim">Bars use a fixed 0&ndash;16&nbsp;ms scale so they compare with every other page on this site; a full-width bar exceeds 16&nbsp;ms. Measured and published by gamepadla.com from a single unit on one firmware. Polling rate and latency are measured by different methods and are not the same thing. <a href="#top">Compare against every other model</a>.</p>
+  </div>
+</details>
+  </div>
+
+  
+</div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p class="disclaimer">
+      <strong>Unofficial and community-maintained.</strong> Not affiliated with, endorsed by, or operated by
+      GameSir. Specifications are compiled from GameSir's published product pages, manuals and FAQ documents,
+      from independent measurement data published by gamepadla.com, and from published reviews &mdash; not from
+      first-hand testing, unless a figure says otherwise. Values that could not be verified are marked
+      &ldquo;not documented&rdquo; rather than estimated. Manufacturer claims are labelled as claims.
+    </p>
+    <p class="small">Found an error? Open an issue or a pull request with a source and it will be corrected.</p>
+  </div>
+</footer>
+
+<script src="assets/js/filter.js" defer></script>
+</body>
+</html>
