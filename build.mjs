@@ -552,10 +552,14 @@ ${issueItem(i, i.model)}
   </div>
 
   <div class="note danger">
-    <p><strong>Read before calibrating an older G7.</strong> GameSir warns that the calibration procedure intended
-    for the older G7, G7 SE and G7 HE will put a <em>G7 Pro</em> into firmware update mode instead of calibration
-    mode, leaving it unable to power on normally. Older guides and videos still circulate the wrong sequence.
-    Confirm the procedure on your own model's page before using any button combination.</p>
+    <p><strong>Calibration procedures are not interchangeable between G7 models.</strong> The direction matters,
+    so check which one applies to your controller before holding any button combination.</p>
+    <p>On the <strong>G7, G7 SE and G7 HE</strong>, calibration is entered by holding
+    <kbd>View + Menu + Xbox</kbd> <em>while inserting the USB-C cable</em>. On the <strong>G7 Pro</strong>,
+    it is entered by holding <kbd>View + Xbox + Menu</kbd> <em>while already connected</em>.</p>
+    <p>GameSir explicitly warns that applying the older hold-while-plugging-in procedure to a G7 Pro puts that
+    controller into firmware update mode instead, leaving it unable to power on normally. Recovery requires a
+    manual firmware upgrade from a Windows PC. Older guides and videos still circulate the wrong sequence.</p>
   </div>
 
   <h2 id="drift">Before you assume the sticks have failed</h2>
@@ -608,6 +612,18 @@ ${issueItem(i, i.model)}
       </div>
     </details>
   </div>
+
+  <h2 id="audio">If your 3.5 mm headset stopped working</h2>
+  <p class="section-intro">
+    Check your polling rate before troubleshooting the headset. On the G7 and G7 SE, and on the G7 HE, selecting
+    a report rate above 250&nbsp;Hz disables the controller's onboard audio entirely &mdash; no game sound and no
+    microphone. This is by design rather than a fault, and GameSir support advises locking the rate to 250&nbsp;Hz
+    if you use a headset through the controller.
+  </p>
+  <p class="section-intro">
+    It is an easy trap to fall into, because raising the polling rate is one of the first things people do after
+    installing the app, and the audio failure shows up later with no obvious connection to it.
+  </p>
 
   <h2 id="all">All documented issues</h2>
 

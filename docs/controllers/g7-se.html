@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GameSir G7 SE — specs, fixes and FAQ | GameSir Wiki</title>
+<meta name="description" content="GameSir G7 SE: full specifications, measured performance, documented problems and fixes, and frequently asked questions. Officially Xbox-licensed wired controller and the first Xbox controller with Hall Effect sticks, using membrane face buttons and lockable back buttons.">
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="../index.html">
+      <span class="brand-mark">GS</span>
+      <span>GameSir Wiki</span>
+    </a>
+    <nav class="site-nav"><a href="../index.html">Home</a><a href="../compare.html">Compare</a><a href="../troubleshooting.html">Troubleshooting</a><a href="../faq.html">FAQ</a><a href="../about.html">About</a></nav>
+  </div>
+</header>
+
+<main>
+<div class="wrap narrow">
+  <div class="page-head">
+    <p class="breadcrumb"><a href="../index.html">Home</a> / GameSir G7 SE</p>
+    <p class="eyebrow">Mid-range &middot; Xbox-style</p>
+    <h1>GameSir G7 SE</h1>
+    <p class="lede">Officially Xbox-licensed wired controller and the first Xbox controller with Hall Effect sticks, using membrane face buttons and lockable back buttons.</p>
+    <div class="badges"><span class="badge tier-mid-range">Mid-range</span><span class="badge badge-hall">Hall Effect</span><span class="badge badge-info">250 Hz default; 500 Hz and 1000 Hz selectable in GameSir Nexus</span><span class="badge">GameSir Nexus (available on both Xbox and PC via the Microsoft Store; a 'Legacy GameSir Nexus' build also exists). The G7 SE does not use GameSir Connect, which is the app for the G7 Pro line.</span></div>
+  </div>
+
+  <h2 id="specs">Specifications</h2>
+  <div class="spec-section">
+    <h3>Overview</h3>
+    <div class="spec-grid">
+      <div class="spec-row"><span class="spec-key">Released</span><span class="spec-val">2023</span></div>
+      <div class="spec-row"><span class="spec-key">Launch price</span><span class="spec-val">$44.99</span></div>
+      <div class="spec-row"><span class="spec-key">Weight</span><span class="spec-val">221 g</span></div>
+      <div class="spec-row"><span class="spec-key">Dimensions</span><span class="spec-val">152 x 103 x 63 mm</span></div>
+      <div class="spec-row"><span class="spec-key">Software</span><span class="spec-val">GameSir Nexus (available on both Xbox and PC via the Microsoft Store; a 'Legacy GameSir Nexus' build also exists). The G7 SE does not use GameSir Connect, which is the app for the G7 Pro line.</span></div>
+      <div class="spec-row"><span class="spec-key">Platforms</span><span class="spec-val">Xbox Series X|S, Xbox One, PC</span></div>
+    </div>
+
+    <h3>Sticks</h3>
+    <div class="spec-grid">
+      <div class="spec-row"><span class="spec-key">Sensor technology</span><span class="spec-val">Hall Effect</span></div>
+      <div class="spec-row"><span class="spec-key">Resolution</span><span class="spec-val unknown">Not documented</span></div>
+      <div class="spec-row"><span class="spec-key">Durability</span><span class="spec-val unknown">Not documented</span></div>
+      <div class="spec-row"><span class="spec-key">Measured center error</span><span class="spec-val">1.8% left / 1.7% right</span></div>
+      <div class="spec-row"><span class="spec-key">Measured resolution</span><span class="spec-val">12.0-bit, ~4,000 steps (gamepadla, FW 6.5.6, single unit)</span></div>
+    </div>
+    <div class="note"><p>Center error measured by gamepadla on firmware 6.5.6, single unit. GameSir publishes no cycle-life rating for the G7 SE sticks; the 5-million-cycle figure applies to the G7 HE only. Gamepadla also measured 0.0% circle error on both sticks, 4.6%/6.9% asymmetry, no inner deadzone, 0.6 mm outer deadzone, and no cardinal snapping.</p></div>
+
+    <h3>Triggers, D-pad and buttons</h3>
+    <div class="spec-grid">
+      <div class="spec-row"><span class="spec-key">Trigger technology</span><span class="spec-val">Hall Effect analog</span></div>
+      <div class="spec-row"><span class="spec-key">Trigger stops</span><span class="spec-val">No</span></div>
+      <div class="spec-row"><span class="spec-key">D-pad</span><span class="spec-val">Membrane (rubber-dome) 8-way d-pad, described by reviewers as soft compared with the microswitch d-pad on the G7 and G7 HE. Doubles as headset volume and game/chat balance control when held with the M button. D-pad diagonal sensitivity is adjustable in GameSir Nexus.</span></div>
+      <div class="spec-row"><span class="spec-key">Face buttons</span><span class="spec-val">Membrane ABXY. No manufacturer-published press-lifespan rating. The original G7 used microswitches, the SE dropped them, and the G7 HE reinstated them.</span></div>
+      <div class="spec-row"><span class="spec-key">Rear buttons</span><span class="spec-val">2</span></div>
+      <div class="spec-row"><span class="spec-key">Extra bumpers</span><span class="spec-val">0</span></div>
+    </div>
+    <p class="small text-muted">No physical trigger stops or trigger locks. A software/hardware hair-trigger mode is toggled by holding M + LT or M + RT for 2 seconds until the controller vibrates. GameSir claims '100% response area'. Trigger travel distance is not documented.</p>
+    <p class="small text-muted">Two rear paddles labelled L4 and R4, plus a front 'M' (Mode) button below the d-pad and a dedicated mic mute button. Each back button has a physical quick-latch slider that mechanically locks it out to prevent accidental presses. Remap on the fly: hold M + L4 or M + R4 for 3 seconds until the indicator blinks slowly, then tap the button you want to assign. Repeat and tap L4/R4 itself to clear the assignment.</p>
+
+    <h3>Connectivity and performance</h3>
+    <div class="spec-grid">
+      <div class="spec-row"><span class="spec-key">Connection modes</span><span class="spec-val">Wired</span></div>
+      <div class="spec-row"><span class="spec-key">Polling rate (PC)</span><span class="spec-val">250 Hz default; 500 Hz and 1000 Hz selectable in GameSir Nexus</span></div>
+      <div class="spec-row"><span class="spec-key">Polling rate (Xbox)</span><span class="spec-val">250 Hz</span></div>
+      <div class="spec-row"><span class="spec-key">Audio jack</span><span class="spec-val">3.5 mm</span></div>
+      <div class="spec-row"><span class="spec-key">Gyro</span><span class="spec-val">No</span></div>
+      <div class="spec-row"><span class="spec-key">Rumble</span><span class="spec-val">Four rumble motors: one in each grip plus one behind each trigger (impulse triggers). Vibration strength is configurable per profile in GameSir Nexus, and impulse triggers can be forced on for all games.</span></div>
+    </div>
+    <div class="note"><p>Wired only, via a 3 m detachable USB-C (USB-A to USB-C) cable. No battery and no wireless mode of any kind. GameSir's manual tech-spec block also lists Android, but the FAQ and product page list only Xbox Series X|S, Xbox One and Windows 10/11, so Android support is unconfirmed.</p></div>
+    <p class="small text-muted">GameSir states the Xbox console enforces a 250 Hz cap, so 1000 Hz is a PC-only option. Per GameSir's help center, 500 Hz requires Windows 10 or newer, while 1000 Hz requires Windows 11, firmware 6.30 or higher, GameSir Nexus 1.2.9 or higher, and a reboot after first enabling it. Both 500 Hz and 1000 Hz disable the 3.5 mm headphone jack. Gamepadla measured a genuine 1000 Hz median (1000.29 Hz average) on firmware 6.6.4, though some community reports claim units cap near 500 Hz.</p>
+    <p class="small text-muted">Gyro: GameSir's official gyroscope list names G7 Pro, G7 Pro Wuchang, G7 Pro Zenless Zone Zero, Tarantula Pro Xbox and T7 Pro Sugar Whirl among Xbox controllers. The G7 SE is not on that list, and gamepadla's verified specs also record no gyroscope.</p>
+
+    <h3>Battery and build</h3>
+    <div class="spec-grid">
+      <div class="spec-row"><span class="spec-key">Battery capacity</span><span class="spec-val unknown">Not documented</span></div>
+      <div class="spec-row"><span class="spec-key">Claimed battery life</span><span class="spec-val unknown">Not documented</span></div>
+      <div class="spec-row"><span class="spec-key">Swappable faceplates</span><span class="spec-val">Yes</span></div>
+    </div>
+    <p class="small text-muted">Wired only. GameSir's spec sheet lists 'Battery: No' and gamepadla's verified spec list records 'No battery'. There is nothing to charge and no battery-life claim to attribute.</p>
+    <p class="small text-muted">Magnetic swappable faceplate designed to accept paint. Faceplates are one of the few parts GameSir sells separately. G7 series faceplates fit the newer G7 Pro, but the G7 Pro's 3-part split faceplate does NOT fit the G7, G7 SE or G7 HE. Calibration must be performed with the faceplate installed or the stick range values will be wrong.</p>
+  </div>
+
+  <h3 id="latency">Measured latency</h3>
+<p class="section-intro small">Bar length reflects stick latency on a fixed 0&ndash;16&nbsp;ms scale, so bars are comparable between models. Measured and published by gamepadla.com; polling rate and latency are measured by different methods and are not the same thing.</p>
+<div class="latency-list">
+<div class="latency-row">
+  <div class="latency-head"><span class="latency-mode">Wired (XInput, FW 6.6.4)</span><span class="latency-num">button 3.00 ms avg · stick 3.23 ms avg · 1000 Hz</span></div>
+  <div class="bar-track"><div class="bar-fill is-warn" style="width:20.2%"></div></div>
+</div>
+</div>
+
+  <h2 id="features">Notable features</h2>
+<ul>
+  <li>First Xbox-licensed controller with Hall Effect sticks (launched June 2023)</li>
+  <li>Hall Effect analog triggers with a hair-trigger toggle (hold M + LT/RT for 2 seconds)</li>
+  <li>Two remappable back buttons with physical lock latches, remappable without software</li>
+  <li>Four rumble motors including impulse triggers</li>
+  <li>Three custom profiles plus default, switched on-pad with M + Y (default), M + B (1), M + A (2), M + X (3)</li>
+  <li>3.5 mm audio jack with on-pad volume and game/chat balance via M + d-pad, plus a dedicated mic mute button</li>
+  <li>Zero-deadzone option and an exclusive 'Raw' stick mode in GameSir Nexus</li>
+  <li>Magnetic paint-friendly swappable faceplate</li>
+  <li>Gamepadla measured 3.00 ms button and 3.23 ms stick latency at 1000 Hz on firmware 6.6.4</li>
+</ul>
+
+  <h2 id="issues">Known issues and fixes</h2>
+<p class="section-intro">Documented problems with documented solutions. Each entry cites where the fix comes from.</p>
+<div class="accordion">
+<details class="item">
+  <summary>Controller is plugged in and the light is on, but no inputs register, or it repeatedly disconnects, or it will not power on at all.</summary>
+  <div class="item-body">
+    <div class="qa-block"><span class="qa-label">Likely cause</span>PID recognition failure between the controller and host, or the controller being in the wrong input mode (XInput vs GIP).</div>
+    <div class="qa-block"><span class="qa-label">Fix</span>While connected, hold the Xbox button + M button for 3 seconds (you should hear an indicator tone), then unplug and replug to switch back to the original PID and restore device recognition. If that fails, hold the Xbox button + Share button for 3 seconds while connected to force-switch between XInput and GIP modes. Also try motherboard-rear USB ports rather than case ports or hubs, and a known-good data cable.</div>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/support/faq" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+<details class="item">
+  <summary>Connection instability: random disconnects, failure to power on, or no input, on specific firmware builds.</summary>
+  <div class="item-body">
+    <div class="qa-block"><span class="qa-label">Likely cause</span>GameSir names firmware 6.33, 6.38 and 6.5.6 as known problematic versions for the G7 SE and G7 HE that cause connection-related issues.</div>
+    <div class="qa-block"><span class="qa-label">Fix</span>Check your version in GameSir Nexus (the upward arrow labelled 'Firmware Upgrade' at top right) or in Legacy GameSir Nexus (the 'Updates' button on the controller page), then update to a current stable build. If Nexus does not offer the update, GameSir provides a standalone manual upgrader for G7 SE/HE on PC.</div>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/support/faq" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+<details class="item">
+  <summary>The 3.5 mm headset jack goes completely dead: no game audio and no mic.</summary>
+  <div class="item-body">
+    <div class="qa-block"><span class="qa-label">Likely cause</span>Selecting a 500 Hz or 1000 Hz report rate disables the controller's onboard audio. This is by design, not a fault.</div>
+    <div class="qa-block"><span class="qa-label">Fix</span>Set the report rate back to 250 Hz in GameSir Nexus on PC. GameSir support explicitly says the polling rate 'should be locked at 250hz to avoid potential problems' for headset use. Also ensure the headset is pushed fully flush into the jack, and on Xbox set Settings &gt; General &gt; Volume &amp; audio output &gt; Headset audio to 'Stereo uncompressed'.</div>
+    <p class="small text-dim">Source: <a href="https://doc.xiaoji.com/en/gamesir/detail/1400.html" rel="nofollow noopener" target="_blank">doc.xiaoji.com</a></p>
+  </div>
+</details>
+<details class="item">
+  <summary>The sticks appear to drift immediately out of the box after setting the initial deadzone to 0 in GameSir Nexus.</summary>
+  <div class="item-body">
+    <div class="qa-block"><span class="qa-label">Likely cause</span>Not hardware drift. A 0 deadzone is a true physical zero, which makes the stick extremely sensitive to the smallest residual movement.</div>
+    <div class="qa-block"><span class="qa-label">Fix</span>GameSir's official answer: set the initial deadzone to roughly 3-5 instead of 0 and behaviour returns to normal.</div>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/cs/pages/faq-questions-about-g7-he" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+<details class="item">
+  <summary>Face buttons or the d-pad double-click or register the wrong input; a bumper auto-clicks by itself.</summary>
+  <div class="item-body">
+    <div class="qa-block"><span class="qa-label">Likely cause</span>Corrupted profile/mapping state or outdated firmware.</div>
+    <div class="qa-block"><span class="qa-label">Fix</span>Run the function reset by holding the Xbox button + Menu button for 5 seconds while the controller is connected, then update the firmware to the latest version in GameSir Nexus (GameSir's page cites V6.40 as the target at the time of writing), using the standalone PC upgrader if Nexus does not offer it.</div>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/cs/pages/faq-questions-about-g7-he" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+<details class="item">
+  <summary>The controller becomes unresponsive or refuses to power on after a button combination was held while plugging in the USB cable.</summary>
+  <div class="item-body">
+    <div class="qa-block"><span class="qa-label">Likely cause</span>Holding <kbd>Xbox + Menu</kbd>, or <kbd>View + Xbox + Menu</kbd>, WHILE plugging in the cable puts the controller into DFU (firmware update) mode or manual calibration mode rather than normal operation. GameSir also notes that controllers with cable guards can feel fully seated when only half inserted.</div>
+    <div class="qa-block"><span class="qa-label">Fix</span>Unplug, plug the cable in firmly with no buttons held until it audibly clicks, then hold the Xbox button to power on. If it stays unresponsive, perform a manual firmware upgrade from a Windows PC using GameSir's standalone G7 series upgrader package.</div>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/support/faq" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+<details class="item">
+  <summary>Controller works perfectly on PC but is not detected by the Xbox console at all.</summary>
+  <div class="item-body">
+    <div class="qa-block"><span class="qa-label">Likely cause</span>Stale console state / cached USB enumeration.</div>
+    <div class="qa-block"><span class="qa-label">Fix</span>Full power cycle: plug the controller into the console's rear USB port, hold the console power button for 10+ seconds until it fully shuts down, unplug the power cord for about 30 seconds, press the console power button 10 times to discharge residual power, then power back on with the controller still in the rear port.</div>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/support/faq" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+</div>
+
+  <h2 id="faq">Frequently asked questions</h2>
+<div class="accordion">
+<details class="item">
+  <summary>What is the correct stick and trigger calibration procedure for the G7 SE? (Do NOT use the G7 Pro procedure.)</summary>
+  <div class="item-body">
+    <p>1) Hold <kbd>View + Menu + Xbox</kbd> buttons and, while still holding them, insert the USB-C cable into your PC's USB port; release after plugging in. The indicator blinks slowly in white. 2) Without touching the triggers or sticks, press A. The indicator goes out. 3) Press LT and RT to their maximum travel and rotate both sticks at maximum angle three times, then press A. The indicator turns solid white to confirm. 4) Unplug and replug the controller before use. Important caveats: calibration must be done with the faceplate installed or the range values will be wrong; move at a steady, gentle speed to avoid data-collection errors; manual calibration often succeeds when the in-app calibration fails. CRITICAL: this hold-while-plugging-in procedure is specific to the older G7 series (G7 / G7 SE / G7 HE). GameSir explicitly warns that using this older-G7 calibration procedure on a G7 Pro will put that controller into firmware update mode and leave it unable to power on normally. The G7 Pro instead uses <kbd>View + Menu + Home</kbd> held for 2 seconds while already connected.</p>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/support/manuals/g7-se-multi-color" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+<details class="item">
+  <summary>How do I reset the G7 SE to default settings?</summary>
+  <div class="item-body">
+    <p>Two documented options. Function reset: hold the Xbox button + Menu button for 5 seconds while connected, which also fixes bad key binds you cannot undo. Full profile/settings reset: hold <kbd>View + Menu + M</kbd> until the logo button blinks, then hold the Xbox button for 3 seconds; this resets the profile and all controller settings. You can also just reapply the default profile with <kbd>M + Y</kbd>.</p>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/cs/pages/faq-questions-about-g7-he" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+<details class="item">
+  <summary>Is the G7 SE wireless, and does it have a battery?</summary>
+  <div class="item-body">
+    <p>No. It is wired only, using a 3 m detachable USB-C cable, and it has no battery at all. GameSir's own spec sheet lists 'Battery: No', so there is no charge time or battery-life figure for this controller.</p>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/products/gamesir-g7-se/buy" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+<details class="item">
+  <summary>How do I get 1000 Hz polling, and why does my headset stop working when I do?</summary>
+  <div class="item-body">
+    <p>1000 Hz is PC-only; GameSir states the Xbox console enforces a 250 Hz cap. On PC you need Windows 11, G7 SE firmware 6.30 or higher, and GameSir Nexus 1.2.9 or higher; select the report rate under Profiles and restart the computer the first time. 500 Hz works on Windows 10 or higher and needs no script. Running either 500 Hz or 1000 Hz disables the controller's headphone jack, which is expected behaviour. GameSir recommends 500 Hz for general use and 1000 Hz for competitive play.</p>
+    <p class="small text-dim">Source: <a href="https://doc.xiaoji.com/en/gamesir/detail/1400.html" rel="nofollow noopener" target="_blank">doc.xiaoji.com</a></p>
+  </div>
+</details>
+<details class="item">
+  <summary>How do I remap the back buttons and switch profiles without software?</summary>
+  <div class="item-body">
+    <p>Remap: hold M + R4 (or M + L4) for 3 seconds until the indicator blinks slowly, then tap the button you want mapped to it; the indicator turns solid to confirm. Clear it: repeat the combo and tap R4/L4 itself. Profiles: <kbd>M + Y</kbd> is the default profile, <kbd>M + B</kbd> is Profile 1, <kbd>M + A</kbd> is Profile 2, <kbd>M + X</kbd> is Profile 3. The two quick-latch sliders on the back mechanically enable or disable the back buttons entirely.</p>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/support/manuals/g7-se-multi-color" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+<details class="item">
+  <summary>How do I enable hair-trigger mode and control headset volume from the pad?</summary>
+  <div class="item-body">
+    <p>Hair trigger: hold <kbd>M + LT</kbd> or <kbd>M + RT</kbd> for 2 seconds until the controller vibrates; repeat to disable. Master volume: hold M + d-pad Up/Down (10 levels, with a beep at max and min). Game/chat balance: hold M + d-pad Left/Right (beeps at max, middle and min). A headset must be plugged into the 3.5 mm jack for volume control to do anything. The mic mute button turns the indicator red when muted; holding it temporarily unmutes.</p>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/support/manuals/g7-se-multi-color" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+<details class="item">
+  <summary>What software does the G7 SE use, and what can it change?</summary>
+  <div class="item-body">
+    <p>GameSir Nexus, available on both Xbox and PC. It supports three custom profiles covering button mapping, d-pad diagonal tuning, stick and trigger fine-tuning (including stick curves, initial/max deadzone, anti-deadzone, hair-trigger static vs adaptive modes, and continuous trigger toggle), vibration configuration, report rate selection, and firmware updates. Sticks can be set to zero deadzone and switched between Default and GameSir's exclusive 'Raw' mode. Note the G7 SE uses Nexus, not GameSir Connect, which is the app for the G7 Pro family.</p>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/support/manuals/g7-se-multi-color" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+<details class="item">
+  <summary>Does the G7 SE have a gyroscope?</summary>
+  <div class="item-body">
+    <p>No. GameSir's official gyro-equipped list covers the G7 Pro, G7 Pro Wuchang, G7 Pro Zenless Zone Zero, Tarantula Pro Xbox and T7 Pro Sugar Whirl on the Xbox side. The G7 SE is not included, and gamepadla's verified spec sheet also records no gyroscope.</p>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/support/faq" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+<details class="item">
+  <summary>Are G7 Pro faceplates compatible with the G7 SE?</summary>
+  <div class="item-body">
+    <p>No, not in that direction. The G7 Pro can accept faceplates from the older G7 series, but the G7 Pro's three-part split faceplate is not compatible with the G7, G7 SE or G7 HE. Magnetic faceplates for the G7 series are one of the few parts GameSir sells separately; internal components, buttons and USB ports are not sold as spares.</p>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/pages/faq-questions-about-g7-pro" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+</div>
+
+  <h2 id="sources">Sources</h2>
+<ul class="source-list">
+<li><a href="https://gamesir.com/products/gamesir-g7-se/buy" rel="nofollow noopener" target="_blank">GameSir official G7 SE product page (tech specs, $44.99, 221 g, 152x103x63 mm)</a></li>
+<li><a href="https://gamesir.com/support/manuals/g7-se-multi-color" rel="nofollow noopener" target="_blank">GameSir official G7 SE manual / how-to (calibration, resets, button combos, FAQ)</a></li>
+<li><a href="https://gamesir.com/support/faq" rel="nofollow noopener" target="_blank">GameSir official support FAQ hub (problematic firmware list, PID fix, DFU warning, gyro list, Xbox 250 Hz cap)</a></li>
+<li><a href="https://gamesir.com/cs/pages/faq-questions-about-g7-he" rel="nofollow noopener" target="_blank">GameSir official G7 HE/SE customer-support FAQ (function reset, 0-deadzone answer, audio fix, firmware V6.40)</a></li>
+<li><a href="https://doc.xiaoji.com/en/gamesir/detail/1400.html" rel="nofollow noopener" target="_blank">GameSir official help center: how to enable 1000 Hz on G7 / G7 SE (Win 11, FW 6.30+, Nexus 1.2.9+, audio disabled)</a></li>
+<li><a href="https://gamesir.com/support/manuals/gamesir-g7-pro-plum-purple" rel="nofollow noopener" target="_blank">GameSir official G7 Pro manual containing the older-G7-calibration firmware-update-mode warning</a></li>
+<li><a href="https://gamepadla.com/gamesir-g7-se.html" rel="nofollow noopener" target="_blank">gamepadla measured data: latency, polling, center error, circle error, asymmetry, resolution, linearity</a></li>
+<li><a href="https://www.windowscentral.com/accessories/gamesir-g7-wired-controller-review" rel="nofollow noopener" target="_blank">Windows Central G7 SE review (pricing, features, rear lock switches)</a></li>
+<li><a href="https://www.windowscentral.com/gaming/gamesir-launches-the-first-xbox-controller-with-hall-effect-sticks" rel="nofollow noopener" target="_blank">Windows Central launch coverage, 18 July 2023 ($44.99 / £49.99 / €59.99, first Hall Effect Xbox pad)</a></li>
+<li><a href="https://gamesir.com/blogs/news/introducing-the-gamesir-g7-se-a-special-secure-superior-controller-xbox" rel="nofollow noopener" target="_blank">GameSir official G7 SE launch announcement, Hong Kong, 13 June 2023</a></li>
+<li><a href="https://www.pcgamingwiki.com/wiki/Controller:GameSir_G7" rel="nofollow noopener" target="_blank">PCGamingWiki G7 family entry (G7 SE released 17 June 2023; membrane face buttons, back button locks)</a></li>
+<li><a href="https://www.gamesradar.com/gamesir-g7-se-review/" rel="nofollow noopener" target="_blank">GamesRadar+ G7 SE review (back button lock notches, no trigger stops, layout)</a></li>
+<li><a href="https://www.ifixit.com/Wiki/GameSir_G7_SE" rel="nofollow noopener" target="_blank">iFixit G7 SE troubleshooting wiki (community-reported won't-power-on and thumbstick symptoms)</a></li>
+</ul>
+
+  <p class="small text-dim">Data last reviewed 2026-09-06. Figures are compiled from the sources above rather than first-hand testing.</p>
+</div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p class="disclaimer">
+      <strong>Unofficial and community-maintained.</strong> Not affiliated with, endorsed by, or operated by
+      GameSir. Specifications are compiled from GameSir's published product pages, manuals and FAQ documents,
+      from independent measurement data published by gamepadla.com, and from published reviews &mdash; not from
+      first-hand testing, unless a figure says otherwise. Values that could not be verified are marked
+      &ldquo;not documented&rdquo; rather than estimated. Manufacturer claims are labelled as claims.
+    </p>
+    <p class="small">Found an error? Open an issue or a pull request with a source and it will be corrected.</p>
+  </div>
+</footer>
+
+</body>
+</html>
