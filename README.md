@@ -24,12 +24,29 @@ figure explicitly says so.
 
 ```
 data/controllers.json    Single source of truth — all content lives here
-build.mjs                Zero-dependency generator
-src/assets/css/          Stylesheet
+build.mjs                Zero-dependency generator (templates and client JS live inline)
+src/assets/               Stylesheet and favicon, copied verbatim into docs/assets/
 docs/                    Generated output (this is what GitHub Pages serves)
 ```
 
 Everything in `docs/` is generated. Never edit it by hand; edit the JSON and rebuild.
+
+## Design
+
+One stylesheet, `src/assets/css/style.css`, with no build step and no framework. Every
+colour, size and radius is a custom property declared at the top, so the dark and light
+themes are override blocks rather than parallel rulesets — nothing further down the file
+hard-codes a surface or text colour. The theme follows the operating system by default and
+remembers an explicit choice in `localStorage`.
+
+Typography is a system-font stack, which renders on first paint and needs no network
+request. There is no product photography anywhere: controller cards use a typographic
+media panel generated from the model name, and the hero is built from a masked grid and a
+brand-tinted glow.
+
+Scripting is progressive enhancement only. With JavaScript off, every page stays a
+complete, readable document — panels do not collapse, and the filters simply do not appear
+to do anything.
 
 ## Building
 

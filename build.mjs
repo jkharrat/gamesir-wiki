@@ -258,48 +258,137 @@ const NAV = [
   { href: "about.html", label: "About" },
 ];
 
+/** Footer link columns. Grouped by intent rather than mirroring the nav. */
+const FOOTER_COLS = [
+  {
+    title: "Reference",
+    links: [
+      { href: "index.html#controllers", label: "All controllers" },
+      { href: "compare.html", label: "Specification comparison" },
+      { href: "latency.html", label: "Measured latency" },
+    ],
+  },
+  {
+    title: "Help",
+    links: [
+      { href: "troubleshooting.html", label: "Troubleshooting index" },
+      { href: "troubleshooting.html#drift", label: "Stick drift checklist" },
+      { href: "faq.html", label: "Frequently asked questions" },
+    ],
+  },
+  {
+    title: "This site",
+    links: [
+      { href: "about.html", label: "About &amp; sourcing" },
+      { href: "about.html#corrections", label: "Submit a correction" },
+    ],
+  },
+];
+
+/**
+ * Brand mark. A ring with an off-centre dot — a thumbstick resting away from
+ * centre, which is the single subject this site keeps coming back to. Drawn
+ * inline so it can pick up the theme's brand colour instead of baking one in.
+ */
+const BRAND_MARK = `<svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+        <rect width="32" height="32" rx="8" fill="var(--brand)"/>
+        <circle cx="16" cy="16" r="8.4" fill="none" stroke="var(--brand-ink)" stroke-width="2.5" opacity=".85"/>
+        <circle cx="19.4" cy="12.6" r="3.3" fill="var(--brand-ink)"/>
+      </svg>`;
+
+const ICON_MOON = `<svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>`;
+const ICON_SUN = `<svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"/></svg>`;
+const ICON_MENU = `<svg class="icon-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>`;
+const ICON_CLOSE = `<svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>`;
+
+/**
+ * Applied before first paint so a stored light theme does not flash dark. Also
+ * sets the `js` class the stylesheet uses to decide whether panels may
+ * collapse — if scripting is off, the page stays one long readable document.
+ */
+const THEME_BOOT = `(function(){var d=document.documentElement;try{var t=localStorage.getItem("gsw-theme");if(t!=="light"&&t!=="dark"){t=window.matchMedia&&window.matchMedia("(prefers-color-scheme: light)").matches?"light":"dark";}d.setAttribute("data-theme",t);}catch(e){d.setAttribute("data-theme","dark");}d.className+=" js";})();`;
+
 function layout({ title, description, current, base = "", body, bodyEnd = "" }) {
   const nav = NAV.map(
     (n) =>
       `<a href="${base}${n.href}"${n.href === current ? ' aria-current="page"' : ""}>${n.label}</a>`
   ).join("");
 
+  const footerCols = FOOTER_COLS.map(
+    (col) => `      <div class="footer-col">
+        <h3>${col.title}</h3>
+        <ul>
+${col.links.map((l) => `          <li><a href="${base}${l.href}">${l.label}</a></li>`).join("\n")}
+        </ul>
+      </div>`
+  ).join("\n");
+
   return `<!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(description)}">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#0b0b0d">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="${SITE_NAME}">
+<meta property="og:title" content="${esc(title)}">
+<meta property="og:description" content="${esc(description)}">
+<link rel="icon" href="${base}assets/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="${base}assets/css/style.css">
-<script>document.documentElement.className += " js";</script>
+<script>${THEME_BOOT}</script>
 </head>
 <body>
 
-<header class="site-header">
-  <div class="wrap">
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header" id="site-header">
+  <div class="wrap header-inner">
     <a class="brand" href="${base}index.html">
-      <span class="brand-mark">GS</span>
-      <span>${SITE_NAME}</span>
+      ${BRAND_MARK}
+      <span>GameSir <span class="brand-sub">Wiki</span></span>
     </a>
-    <nav class="site-nav">${nav}</nav>
+
+    <nav class="site-nav" id="site-nav" aria-label="Main">${nav}</nav>
+
+    <div class="header-actions">
+      <button class="icon-btn theme-toggle" id="theme-toggle" type="button" aria-label="Switch between dark and light theme">${ICON_MOON}${ICON_SUN}</button>
+      <button class="icon-btn nav-toggle" id="nav-toggle" type="button" aria-controls="site-nav" aria-expanded="false" aria-label="Menu">${ICON_MENU}${ICON_CLOSE}</button>
+    </div>
   </div>
 </header>
 
-<main>
+<main id="main">
 ${body}
 </main>
 
 <footer class="site-footer">
   <div class="wrap">
-    <p class="disclaimer">
-      <strong>Unofficial and community-maintained.</strong> Not affiliated with, endorsed by, or operated by
-      GameSir. Specifications are compiled from GameSir's published product pages, manuals and FAQ documents,
-      from independent measurement data published by gamepadla.com, and from published reviews &mdash; not from
-      first-hand testing, unless a figure says otherwise. Values that could not be verified are marked
-      &ldquo;not documented&rdquo; rather than estimated. Manufacturer claims are labelled as claims.
-    </p>
-    <p class="small">Found an error? Open an issue or a pull request with a source and it will be corrected.</p>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a class="brand" href="${base}index.html">
+          ${BRAND_MARK}
+          <span>GameSir <span class="brand-sub">Wiki</span></span>
+        </a>
+        <p class="footer-tag">An unofficial, community-maintained reference. Every specification traces back to a published source, and anything that could not be verified is left blank on purpose.</p>
+      </div>
+${footerCols}
+    </div>
+
+    <div class="footer-bottom">
+      <p class="disclaimer">
+        <strong>Unofficial and community-maintained.</strong> Not affiliated with, endorsed by, or operated by
+        GameSir. Specifications are compiled from GameSir's published product pages, manuals and FAQ documents,
+        from independent measurement data published by gamepadla.com, and from published reviews &mdash; not from
+        first-hand testing, unless a figure says otherwise. Values that could not be verified are marked
+        &ldquo;not documented&rdquo; rather than estimated. Manufacturer claims are labelled as claims.
+      </p>
+      <p class="footer-meta">
+        Found an error? Open an issue or a pull request with a source and it will be corrected.
+      </p>
+    </div>
   </div>
 </footer>
 ${bodyEnd}
@@ -309,13 +398,38 @@ ${bodyEnd}
 `;
 }
 
+/**
+ * Full-bleed masthead for an inner page. Sits outside the content column so
+ * its background reaches both edges of the viewport.
+ */
+function pageHead({ narrow = true, breadcrumb = "", eyebrow = "", heading, lede = "", extra = "" }) {
+  return `<section class="page-head">
+  <div class="wrap${narrow ? " narrow" : ""}">
+    ${breadcrumb}${eyebrow ? `<p class="eyebrow">${esc(eyebrow)}</p>` : ""}
+    <h1>${heading}</h1>
+    ${lede}${extra}
+  </div>
+</section>`;
+}
+
+/** Centred section heading with a supporting line, for the index-style pages. */
+const sectionHead = (id, heading, intro) =>
+  `<div class="section-head">
+    <h2 id="${id}">${heading}</h2>
+    <p class="section-intro">${intro}</p>
+  </div>`;
+
 /* ----------------------------------------------------------- components -- */
 
 /**
  * Badges must stay pill-sized, so they read from the curated `short` values
  * rather than the prose fields, which run to whole paragraphs on some models.
+ *
+ * `max` trims the row for the card grid, where five badges wrap onto a second
+ * line and turn an otherwise scannable grid into noise. The first three carry
+ * what actually separates one model from another; the page head shows them all.
  */
-function controllerBadges(c) {
+function controllerBadges(c, { max = Infinity } = {}) {
   const b = [];
   const pill = (text, cls = "badge", title = null) =>
     b.push(
@@ -333,7 +447,7 @@ function controllerBadges(c) {
   const software = c.short?.software ?? c.software;
   if (software) pill(software, "badge", c.software);
 
-  return `<div class="badges">${b.join("")}</div>`;
+  return `<div class="badges">${b.slice(0, max).join("")}</div>`;
 }
 
 /**
@@ -405,16 +519,24 @@ function pageIndex(data) {
       // dates; the card only has room for the headline figure.
       const price = c.short?.msrp ?? (c.msrp ? condense(c.msrp, 18) : null);
 
-      return `<a class="controller-card" href="controllers/${esc(c.id)}.html">
-  ${controllerBadges(c)}
-  <h3>${esc(c.name)}</h3>
-  <p class="tagline">${esc(c.tagline)}</p>
-  <div class="card-foot">
-    <span>${esc(connSummary(c) ?? "")}</span>
-    <span class="card-price"${
-      c.msrp && c.msrp !== price ? ` title="${esc(c.msrp)}"` : ""
-    }>${price ? esc(price) : ""}</span>
-  </div>
+      // The media panel stands in for the product shot this site deliberately
+      // does not carry, so it shows the one thing that identifies the model:
+      // its designation, with the brand prefix dropped as redundant here.
+      const mark = c.name.replace(/^GameSir\s+/i, "");
+
+      return `<a class="controller-card tint-${esc(c.tier ?? "entry")}" href="controllers/${esc(c.id)}.html">
+  <span class="card-media" aria-hidden="true"><span class="card-mark">${esc(mark)}</span></span>
+  <span class="card-body">
+    ${controllerBadges(c, { max: 3 })}
+    <h3>${esc(c.name)}</h3>
+    <span class="tagline">${esc(c.tagline)}</span>
+    <span class="card-foot">
+      <span>${esc(connSummary(c) ?? "")}</span>
+      <span class="card-price"${
+        c.msrp && c.msrp !== price ? ` title="${esc(c.msrp)}"` : ""
+      }>${price ? esc(price) : ""}</span>
+    </span>
+  </span>
 </a>`;
     })
     .join("\n");
@@ -423,8 +545,8 @@ function pageIndex(data) {
   const faqCount = cs.reduce((n, c) => n + (c.faq?.length ?? 0), 0);
   const srcCount = new Set(cs.flatMap((c) => (c.sources ?? []).map((s) => s.url))).size;
 
-  const body = `<div class="wrap">
-  <section class="hero">
+  const body = `<section class="hero">
+  <div class="wrap">
     <h1>A sourced reference for GameSir controllers</h1>
     <p class="lede">
       Specifications, documented fixes and frequently asked questions for ${cs.length} GameSir controllers,
@@ -435,8 +557,15 @@ function pageIndex(data) {
       <a class="btn btn-primary" href="compare.html">Compare all models</a>
       <a class="btn btn-ghost" href="troubleshooting.html">Troubleshooting index</a>
     </div>
-  </section>
+    <p class="hero-meta">
+      <span>${srcCount} cited sources</span>
+      <span>No estimated figures</span>
+      <span>Reviewed ${esc(data.meta?.updated ?? "")}</span>
+    </p>
+  </div>
+</section>
 
+<div class="wrap">
   <div class="stat-strip">
     <div class="stat"><div class="stat-value">${cs.length}</div><div class="stat-label">Controllers</div></div>
     <div class="stat"><div class="stat-value">${issueCount}</div><div class="stat-label">Documented fixes</div></div>
@@ -444,14 +573,20 @@ function pageIndex(data) {
     <div class="stat"><div class="stat-value">${srcCount}</div><div class="stat-label">Cited sources</div></div>
   </div>
 
-  <h2 id="controllers">Controllers</h2>
-  <p class="section-intro">Each page covers full specifications, measured performance where independent data exists, documented problems with their fixes, and sources.</p>
+  ${sectionHead(
+    "controllers",
+    "Controllers",
+    "Each page covers full specifications, measured performance where independent data exists, documented problems with their fixes, and sources."
+  )}
   <div class="card-grid">
 ${cards}
   </div>
 
-  <h2 id="start-here">Start here</h2>
-  <p class="section-intro">Three things account for a large share of GameSir support questions.</p>
+  ${sectionHead(
+    "start-here",
+    "Start here",
+    "Three things account for a large share of GameSir support questions."
+  )}
 
   <div class="accordion">
     <details class="item">
@@ -691,18 +826,20 @@ ${sources}
     )
     .join("\n");
 
-  const body = `<div class="wrap narrow">
-  <div class="page-head">
-    <p class="breadcrumb"><a href="../index.html">Home</a> / <a href="../index.html#controllers">Controllers</a> / ${esc(
+  const body = `${pageHead({
+    breadcrumb: `<p class="breadcrumb"><a href="../index.html">Home</a> / <a href="../index.html#controllers">Controllers</a> / ${esc(
       c.name
-    )}</p>
-    <p class="eyebrow">${esc(tierLabel(c.tier))} &middot; ${esc(c.category ?? "")}</p>
-    <h1>${esc(c.fullName ?? c.name)}</h1>
-    <p class="lede">${esc(c.tagline)}</p>
-    ${controllerBadges(c)}
-  </div>
+    )}</p>`,
+    eyebrow: `${tierLabel(c.tier)} \u00b7 ${c.category ?? ""}`,
+    heading: esc(c.fullName ?? c.name),
+    lede: `<p class="lede">${esc(c.tagline)}</p>`,
+    extra: controllerBadges(c),
+  })}
 
-  <nav class="tabs" id="controller-tabs" aria-label="Sections of this page">${tabs}</nav>
+<div class="wrap narrow">
+  <div class="tabs-dock">
+    <nav class="tabs" id="controller-tabs" aria-label="Sections of this page">${tabs}</nav>
+  </div>
 
 ${sections}
 
@@ -780,11 +917,11 @@ function pageCompare(data) {
     })
     .join("\n");
 
-  const body = `<div class="wrap">
-  <div class="page-head">
-    <p class="eyebrow">Comparison</p>
-    <h1>Specification comparison</h1>
-    <p class="lede">
+  const body = `${pageHead({
+    narrow: false,
+    eyebrow: "Comparison",
+    heading: "Specification comparison",
+    lede: `<p class="lede">
       Every documented specification side by side. Em dashes mark values that could not be verified against a
       source &mdash; they are gaps in the documentation, not zeros. Scroll horizontally to see all models; model
       names stay pinned.
@@ -792,9 +929,10 @@ function pageCompare(data) {
     <p class="lede small">
       Values are abbreviated here to keep the table scannable. Hover a shortened cell for the full text, or open
       the model page for the complete entry with its caveats and sources.
-    </p>
-  </div>
+    </p>`,
+  })}
 
+<div class="wrap">
   <div class="note">
     <p><strong>Reading the stick sensor row.</strong> TMR and Hall Effect sticks both sense magnetically and do not
     wear like potentiometer sticks, which is why they are marketed as drift-resistant. That resistance is about
@@ -881,6 +1019,29 @@ function pageLatency(data) {
     return `<td class="metric-cell">${spans}${more}</td>`;
   };
 
+  // gamepadla did not measure every metric on every pad — several models have
+  // button latency but no stick figure. Counting them lets the switch say so,
+  // so an empty column reads as "not measured" rather than "no data exists".
+  const METRICS = [
+    { key: "stick", label: "Stick latency" },
+    { key: "button", label: "Button latency" },
+    { key: "polling", label: "Polling rate" },
+  ];
+
+  const metricCounts = Object.fromEntries(
+    METRICS.map((m) => [
+      m.key,
+      measured.filter((c) => (c.measuredLatency ?? []).some((l) => l[m.key])).length,
+    ])
+  );
+
+  const metricChips = METRICS.map(
+    (m, i) =>
+      `      <button class="chip" type="button" data-metric="${m.key}" aria-pressed="${
+        i === 0 ? "true" : "false"
+      }">${m.label} <span class="tab-count">${metricCounts[m.key]}</span></button>`
+  ).join("\n");
+
   const pivot = measured
     .map((c) => {
       const byFamily = latencyByFamily(c);
@@ -929,17 +1090,18 @@ ${latencyTable(c).replace(/\.\.\/latency\.html/g, "#top")}
 
   const noData = cs.filter((c) => !(c.measuredLatency ?? []).length);
 
-  const body = `<div class="wrap" id="top">
-  <div class="page-head">
-    <p class="eyebrow">Performance</p>
-    <h1>Measured latency</h1>
-    <p class="lede">
+  const body = `${pageHead({
+    narrow: false,
+    eyebrow: "Performance",
+    heading: "Measured latency",
+    lede: `<p class="lede">
       Independent latency measurements published by gamepadla.com, compared across every model covered here.
       Connection mode is the largest single factor &mdash; on several controllers the dongle is markedly slower
       than the cable for stick input, which is not something manufacturer specifications tell you.
-    </p>
-  </div>
+    </p>`,
+  })}
 
+<div class="wrap" id="top">
   <div class="stat-strip">
 ${strip}
   </div>
@@ -952,11 +1114,15 @@ ${strip}
 
   <div class="toolbar">
     <div class="metric-switch" id="metric-switch" role="group" aria-label="Choose which figure to compare">
-      <button class="chip" type="button" data-metric="stick" aria-pressed="true">Stick latency</button>
-      <button class="chip" type="button" data-metric="button" aria-pressed="false">Button latency</button>
-      <button class="chip" type="button" data-metric="polling" aria-pressed="false">Polling rate</button>
+${metricChips}
     </div>
   </div>
+
+  <p class="small text-dim">
+    Not every metric was measured for every controller. gamepadla published button latency for all
+    ${measured.length}, but stick latency for only ${metricCounts.stick} of them, so some rows are empty in the
+    stick view and populated in the others.
+  </p>
 
   <div class="table-scroll">
     <table class="spec-table pivot-table" id="latency-pivot" data-show="stick">
@@ -1033,16 +1199,16 @@ ${issueItem(i, i.model)}
     )
     .join("\n");
 
-  const body = `<div class="wrap narrow">
-  <div class="page-head">
-    <p class="eyebrow">Troubleshooting</p>
-    <h1>Troubleshooting index</h1>
-    <p class="lede">
+  const body = `${pageHead({
+    eyebrow: "Troubleshooting",
+    heading: "Troubleshooting index",
+    lede: `<p class="lede">
       Every documented problem and fix across all covered controllers, in one searchable list. Each entry cites
       the source of its fix so you can check the original instructions.
-    </p>
-  </div>
+    </p>`,
+  })}
 
+<div class="wrap narrow">
   <div class="note danger">
     <p><strong>Calibration procedures are not interchangeable between G7 models.</strong> The direction matters,
     so check which one applies to your controller before holding any button combination.</p>
@@ -1181,16 +1347,16 @@ ${faqItem(f, f.model)}
     )
     .join("\n");
 
-  const body = `<div class="wrap narrow">
-  <div class="page-head">
-    <p class="eyebrow">FAQ</p>
-    <h1>Frequently asked questions</h1>
-    <p class="lede">
+  const body = `${pageHead({
+    eyebrow: "FAQ",
+    heading: "Frequently asked questions",
+    lede: `<p class="lede">
       Questions collected from GameSir's official FAQ pages and manuals, grouped across every covered model and
       searchable in one place. Each answer links to its source.
-    </p>
-  </div>
+    </p>`,
+  })}
 
+<div class="wrap narrow">
   ${filterToolbar({
     topicLabel: "Topic",
     topicAllLabel: "All topics",
@@ -1217,14 +1383,14 @@ ${items}
 function pageAbout(data) {
   const notes = (data.meta?.sourceNotes ?? []).map((n) => `<li>${esc(n)}</li>`).join("\n");
 
-  const body = `<div class="wrap narrow">
-  <div class="page-head">
-    <p class="eyebrow">About</p>
-    <h1>About this reference</h1>
-    <p class="lede">What this site is, where its numbers come from, and how to correct them.</p>
-  </div>
+  const body = `${pageHead({
+    eyebrow: "About",
+    heading: "About this reference",
+    lede: `<p class="lede">What this site is, where its numbers come from, and how to correct them.</p>`,
+  })}
 
-  <h2>What this is</h2>
+<div class="wrap narrow">
+  <h2 id="what-this-is">What this is</h2>
   <p>
     An unofficial, community-maintained reference for GameSir controllers. It exists because the useful
     information is scattered across product pages, per-edition manuals, separate FAQ documents, independent
@@ -1234,7 +1400,7 @@ function pageAbout(data) {
     This site is not affiliated with, endorsed by, or operated by GameSir.
   </p>
 
-  <h2>Where the numbers come from</h2>
+  <h2 id="sourcing">Where the numbers come from</h2>
   <p>Specifications are compiled from published sources, in this order of preference:</p>
   <ol>
     <li>GameSir's official product pages, per-model manuals and FAQ documents</li>
@@ -1249,7 +1415,7 @@ function pageAbout(data) {
     from single tested units on specific firmware versions and can vary between units.</p>
   </div>
 
-  <h2>How gaps are handled</h2>
+  <h2 id="gaps">How gaps are handled</h2>
   <p>
     Where a value could not be verified against a source, it is left blank and marked
     &ldquo;not documented&rdquo; rather than filled with a plausible estimate. A visible gap is more useful than a
@@ -1257,7 +1423,7 @@ function pageAbout(data) {
   </p>
   ${notes ? `<ul>\n${notes}\n</ul>` : ""}
 
-  <h2>Corrections</h2>
+  <h2 id="corrections">Corrections</h2>
   <p>
     Corrections are welcome and wanted, especially from people who own the hardware. Open an issue or a pull
     request with a source, or with a description of what your own unit does and how you tested it. First-hand
@@ -1278,9 +1444,68 @@ function pageAbout(data) {
 
 /* ----------------------------------------------------------------- build -- */
 
-const FILTER_JS = `/* Progressive enhancement: section tabs, the latency metric switch, and
-   search/model filtering. Every page works without this file; it only makes
-   long pages shorter and the latency table switchable. */
+const FILTER_JS = `/* Progressive enhancement: theme switching, the mobile nav, section tabs, the
+   latency metric switch, and search/model filtering. Every page works without
+   this file; it only makes long pages shorter and the controls interactive. */
+
+/* -- Theme switch ---------------------------------------------------------
+   The stored choice is already applied by the inline script in <head>; this
+   only handles changing it. An explicit choice wins over the OS setting from
+   then on, which is why it is written to storage rather than inferred. */
+(function () {
+  var btn = document.getElementById("theme-toggle");
+  if (!btn) return;
+
+  var root = document.documentElement;
+
+  function label() {
+    var next = root.getAttribute("data-theme") === "light" ? "dark" : "light";
+    btn.setAttribute("title", "Switch to " + next + " theme");
+    btn.setAttribute("aria-label", "Switch to " + next + " theme");
+  }
+
+  btn.addEventListener("click", function () {
+    var next = root.getAttribute("data-theme") === "light" ? "dark" : "light";
+    root.setAttribute("data-theme", next);
+    try { localStorage.setItem("gsw-theme", next); } catch (e) {}
+    label();
+  });
+
+  label();
+})();
+
+/* -- Mobile navigation ---------------------------------------------------- */
+(function () {
+  var btn = document.getElementById("nav-toggle");
+  var header = document.getElementById("site-header");
+  var nav = document.getElementById("site-nav");
+  if (!btn || !header || !nav) return;
+
+  function close() {
+    header.classList.remove("nav-open");
+    btn.setAttribute("aria-expanded", "false");
+  }
+
+  btn.addEventListener("click", function () {
+    var open = header.classList.toggle("nav-open");
+    btn.setAttribute("aria-expanded", String(open));
+  });
+
+  // Following a link inside the drawer navigates; on a same-page anchor it
+  // would otherwise stay open over the section it just jumped to.
+  nav.addEventListener("click", function (e) {
+    if (e.target.closest("a")) close();
+  });
+
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") close();
+  });
+
+  // Reopening at desktop width would leave the drawer styles applied.
+  window.addEventListener("resize", function () {
+    if (window.innerWidth > 900) close();
+  });
+})();
 
 /* -- Section tabs on controller pages ------------------------------------- */
 (function () {
@@ -1559,11 +1784,12 @@ async function build() {
 
   if (existsSync(OUT)) await rm(OUT, { recursive: true });
   await mkdir(path.join(OUT, "controllers"), { recursive: true });
-  await mkdir(path.join(OUT, "assets", "js"), { recursive: true });
 
-  await cp(path.join(ROOT, "src", "assets", "css"), path.join(OUT, "assets", "css"), {
-    recursive: true,
-  });
+  // Copies the whole asset tree — stylesheet and favicon — rather than naming
+  // each one, so adding an asset needs no change here.
+  await cp(path.join(ROOT, "src", "assets"), path.join(OUT, "assets"), { recursive: true });
+
+  await mkdir(path.join(OUT, "assets", "js"), { recursive: true });
   await writeFile(path.join(OUT, "assets", "js", "filter.js"), FILTER_JS);
 
   // Tells GitHub Pages to serve the directory as-is instead of running Jekyll.

@@ -1,6 +1,65 @@
-/* Progressive enhancement: section tabs, the latency metric switch, and
-   search/model filtering. Every page works without this file; it only makes
-   long pages shorter and the latency table switchable. */
+/* Progressive enhancement: theme switching, the mobile nav, section tabs, the
+   latency metric switch, and search/model filtering. Every page works without
+   this file; it only makes long pages shorter and the controls interactive. */
+
+/* -- Theme switch ---------------------------------------------------------
+   The stored choice is already applied by the inline script in <head>; this
+   only handles changing it. An explicit choice wins over the OS setting from
+   then on, which is why it is written to storage rather than inferred. */
+(function () {
+  var btn = document.getElementById("theme-toggle");
+  if (!btn) return;
+
+  var root = document.documentElement;
+
+  function label() {
+    var next = root.getAttribute("data-theme") === "light" ? "dark" : "light";
+    btn.setAttribute("title", "Switch to " + next + " theme");
+    btn.setAttribute("aria-label", "Switch to " + next + " theme");
+  }
+
+  btn.addEventListener("click", function () {
+    var next = root.getAttribute("data-theme") === "light" ? "dark" : "light";
+    root.setAttribute("data-theme", next);
+    try { localStorage.setItem("gsw-theme", next); } catch (e) {}
+    label();
+  });
+
+  label();
+})();
+
+/* -- Mobile navigation ---------------------------------------------------- */
+(function () {
+  var btn = document.getElementById("nav-toggle");
+  var header = document.getElementById("site-header");
+  var nav = document.getElementById("site-nav");
+  if (!btn || !header || !nav) return;
+
+  function close() {
+    header.classList.remove("nav-open");
+    btn.setAttribute("aria-expanded", "false");
+  }
+
+  btn.addEventListener("click", function () {
+    var open = header.classList.toggle("nav-open");
+    btn.setAttribute("aria-expanded", String(open));
+  });
+
+  // Following a link inside the drawer navigates; on a same-page anchor it
+  // would otherwise stay open over the section it just jumped to.
+  nav.addEventListener("click", function (e) {
+    if (e.target.closest("a")) close();
+  });
+
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") close();
+  });
+
+  // Reopening at desktop width would leave the drawer styles applied.
+  window.addEventListener("resize", function () {
+    if (window.innerWidth > 900) close();
+  });
+})();
 
 /* -- Section tabs on controller pages ------------------------------------- */
 (function () {
