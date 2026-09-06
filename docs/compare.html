@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Specification comparison — GameSir Wiki</title>
+<meta name="description" content="Side-by-side specification comparison of GameSir controllers, with unverified values left explicitly blank.">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <span class="brand-mark">GS</span>
+      <span>GameSir Wiki</span>
+    </a>
+    <nav class="site-nav"><a href="index.html">Home</a><a href="compare.html" aria-current="page">Compare</a><a href="troubleshooting.html">Troubleshooting</a><a href="faq.html">FAQ</a><a href="about.html">About</a></nav>
+  </div>
+</header>
+
+<main>
+<div class="wrap">
+  <div class="page-head">
+    <p class="eyebrow">Comparison</p>
+    <h1>Specification comparison</h1>
+    <p class="lede">
+      Every documented specification side by side. Em dashes mark values that could not be verified against a
+      source &mdash; they are gaps in the documentation, not zeros. Scroll horizontally to see all models; model
+      names stay pinned.
+    </p>
+  </div>
+
+  <div class="note">
+    <p><strong>Reading the stick sensor row.</strong> TMR and Hall Effect sticks both sense magnetically and do not
+    wear like potentiometer sticks, which is why they are marketed as drift-resistant. That resistance is about
+    sensor wear, not about center accuracy &mdash; a magnetic stick can still show a small center error, and
+    several of these controllers apply no inner deadzone to hide it.</p>
+  </div>
+
+  <div class="table-scroll">
+    <table class="spec-table">
+      <thead><tr><th>Specification</th><th>GameSir G7 Pro</th><th>GameSir G7 Pro 8K</th></tr></thead>
+      <tbody>
+<tr><th>Tier</th><td>High-end</td><td>Flagship</td></tr>
+<tr><th>Launch price</th><td>$79.99</td><td class="na">&mdash;</td></tr>
+<tr><th>Released</th><td>2025</td><td>2026</td></tr>
+<tr><th>Software</th><td>GameSir Nexus</td><td>GameSir Connect</td></tr>
+<tr><th>Stick sensor</th><td>GameSir Mag-Res TMR</td><td>Gen-2 TMR</td></tr>
+<tr><th>Stick resolution (claimed)</th><td>4096-level, 12-bit ADC (manufacturer claim)</td><td class="na">&mdash;</td></tr>
+<tr><th>Measured center error</th><td>2.3% left / 1.9% right (wired XInput)</td><td>2.0% left / 2.9% right (Aimlabs Edition, wired XInput)</td></tr>
+<tr><th>Trigger tech</th><td>Hall Effect analog</td><td>Hall Effect analog</td></tr>
+<tr><th>Trigger stops</th><td>Yes</td><td>Yes</td></tr>
+<tr><th>D-pad</th><td>Mechanical microswitch, three selectable D-pad configurations</td><td>Mechanical microswitch</td></tr>
+<tr><th>Polling (PC)</th><td>1000 Hz (wired and 2.4 GHz)</td><td>8000 Hz (wired and 2.4 GHz)</td></tr>
+<tr><th>Polling (Xbox)</th><td>250 Hz</td><td class="na">&mdash;</td></tr>
+<tr><th>Connection modes</th><td>Wired / 2.4 GHz / Bluetooth</td><td>Wired / 2.4 GHz</td></tr>
+<tr><th>Battery</th><td>1200 mAh</td><td class="na">&mdash;</td></tr>
+<tr><th>Claimed battery life</th><td class="na">&mdash;</td><td class="na">&mdash;</td></tr>
+<tr><th>Weight</th><td>272 g</td><td class="na">&mdash;</td></tr>
+<tr><th>Rear buttons</th><td>2</td><td>2</td></tr>
+<tr><th>Gyro</th><td>Yes</td><td>Yes</td></tr>
+<tr><th>Audio jack</th><td>Yes</td><td>Yes</td></tr>
+<tr><th>Swappable faceplates</th><td>Yes</td><td>Yes</td></tr>
+<tr><th>Platforms</th><td>Xbox Series X|S, Xbox One, PC, Android, Steam</td><td>PC</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Measured latency</h2>
+  <p class="section-intro">
+    Independent measurements published by gamepadla.com, where available. These are averages from a single tested
+    unit on a specific firmware, so treat them as indicative rather than exact. Note how much the connection mode
+    matters &mdash; on several models the dongle is markedly slower than the cable for stick input.
+  </p>
+  <div class="table-scroll">
+    <table class="spec-table">
+      <thead><tr><th>Controller</th><th>Mode</th><th>Button latency</th><th>Stick latency</th><th>Polling</th></tr></thead>
+      <tbody>
+<tr><th>GameSir G7 Pro</th><td>Wired (XInput)</td><td>2.43 ms avg</td><td>2.70 ms avg</td><td>1001 Hz</td></tr>
+<tr><th>GameSir G7 Pro</th><td>2.4 GHz dongle (XInput)</td><td>5.69 ms avg</td><td>14.96 ms avg</td><td>1000 Hz</td></tr>
+<tr><th>GameSir G7 Pro</th><td>Bluetooth (DInput)</td><td>5.37 ms avg</td><td>5.82 ms avg</td><td>400 Hz</td></tr>
+<tr><th>GameSir G7 Pro 8K</th><td>Wired (XInput)</td><td>1.39 ms avg</td><td>0.69 ms avg</td><td>7936 Hz</td></tr>
+<tr><th>GameSir G7 Pro 8K</th><td>2.4 GHz dongle (XInput)</td><td>3.47 ms avg</td><td>3.56 ms avg</td><td>7936 Hz</td></tr>
+<tr><th>GameSir G7 Pro 8K</th><td>Bluetooth (Sony mode)</td><td>3.58 ms avg</td><td>3.45 ms avg</td><td>800 Hz</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p class="disclaimer">
+      <strong>Unofficial and community-maintained.</strong> Not affiliated with, endorsed by, or operated by
+      GameSir. Specifications are compiled from GameSir's published product pages, manuals and FAQ documents,
+      from independent measurement data published by gamepadla.com, and from published reviews &mdash; not from
+      first-hand testing, unless a figure says otherwise. Values that could not be verified are marked
+      &ldquo;not documented&rdquo; rather than estimated. Manufacturer claims are labelled as claims.
+    </p>
+    <p class="small">Found an error? Open an issue or a pull request with a source and it will be corrected.</p>
+  </div>
+</footer>
+
+</body>
+</html>

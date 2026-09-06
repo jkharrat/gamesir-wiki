@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Troubleshooting index — GameSir Wiki</title>
+<meta name="description" content="Searchable index of documented GameSir controller problems and their fixes, with sources.">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <span class="brand-mark">GS</span>
+      <span>GameSir Wiki</span>
+    </a>
+    <nav class="site-nav"><a href="index.html">Home</a><a href="compare.html">Compare</a><a href="troubleshooting.html" aria-current="page">Troubleshooting</a><a href="faq.html">FAQ</a><a href="about.html">About</a></nav>
+  </div>
+</header>
+
+<main>
+<div class="wrap narrow">
+  <div class="page-head">
+    <p class="eyebrow">Troubleshooting</p>
+    <h1>Troubleshooting index</h1>
+    <p class="lede">
+      Every documented problem and fix across all covered controllers, in one searchable list. Each entry cites
+      the source of its fix so you can check the original instructions.
+    </p>
+  </div>
+
+  <div class="note danger">
+    <p><strong>Read before calibrating an older G7.</strong> GameSir warns that the calibration procedure intended
+    for the older G7, G7 SE and G7 HE will put a <em>G7 Pro</em> into firmware update mode instead of calibration
+    mode, leaving it unable to power on normally. Older guides and videos still circulate the wrong sequence.
+    Confirm the procedure on your own model's page before using any button combination.</p>
+  </div>
+
+  <h2 id="drift">Before you assume the sticks have failed</h2>
+  <p class="section-intro">
+    Most reported drift on these controllers is not sensor failure. Work through this order before contacting
+    support, because the later steps mask the symptom rather than fix it.
+  </p>
+
+  <div class="accordion">
+    <details class="item" open>
+      <summary>1. Rule out anti-deadzone first</summary>
+      <div class="item-body">
+        <p>GameSir's documentation states that improper anti-deadzone configuration &ldquo;may appear similar to
+        stick drift&rdquo;. Anti-deadzone exists to cancel out a game's own built-in deadzone by reporting slight
+        stick movement when the stick is centered &mdash; which is indistinguishable from drift if set too high.</p>
+        <p>Set <em>Anti-deadzone &rarr; Initial</em> back to 0 in the GameSir app and retest. If you have ever
+        adjusted this to fight an unresponsive game, this is the most likely cause.</p>
+      </div>
+    </details>
+
+    <details class="item">
+      <summary>2. Check whether you are in Raw (zero deadzone) mode</summary>
+      <div class="item-body">
+        <p>Several models toggle between a Raw stick trajectory with zero deadzone and a Circular trajectory. Raw is
+        more sensitive and exposes the stick's natural center error directly to the game. If drift appeared without
+        explanation, an accidental toggle is worth ruling out. The exact button combination varies by model &mdash;
+        check your model page.</p>
+      </div>
+    </details>
+
+    <details class="item">
+      <summary>3. Recalibrate &mdash; with the faceplate installed</summary>
+      <div class="item-body">
+        <p>On models with swappable faceplates, GameSir specifies that calibration must be performed with the
+        faceplate installed, because calibrating without it produces incorrect range values. This is easy to get
+        wrong on a controller designed to have its faceplate removed.</p>
+        <p>Rotate the sticks slowly and steadily. GameSir notes that faster rotation during calibration yields
+        higher resulting sensitivity, so a rushed calibration can leave the sticks feeling twitchy.</p>
+      </div>
+    </details>
+
+    <details class="item">
+      <summary>4. Only then add a small deadzone in software</summary>
+      <div class="item-body">
+        <p>If a small center error remains, add the smallest inner deadzone that stops the drift. Every point you
+        add is precision you give up, which matters most in games with low native deadzones.</p>
+        <p>In Steam, a deadzone set under calibration will not apply until you enable it in the game's controller
+        configuration: set <em>Enable Deadzone</em> to <em>Configuration</em>, then raise <em>Deadzone Inner</em>.
+        Setting a value without switching this over is why people conclude Steam's deadzone slider does nothing.</p>
+      </div>
+    </details>
+  </div>
+
+  <h2 id="all">All documented issues</h2>
+
+  <div class="filter-bar">
+    <input class="search-input" id="ts-search" type="search" placeholder="Search symptoms, causes and fixes&hellip;" aria-label="Search troubleshooting entries">
+    <span class="result-count" id="ts-count"></span>
+  </div>
+  <div class="chip-row" id="ts-chips">
+    <button class="chip" type="button" data-filter="all" aria-pressed="true">All models</button>
+    <button class="chip" type="button" data-filter="g7-pro" aria-pressed="false">GameSir G7 Pro</button><button class="chip" type="button" data-filter="g7-pro-8k" aria-pressed="false">GameSir G7 Pro 8K</button>
+  </div>
+
+  <div class="accordion" id="ts-list">
+<div class="ts-entry" data-model="g7-pro" data-text="sticks appear to drift even though the controller is nearly new tmr sticks are magnetic and do not wear like potentiometers, so this is rarely mechanical. the g7 pro applies no inner deadzone, so its natural center error is visible to games. a misconfigured anti-deadzone in nexus can also produce it — gamesir's own documentation states improper anti-deadzone configuration 'may appear similar to stick drift'. set anti-deadzone initial back to 0 in nexus, confirm you are not in raw (zero deadzone) trajectory mode, recalibrate, then add a small initial deadzone only if needed.">
+<details class="item">
+  <summary>Sticks appear to drift even though the controller is nearly new <span class="badge">GameSir G7 Pro</span></summary>
+  <div class="item-body">
+    <div class="qa-block"><span class="qa-label">Likely cause</span>TMR sticks are magnetic and do not wear like potentiometers, so this is rarely mechanical. The G7 Pro applies no inner deadzone, so its natural center error is visible to games. A misconfigured anti-deadzone in Nexus can also produce it — GameSir's own documentation states improper anti-deadzone configuration 'may appear similar to stick drift'.</div>
+    <div class="qa-block"><span class="qa-label">Fix</span>Set Anti-deadzone Initial back to 0 in Nexus, confirm you are not in Raw (zero deadzone) trajectory mode, recalibrate, then add a small Initial deadzone only if needed.</div>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/support/manuals/gamesir-g7prozzz" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+</div>
+<div class="ts-entry" data-model="g7-pro" data-text="stick ranges are wrong or inconsistent after calibration calibration performed with the magnetic faceplate removed. gamesir documentation states calibration must be performed with the faceplate installed; calibrating without it produces incorrect range values. reinstall the faceplate and recalibrate.">
+<details class="item">
+  <summary>Stick ranges are wrong or inconsistent after calibration <span class="badge">GameSir G7 Pro</span></summary>
+  <div class="item-body">
+    <div class="qa-block"><span class="qa-label">Likely cause</span>Calibration performed with the magnetic faceplate removed.</div>
+    <div class="qa-block"><span class="qa-label">Fix</span>GameSir documentation states calibration must be performed with the faceplate installed; calibrating without it produces incorrect range values. Reinstall the faceplate and recalibrate.</div>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/support/manuals/gamesir-g7prozzz" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+</div>
+<div class="ts-entry" data-model="g7-pro" data-text="sticks feel too fast or too twitchy after calibrating rotation speed during calibration affects the resulting sensitivity. recalibrate using slow, steady, gentle full rotations. gamesir notes faster rotation during calibration yields higher sensitivity than slower rotation.">
+<details class="item">
+  <summary>Sticks feel too fast or too twitchy after calibrating <span class="badge">GameSir G7 Pro</span></summary>
+  <div class="item-body">
+    <div class="qa-block"><span class="qa-label">Likely cause</span>Rotation speed during calibration affects the resulting sensitivity.</div>
+    <div class="qa-block"><span class="qa-label">Fix</span>Recalibrate using slow, steady, gentle full rotations. GameSir notes faster rotation during calibration yields higher sensitivity than slower rotation.</div>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/support/manuals/gamesir-g7prozzz" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+</div>
+<div class="ts-entry" data-model="g7-pro" data-text="controller shows in windows as 'xbox 360 controller' and disconnects when gamesir nexus is closed expected behaviour. 1000 hz polling and keyboard/mouse bindings require the controller to switch protocol from gip (xbox gaming device) to xinput, which renames the device and forces a brief reconnect. this is not a fault. the mode can be switched manually by holding xbox + share for about 3 seconds.">
+<details class="item">
+  <summary>Controller shows in Windows as 'Xbox 360 Controller' and disconnects when GameSir Nexus is closed <span class="badge">GameSir G7 Pro</span></summary>
+  <div class="item-body">
+    <div class="qa-block"><span class="qa-label">Likely cause</span>Expected behaviour. 1000 Hz polling and keyboard/mouse bindings require the controller to switch protocol from GIP (Xbox Gaming Device) to XInput, which renames the device and forces a brief reconnect.</div>
+    <div class="qa-block"><span class="qa-label">Fix</span>This is not a fault. The mode can be switched manually by holding <kbd>Xbox + Share</kbd> for about 3 seconds.</div>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/cs/pages/faq-questions-about-g7-pro" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+</div>
+<div class="ts-entry" data-model="g7-pro" data-text="controller is powered on and connected but invisible to games and to gamesir nexus the controller is stuck in hid (android support) mode. hold xbox + mode for roughly 4 seconds until the xbox indicator blinks twice to reset the pid. alternatively hold share + menu for about 4 seconds to toggle the mode.">
+<details class="item">
+  <summary>Controller is powered on and connected but invisible to games and to GameSir Nexus <span class="badge">GameSir G7 Pro</span></summary>
+  <div class="item-body">
+    <div class="qa-block"><span class="qa-label">Likely cause</span>The controller is stuck in HID (Android support) mode.</div>
+    <div class="qa-block"><span class="qa-label">Fix</span>Hold <kbd>Xbox + Mode</kbd> for roughly 4 seconds until the Xbox indicator blinks twice to reset the PID. Alternatively hold <kbd>Share + Menu</kbd> for about 4 seconds to toggle the mode.</div>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/cs/pages/faq-questions-about-g7-pro" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+</div>
+<div class="ts-entry" data-model="g7-pro" data-text="controller will not power on after attempting calibration found in an older guide or video the calibration procedure for the older g7 / g7 se / g7 he puts a g7 pro into firmware update mode instead of calibration mode. do not use the older g7 sequence. use view + xbox + menu on the g7 pro. if the controller is already stuck, gamesir directs users to perform a manual firmware upgrade from a windows pc.">
+<details class="item">
+  <summary>Controller will not power on after attempting calibration found in an older guide or video <span class="badge">GameSir G7 Pro</span></summary>
+  <div class="item-body">
+    <div class="qa-block"><span class="qa-label">Likely cause</span>The calibration procedure for the older G7 / G7 SE / G7 HE puts a G7 Pro into firmware update mode instead of calibration mode.</div>
+    <div class="qa-block"><span class="qa-label">Fix</span>Do not use the older G7 sequence. Use <kbd>View + Xbox + Menu</kbd> on the G7 Pro. If the controller is already stuck, GameSir directs users to perform a manual firmware upgrade from a Windows PC.</div>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/cs/pages/faq-questions-about-g7-pro" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+</div>
+<div class="ts-entry" data-model="g7-pro" data-text="set polling to 1000 hz but measured rate is lower the controller has not completed the switch into xinput mode, or the usb path cannot sustain the rate. fully close nexus to trigger the mode switch, or hold xbox + share for 3 seconds to force it. prefer rear motherboard usb ports over front-panel ports and hubs, and use a known data-capable cable. two indicator blinks mean the mode swap failed.">
+<details class="item">
+  <summary>Set polling to 1000 Hz but measured rate is lower <span class="badge">GameSir G7 Pro</span></summary>
+  <div class="item-body">
+    <div class="qa-block"><span class="qa-label">Likely cause</span>The controller has not completed the switch into XInput mode, or the USB path cannot sustain the rate.</div>
+    <div class="qa-block"><span class="qa-label">Fix</span>Fully close Nexus to trigger the mode switch, or hold <kbd>Xbox + Share</kbd> for 3 seconds to force it. Prefer rear motherboard USB ports over front-panel ports and hubs, and use a known data-capable cable. Two indicator blinks mean the mode swap failed.</div>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/cs/pages/faq-questions-about-g7-pro" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+</div>
+<div class="ts-entry" data-model="g7-pro-8k" data-text="controller never appears in gamesir nexus the g7 pro 8k pc is not a nexus device. gamesir has stated publicly that it does not work with nexus, which is intended for its xbox-licensed controllers. use gamesir connect instead. nexus not listing the controller is expected behaviour, not a fault. connect also requires the controller to be in xinput mode via cable or dongle to list it.">
+<details class="item">
+  <summary>Controller never appears in GameSir Nexus <span class="badge">GameSir G7 Pro 8K</span></summary>
+  <div class="item-body">
+    <div class="qa-block"><span class="qa-label">Likely cause</span>The G7 Pro 8K PC is not a Nexus device. GameSir has stated publicly that it does not work with Nexus, which is intended for its Xbox-licensed controllers.</div>
+    <div class="qa-block"><span class="qa-label">Fix</span>Use GameSir Connect instead. Nexus not listing the controller is expected behaviour, not a fault. Connect also requires the controller to be in XInput mode via cable or dongle to list it.</div>
+    <p class="small text-dim">Source: <a href="https://fixoryhq.com/en/gamesir-g7-pro-8k-not-working/" rel="nofollow noopener" target="_blank">fixoryhq.com</a></p>
+  </div>
+</details>
+</div>
+<div class="ts-entry" data-model="g7-pro-8k" data-text="gyro, rear paddles or extra bumpers do nothing in a game plain xinput does not expose those inputs. choose the connection mode that exposes what you need rather than looking for a single setting, or clone the inputs onto standard buttons in gamesir connect.">
+<details class="item">
+  <summary>Gyro, rear paddles or extra bumpers do nothing in a game <span class="badge">GameSir G7 Pro 8K</span></summary>
+  <div class="item-body">
+    <div class="qa-block"><span class="qa-label">Likely cause</span>Plain XInput does not expose those inputs.</div>
+    <div class="qa-block"><span class="qa-label">Fix</span>Choose the connection mode that exposes what you need rather than looking for a single setting, or clone the inputs onto standard buttons in GameSir Connect.</div>
+    <p class="small text-dim">Source: <a href="https://fixoryhq.com/en/gamesir-g7-pro-8k-not-working/" rel="nofollow noopener" target="_blank">fixoryhq.com</a></p>
+  </div>
+</details>
+</div>
+<div class="ts-entry" data-model="g7-pro-8k" data-text="intermittent disconnects or odd behaviour after raising the polling rate high polling rates can conflict with some usb paths and software. set the polling rate back to 250 hz to confirm, then raise it again. prefer rear motherboard usb ports and avoid hubs.">
+<details class="item">
+  <summary>Intermittent disconnects or odd behaviour after raising the polling rate <span class="badge">GameSir G7 Pro 8K</span></summary>
+  <div class="item-body">
+    <div class="qa-block"><span class="qa-label">Likely cause</span>High polling rates can conflict with some USB paths and software.</div>
+    <div class="qa-block"><span class="qa-label">Fix</span>Set the polling rate back to 250 Hz to confirm, then raise it again. Prefer rear motherboard USB ports and avoid hubs.</div>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/pages/faq-gamesir-g7-pro-8k-pc-nioh-3" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+</div>
+<div class="ts-entry" data-model="g7-pro-8k" data-text="sticks or triggers reading incorrectly calibration data is off. calibrate from the app via the test icon with mode + menu, or manually: hold view + home + menu until the home indicator flashes slowly white, press a with nothing touched, then pull both triggers fully three times and rotate both sticks fully three times and press a.">
+<details class="item">
+  <summary>Sticks or triggers reading incorrectly <span class="badge">GameSir G7 Pro 8K</span></summary>
+  <div class="item-body">
+    <div class="qa-block"><span class="qa-label">Likely cause</span>Calibration data is off.</div>
+    <div class="qa-block"><span class="qa-label">Fix</span>Calibrate from the app via the Test icon with <kbd>Mode + Menu</kbd>, or manually: hold <kbd>View + Home + Menu</kbd> until the Home indicator flashes slowly white, press A with nothing touched, then pull both triggers fully three times and rotate both sticks fully three times and press A.</div>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/support/manuals/gamesir-g7-pro-8k-pc-champion-edition" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+</div>
+  </div>
+  <div class="empty-state" id="ts-empty" hidden>No entries match that search.</div>
+</div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p class="disclaimer">
+      <strong>Unofficial and community-maintained.</strong> Not affiliated with, endorsed by, or operated by
+      GameSir. Specifications are compiled from GameSir's published product pages, manuals and FAQ documents,
+      from independent measurement data published by gamepadla.com, and from published reviews &mdash; not from
+      first-hand testing, unless a figure says otherwise. Values that could not be verified are marked
+      &ldquo;not documented&rdquo; rather than estimated. Manufacturer claims are labelled as claims.
+    </p>
+    <p class="small">Found an error? Open an issue or a pull request with a source and it will be corrected.</p>
+  </div>
+</footer>
+<script src="assets/js/filter.js" defer></script>
+</body>
+</html>

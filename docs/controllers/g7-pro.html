@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GameSir G7 Pro Tri-Mode — specs, fixes and FAQ | GameSir Wiki</title>
+<meta name="description" content="GameSir G7 Pro: full specifications, measured performance, documented problems and fixes, and frequently asked questions. Xbox-licensed tri-mode controller with Mag-Res TMR sticks, microswitch face buttons and 1000 Hz polling on PC.">
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="../index.html">
+      <span class="brand-mark">GS</span>
+      <span>GameSir Wiki</span>
+    </a>
+    <nav class="site-nav"><a href="../index.html">Home</a><a href="../compare.html">Compare</a><a href="../troubleshooting.html">Troubleshooting</a><a href="../faq.html">FAQ</a><a href="../about.html">About</a></nav>
+  </div>
+</header>
+
+<main>
+<div class="wrap narrow">
+  <div class="page-head">
+    <p class="breadcrumb"><a href="../index.html">Home</a> / GameSir G7 Pro</p>
+    <p class="eyebrow">High-end &middot; Xbox-style</p>
+    <h1>GameSir G7 Pro Tri-Mode</h1>
+    <p class="lede">Xbox-licensed tri-mode controller with Mag-Res TMR sticks, microswitch face buttons and 1000 Hz polling on PC.</p>
+    <div class="badges"><span class="badge tier-high-end">High-end</span><span class="badge badge-tmr">GameSir Mag-Res TMR</span><span class="badge badge-info">1000 Hz</span><span class="badge">Gyro</span><span class="badge">GameSir Nexus</span></div>
+  </div>
+
+  <h2 id="specs">Specifications</h2>
+  <div class="spec-section">
+    <h3>Overview</h3>
+    <div class="spec-grid">
+      <div class="spec-row"><span class="spec-key">Released</span><span class="spec-val">2025</span></div>
+      <div class="spec-row"><span class="spec-key">Launch price</span><span class="spec-val">$79.99</span></div>
+      <div class="spec-row"><span class="spec-key">Weight</span><span class="spec-val">272 g</span></div>
+      <div class="spec-row"><span class="spec-key">Dimensions</span><span class="spec-val">152 x 103 x 58 mm</span></div>
+      <div class="spec-row"><span class="spec-key">Software</span><span class="spec-val">GameSir Nexus</span></div>
+      <div class="spec-row"><span class="spec-key">Platforms</span><span class="spec-val">Xbox Series X|S, Xbox One, PC, Android, Steam</span></div>
+    </div>
+
+    <h3>Sticks</h3>
+    <div class="spec-grid">
+      <div class="spec-row"><span class="spec-key">Sensor technology</span><span class="spec-val">GameSir Mag-Res TMR</span></div>
+      <div class="spec-row"><span class="spec-key">Resolution</span><span class="spec-val">4096-level, 12-bit ADC (manufacturer claim)</span></div>
+      <div class="spec-row"><span class="spec-key">Durability</span><span class="spec-val">5 million cycles (manufacturer claim)</span></div>
+      <div class="spec-row"><span class="spec-key">Measured center error</span><span class="spec-val">2.3% left / 1.9% right (wired XInput)</span></div>
+      <div class="spec-row"><span class="spec-key">Measured resolution</span><span class="spec-val">13.7-bit, ~13,107 steps (wired XInput)</span></div>
+    </div>
+    <div class="note"><p>Measured values vary substantially by connection mode. gamepadla recorded center error between 1.2% and 3.1% and stick resolution between 13.7-bit (13,107 steps) and 8-bit (256 steps) depending on the mode tested. The controller applies no inner deadzone, so its natural center error is not masked in software.</p></div>
+
+    <h3>Triggers, D-pad and buttons</h3>
+    <div class="spec-grid">
+      <div class="spec-row"><span class="spec-key">Trigger technology</span><span class="spec-val">Hall Effect analog</span></div>
+      <div class="spec-row"><span class="spec-key">Trigger stops</span><span class="spec-val">Yes</span></div>
+      <div class="spec-row"><span class="spec-key">D-pad</span><span class="spec-val">Mechanical microswitch, three selectable D-pad configurations</span></div>
+      <div class="spec-row"><span class="spec-key">Face buttons</span><span class="spec-val">Optical microswitch ABXY</span></div>
+      <div class="spec-row"><span class="spec-key">Rear buttons</span><span class="spec-val">2</span></div>
+      <div class="spec-row"><span class="spec-key">Extra bumpers</span><span class="spec-val">2</span></div>
+    </div>
+    <p class="small text-muted">Microswitch trigger stops allow switching from analog travel to a short mouse-click style actuation.</p>
+    <p class="small text-muted">Four extra inputs (L4, L5, R4, R5) ship as null inputs and do nothing until mapped.</p>
+
+    <h3>Connectivity and performance</h3>
+    <div class="spec-grid">
+      <div class="spec-row"><span class="spec-key">Connection modes</span><span class="spec-val">Wired / 2.4 GHz / Bluetooth</span></div>
+      <div class="spec-row"><span class="spec-key">Polling rate (PC)</span><span class="spec-val">1000 Hz (wired and 2.4 GHz)</span></div>
+      <div class="spec-row"><span class="spec-key">Polling rate (Xbox)</span><span class="spec-val">250 Hz</span></div>
+      <div class="spec-row"><span class="spec-key">Audio jack</span><span class="spec-val">3.5 mm</span></div>
+      <div class="spec-row"><span class="spec-key">Gyro</span><span class="spec-val">Yes</span></div>
+      <div class="spec-row"><span class="spec-key">Rumble</span><span class="spec-val">Four motors — one in each grip and one in each trigger</span></div>
+    </div>
+    <div class="note"><p>Connection support is platform-dependent: wired only for Xbox consoles, wired or 2.4 GHz for PC, Bluetooth 5.3 for Android.</p></div>
+    <p class="small text-muted">Xbox consoles enforce a 250 Hz cap, so 1000 Hz is a PC-only capability. Reaching 1000 Hz on PC requires the controller to switch from GIP to XInput mode.</p>
+    <p class="small text-muted">Gyro: PC only. Can be mapped to stick, buttons or mouse via GameSir Nexus.</p>
+
+    <h3>Battery and build</h3>
+    <div class="spec-grid">
+      <div class="spec-row"><span class="spec-key">Battery capacity</span><span class="spec-val">1200 mAh</span></div>
+      <div class="spec-row"><span class="spec-key">Claimed battery life</span><span class="spec-val unknown">Not documented</span></div>
+      <div class="spec-row"><span class="spec-key">Swappable faceplates</span><span class="spec-val">Yes</span></div>
+    </div>
+    <p class="small text-muted">Charges over USB-C or via the optional charging station. Battery indicator flashes red below 15%.</p>
+    <p class="small text-muted">Three-part magnetic faceplate, backward compatible with earlier G7 series faceplates.</p>
+  </div>
+
+  <h3 id="latency">Measured latency</h3>
+<p class="section-intro small">Bar length reflects stick latency on a fixed 0&ndash;16&nbsp;ms scale, so bars are comparable between models. Measured and published by gamepadla.com; polling rate and latency are measured by different methods and are not the same thing.</p>
+<div class="latency-list">
+<div class="latency-row">
+  <div class="latency-head"><span class="latency-mode">Wired (XInput)</span><span class="latency-num">button 2.43 ms avg · stick 2.70 ms avg · 1001 Hz</span></div>
+  <div class="bar-track"><div class="bar-fill is-good" style="width:16.9%"></div></div>
+</div>
+<div class="latency-row">
+  <div class="latency-head"><span class="latency-mode">2.4 GHz dongle (XInput)</span><span class="latency-num">button 5.69 ms avg · stick 14.96 ms avg · 1000 Hz</span></div>
+  <div class="bar-track"><div class="bar-fill is-bad" style="width:93.5%"></div></div>
+</div>
+<div class="latency-row">
+  <div class="latency-head"><span class="latency-mode">Bluetooth (DInput)</span><span class="latency-num">button 5.37 ms avg · stick 5.82 ms avg · 400 Hz</span></div>
+  <div class="bar-track"><div class="bar-fill is-warn" style="width:36.4%"></div></div>
+</div>
+</div>
+
+  <h2 id="features">Notable features</h2>
+<ul>
+  <li>Mag-Res TMR sticks with no applied inner deadzone</li>
+  <li>Raw and Circular stick trajectory modes</li>
+  <li>Hall Effect analog triggers with microswitch stops</li>
+  <li>Three-part magnetic swappable faceplate</li>
+  <li>Built-in gyro with mouse mapping (PC only)</li>
+  <li>Four remappable rear inputs</li>
+</ul>
+
+  <h2 id="issues">Known issues and fixes</h2>
+<p class="section-intro">Documented problems with documented solutions. Each entry cites where the fix comes from.</p>
+<div class="accordion">
+<details class="item">
+  <summary>Sticks appear to drift even though the controller is nearly new</summary>
+  <div class="item-body">
+    <div class="qa-block"><span class="qa-label">Likely cause</span>TMR sticks are magnetic and do not wear like potentiometers, so this is rarely mechanical. The G7 Pro applies no inner deadzone, so its natural center error is visible to games. A misconfigured anti-deadzone in Nexus can also produce it — GameSir's own documentation states improper anti-deadzone configuration 'may appear similar to stick drift'.</div>
+    <div class="qa-block"><span class="qa-label">Fix</span>Set Anti-deadzone Initial back to 0 in Nexus, confirm you are not in Raw (zero deadzone) trajectory mode, recalibrate, then add a small Initial deadzone only if needed.</div>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/support/manuals/gamesir-g7prozzz" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+<details class="item">
+  <summary>Stick ranges are wrong or inconsistent after calibration</summary>
+  <div class="item-body">
+    <div class="qa-block"><span class="qa-label">Likely cause</span>Calibration performed with the magnetic faceplate removed.</div>
+    <div class="qa-block"><span class="qa-label">Fix</span>GameSir documentation states calibration must be performed with the faceplate installed; calibrating without it produces incorrect range values. Reinstall the faceplate and recalibrate.</div>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/support/manuals/gamesir-g7prozzz" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+<details class="item">
+  <summary>Sticks feel too fast or too twitchy after calibrating</summary>
+  <div class="item-body">
+    <div class="qa-block"><span class="qa-label">Likely cause</span>Rotation speed during calibration affects the resulting sensitivity.</div>
+    <div class="qa-block"><span class="qa-label">Fix</span>Recalibrate using slow, steady, gentle full rotations. GameSir notes faster rotation during calibration yields higher sensitivity than slower rotation.</div>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/support/manuals/gamesir-g7prozzz" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+<details class="item">
+  <summary>Controller shows in Windows as 'Xbox 360 Controller' and disconnects when GameSir Nexus is closed</summary>
+  <div class="item-body">
+    <div class="qa-block"><span class="qa-label">Likely cause</span>Expected behaviour. 1000 Hz polling and keyboard/mouse bindings require the controller to switch protocol from GIP (Xbox Gaming Device) to XInput, which renames the device and forces a brief reconnect.</div>
+    <div class="qa-block"><span class="qa-label">Fix</span>This is not a fault. The mode can be switched manually by holding <kbd>Xbox + Share</kbd> for about 3 seconds.</div>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/cs/pages/faq-questions-about-g7-pro" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+<details class="item">
+  <summary>Controller is powered on and connected but invisible to games and to GameSir Nexus</summary>
+  <div class="item-body">
+    <div class="qa-block"><span class="qa-label">Likely cause</span>The controller is stuck in HID (Android support) mode.</div>
+    <div class="qa-block"><span class="qa-label">Fix</span>Hold <kbd>Xbox + Mode</kbd> for roughly 4 seconds until the Xbox indicator blinks twice to reset the PID. Alternatively hold <kbd>Share + Menu</kbd> for about 4 seconds to toggle the mode.</div>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/cs/pages/faq-questions-about-g7-pro" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+<details class="item">
+  <summary>Controller will not power on after attempting calibration found in an older guide or video</summary>
+  <div class="item-body">
+    <div class="qa-block"><span class="qa-label">Likely cause</span>The calibration procedure for the older G7 / G7 SE / G7 HE puts a G7 Pro into firmware update mode instead of calibration mode.</div>
+    <div class="qa-block"><span class="qa-label">Fix</span>Do not use the older G7 sequence. Use <kbd>View + Xbox + Menu</kbd> on the G7 Pro. If the controller is already stuck, GameSir directs users to perform a manual firmware upgrade from a Windows PC.</div>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/cs/pages/faq-questions-about-g7-pro" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+<details class="item">
+  <summary>Set polling to 1000 Hz but measured rate is lower</summary>
+  <div class="item-body">
+    <div class="qa-block"><span class="qa-label">Likely cause</span>The controller has not completed the switch into XInput mode, or the USB path cannot sustain the rate.</div>
+    <div class="qa-block"><span class="qa-label">Fix</span>Fully close Nexus to trigger the mode switch, or hold <kbd>Xbox + Share</kbd> for 3 seconds to force it. Prefer rear motherboard USB ports over front-panel ports and hubs, and use a known data-capable cable. Two indicator blinks mean the mode swap failed.</div>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/cs/pages/faq-questions-about-g7-pro" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+</div>
+
+  <h2 id="faq">Frequently asked questions</h2>
+<div class="accordion">
+<details class="item">
+  <summary>How do I calibrate the sticks and triggers?</summary>
+  <div class="item-body">
+    <p>With the faceplate installed and the controller connected, hold <kbd>View + Xbox + Menu</kbd> until the Xbox indicator flashes slowly white. Without touching the sticks or triggers, press A — the indicator turns off. Then pull LT and RT to full travel three times and rotate both sticks at full extent three times, and press A. A solid white indicator confirms completion. Rotate slowly and steadily. Calibration affects analog trigger mode only, not mouse-click mode.</p>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/support/manuals/gamesir-g7prozzz" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+<details class="item">
+  <summary>How do I reset all profiles and settings?</summary>
+  <div class="item-body">
+    <p>Hold <kbd>View + Mode + Menu</kbd>. The Xbox LED blinks three times to confirm all profiles and custom settings have been cleared. Individual profiles can also be reset from within GameSir Nexus.</p>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/cs/pages/faq-questions-about-g7-pro" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+<details class="item">
+  <summary>How do I map the rear buttons and mini bumpers?</summary>
+  <div class="item-body">
+    <p>They are null inputs with no default function. Hold <kbd>Mode + the remappable</kbd> button until the indicator blinks, then press the target button to assign it. To clear a mapping, repeat and press the same remappable button again. They can also be configured in GameSir Nexus.</p>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/cs/pages/faq-questions-about-g7-pro" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+<details class="item">
+  <summary>Which app does the G7 Pro use?</summary>
+  <div class="item-body">
+    <p>GameSir Nexus, available from the Xbox and Windows stores. Note that the G7 Pro 8K PC uses GameSir Connect instead — the two apps do not cover each other's hardware.</p>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/cs/pages/faq-questions-about-g7-pro" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+<details class="item">
+  <summary>Can I get 1000 Hz on an Xbox console?</summary>
+  <div class="item-body">
+    <p>No. Xbox consoles enforce a 250 Hz polling limit, so the 1000 Hz option is available on PC only.</p>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/cs/pages/faq-questions-about-g7-pro" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+<details class="item">
+  <summary>How do I switch preset profiles?</summary>
+  <div class="item-body">
+    <p><kbd>Mode + Y</kbd> selects configuration 1, <kbd>Mode + B</kbd> selects 2, <kbd>Mode + A</kbd> selects 3, <kbd>Mode + X</kbd> selects 4.</p>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/support/manuals/gamesir-g7prozzz" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+<details class="item">
+  <summary>How do I enable hair trigger mode?</summary>
+  <div class="item-body">
+    <p>Hold <kbd>Mode + LT</kbd> or RT for 2 seconds to toggle hair trigger mode on or off.</p>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/support/manuals/gamesir-g7prozzz" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+<details class="item">
+  <summary>The gyro is behaving incorrectly. How do I recalibrate it?</summary>
+  <div class="item-body">
+    <p>Place the controller flat on a level surface and hold <kbd>Mode + Share</kbd> for 3 seconds. The logo LED flashes orange and white alternately during calibration.</p>
+    <p class="small text-dim">Source: <a href="https://gamesir.com/cs/pages/faq-questions-about-g7-pro" rel="nofollow noopener" target="_blank">gamesir.com</a></p>
+  </div>
+</details>
+</div>
+
+  <h2 id="sources">Sources</h2>
+<ul class="source-list">
+<li><a href="https://gamesir.com/products/gamesir-g7-pro" rel="nofollow noopener" target="_blank">GameSir official G7 Pro product page</a></li>
+<li><a href="https://gamesir.com/cs/pages/faq-questions-about-g7-pro" rel="nofollow noopener" target="_blank">GameSir official G7 Pro FAQ</a></li>
+<li><a href="https://gamesir.com/support/manuals/gamesir-g7prozzz" rel="nofollow noopener" target="_blank">GameSir G7 Pro manual (ZZZ edition)</a></li>
+<li><a href="https://gamepadla.com/gamesir-g7-pro.html" rel="nofollow noopener" target="_blank">gamepadla measured stick and latency data</a></li>
+<li><a href="https://www.pcgamer.com/hardware/controllers/gamesir-g7-pro-tri-mode-review/" rel="nofollow noopener" target="_blank">PC Gamer G7 Pro Tri-Mode review</a></li>
+</ul>
+
+  <p class="small text-dim">Data last reviewed 2026-09-06. Figures are compiled from the sources above rather than first-hand testing.</p>
+</div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p class="disclaimer">
+      <strong>Unofficial and community-maintained.</strong> Not affiliated with, endorsed by, or operated by
+      GameSir. Specifications are compiled from GameSir's published product pages, manuals and FAQ documents,
+      from independent measurement data published by gamepadla.com, and from published reviews &mdash; not from
+      first-hand testing, unless a figure says otherwise. Values that could not be verified are marked
+      &ldquo;not documented&rdquo; rather than estimated. Manufacturer claims are labelled as claims.
+    </p>
+    <p class="small">Found an error? Open an issue or a pull request with a source and it will be corrected.</p>
+  </div>
+</footer>
+
+</body>
+</html>
