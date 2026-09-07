@@ -1353,8 +1353,8 @@ function backView(c) {
           text(x + sign * 2, y + 23, "no lock", "d-label d-label-xs d-dim-text");
 
   if (L.latches === true || L.latches === false) {
-    put(info.latch, -0.43, 0.735, [13, 26], latch(-0.43, -1));
-    put(info.latch, 0.43, 0.735, [13, 26], latch(0.43, 1));
+    put(info.latch, -0.35, 0.72, [13, 26], latch(-0.35, -1));
+    put(info.latch, 0.35, 0.72, [13, 26], latch(0.35, 1));
   }
 
   if (L.modeSwitch) {
