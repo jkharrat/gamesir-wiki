@@ -43,6 +43,46 @@ const OUT = path.join(ROOT, "docs");
 
 const SITE_NAME = "GameSir Wiki";
 
+/** Where the source lives. Every contribute and edit link is derived from it. */
+const REPO = {
+  url: "https://github.com/jkharrat/gamesir-wiki",
+  branch: "main",
+};
+
+const repoBlob = (file, line = null) =>
+  `${REPO.url}/blob/${REPO.branch}/${file}${line ? `#L${line}` : ""}`;
+const repoEdit = (file, line = null) =>
+  `${REPO.url}/edit/${REPO.branch}/${file}${line ? `#L${line}` : ""}`;
+const repoHistory = (file) => `${REPO.url}/commits/${REPO.branch}/${file}`;
+const REPO_ISSUES = `${REPO.url}/issues`;
+const REPO_NEW_ISSUE = `${REPO.url}/issues/new`;
+
+/**
+ * Line numbers behind the "edit this page" links, resolved from the raw files
+ * at build time rather than written down. Both files move on nearly every
+ * commit, and an anchor that points at the wrong record is worse than no
+ * anchor: it invites someone to correct the wrong controller.
+ *
+ * Assigned once by build() and read by the page functions, which are sync and
+ * would otherwise all have to thread it through.
+ */
+let SRC = { controller: () => null, fn: () => null };
+
+async function readSourceLines() {
+  const lineOf = (text, re) => {
+    const i = text.split("\n").findIndex((l) => re.test(l));
+    return i === -1 ? null : i + 1;
+  };
+
+  const json = await readFile(path.join(ROOT, "data", "controllers.json"), "utf8");
+  const gen = await readFile(path.join(ROOT, "build.mjs"), "utf8");
+
+  return {
+    controller: (id) => lineOf(json, new RegExp(`"id"\\s*:\\s*"${id}"`)),
+    fn: (name) => lineOf(gen, new RegExp(`^function ${name}\\(`)),
+  };
+}
+
 /* -------------------------------------------------------------- helpers -- */
 
 const esc = (s) =>
@@ -359,7 +399,13 @@ const NAV = [
   { href: "about.html", label: "About" },
 ];
 
-/** Footer link columns. Grouped by intent rather than mirroring the nav. */
+/**
+ * Footer link columns. Grouped by intent rather than mirroring the nav.
+ *
+ * `to` is an absolute URL that leaves the site as-is; `href` is site-relative
+ * and gets the page's `base` prefix, which would otherwise turn a GitHub link
+ * on a controller page into `../https://github.com/...`.
+ */
 const FOOTER_COLS = [
   {
     title: "Reference",
@@ -378,10 +424,20 @@ const FOOTER_COLS = [
     ],
   },
   {
-    title: "This site",
+    title: "Contribute",
+    links: [
+      { to: REPO.url, label: "Source on GitHub" },
+      { to: repoBlob("data/controllers.json"), label: "The data file" },
+      { to: REPO_ISSUES, label: "Open issues" },
+      { to: REPO_NEW_ISSUE, label: "Report an error" },
+    ],
+  },
+  {
+    title: "This wiki",
     links: [
       { href: "about.html", label: "About &amp; sourcing" },
-      { href: "about.html#corrections", label: "Submit a correction" },
+      { href: "about.html#contributing", label: "How to contribute" },
+      { href: "about.html#gaps", label: "How gaps are handled" },
     ],
   },
 ];
@@ -403,13 +459,28 @@ const ICON_MENU = `<svg class="icon-menu" viewBox="0 0 24 24" fill="none" stroke
 const ICON_CLOSE = `<svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>`;
 
 /**
+ * The GitHub mark, the one borrowed logo on the site. It earns its place: it
+ * is the fastest way to say "this is editable source, not a storefront", and
+ * it is recognised without a label in a way no house-drawn glyph would be.
+ */
+const ICON_GITHUB = `<svg class="icon-github" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a5.6 5.6 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.03 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.28.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8 8 0 0 0 8 0z"/></svg>`;
+
+/**
  * Applied before first paint so a stored light theme does not flash dark. Also
  * sets the `js` class the stylesheet uses to decide whether panels may
  * collapse — if scripting is off, the page stays one long readable document.
  */
 const THEME_BOOT = `(function(){var d=document.documentElement;try{var t=localStorage.getItem("gsw-theme");if(t!=="light"&&t!=="dark"){t=window.matchMedia&&window.matchMedia("(prefers-color-scheme: light)").matches?"light":"dark";}d.setAttribute("data-theme",t);}catch(e){d.setAttribute("data-theme","dark");}d.className+=" js";})();`;
 
-function layout({ title, description, current, base = "", body, bodyEnd = "" }) {
+/**
+ * Wraps a page in the shared chrome.
+ *
+ * `source` names the file the page's content actually comes from, so the
+ * footer can point a would-be contributor at the record rather than at the
+ * repository root. Prose pages are generated from build.mjs; anything built
+ * out of per-controller records points at the data file instead.
+ */
+function layout({ title, description, current, base = "", body, bodyEnd = "", source = null }) {
   const nav = NAV.map(
     (n) =>
       `<a href="${base}${n.href}"${n.href === current ? ' aria-current="page"' : ""}>${n.label}</a>`
@@ -419,10 +490,31 @@ function layout({ title, description, current, base = "", body, bodyEnd = "" }) 
     (col) => `      <div class="footer-col">
         <h3>${col.title}</h3>
         <ul>
-${col.links.map((l) => `          <li><a href="${base}${l.href}">${l.label}</a></li>`).join("\n")}
+${col.links
+  .map((l) =>
+    l.to
+      ? `          <li><a href="${l.to}" rel="noopener" target="_blank">${l.label}</a></li>`
+      : `          <li><a href="${base}${l.href}">${l.label}</a></li>`
+  )
+  .join("\n")}
         </ul>
       </div>`
   ).join("\n");
+
+  const pageFoot = source
+    ? `<div class="wrap">
+  <div class="page-foot">
+    <a class="edit-link" href="${repoEdit(source.file, source.line)}" rel="noopener" target="_blank">
+      ${ICON_GITHUB}<span>Edit this page on GitHub</span>
+    </a>
+    <p class="page-foot-note">
+      ${source.note} <a href="${repoBlob(source.file, source.line)}" rel="noopener" target="_blank">View source</a>
+      &middot; <a href="${repoHistory(source.file)}" rel="noopener" target="_blank">Revision history</a>
+      &middot; <a href="${REPO_NEW_ISSUE}" rel="noopener" target="_blank">Report an error</a>
+    </p>
+  </div>
+</div>`
+    : "";
 
   return `<!DOCTYPE html>
 <html lang="en" data-theme="dark">
@@ -455,6 +547,9 @@ ${col.links.map((l) => `          <li><a href="${base}${l.href}">${l.label}</a><
     <nav class="site-nav" id="site-nav" aria-label="Main">${nav}</nav>
 
     <div class="header-actions">
+      <a class="repo-link" href="${REPO.url}" rel="noopener" target="_blank" title="View the source and contribute on GitHub">
+        ${ICON_GITHUB}<span>Edit on GitHub</span>
+      </a>
       <button class="icon-btn theme-toggle" id="theme-toggle" type="button" aria-label="Switch between dark and light theme">${ICON_MOON}${ICON_SUN}</button>
       <button class="icon-btn nav-toggle" id="nav-toggle" type="button" aria-controls="site-nav" aria-expanded="false" aria-label="Menu">${ICON_MENU}${ICON_CLOSE}</button>
     </div>
@@ -463,6 +558,7 @@ ${col.links.map((l) => `          <li><a href="${base}${l.href}">${l.label}</a><
 
 <main id="main">
 ${body}
+${pageFoot}
 </main>
 
 <footer class="site-footer">
@@ -473,7 +569,11 @@ ${body}
           ${BRAND_MARK}
           <span>GameSir <span class="brand-sub">Wiki</span></span>
         </a>
-        <p class="footer-tag">An unofficial, community-maintained reference. Every specification traces back to a published source, and anything that could not be verified is left blank on purpose.</p>
+        <p class="footer-tag">An open, unofficial wiki that anyone can edit. Every specification traces back to a published source, anything that could not be verified is left blank on purpose, and the whole site is a handful of text files on GitHub.</p>
+        <a class="footer-repo" href="${REPO.url}" rel="noopener" target="_blank">${ICON_GITHUB}<span>${REPO.url.replace(
+    /^https:\/\//,
+    ""
+  )}</span></a>
       </div>
 ${footerCols}
     </div>
@@ -481,13 +581,16 @@ ${footerCols}
     <div class="footer-bottom">
       <p class="disclaimer">
         <strong>Unofficial and community-maintained.</strong> Not affiliated with, endorsed by, or operated by
-        GameSir. Specifications are compiled from GameSir's published product pages, manuals and FAQ documents,
-        from independent measurement data published by gamepadla.com, and from published reviews &mdash; not from
-        first-hand testing, unless a figure says otherwise. Values that could not be verified are marked
-        &ldquo;not documented&rdquo; rather than estimated. Manufacturer claims are labelled as claims.
+        GameSir, and nothing here is for sale. Specifications are compiled from GameSir's published product
+        pages, manuals and FAQ documents, from independent measurement data published by gamepadla.com, and from
+        published reviews &mdash; not from first-hand testing, unless a figure says otherwise. Values that could
+        not be verified are marked &ldquo;not documented&rdquo; rather than estimated. Manufacturer claims are
+        labelled as claims. Prices are recorded as historical launch figures, not current offers.
       </p>
       <p class="footer-meta">
-        Found an error? Open an issue or a pull request with a source and it will be corrected.
+        Found an error? <a href="${REPO_NEW_ISSUE}" rel="noopener" target="_blank">Open an issue</a> or send a
+        pull request with a source and it will be corrected. Contributors are credited in the
+        <a href="${REPO.url}/graphs/contributors" rel="noopener" target="_blank">commit history</a>.
       </p>
     </div>
   </div>
@@ -519,6 +622,32 @@ const sectionHead = (id, heading, intro) =>
     <h2 id="${id}">${heading}</h2>
     <p class="section-intro">${intro}</p>
   </div>`;
+
+/**
+ * The wiki's own status box. These are the same counts the home page used to
+ * set in 30px numerals, which read as a sales figure; as a labelled table of
+ * how much has been written and when it was last checked, the identical data
+ * says "here is the state of the project" instead.
+ */
+const wikiStatus = ({ articles, fixes, faqs, sources, updated }) => `<aside class="wiki-status">
+  <h2>State of the wiki</h2>
+  <dl>
+    <div><dt>Articles</dt><dd>${articles} controllers</dd></div>
+    <div><dt>Documented fixes</dt><dd>${fixes}</dd></div>
+    <div><dt>Answered questions</dt><dd>${faqs}</dd></div>
+    <div><dt>Cited sources</dt><dd>${sources}</dd></div>
+    <div><dt>Estimated figures</dt><dd>None &mdash; gaps stay visible</dd></div>
+    <div><dt>Last reviewed</dt><dd><time datetime="${esc(updated ?? "")}">${esc(
+  updated ?? "unknown"
+)}</time></dd></div>
+  </dl>
+  <p class="wiki-status-foot">
+    Counts are generated from <a href="${repoBlob(
+      "data/controllers.json"
+    )}" rel="noopener" target="_blank">the data file</a> on every build, so this box cannot drift from the pages
+    it describes.
+  </p>
+</aside>`;
 
 /* ----------------------------------------------------------- components -- */
 
@@ -879,14 +1008,15 @@ function pageIndex(data) {
 
   const cards = cs
     .map((c) => {
-      // Some launch prices are written as a sentence covering bundles and
-      // dates; the card only has room for the headline figure.
-      const price = c.short?.msrp ?? (c.msrp ? condense(c.msrp, 18) : null);
-
       // The media panel stands in for the product shot this site deliberately
       // does not carry, so it shows the one thing that identifies the model:
       // its designation, with the brand prefix dropped as redundant here.
       const mark = c.name.replace(/^GameSir\s+/i, "");
+
+      // How well documented the article is, where a shop would put the price.
+      // It is the more useful number here and it sets the right expectation:
+      // this is an index of articles, and some are thinner than others.
+      const srcN = (c.sources ?? []).length;
 
       return `<a class="controller-card tint-${esc(c.tier ?? "entry")}" href="controllers/${esc(c.id)}.html">
   <span class="card-media" aria-hidden="true">${silhouette(c)}<span class="card-mark">${esc(
@@ -898,9 +1028,7 @@ function pageIndex(data) {
     <span class="tagline">${esc(c.tagline)}</span>
     <span class="card-foot">
       <span>${esc(connSummary(c) ?? "")}</span>
-      <span class="card-price"${
-        c.msrp && c.msrp !== price ? ` title="${esc(c.msrp)}"` : ""
-      }>${price ? esc(price) : ""}</span>
+      <span class="card-cited">${srcN} ${srcN === 1 ? "source" : "sources"}</span>
     </span>
   </span>
 </a>`;
@@ -913,40 +1041,54 @@ function pageIndex(data) {
 
   const body = `<section class="hero">
   <div class="wrap">
+    <p class="eyebrow">Unofficial &middot; Community-maintained &middot; Not for sale</p>
     <h1>A sourced reference for GameSir controllers</h1>
     <p class="lede">
       Specifications, documented fixes and frequently asked questions for ${cs.length} GameSir controllers,
       each traceable to an official manual, an independent measurement, or a published review. Nothing here is
       estimated &mdash; unverified values are left blank on purpose.
     </p>
-    <div class="hero-actions">
-      <a class="btn btn-primary" href="compare.html">Compare all models</a>
-      <a class="btn btn-ghost" href="troubleshooting.html">Troubleshooting index</a>
+
+    <div class="hero-notice">
+      ${ICON_GITHUB}
+      <div>
+        <p><strong>Anyone can edit this wiki.</strong> It is a handful of plain text files on GitHub, not a
+        product page. Every article links to the exact file and line its content comes from, so a correction is
+        a two-minute edit rather than an email to nobody.</p>
+        <p class="hero-notice-links">
+          <a href="${REPO.url}" rel="noopener" target="_blank">Browse the source</a>
+          <a href="${repoBlob("data/controllers.json")}" rel="noopener" target="_blank">See the data file</a>
+          <a href="about.html#contributing">How to contribute</a>
+        </p>
+      </div>
     </div>
-    <p class="hero-meta">
-      <span>${srcCount} cited sources</span>
-      <span>No estimated figures</span>
-      <span>Reviewed ${esc(data.meta?.updated ?? "")}</span>
-    </p>
   </div>
 </section>
 
 <div class="wrap">
-  <div class="stat-strip">
-    <div class="stat"><div class="stat-value">${cs.length}</div><div class="stat-label">Controllers</div></div>
-    <div class="stat"><div class="stat-value">${issueCount}</div><div class="stat-label">Documented fixes</div></div>
-    <div class="stat"><div class="stat-value">${faqCount}</div><div class="stat-label">FAQ entries</div></div>
-    <div class="stat"><div class="stat-value">${srcCount}</div><div class="stat-label">Cited sources</div></div>
-  </div>
+  ${wikiStatus({
+    articles: cs.length,
+    fixes: issueCount,
+    faqs: faqCount,
+    sources: srcCount,
+    updated: data.meta?.updated,
+  })}
 
   ${sectionHead(
     "controllers",
-    "Controllers",
-    "Each page covers full specifications, measured performance where independent data exists, documented problems with their fixes, and sources."
+    "Controller articles",
+    `One article per model, ${cs.length} so far. Each covers full specifications, measured performance where independent data exists, documented problems with their fixes, and the sources behind every figure. A model that is missing is a gap in the wiki, not a verdict on the hardware.`
   )}
   <div class="card-grid">
 ${cards}
   </div>
+
+  <p class="index-cta">
+    Own something that isn't here, or spotted a figure that's wrong?
+    <a href="${REPO_NEW_ISSUE}" rel="noopener" target="_blank">Open an issue</a> or
+    <a href="${repoEdit("data/controllers.json")}" rel="noopener" target="_blank">edit the data file directly</a>.
+    First-hand measurements are especially wanted, because this wiki has none of its own.
+  </p>
 
   ${sectionHead(
     "anatomy",
@@ -1013,6 +1155,11 @@ ${cards}
     description: `Community-maintained reference covering specifications, documented fixes and FAQs for ${cs.length} GameSir controllers, with every figure traced to a source.`,
     current: "index.html",
     body,
+    source: {
+      file: "build.mjs",
+      line: SRC.fn("pageIndex"),
+      note: "This page's wording is generated by build.mjs; the controller list comes from the data file.",
+    },
   });
 }
 
@@ -1282,6 +1429,13 @@ ${others}
     current: "",
     base: "../",
     body,
+    source: {
+      file: "data/controllers.json",
+      line: SRC.controller(c.id),
+      note: `Everything on this page comes from the <code>${esc(
+        c.id
+      )}</code> record in the data file.`,
+    },
   });
 }
 
@@ -1383,16 +1537,11 @@ ${rows}
     </table>
   </div>
 
-  <div class="cta-panel">
-    <div>
-      <h2>Measured latency lives on its own page</h2>
-      <p>
-        Latency needs a second dimension &mdash; every controller is measured separately over cable, dongle and
-        Bluetooth &mdash; so it does not fit a column here. The latency page compares all
-        ${cs.filter((c) => (c.measuredLatency ?? []).length).length} measured models by connection mode.
-      </p>
-    </div>
-    <a class="btn btn-primary" href="latency.html">Compare latency</a>
+  <div class="note see-also">
+    <p><strong>See also: measured latency.</strong> Latency needs a second dimension &mdash; every controller is
+    measured separately over cable, dongle and Bluetooth &mdash; so it does not fit a column here. A separate
+    page compares all ${cs.filter((c) => (c.measuredLatency ?? []).length).length} measured models by connection
+    mode: <a href="latency.html">Measured latency</a>.</p>
   </div>
 </div>`;
 
@@ -1401,6 +1550,10 @@ ${rows}
     description: "Side-by-side specification comparison of GameSir controllers, with unverified values left explicitly blank.",
     current: "compare.html",
     body,
+    source: {
+      file: "data/controllers.json",
+      note: "Every cell in this table is read from the data file; the rows themselves are defined in build.mjs.",
+    },
   });
 }
 
@@ -1608,6 +1761,10 @@ ${detail}
       "Independent button and stick latency measurements for GameSir controllers, compared by connection mode, with polling rates and the caveats that apply.",
     current: "latency.html",
     body,
+    source: {
+      file: "data/controllers.json",
+      note: "Figures live in each controller's <code>measuredLatency</code> array. New measurements are welcome if you can say how you took them.",
+    },
   });
 }
 
@@ -1772,6 +1929,10 @@ ${items}
     description: "Searchable index of documented GameSir controller problems and their fixes, with sources.",
     current: "troubleshooting.html",
     body,
+    source: {
+      file: "data/controllers.json",
+      note: "Each entry is a <code>knownIssues</code> record on the controller it affects. If a fix worked for you and isn't here, add it.",
+    },
   });
 }
 
@@ -1846,6 +2007,10 @@ ${items}
     description: "Searchable FAQ for GameSir controllers, compiled from official manuals and FAQ pages with sources.",
     current: "faq.html",
     body,
+    source: {
+      file: "data/controllers.json",
+      note: "Each question is a <code>faq</code> record on the controller it applies to. Questions you had to answer the hard way are worth adding.",
+    },
   });
 }
 
@@ -1861,12 +2026,28 @@ function pageAbout(data) {
 <div class="wrap narrow">
   <h2 id="what-this-is">What this is</h2>
   <p>
-    An unofficial, community-maintained reference for GameSir controllers. It exists because the useful
-    information is scattered across product pages, per-edition manuals, separate FAQ documents, independent
-    measurement sites and forum threads &mdash; and because the same handful of questions get asked repeatedly.
+    An unofficial, community-maintained wiki about GameSir controllers. It exists because the useful information
+    is scattered across product pages, per-edition manuals, separate FAQ documents, independent measurement
+    sites and forum threads &mdash; and because the same handful of questions get asked repeatedly.
   </p>
   <p>
-    This site is not affiliated with, endorsed by, or operated by GameSir.
+    This site is not affiliated with, endorsed by, or operated by GameSir. Nothing here is sold, sponsored or
+    affiliate-linked, and there is no advertising: links to manufacturer pages exist so you can check a figure
+    against its source. Where a launch price is recorded it is there as a dated historical fact, because price
+    is part of how these models are positioned against each other &mdash; not because anything is on offer.
+  </p>
+
+  <h2 id="who-writes-it">Who writes it</h2>
+  <p>
+    Whoever turns up. The entire site is a data file, a generator and a stylesheet in a public Git repository, so
+    editing it needs no account with anyone but GitHub and no permission from a maintainer. Every page carries an
+    &ldquo;Edit this page on GitHub&rdquo; link at the bottom that opens the exact file &mdash; and, on a
+    controller page, the exact line &mdash; that its content came from.
+  </p>
+  <p>
+    Contributions are attributed the ordinary way, through the
+    <a href="${REPO.url}/graphs/contributors" rel="noopener" target="_blank">commit history</a>. There is no
+    editorial board to convince; the only real rule is the one below about sources.
   </p>
 
   <h2 id="sourcing">Where the numbers come from</h2>
@@ -1911,12 +2092,41 @@ function pageAbout(data) {
   </p>
   ${notes ? `<ul>\n${notes}\n</ul>` : ""}
 
-  <h2 id="corrections">Corrections</h2>
+  <h2 id="contributing">How to contribute</h2>
   <p>
-    Corrections are welcome and wanted, especially from people who own the hardware. Open an issue or a pull
-    request with a source, or with a description of what your own unit does and how you tested it. First-hand
-    measurements are valuable precisely because this site has none &mdash; they will be credited and labelled as
-    such.
+    Corrections are welcome and wanted, especially from people who own the hardware. There are three ways in,
+    roughly in order of effort:
+  </p>
+  <ol>
+    <li>
+      <strong>Report it and let someone else write it.</strong>
+      <a href="${REPO_NEW_ISSUE}" rel="noopener" target="_blank">Open an issue</a> saying what is wrong, or which
+      controller is missing. A rough note with a link is more useful than nothing, and you do not need to know
+      how the site is built.
+    </li>
+    <li>
+      <strong>Edit a page in the browser.</strong> Use the &ldquo;Edit this page on GitHub&rdquo; link at the
+      foot of any page. GitHub will fork the repository and open a pull request for you; nothing needs to be
+      installed and nothing can be broken irreversibly.
+    </li>
+    <li>
+      <strong>Edit the data and rebuild.</strong> Clone the repository, change
+      <a href="${repoBlob(
+        "data/controllers.json"
+      )}" rel="noopener" target="_blank"><code>data/controllers.json</code></a>, run <code>node build.mjs</code>
+      and commit the regenerated <code>docs/</code> alongside it. There are no dependencies to install.
+    </li>
+  </ol>
+  <p>
+    The one thing a change does need is a source: a link, a manual, a measurement, or a description of what your
+    own unit does and how you tested it. First-hand measurements are valuable precisely because this wiki has
+    none of its own &mdash; they will be credited and labelled as such. A change that adds a figure with no way
+    to check it is the one kind that gets turned away, because that is the failure mode this site exists to
+    avoid.
+  </p>
+  <p class="contrib-links">
+    <a class="btn btn-ghost" href="${REPO.url}" rel="noopener" target="_blank">${ICON_GITHUB}<span>Browse the repository</span></a>
+    <a class="btn btn-ghost" href="${REPO_ISSUES}" rel="noopener" target="_blank">Open issues</a>
   </p>
 
   <p class="small text-dim">Data last reviewed ${esc(data.meta?.updated ?? "")}.</p>
@@ -1927,6 +2137,11 @@ function pageAbout(data) {
     description: "How this GameSir reference is sourced, what it does not claim, and how to submit corrections.",
     current: "about.html",
     body,
+    source: {
+      file: "build.mjs",
+      line: SRC.fn("pageAbout"),
+      note: "This page is prose held in build.mjs.",
+    },
   });
 }
 
@@ -2484,6 +2699,10 @@ async function build() {
   if (dupes.length) throw new Error(`Duplicate controller ids: ${[...new Set(dupes)].join(", ")}`);
 
   data.controllers.sort((a, b) => a.name.localeCompare(b.name));
+
+  // Resolved before any page is rendered, because the footer edit links on
+  // every one of them are built from it.
+  SRC = await readSourceLines();
 
   if (existsSync(OUT)) await rm(OUT, { recursive: true });
   await mkdir(path.join(OUT, "controllers"), { recursive: true });

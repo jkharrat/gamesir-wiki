@@ -20,6 +20,10 @@ Most controller pages either reprint marketing copy or guess. This one has two r
 Manufacturer claims are labelled as claims. Nothing here is first-hand testing unless a
 figure explicitly says so.
 
+Nothing is sold, sponsored or affiliate-linked. Launch prices are recorded as dated
+historical facts because they are part of how these models are positioned against each
+other, never as offers — see [Tone](#tone) for how that constraint shapes the design.
+
 ## Structure
 
 ```
@@ -49,6 +53,28 @@ outline, and hardware is documented with the schematics described below.
 Scripting is progressive enhancement only. With JavaScript off, every page stays a
 complete, readable document — panels do not collapse, and the filters simply do not appear
 to do anything.
+
+## Tone
+
+A reference about consumer hardware drifts towards looking like a shop for free, because
+the conventions are borrowed from the same places. The layout pushes back on that
+deliberately, and these are constraints rather than preferences:
+
+- **No page has a call-to-action button.** The largest type on any page is a page title;
+  there is no size above `--fs-h1`, so the home page cannot outrank the articles.
+- **The home page is a masthead, not a hero.** Left-aligned, with the open-contribution
+  notice in the slot where the primary and secondary buttons used to sit.
+- **Card corners show citation counts, not prices.** A bold price in the corner of a tile
+  is the single strongest storefront cue on a page; how well sourced an article is happens
+  to be the more useful number anyway.
+- **Counts are stated, not celebrated.** The home page's figures live in a labelled
+  "state of the wiki" box instead of a strip of oversized numerals.
+- **Every page ends with an edit link.** The footer names the file — and, on a controller
+  page, the line — the content was generated from.
+
+The last of those is enforced in code: `readSourceLines()` in `build.mjs` resolves the
+line numbers out of the raw files at build time, so an anchor cannot go stale and point a
+contributor at the wrong record.
 
 ## Diagrams
 
@@ -103,15 +129,24 @@ required.
 
 ## Contributing
 
-Corrections are welcome, especially from people who own the hardware.
+Corrections are welcome, especially from people who own the hardware. See
+[CONTRIBUTING.md](CONTRIBUTING.md) for the full walkthrough. The short version:
 
 - Fixing a spec: include the source URL.
 - Reporting a problem or fix: include the exact button combinations and what you observed.
 - First-hand measurements are particularly valuable, since this reference has none. They
   will be credited and labelled as first-hand rather than compiled.
 
+Every page on the site carries an "Edit this page on GitHub" link at the foot that opens
+the file it was generated from, so the shortest path to a fix does not involve cloning
+anything.
+
 ## Licence
 
 Content is offered for community reference. GameSir product names and trademarks belong to
 their owner. No GameSir product photography or copyrighted marketing assets are reproduced
 here; the site links to official pages instead.
+
+There is no `LICENSE` file yet. A wiki that asks for contributions should say what happens
+to them, so this is worth settling — CC BY-SA 4.0 for the content and MIT for the
+generator is the usual split for a project shaped like this one.

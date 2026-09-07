@@ -1413,7 +1413,7 @@
     {
       "id": "super-nova",
       "name": "GameSir Super Nova",
-      "tagline": "A $49.99 tri-mode multiplatform controller with Hall Effect sticks and triggers, magnetic swappable faceplates, and an auto start-stop charging dock.",
+      "tagline": "A tri-mode multiplatform controller with Hall Effect sticks and triggers, magnetic swappable faceplates, and an auto start-stop charging dock.",
       "releaseYear": 2025,
       "msrp": "$49.99 / £49.99",
       "platforms": [
@@ -1474,9 +1474,9 @@
       },
       "software": "GameSir Connect (PC) and the GameSir app (mobile). Note that GameSir's own Super Nova manual page contains an error telling users to configure the rear buttons via GameSir Nexus — Nexus does not support this model.",
       "notableFeatures": [
-        "Hall Effect sticks AND Hall Effect triggers at a $49.99 price point",
+        "Hall Effect sticks and Hall Effect triggers on the same controller, which is uncommon at its launch price",
         "Magnetic detachable middle faceplate plus physically detachable, rearrangeable ABXY buttons",
-        "Smart auto start-stop charging dock included, with RGB that syncs to the controller",
+        "Ships with an auto start-stop charging dock whose RGB syncs to the controller",
         "1000 Hz polling over both wired and 2.4GHz connections",
         "Trigger gear for long/short pull plus a separate software hair-trigger mode",
         "Extensive on-controller configuration via M-button combos (turbo, deadzone, vibration intensity, RGB, layout swap) with no software required",
