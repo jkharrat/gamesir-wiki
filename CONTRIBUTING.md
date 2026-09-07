@@ -55,6 +55,19 @@ node build.mjs
 your data change so the checked-in pages match the data. The published site does not depend
 on your remembering to: it is rebuilt from the JSON on every push to `main`.
 
+The build checks your edit before it writes anything, and tells you where it went wrong
+rather than publishing the mistake:
+
+```
+data/controllers.json is not valid (1 problem):
+  kaleid.faq[3].sourceUrl   is missing
+```
+
+A misspelled field name is the error this exists to catch. It would otherwise make the page
+read "not documented" for something you had just documented, and the build would still
+report success. If you are adding a field that genuinely does not exist yet, declare it in
+`src/schema.mjs` in the same commit.
+
 To preview, open `docs/index.html` in a browser. The site uses no `fetch()`, so it works
 over `file://`. `node serve.mjs` is there if you would rather have a local server.
 
@@ -63,6 +76,7 @@ over `file://`. `node serve.mjs` is there if you would rather have a local serve
 ```
 data/controllers.json    Single source of truth — nearly every contribution belongs here
 build.mjs                Zero-dependency generator (layout, page prose and client JS inline)
+src/schema.mjs           What a controller record may contain; the build enforces it
 src/diagrams.mjs         SVG line art
 src/assets/css/style.css The only stylesheet
 docs/                    Generated output — never edit by hand

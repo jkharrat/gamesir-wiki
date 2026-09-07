@@ -11,9 +11,11 @@ MIT covers the program that builds the site:
 
   build.mjs             as a program: the generator, its helpers and the
                         client-side JavaScript it emits
+  src/schema.mjs        the data schema and its validator
   src/diagrams.mjs      and the SVG line art it draws, including the files
                         written to docs/assets/gamesir/
-  src/assets/           the stylesheet and the favicon
+  src/assets/           the stylesheet, the favicon and og-image.png
+  src/og-image.html     the source artwork that og-image.png is captured from
   serve.mjs             the preview server
 
 CC BY-SA 4.0 covers the wiki itself:
@@ -23,6 +25,9 @@ CC BY-SA 4.0 covers the wiki itself:
   the page prose        the human-readable copy on the generated pages, which
                         for prose pages is held as strings inside build.mjs
   docs/*.html           the generated pages, as compilations of the above
+
+docs/sitemap.xml and docs/robots.txt are neither: they are lists of addresses,
+carrying no expression worth licensing.
 
 build.mjs is deliberately listed twice, because it genuinely holds both: the
 code is MIT, and the sentences that code prints are CC BY-SA. If you are

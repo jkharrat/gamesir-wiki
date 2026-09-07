@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<!--
+  Source artwork for the social preview image, src/assets/og-image.png.
+
+  This is the one raster asset on the site. Everything else is SVG drawn at
+  build time, but chat clients and search engines will not render SVG in an
+  og:image, so this has to ship as a PNG.
+
+  To regenerate after editing: open this file in a browser at exactly
+  1200x630, capture the viewport, and save it over src/assets/og-image.png.
+  The build copies src/assets/ verbatim, so nothing else needs changing.
+
+  The palette, type treatment and grid are lifted from the tokens at the top
+  of src/assets/css/style.css so the card looks like the site it links to. It
+  is deliberately typographic: there is no product photography anywhere on
+  this wiki, and a share card is not the place to start.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>GameSir Wiki — social preview source</title>
+<style>
+  :root {
+    --bg: #0b0b0d;
+    --text: #f2f3f5;
+    --text-muted: #a6aab3;
+    --text-dim: #71757e;
+    --brand: #e5343c;
+    --line: #24242c;
+    --grid-line: rgba(255, 255, 255, 0.038);
+    --font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body { margin: 0; padding: 0; background: #000; }
+
+  /* Exactly the Open Graph canvas, so a viewport capture needs no cropping. */
+  .card {
+    position: relative;
+    width: 1200px;
+    height: 630px;
+    overflow: hidden;
+    background: var(--bg);
+    font-family: var(--font);
+    color: var(--text);
+    padding: 72px 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  /* The home page hero's masked grid and brand glow, at card scale. */
+  .card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+    background-size: 48px 48px;
+    mask-image: radial-gradient(120% 90% at 12% 0%, #000 20%, transparent 78%);
+  }
+
+  .card::after {
+    content: "";
+    position: absolute;
+    top: -280px;
+    right: -220px;
+    width: 900px;
+    height: 900px;
+    background: radial-gradient(circle, rgba(229, 52, 60, 0.16) 0%, transparent 62%);
+  }
+
+  .card > * { position: relative; }
+
+  /* --- Masthead --- */
+
+  .brand { display: flex; align-items: center; gap: 18px; }
+
+  .brand svg { display: block; width: 60px; height: 60px; }
+
+  .brand-name {
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+  }
+
+  .brand-name span { color: var(--text-dim); font-weight: 500; }
+
+  /* --- Headline --- */
+
+  h1 {
+    margin: 0;
+    max-width: 15ch;
+    font-size: 76px;
+    line-height: 1.06;
+    font-weight: 800;
+    letter-spacing: -0.032em;
+  }
+
+  .lede {
+    margin: 26px 0 0;
+    max-width: 46ch;
+    font-size: 25px;
+    line-height: 1.42;
+    color: var(--text-muted);
+  }
+
+  /* --- Footer strip --- */
+
+  .foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding-top: 28px;
+    border-top: 1px solid var(--line);
+  }
+
+  .eyebrow {
+    margin: 0;
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--brand);
+  }
+
+  .host {
+    margin: 0;
+    font-size: 19px;
+    color: var(--text-dim);
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <div class="brand">
+    <!-- The site's own mark, from src/diagrams.mjs. Not a GameSir trademark. -->
+    <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-label="GameSir Wiki mark" role="img">
+      <rect width="32" height="32" rx="8" fill="#e5343c"/>
+      <circle cx="16" cy="16" r="8.4" fill="none" stroke="#fff" stroke-width="2.5" opacity=".85"/>
+      <circle cx="19.4" cy="12.6" r="3.3" fill="#fff"/>
+    </svg>
+    <p class="brand-name">GameSir <span>Wiki</span></p>
+  </div>
+
+  <div>
+    <h1>A sourced reference for GameSir&nbsp;controllers</h1>
+    <p class="lede">
+      Specifications, documented problems and their fixes &mdash; with a source behind every figure, and gaps
+      left visible rather than guessed.
+    </p>
+  </div>
+
+  <div class="foot">
+    <p class="eyebrow">Unofficial &middot; Community-maintained &middot; Not for sale</p>
+    <p class="host">jkharrat.github.io/gamesir-wiki</p>
+  </div>
+</div>
+
+</body>
+</html>

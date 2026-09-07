@@ -29,10 +29,14 @@ historical facts, since price is part of how these models line up against each o
 ```
 data/controllers.json    Single source of truth — all content lives here
 build.mjs                Zero-dependency generator (templates and client JS live inline)
+src/schema.mjs           The shape a controller record may take, and the checker for it
 src/diagrams.mjs         SVG line art: controller views, component close-ups, icons
-src/assets/               Stylesheet and favicon, copied verbatim into docs/assets/
+src/og-image.html        Source artwork for the social preview image
+src/assets/              Stylesheet, favicon and og-image.png, copied verbatim into docs/assets/
 docs/                    Generated output (this is what GitHub Pages serves)
 docs/assets/gamesir/     Diagrams also written out as standalone SVG files
+docs/sitemap.xml         Generated from the same page list the build writes
+docs/404.html            Served for any unknown path
 ```
 
 Everything in `docs/` is generated. Never edit it by hand; edit the JSON and rebuild.
@@ -102,6 +106,28 @@ node build.mjs
 
 This regenerates `docs/` from scratch. To preview, open `docs/index.html` directly in a
 browser — the site uses no `fetch()`, so it works over `file://` without a local server.
+`node serve.mjs` is there if you want a real server, and it answers unknown paths with
+`404.html` the way GitHub Pages does.
+
+## Validation
+
+The build checks `data/controllers.json` against `src/schema.mjs` before it renders
+anything, and refuses to write a site that would misreport itself. It reports every problem
+at once rather than stopping at the first:
+
+```
+data/controllers.json is not valid (2 problems):
+  g7-he.sticks.measuredCentreError   unknown field — did you mean "measuredCenterError"?
+  t7-pro.tier                        "midrange" is not one of: mid-range, high-end, flagship
+```
+
+Unknown fields are errors rather than warnings, which is the whole point. A misspelled key
+stops being read, so the page prints "not documented" for a value that *is* documented — and
+without this check the build would report success while quietly publishing the gap. Adding a
+field to the data therefore means adding it to the schema too.
+
+Booleans are the one thing that may never be null. A null would render as a confident "No",
+so an unknown yes/no has to be resolved before it can be published.
 
 ## Adding a controller
 
@@ -114,9 +140,12 @@ Field conventions:
 - Use `null` for anything you cannot verify. Do not guess.
 - Put manufacturer figures in `claimed*` fields and independent measurements in `measured*`
   fields, so the two never get confused.
-- Every `knownIssues` and `faq` entry should carry a `sourceUrl`.
-- `id` must be unique and URL-safe; it becomes the page filename. The build fails on
-  duplicates.
+- Every `knownIssues` and `faq` entry must carry a `sourceUrl`, and every controller needs
+  at least one entry in `sources`.
+- `id` must be unique and URL-safe; it becomes the page filename.
+- Adding a genuinely new field means declaring it in `src/schema.mjs`.
+
+All four are enforced by the build, not just advised.
 
 ## Deploying to GitHub Pages
 
@@ -128,6 +157,18 @@ itself on its first run; no repository setting needs touching.
 Generated output stays committed anyway, because opening `docs/index.html` over `file://`
 is the fastest way to preview a change. If a commit forgets to rebuild, the live site is
 still correct — only the local preview goes stale.
+
+Canonical URLs, the Open Graph tags and `sitemap.xml` are absolute, so they are built from
+the `SITE_URL` constant at the top of `build.mjs`. Everything in the page chrome stays
+relative, which is what keeps `file://` working. Moving the site to another address means
+changing that one constant and rebuilding.
+
+Two caveats worth knowing. `robots.txt` is only read from the root of a host, so at
+`jkharrat.github.io/gamesir-wiki/` it is advisory rather than effective — the sitemap has to
+be submitted to Google Search Console directly, and it starts working on its own if the site
+ever moves to a domain of its own. And `docs/assets/og-image.png` is the one asset not drawn
+at build time, because no chat client will render an SVG social preview; regenerate it from
+`src/og-image.html` when the wording changes.
 
 ## Contributing
 

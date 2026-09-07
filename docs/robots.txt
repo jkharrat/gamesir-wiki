@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://jkharrat.github.io/gamesir-wiki/sitemap.xml

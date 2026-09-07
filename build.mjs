@@ -37,11 +37,40 @@ import {
   mappingFigure,
   standaloneSvg,
 } from "./src/diagrams.mjs";
+import { validate } from "./src/schema.mjs";
 
 const ROOT = import.meta.dirname;
 const OUT = path.join(ROOT, "docs");
 
 const SITE_NAME = "GameSir Wiki";
+
+/**
+ * Where the built site is published, trailing slash included.
+ *
+ * Every link in the page chrome stays relative, so `docs/index.html` still
+ * opens straight off a disk with no server. This constant exists for the three
+ * things that cannot be relative: the canonical URL and Open Graph tags, which
+ * search engines and chat clients resolve out of context; the sitemap, which
+ * is specified as absolute; and 404.html, which GitHub serves while leaving
+ * the mistyped path in the address bar, so relative asset links would resolve
+ * against the wrong directory and load nothing.
+ */
+const SITE_URL = "https://jkharrat.github.io/gamesir-wiki/";
+
+/** Absolute URL for a built page or asset, e.g. `siteUrl("faq.html")`. */
+const siteUrl = (pathname = "") => SITE_URL + pathname;
+
+/**
+ * Social preview image. Chat clients and search engines will not render SVG
+ * here, which is why this one asset is a raster file rather than drawn at
+ * build time like everything else on the site.
+ */
+const OG_IMAGE = {
+  url: siteUrl("assets/og-image.png"),
+  width: 1200,
+  height: 630,
+  alt: "GameSir Wiki — a sourced reference for GameSir controllers",
+};
 
 /** Where the source lives. Every contribute and edit link is derived from it. */
 const REPO = {
@@ -489,8 +518,25 @@ const THEME_BOOT = `(function(){var d=document.documentElement;try{var t=localSt
  * footer can point a would-be contributor at the record rather than at the
  * repository root. Prose pages are generated from build.mjs; anything built
  * out of per-controller records points at the data file instead.
+ *
+ * `pathname` is where the page will be written, relative to the site root. It
+ * does double duty: it becomes the canonical URL, and the depth of it gives
+ * the `../` prefix the chrome needs, so the two cannot disagree. 404.html
+ * overrides `base` with an absolute URL — see SITE_URL for why.
  */
-function layout({ title, description, current, base = "", body, bodyEnd = "", source = null }) {
+function layout({
+  title,
+  description,
+  current,
+  pathname = "",
+  base = "../".repeat(Math.max(0, pathname.split("/").length - 1)),
+  body,
+  bodyEnd = "",
+  source = null,
+  ogType = "website",
+  noindex = false,
+}) {
+  const canonical = siteUrl(pathname);
   const nav = NAV.map(
     (n) =>
       `<a href="${base}${n.href}"${n.href === current ? ' aria-current="page"' : ""}>${n.label}</a>`
@@ -535,10 +581,17 @@ ${col.links
 <meta name="description" content="${esc(description)}">
 <meta name="color-scheme" content="dark light">
 <meta name="theme-color" content="#0b0b0d">
-<meta property="og:type" content="website">
+${noindex ? '<meta name="robots" content="noindex, follow">\n' : ""}<link rel="canonical" href="${canonical}">
+<meta property="og:type" content="${ogType}">
 <meta property="og:site_name" content="${SITE_NAME}">
 <meta property="og:title" content="${esc(title)}">
 <meta property="og:description" content="${esc(description)}">
+<meta property="og:url" content="${canonical}">
+<meta property="og:image" content="${OG_IMAGE.url}">
+<meta property="og:image:width" content="${OG_IMAGE.width}">
+<meta property="og:image:height" content="${OG_IMAGE.height}">
+<meta property="og:image:alt" content="${esc(OG_IMAGE.alt)}">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="${base}assets/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="${base}assets/css/style.css">
 <script>${THEME_BOOT}</script>
@@ -1146,6 +1199,9 @@ ${cards}
     title: `${SITE_NAME} — sourced specs, fixes and FAQ for GameSir controllers`,
     description: `Community-maintained reference covering specifications, documented fixes and FAQs for ${cs.length} GameSir controllers, with every figure traced to a source.`,
     current: "index.html",
+    // Canonicalised to the directory rather than to index.html, so the site
+    // has one address instead of two that serve identical bytes.
+    pathname: "",
     body,
     source: {
       file: "build.mjs",
@@ -1419,7 +1475,8 @@ ${others}
     title: `${c.fullName ?? c.name} — specs, fixes and FAQ | ${SITE_NAME}`,
     description: `${c.name}: full specifications, measured performance, documented problems and fixes, and frequently asked questions. ${c.tagline}`,
     current: "",
-    base: "../",
+    pathname: `controllers/${c.id}.html`,
+    ogType: "article",
     body,
     source: {
       file: "data/controllers.json",
@@ -1540,6 +1597,7 @@ ${rows}
     title: `Specification comparison — ${SITE_NAME}`,
     description: "Side-by-side specification comparison of GameSir controllers, with unverified values left explicitly blank.",
     current: "compare.html",
+    pathname: "compare.html",
     body,
     source: {
       file: "data/controllers.json",
@@ -1749,6 +1807,7 @@ ${detail}
     description:
       "Independent button and stick latency measurements for GameSir controllers, compared by connection mode, with polling rates and the caveats that apply.",
     current: "latency.html",
+    pathname: "latency.html",
     body,
     source: {
       file: "data/controllers.json",
@@ -1915,6 +1974,7 @@ ${items}
     title: `Troubleshooting index — ${SITE_NAME}`,
     description: "Searchable index of documented GameSir controller problems and their fixes, with sources.",
     current: "troubleshooting.html",
+    pathname: "troubleshooting.html",
     body,
     source: {
       file: "data/controllers.json",
@@ -1993,6 +2053,7 @@ ${items}
     title: `FAQ — ${SITE_NAME}`,
     description: "Searchable FAQ for GameSir controllers, compiled from official manuals and FAQ pages with sources.",
     current: "faq.html",
+    pathname: "faq.html",
     body,
     source: {
       file: "data/controllers.json",
@@ -2143,6 +2204,7 @@ function pageAbout(data) {
     title: `About — ${SITE_NAME}`,
     description: "How this GameSir reference is sourced, what it does not claim, and how to submit corrections.",
     current: "about.html",
+    pathname: "about.html",
     body,
     source: {
       file: "build.mjs",
@@ -2152,7 +2214,111 @@ function pageAbout(data) {
   });
 }
 
+/**
+ * Served for any path that does not exist.
+ *
+ * Two things make this page unlike the others. GitHub serves it while leaving
+ * the requested path in the address bar, so every link and asset reference has
+ * to be absolute or a mistyped controller URL would render the page unstyled;
+ * `base` is set to the site root to do that in one place. And it is marked
+ * noindex, because a soft 404 in a search index is worse than no result.
+ *
+ * The controller list is spelled out rather than linked generically: the most
+ * likely way to arrive here is a misremembered model filename, and the fix is
+ * to show the nine that exist.
+ */
+function pageNotFound(data) {
+  const models = data.controllers
+    .map(
+      (c) =>
+        `      <li><a href="${siteUrl(`controllers/${esc(c.id)}.html`)}">${esc(c.name)}</a></li>`
+    )
+    .join("\n");
+
+  const body = `${pageHead({
+    eyebrow: "Error 404",
+    heading: "That page does not exist",
+    lede: `<p class="lede">
+      The address you followed is not part of this wiki. It may have been mistyped, or it may have pointed at a
+      controller nobody has written up yet.
+    </p>`,
+  })}
+
+<div class="wrap narrow">
+  <div class="note">
+    <p>
+      <strong>Looking for a specific controller?</strong> These are the ${numberWord(
+        data.controllers.length
+      )} with articles. If yours is not among them, it has not been documented here yet &mdash;
+      <a href="${REPO_NEW_ISSUE}" rel="noopener" target="_blank">say so in an issue</a> and it goes on the list.
+    </p>
+    <ul>
+${models}
+    </ul>
+  </div>
+
+  <h2>Or start from one of these</h2>
+  <ul>
+    <li><a href="${siteUrl("troubleshooting.html")}">Troubleshooting index</a> &mdash; every documented problem and its fix</li>
+    <li><a href="${siteUrl("faq.html")}">Frequently asked questions</a> &mdash; searchable, with sources</li>
+    <li><a href="${siteUrl("compare.html")}">Specification comparison</a> &mdash; every model side by side</li>
+    <li><a href="${siteUrl("latency.html")}">Measured latency</a> &mdash; independent button and stick figures</li>
+    <li><a href="${siteUrl()}">The home page</a> &mdash; all articles and where to begin</li>
+  </ul>
+
+  <p class="small text-dim">
+    If a link on this site brought you here, that is a bug worth reporting &mdash;
+    <a href="${REPO_NEW_ISSUE}" rel="noopener" target="_blank">open an issue</a> and say which page you came from.
+  </p>
+</div>`;
+
+  return layout({
+    title: `Page not found — ${SITE_NAME}`,
+    description: "That page does not exist on the GameSir Wiki. Here is the index of documented controllers.",
+    current: "",
+    pathname: "404.html",
+    base: SITE_URL,
+    noindex: true,
+    body,
+  });
+}
+
 /* ----------------------------------------------------------------- build -- */
+
+/**
+ * Sitemap, built from the same page list that gets written to disk, so it
+ * cannot list a page that does not exist or miss one that does.
+ *
+ * `lastmod` is the data file's review date for every entry. That is honest at
+ * the granularity this project currently keeps: there is one review date for
+ * the whole wiki, not one per article.
+ */
+const sitemap = (pages, updated) =>
+  `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${pages
+  .map(
+    (p) =>
+      `  <url>\n    <loc>${esc(siteUrl(p.url))}</loc>${
+        updated ? `\n    <lastmod>${esc(updated)}</lastmod>` : ""
+      }\n  </url>`
+  )
+  .join("\n")}
+</urlset>
+`;
+
+/**
+ * Crawlers only read robots.txt from the root of a host, so at
+ * jkharrat.github.io/gamesir-wiki/ this file is advisory rather than effective
+ * — the sitemap has to be submitted directly to a search console instead. It
+ * is written anyway: it costs a line, it documents intent, and it starts
+ * working the moment the site moves to a domain of its own.
+ */
+const ROBOTS = `User-agent: *
+Allow: /
+
+Sitemap: ${siteUrl("sitemap.xml")}
+`;
 
 const FILTER_JS = `/* Progressive enhancement: theme switching, the mobile nav, section tabs, the
    latency metric switch, and search/model filtering. Every page works without
@@ -2687,10 +2853,10 @@ reproduced in any of them. GameSir product names and trademarks belong to their 
 async function build() {
   const data = JSON.parse(await readFile(path.join(ROOT, "data", "controllers.json"), "utf8"));
 
-  // Fail loudly on duplicate ids rather than silently overwriting a page.
-  const ids = data.controllers.map((c) => c.id);
-  const dupes = ids.filter((id, i) => ids.indexOf(id) !== i);
-  if (dupes.length) throw new Error(`Duplicate controller ids: ${[...new Set(dupes)].join(", ")}`);
+  // Before anything is rendered or deleted: a misspelled field would otherwise
+  // publish as "Not documented" for a value that is in fact documented, and
+  // the build would report success. src/schema.mjs holds the field list.
+  validate(data);
 
   data.controllers.sort((a, b) => a.name.localeCompare(b.name));
 
@@ -2711,16 +2877,37 @@ async function build() {
   // Tells GitHub Pages to serve the directory as-is instead of running Jekyll.
   await writeFile(path.join(OUT, ".nojekyll"), "");
 
-  await writeFile(path.join(OUT, "index.html"), pageIndex(data));
-  await writeFile(path.join(OUT, "compare.html"), pageCompare(data));
-  await writeFile(path.join(OUT, "latency.html"), pageLatency(data));
-  await writeFile(path.join(OUT, "troubleshooting.html"), pageTroubleshooting(data));
-  await writeFile(path.join(OUT, "faq.html"), pageFaq(data));
-  await writeFile(path.join(OUT, "about.html"), pageAbout(data));
+  // One table for every indexable page: `file` is where it is written, `url`
+  // is its address relative to the site root. The sitemap is generated from
+  // this same list, so a new page appears in it without a second edit.
+  const pages = [
+    { file: "index.html", url: "", html: () => pageIndex(data) },
+    { file: "compare.html", url: "compare.html", html: () => pageCompare(data) },
+    { file: "latency.html", url: "latency.html", html: () => pageLatency(data) },
+    {
+      file: "troubleshooting.html",
+      url: "troubleshooting.html",
+      html: () => pageTroubleshooting(data),
+    },
+    { file: "faq.html", url: "faq.html", html: () => pageFaq(data) },
+    { file: "about.html", url: "about.html", html: () => pageAbout(data) },
+    ...data.controllers.map((c) => ({
+      file: `controllers/${c.id}.html`,
+      url: `controllers/${c.id}.html`,
+      html: () => pageController(c, data),
+    })),
+  ];
 
-  for (const c of data.controllers) {
-    await writeFile(path.join(OUT, "controllers", `${c.id}.html`), pageController(c, data));
+  for (const p of pages) {
+    await writeFile(path.join(OUT, p.file), p.html());
   }
+
+  // Deliberately outside `pages`: a 404 belongs in neither the sitemap nor a
+  // search index, and it is the one page addressed by every wrong URL at once.
+  await writeFile(path.join(OUT, "404.html"), pageNotFound(data));
+
+  await writeFile(path.join(OUT, "sitemap.xml"), sitemap(pages, data.meta?.updated));
+  await writeFile(path.join(OUT, "robots.txt"), ROBOTS);
 
   const assets = await writeDiagramAssets(data);
 
@@ -2728,9 +2915,10 @@ async function build() {
   const faqs = data.controllers.reduce((n, c) => n + (c.faq?.length ?? 0), 0);
 
   console.log(
-    `Built ${data.controllers.length + 6} pages -> docs/\n` +
+    `Built ${pages.length} pages + 404 -> docs/\n` +
       `  ${data.controllers.length} controllers, ${issues} documented issues, ${faqs} FAQ entries\n` +
-      `  ${assets} diagram assets -> docs/assets/gamesir/`
+      `  ${assets} diagram assets -> docs/assets/gamesir/\n` +
+      `  sitemap.xml (${pages.length} urls), robots.txt`
   );
 }
 

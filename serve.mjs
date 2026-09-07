@@ -43,7 +43,12 @@ createServer(async (req, res) => {
     res.writeHead(200, { "content-type": TYPES[path.extname(file)] ?? "application/octet-stream" });
     res.end(body);
   } catch {
-    res.writeHead(404, { "content-type": "text/plain" }).end("Not found");
+    // Mirror GitHub Pages, which answers an unknown path with the site's own
+    // 404.html, so a broken link looks the same here as it will in production.
+    const notFound = await readFile(path.join(ROOT, "404.html")).catch(() => null);
+    res
+      .writeHead(404, { "content-type": notFound ? TYPES[".html"] : "text/plain" })
+      .end(notFound ?? "Not found");
   }
 }).listen(PORT, () => {
   console.log(`Serving docs/ at http://localhost:${PORT}`);
