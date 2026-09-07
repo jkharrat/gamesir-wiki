@@ -160,7 +160,10 @@ const LAYOUT = {
   // which is worth showing rather than omitting.
   "g7-he": { family: "xbox", centre: "xbox", mode: "M", micMute: true, latches: false },
   "g7-pro": { family: "xbox", centre: "xbox", mode: "Mode", gyro: true },
-  "g7-pro-8k": { family: "xbox", centre: "xbox", mode: "M", gyro: true },
+  // GameSir publishes no dimensions for the 8K, so its shell is drawn at the
+  // G7 Pro's — the model it is a revision of — rather than at a size nobody
+  // has stated. Everything else about the layout is its own.
+  "g7-pro-8k": { family: "xbox", centre: "xbox", mode: "M", gyro: true, shellFrom: "g7-pro" },
   kaleid: { family: "xbox", centre: "xbox", mode: "M", rgb: "Two customisable RGB strips" },
   "t7-pro": { family: "xbox", centre: "xbox", mode: "M", rgb: "RGB-illuminated D-pad and ABXY" },
   // Multiplatform, so the guide button is a Home button and the shoulder row
@@ -203,6 +206,51 @@ const layoutOf = (c) => LAYOUT[c.id] ?? { family: "xbox", centre: "xbox", mode: 
 
 /** The layout facts above, for callers that need to pick a matching close-up. */
 export const layoutInfo = (c) => ({ ...layoutOf(c) });
+
+/* ------------------------------------------------ documented control styles */
+
+/**
+ * Some of what a control looks like is recorded in the data, just in prose: a
+ * fenced D-pad has a raised ring around it, a membrane pad is one moulded
+ * piece where a micro-switch pad is four separate keys, an illuminated one
+ * glows. These read that prose so a drawing follows the record rather than a
+ * second opinion kept in this file.
+ *
+ * A record that says the switch type is *not* documented gets the neutral
+ * shape, even though the sentence saying so also names a switch type. That
+ * sentence is the wiki declining to make the claim, and a diagram that drew
+ * the type anyway would be making it on the wiki's behalf.
+ */
+const undocumented = (v) => /not (?:officially )?documented|treat .* as not/i.test(String(v));
+
+export function dpadStyle(c) {
+  const v = String(c.dpad ?? "");
+  const known = has(c.dpad) && !undocumented(v);
+
+  return {
+    fenced: known && /fenced/i.test(v),
+    keys: !known
+      ? null
+      : /membrane|rubber.?dome/i.test(v)
+      ? "membrane"
+      : /micro.?switch|mechanical|tactile/i.test(v)
+      ? "segmented"
+      : null,
+    lit: known && /rgb|illuminat/i.test(v),
+  };
+}
+
+const faceStyle = (c) => {
+  const v = String(c.faceButtons ?? "");
+  return {
+    blank: /no printed symbols|unlettered/i.test(v),
+    lit: /rgb|illuminat|led-lit|led lit/i.test(v),
+  };
+};
+
+const stickStyle = (c) => ({
+  glideRing: /glide ring/i.test(String(c.sticks?.tech ?? "")),
+});
 
 /** First clause of a prose field, for a readout line that has to stay short. */
 const brief = (v, max = 96) => {
@@ -399,55 +447,345 @@ function buildPartInfo(c) {
   };
 }
 
-/* -------------------------------------------------------- controller views */
+/* --------------------------------------------------------- shell geometry */
 
 /**
- * Body outlines, drawn in a 400 x 280 space and symmetric about x = 200.
+ * Every view is drawn in a 400 x 280 space at two units per millimetre, with
+ * the shell's top edge on a fixed line so the shoulder row lines up from one
+ * model to the next. A model's published width and height therefore decide
+ * how large it draws: the T7 Pro's 145 x 93 mm shell is visibly the smallest
+ * in this range and the Tarantula Pro's 158 x 100 mm the largest, which is a
+ * figure the specification table already carries.
  *
- * Two are needed because the two families are genuinely different shapes: an
- * offset-stick pad has a deep notch between the grips, while a symmetric one
- * fills that area with the sticks and so cannot.
+ * The contour is not a per-model claim. Nobody publishes a shell profile, so
+ * each family has one outline, held in fractions of the shell's own width and
+ * height, and a model deforms it to its own proportions rather than being
+ * given a silhouette somebody drew from memory.
  */
-const BODY_TOP =
-  "M 200 64 C 178 64 152 60 124 64 C 96 68 70 80 52 104 C 38 124 33 148 36 172 " +
-  "C 39 202 50 234 72 254 C 90 270 114 274 132 262 C 146 253 152 240 156 220 ";
+const UNITS_PER_MM = 2;
 
-const BODY_TAIL =
-  "C 248 240 254 253 268 262 C 286 274 310 270 328 254 C 350 234 361 202 364 172 " +
-  "C 367 148 362 124 348 104 C 330 80 304 68 276 64 C 248 60 222 64 200 64 Z";
-
-/* Deep notch between the grips: the sticks sit above it, offset from each other. */
-const OFFSET_BODY =
-  BODY_TOP +
-  "C 159 206 166 198 180 196 C 187 195 194 195 200 195 " +
-  "C 206 195 213 195 220 196 C 234 198 241 206 244 220 " +
-  BODY_TAIL;
-
-/* Shallower notch: a symmetric pad puts both sticks in that space instead. */
-const SYMMETRIC_BODY =
-  BODY_TOP +
-  "C 160 210 170 204 186 203 L 214 203 C 230 204 240 210 244 220 " +
-  BODY_TAIL;
-
-const bodyPath = (c) => (layoutOf(c).family === "symmetric" ? SYMMETRIC_BODY : OFFSET_BODY);
+/** The line every view puts the top edge on. Triggers sit above it. */
+const TOP_EDGE = 56;
 
 /**
- * Shoulder row, shared by the front and back views. Drawn before the body so
- * the body overlaps its lower edge and the parts read as attached to it rather
- * than floating above it.
+ * Used for a record with no dimensions and no documented sibling to borrow
+ * from — the generic reference pad on the home page, mainly. The middle of
+ * the range, so it is not quietly a copy of one particular model.
  */
-const shoulderRow = (info, add, { mini }) => {
-  add(info.lt, rect(76, 18, 68, 30, 15, "d-part") + text(110, 33, "LT"));
-  add(info.rt, rect(256, 18, 68, 30, 15, "d-part") + text(290, 33, "RT"));
-  add(info.lb, rect(66, 44, 86, 28, 14, "d-part-2") + text(105, 57, "LB"));
-  add(info.rb, rect(248, 44, 86, 28, 14, "d-part-2") + text(295, 57, "RB"));
-  if (mini) {
-    // Top-edge extras sit inboard of the bumpers. They are raised enough that
-    // their labels clear the body edge that crops their lower half.
-    add(info.l5, rect(155, 38, 26, 26, 12, "d-part-2") + text(168, 48, "L5", "d-label d-label-xs"));
-    add(info.r5, rect(219, 38, 26, 26, 12, "d-part-2") + text(232, 48, "R5", "d-label d-label-xs"));
-  }
+const TYPICAL_MM = { width: 154, height: 103, depth: 60 };
+
+/**
+ * Published dimensions by model id, so a model GameSir has not measured in
+ * public can borrow a named sibling's shell instead of a guess. The build
+ * registers the data file once before it renders anything.
+ */
+let PUBLISHED_MM = new Map();
+
+export function useDimensions(controllers = []) {
+  PUBLISHED_MM = new Map(
+    controllers.filter((c) => c?.dimensionsMm).map((c) => [c.id, c.dimensionsMm])
+  );
+}
+
+function shellSize(c) {
+  if (c.dimensionsMm) return { mm: c.dimensionsMm, borrowed: null };
+  const from = layoutOf(c).shellFrom;
+  const sibling = from ? PUBLISHED_MM.get(from) : null;
+  if (sibling) return { mm: sibling, borrowed: from };
+  return { mm: TYPICAL_MM, borrowed: null };
+}
+
+/**
+ * The frame a view is drawn against. `at(u, v)` turns shell-relative
+ * coordinates — u across from the centre line, v down from the top edge — into
+ * the drawing's own, so a control keeps its place on the shell whatever size
+ * that shell is.
+ */
+function shellBox(c) {
+  const L = layoutOf(c);
+  const { mm, borrowed } = shellSize(c);
+  const w = mm.width * UNITS_PER_MM;
+  const h = mm.height * UNITS_PER_MM;
+
+  return {
+    family: L.family === "symmetric" ? "symmetric" : "offset",
+    mm,
+    borrowed,
+    w,
+    h,
+    halfW: w / 2,
+    top: TOP_EDGE,
+    // Controls are sized against the shell they sit on rather than in fixed
+    // units. A stick well is much the same size on every pad in this range, but
+    // drawing one at a fixed size on a shell 10% shorter crowds it into its
+    // neighbours — and the whole point of scaling the shell is that a compact
+    // model reads as compact, which a full-size cluster on it would undo.
+    scale: h / 206,
+    at: (u, v) => [200 + (u * w) / 2, TOP_EDGE + v * h],
+  };
+}
+
+/**
+ * The left half of a shell in fractions of its width and height: u = -1 is the
+ * left edge, v = 1 the bottom of the grip. The numbers look measured rather
+ * than round because they are — this is the outline the module has drawn since
+ * the diagrams existed, made resizable.
+ */
+const OUTLINE = {
+  top: [
+    { c1: [-0.133, 0], c2: [-0.291, -0.019], to: [-0.461, 0] },
+    { c1: [-0.63, 0.019], c2: [-0.788, 0.076], to: [-0.897, 0.19] },
+  ],
+  side: [
+    { c1: [-0.982, 0.286], c2: [-1.012, 0.4], to: [-0.994, 0.514] },
+    { c1: [-0.976, 0.657], c2: [-0.909, 0.81], to: [-0.776, 0.905] },
+  ],
+  gripTip: { c1: [-0.667, 0.981], c2: [-0.521, 1], to: [-0.412, 0.943] },
+  gripInner: { c1: [-0.327, 0.9], c2: [-0.291, 0.838], to: [-0.267, 0.743] },
+  // Where the families genuinely differ: an offset-stick pad has a deep notch
+  // between the grips, and a symmetric one fills it with the sticks.
+  notch: {
+    offset: [
+      { c1: [-0.248, 0.712], c2: [-0.206, 0.674], to: [-0.121, 0.665] },
+      { c1: [-0.079, 0.66], c2: [-0.036, 0.66], to: [0, 0.66] },
+    ],
+    symmetric: [{ c1: [-0.242, 0.726], c2: [-0.182, 0.7], to: [-0.085, 0.695] }],
+  },
 };
+
+/** Where the bottom edge of the shell runs between the grips. */
+const notchDepth = (box) => OUTLINE.notch[box.family].at(-1).to[1];
+
+const halfOutline = (box) => [
+  ...OUTLINE.top,
+  ...OUTLINE.side,
+  OUTLINE.gripTip,
+  OUTLINE.gripInner,
+  ...OUTLINE.notch[box.family],
+];
+
+const xy = ([x, y]) => `${x.toFixed(1)} ${y.toFixed(1)}`;
+
+/** Mirrors a point about the centre line, which every shell is symmetric on. */
+const flipX = ([x, y]) => [400 - x, y];
+
+const bezierAt = (p0, p1, p2, p3, t) => {
+  const u = 1 - t;
+  const f = (a, b, c, d) => u ** 3 * a + 3 * u * u * t * b + 3 * u * t * t * c + t ** 3 * d;
+  return [f(p0[0], p1[0], p2[0], p3[0]), f(p0[1], p1[1], p2[1], p3[1])];
+};
+
+const bezierTangent = (p0, p1, p2, p3, t) => {
+  const u = 1 - t;
+  const f = (a, b, c, d) => 3 * (u * u * (b - a) + 2 * u * t * (c - b) + t * t * (d - c));
+  return [f(p0[0], p1[0], p2[0], p3[0]), f(p0[1], p1[1], p2[1], p3[1])];
+};
+
+/** The shell outline: the half above, then the same segments mirrored back. */
+function shellPath(box) {
+  const p = (uv) => xy(box.at(uv[0], uv[1]));
+  const flip = (uv) => [-uv[0], uv[1]];
+  const segs = halfOutline(box);
+
+  let d = `M ${p([0, 0])}`;
+  for (const s of segs) d += ` C ${p(s.c1)} ${p(s.c2)} ${p(s.to)}`;
+
+  // The symmetric family's notch stops short of the centre line, so its two
+  // halves are joined across it instead of meeting at a point.
+  if (box.family === "symmetric") d += ` L ${p(flip(segs.at(-1).to))}`;
+
+  const back = [...segs].reverse();
+  back.forEach((s, i) => {
+    const from = i + 1 < back.length ? back[i + 1].to : [0, 0];
+    d += ` C ${p(flip(s.c2))} ${p(flip(s.c1))} ${p(flip(from))}`;
+  });
+
+  return `${d} Z`;
+}
+
+/** The outline as a polygon, which is what the containment check tests against. */
+function shellPolygon(box, steps = 12) {
+  const left = [box.at(0, 0)];
+  let from = [0, 0];
+
+  for (const s of halfOutline(box)) {
+    const p0 = box.at(...from);
+    const c1 = box.at(...s.c1);
+    const c2 = box.at(...s.c2);
+    const p1 = box.at(...s.to);
+    for (let i = 1; i <= steps; i++) left.push(bezierAt(p0, c1, c2, p1, i / steps));
+    from = s.to;
+  }
+
+  return [...left, ...left.map(flipX).reverse()];
+}
+
+/**
+ * A stretch of an outline, sampled with the inward normal at each point. The
+ * shoulder row, the lighting channels and the grip texture are all built from
+ * this rather than from fixed rectangles and arcs, which is what keeps them on
+ * the shell they belong to when that shell changes size.
+ */
+function sampleEdge(at, segs, startUV, steps = 24) {
+  const out = [];
+  let from = startUV;
+
+  segs.forEach((s, n) => {
+    const p0 = at(...from);
+    const c1 = at(...s.c1);
+    const c2 = at(...s.c2);
+    const p1 = at(...s.to);
+
+    for (let i = n === 0 ? 0 : 1; i <= steps; i++) {
+      const t = i / steps;
+      const [x, y] = bezierAt(p0, c1, c2, p1, t);
+      const [dx, dy] = bezierTangent(p0, c1, c2, p1, t);
+      const len = Math.hypot(dx, dy) || 1;
+      out.push({ x, y, nx: dy / len, ny: -dx / len });
+    }
+    from = s.to;
+  });
+
+  // Cumulative length, so "a third of the way along the edge" means the same
+  // thing on every shell rather than depending on where the curve was cut.
+  let run = 0;
+  out[0].at = 0;
+  for (let i = 1; i < out.length; i++) {
+    run += Math.hypot(out[i].x - out[i - 1].x, out[i].y - out[i - 1].y);
+    out[i].at = run;
+  }
+  for (const s of out) s.at /= run || 1;
+
+  return out;
+}
+
+const topEdge = (box) => sampleEdge(box.at, OUTLINE.top, [0, 0]);
+const sideEdge = (box) => sampleEdge(box.at, OUTLINE.side, OUTLINE.top.at(-1).to);
+
+/** The points between two fractions along a sampled edge, ends included. */
+function edgeSpan(edge, from, to, steps = 18) {
+  const at = (f) => {
+    const i = Math.max(1, edge.findIndex((s) => s.at >= f));
+    const a = edge[i - 1];
+    const b = edge[i];
+    const k = (f - a.at) / (b.at - a.at || 1);
+    const mix = (p, q) => p + (q - p) * k;
+    return { x: mix(a.x, b.x), y: mix(a.y, b.y), nx: mix(a.nx, b.nx), ny: mix(a.ny, b.ny) };
+  };
+
+  return Array.from({ length: steps + 1 }, (_, i) => at(from + ((to - from) * i) / steps));
+}
+
+const mirrorSpan = (span) =>
+  span.map((s) => ({ x: 400 - s.x, y: s.y, nx: -s.nx, ny: s.ny }));
+
+const spanOffset = (s, off) => [s.x + s.nx * off, s.y + s.ny * off];
+
+/**
+ * A part moulded into the edge: the ribbon between two offsets measured along
+ * the inward normal. Negative is outboard, so a trigger is the same call as a
+ * bumper with its offsets on the far side of the edge. The ends taper on a
+ * quarter circle, which is what stops the shoulder row reading as four pills
+ * laid on top of the drawing.
+ */
+function edgeBand(span, inner, outer) {
+  const mid = (inner + outer) / 2;
+  const half = (outer - inner) / 2;
+  const lip = (i) => {
+    const f = i / (span.length - 1);
+    const e = Math.min(f, 1 - f) / 0.16;
+    return e >= 1 ? 1 : Math.sqrt(1 - (1 - e) ** 2);
+  };
+  const side = (k) => span.map((s, i) => spanOffset(s, mid + half * lip(i) * k));
+
+  return `M ${[...side(-1), ...side(1).reverse()].map(xy).join(" L ")} Z`;
+}
+
+/** A line following the outline at a fixed distance inside it. */
+const edgeLine = (span, offset) =>
+  `M ${span.map((s) => xy(spanOffset(s, offset))).join(" L ")}`;
+
+/**
+ * A ribbon's space, as several boxes along it rather than one around the whole
+ * thing. One box round a curved band would claim most of the shoulder as
+ * occupied and report every button under it as a collision; in chunks it
+ * describes where the part actually is.
+ */
+function bandBoxes(span, inner, outer, chunks = 6) {
+  const per = Math.max(1, Math.floor((span.length - 1) / chunks));
+  const out = [];
+
+  for (let i = 0; i < span.length - 1; i += per) {
+    const slice = span.slice(i, Math.min(i + per + 1, span.length));
+    const pts = slice.flatMap((s) => [spanOffset(s, inner), spanOffset(s, outer)]);
+    const xs = pts.map((p) => p[0]);
+    const ys = pts.map((p) => p[1]);
+    const mid = slice[Math.floor(slice.length / 2)];
+    out.push({
+      anchor: [mid.x, mid.y],
+      hit: [Math.min(...xs), Math.min(...ys), Math.max(...xs), Math.max(...ys)],
+      shape: "rect",
+    });
+  }
+
+  return out;
+}
+
+/**
+ * Bumper, trigger and — on the models whose record documents them — the mini
+ * bumper, all placed by fraction along the shell's own top edge rather than by
+ * coordinate. A narrower shell gets a proportionally narrower shoulder row,
+ * which is what keeps the row in place on the T7 Pro.
+ *
+ * The mini bumpers sit immediately inboard of the bumper, where the hardware
+ * has them, and stay clear of the centre of the edge, which belongs to the
+ * USB-C port.
+ */
+const SHOULDER = {
+  // Mostly outboard of the edge, because that is where these parts are: a
+  // bumper is on the top face and a trigger behind it, and a front view sees
+  // them over the shell's silhouette rather than on it.
+  trigger: { from: 0.34, to: 0.84, inner: -18, outer: -46, cls: "d-part" },
+  bumper: { from: 0.3, to: 0.85, inner: 6, outer: -20, cls: "d-part-2" },
+  // Inboard of the bumper but clear of the middle of the edge, which is where
+  // the USB-C port is. The old drawing put these two on top of each other.
+  mini: { from: 0.15, to: 0.27, inner: 4, outer: -16, cls: "d-part-2" },
+};
+
+function shoulderRow(box, info, { mini }) {
+  const edge = topEdge(box);
+  const behind = [];
+  const front = [];
+
+  const piece = (into, part, spec, label, cls, right) => {
+    if (!part) return;
+    const [inner, outer] = [spec.inner * box.scale, spec.outer * box.scale];
+    const span = right
+      ? mirrorSpan(edgeSpan(edge, spec.from, spec.to))
+      : edgeSpan(edge, spec.from, spec.to);
+    const [lx, ly] = spanOffset(span[Math.floor(span.length / 2)], (inner + outer) / 2);
+
+    into.push({
+      part,
+      markup: path(edgeBand(span, inner, outer), spec.cls) + text(lx, ly, label, cls),
+      boxes: bandBoxes(span, inner, outer),
+      edge: true,
+      group: "shoulder",
+    });
+  };
+
+  piece(behind, info.lt, SHOULDER.trigger, "LT", "d-label", false);
+  piece(behind, info.rt, SHOULDER.trigger, "RT", "d-label", true);
+  piece(front, info.lb, SHOULDER.bumper, "LB", "d-label d-label-sm", false);
+  piece(front, info.rb, SHOULDER.bumper, "RB", "d-label d-label-sm", true);
+
+  if (mini) {
+    piece(front, info.l5, SHOULDER.mini, "L5", "d-label d-label-xs", false);
+    piece(front, info.r5, SHOULDER.mini, "R5", "d-label d-label-xs", true);
+  }
+
+  return { behind, front };
+}
 
 /** View glyph: the two overlapping panes Microsoft's layout uses. */
 const viewGlyph = (cx, cy) =>
@@ -483,7 +821,7 @@ const guideGlyph = (cx, cy, r) =>
  * `blank` leaves the caps unlettered, for the models whose caps carry no
  * printed symbol and signal the active layout by colour alone.
  */
-const faceCluster = (cx, cy, spread, r, order, { blank = false } = {}) => {
+const faceCluster = (cx, cy, spread, r, order, { blank = false, lit = false } = {}) => {
   const at = [
     [cx, cy - spread],
     [cx + spread, cy],
@@ -494,6 +832,9 @@ const faceCluster = (cx, cy, spread, r, order, { blank = false } = {}) => {
     .map(([letter, tint], i) => {
       const [x, y] = at[i];
       return (
+        // An illuminated cap sits in its own halo, which is the difference you
+        // see on the models whose caps are lit from behind.
+        (lit ? circle(x, y, r + 3.2, `d-lit d-lit-${tint}`) : "") +
         circle(x, y, r, `d-btn d-btn-${tint}`) +
         (blank ? "" : text(x, y + 0.5, letter, "d-btn-letter"))
       );
@@ -514,318 +855,631 @@ const NINTENDO_ORDER = [
   ["Y", "warn"],
 ];
 
-const stickWell = (cx, cy, label, r = 28) =>
+/**
+ * Stick well. The glide ring is drawn only for the models whose own record
+ * documents one, since it is a visible band around the cap rather than a
+ * detail of the sensor underneath.
+ */
+const stickWell = (cx, cy, label, r = 28, { glideRing = false } = {}) =>
   circle(cx, cy, r, "d-recess") +
+  (glideRing ? circle(cx, cy, r - 4.5, "d-glide-ring") : "") +
   circle(cx, cy, r - 9, "d-part") +
   circle(cx, cy, r - 17, "d-part-inset") +
   text(cx, cy + 0.5, label, "d-label d-label-sm");
 
-const dpadShape = (cx, cy, arm = 19) =>
-  path(plusPath(cx, cy, arm, arm * 0.78), "d-part") +
-  `<g class="d-glyph d-glyph-stroke"><path d="M${cx} ${cy - arm + 6}l-3 4h6zM${cx} ${
-    cy + arm - 6
-  }l-3-4h6zM${cx - arm + 6} ${cy}l4-3v6zM${cx + arm - 6} ${cy}l-4-3v6z"/></g>`;
+/** Direction arrows, scaled to whichever pad shape they are sitting on. */
+const dpadArrows = (cx, cy, arm) => {
+  const [d, s, t] = [arm * 0.71, arm * 0.145, arm * 0.19].map((n) => Number(n.toFixed(2)));
+  return (
+    `<g class="d-glyph d-glyph-stroke"><path d="M${cx} ${cy - d}l-${s} ${t}h${s * 2}z` +
+    `M${cx} ${cy + d}l-${s} -${t}h${s * 2}z` +
+    `M${cx - d} ${cy}l${t} -${s}v${s * 2}z` +
+    `M${cx + d} ${cy}l-${t} -${s}v${s * 2}z"/></g>`
+  );
+};
+
+/**
+ * D-pad, in whichever of the three shapes this range uses. A micro-switch pad
+ * is four separate keys with a gap at the middle; a membrane pad is one
+ * moulded piece with a domed centre; a fenced pad adds the raised ring. Which
+ * one a model gets comes from `dpadStyle`, so the drawing cannot contradict
+ * the switch type the specification table prints.
+ */
+const dpadShape = (cx, cy, arm = 19, { fenced = false, keys = null, lit = false } = {}) => {
+  const fence = fenced ? circle(cx, cy, arm * 1.3, "d-fence") : "";
+  const glow = lit ? circle(cx, cy, arm * 1.12, "d-lit") : "";
+
+  if (keys === "segmented") {
+    const key = (dx, dy) => {
+      const long = arm * 0.62;
+      const across = arm * 0.66;
+      const [w, h] = dx ? [long, across] : [across, long];
+      return rect(
+        cx + dx * arm * 0.42 - w / 2,
+        cy + dy * arm * 0.42 - h / 2,
+        w,
+        h,
+        Math.min(w, h) * 0.32,
+        "d-part"
+      );
+    };
+    return (
+      fence +
+      glow +
+      key(0, -1) +
+      key(1, 0) +
+      key(0, 1) +
+      key(-1, 0) +
+      circle(cx, cy, arm * 0.2, "d-part-inset") +
+      dpadArrows(cx, cy, arm)
+    );
+  }
+
+  if (keys === "membrane") {
+    return (
+      fence +
+      glow +
+      path(plusPath(cx, cy, arm, arm * 0.88), "d-part") +
+      circle(cx, cy, arm * 0.34, "d-part-inset") +
+      dpadArrows(cx, cy, arm)
+    );
+  }
+
+  return fence + glow + path(plusPath(cx, cy, arm, arm * 0.78), "d-part") + dpadArrows(cx, cy, arm);
+};
+
+/* -------------------------------------------------------- controller views */
+
+/**
+ * Collects a view as placements rather than as a string of markup, so the
+ * build can check the arithmetic that positioned each part before the drawing
+ * is published. See `checkControllerViews`.
+ */
+function viewParts(box) {
+  const parts = [];
+
+  /**
+   * The space one shape occupies. Every placement declares which shape it is,
+   * because the containment check probes the outline of that shape: the
+   * corners of a square drawn round a diamond of face buttons are empty air,
+   * and testing them would report a cluster as hanging off the shell.
+   */
+  const spaceAt = (u, v, size, shape = "rect") => {
+    const [x, y] = box.at(u, v);
+    const [w, h] = (Array.isArray(size) ? size : [size, size]).map((n) => n * box.scale);
+    return { anchor: [x, y], hit: [x - w / 2, y - h / 2, x + w / 2, y + h / 2], shape };
+  };
+
+  /**
+   * `u` and `v` are shell-relative and `size` is in reference units, which the
+   * shell's own scale is applied to. The draw callback is handed that scale as
+   * its third argument so the shape it draws matches the space reserved for it.
+   */
+  const put = (part, u, v, size, draw, opts = {}) => {
+    if (!part) return;
+    const { shape, ...rest } = opts;
+    const [x, y] = box.at(u, v);
+    parts.push({
+      part,
+      markup: draw(x, y, box.scale),
+      boxes: [spaceAt(u, v, size, shape)],
+      ...rest,
+    });
+  };
+
+  /**
+   * Several shapes under one name — the extra front controls, which the data
+   * documents as a set rather than individually. One hotspot, so the readout
+   * describes the set, but every shape in it is placed and checked.
+   */
+  const group = (part, spots, draw, opts = {}) => {
+    if (!part) return;
+    parts.push({
+      part,
+      markup: draw(
+        spots.map((s) => ({ ...s, at: box.at(s.u, s.v) })),
+        box.scale
+      ),
+      boxes: spots.map((s) => spaceAt(s.u, s.v, s.size, s.shape)),
+      ...opts,
+    });
+  };
+
+  /** Markup that is not a control: lighting, seams, texture. */
+  const mark = (part, markup) => {
+    if (part) parts.push({ part, markup, boxes: [], loose: true });
+  };
+
+  /**
+   * The four caps of an ABXY cluster, each as its own space. A cluster is a
+   * diamond of buttons with empty air at the corners, and treating it as one
+   * square is what would have the right stick colliding with the A button it
+   * is comfortably clear of.
+   */
+  const capSpots = (u, v, spread, r) => {
+    const du = (spread * box.scale) / box.halfW;
+    const dv = (spread * box.scale) / box.h;
+    return [
+      { u, v: v - dv, size: r * 2, shape: "circle" },
+      { u: u + du, v, size: r * 2, shape: "circle" },
+      { u, v: v + dv, size: r * 2, shape: "circle" },
+      { u: u - du, v, size: r * 2, shape: "circle" },
+    ];
+  };
+
+  return { parts, put, group, mark, capSpots };
+}
+
+const render = (list) =>
+  list.map((e) => (e.part ? hotspot(e.part, e.markup) : e.markup)).join("");
+
+/** A shell for the figures that are about the hardware in general. */
+const genericShell = () => shellBox({ id: "generic-pad" });
+
+/** The same shell scaled about its own centre, for the faceplate seam. */
+const insetShell = (box, k) => ({
+  ...box,
+  w: box.w * k,
+  h: box.h * k,
+  halfW: box.halfW * k,
+  at: (u, v) => [200 + (u * box.w * k) / 2, box.top + (box.h * (1 - k)) / 2 + v * box.h * k],
+});
+
+/** Lighting channels following the inside of both grips. */
+const lightingChannels = (box) => {
+  const span = edgeSpan(sideEdge(box), 0.18, 0.78);
+  return path(edgeLine(span, 13), "d-rgb") + path(edgeLine(mirrorSpan(span), 13), "d-rgb");
+};
 
 /** Front view. */
 function frontView(c) {
   const L = layoutOf(c);
+  const box = shellBox(c);
   const info = partInfo(c);
   const eb = c.extraButtons ?? {};
-  const out = [];
-  const add = (p, inner) => {
-    if (!p) return;
-    out.push(hotspot(p, inner));
-  };
+  const dpad = dpadStyle(c);
+  const face = faceStyle(c);
+  const stick = stickStyle(c);
+  const { parts, put, group, mark, capSpots } = viewParts(box);
 
-  shoulderRow(info, add, { mini: (eb.extraBumpers ?? 0) >= 2 });
+  const { behind, front } = shoulderRow(box, info, { mini: (eb.extraBumpers ?? 0) >= 2 });
 
-  out.push(path(bodyPath(c), "d-body"));
   // The plate is the whole front, so the seam is an inset of the outline
-  // rather than an arc across the middle. Scaled about the body's own centre.
-  if (c.faceplates?.swappable) {
-    add(info.faceplate, path(bodyPath(c), "d-seam", ' transform="translate(14,11.7) scale(0.93)"'));
-  }
+  // rather than an arc across the middle.
+  const seam = c.faceplates?.swappable
+    ? [{ part: info.faceplate, markup: path(shellPath(insetShell(box, 0.93)), "d-seam"), loose: true }]
+    : [];
 
-  if (L.family === "symmetric") {
+  if (box.family === "symmetric") {
     // Tarantula Pro: D-pad and face cluster mirrored across the upper face,
     // sticks side by side below them, and a centre panel carrying the gear
     // window, the Home key and the extra front controls.
-    add(info.dpad, dpadShape(100, 112, 23));
-    add(info.face, faceCluster(300, 112, 27, 12, XBOX_ORDER, { blank: L.blankCaps }));
-    add(info.ls, stickWell(140, 186, "LS", 25));
-    add(info.rs, stickWell(260, 186, "RS", 25));
+    put(info.dpad, -0.57, 0.28, 46, (x, y, s) => dpadShape(x, y, 23 * s, dpad), {
+      shape: "diamond",
+    });
+    group(info.face, capSpots(0.57, 0.28, 27, 12), (spots, s) => {
+      const [x, y] = box.at(0.57, 0.28);
+      return faceCluster(x, y, 27 * s, 12 * s, XBOX_ORDER, {
+        blank: L.blankCaps || face.blank,
+        lit: face.lit,
+      });
+    });
+    put(info.ls, -0.364, 0.581, 50, (x, y, s) => stickWell(x, y, "LS", 25 * s, stick), {
+      shape: "circle",
+    });
+    put(info.rs, 0.364, 0.581, 50, (x, y, s) => stickWell(x, y, "RS", 25 * s, stick), {
+      shape: "circle",
+    });
 
-    add(info.view, circle(152, 74, 10, "d-btn-sm") + viewGlyph(152, 74));
-    add(info.menu, circle(248, 74, 10, "d-btn-sm") + menuGlyph(248, 74));
+    put(info.view, -0.3, 0.17, 20, (x, y, s) => circle(x, y, 10 * s, "d-btn-sm") + viewGlyph(x, y), {
+      shape: "circle",
+    });
+    put(info.menu, 0.3, 0.17, 20, (x, y, s) => circle(x, y, 10 * s, "d-btn-sm") + menuGlyph(x, y), {
+      shape: "circle",
+    });
+
     if (L.faceSwap === "gear") {
       // Teeth around a hub, not spokes through a filled centre: a red dot here
       // would read as a second Home key beside the real one.
-      add(
-        info.faceSwap,
-        rect(178, 104, 44, 36, 8, "d-window") +
-          circle(200, 122, 13, "d-gear") +
-          circle(200, 122, 4.5, "d-part-inset") +
-          path(
-            Array.from({ length: 8 }, (_, i) => {
-              const a = (i * Math.PI) / 4;
-              const [dx, dy] = [Math.cos(a), Math.sin(a)];
-              return `M${(200 + dx * 8).toFixed(1)} ${(122 + dy * 8).toFixed(1)}L${(
-                200 + dx * 12
-              ).toFixed(1)} ${(122 + dy * 12).toFixed(1)}`;
-            }).join(""),
-            "d-ink"
-          )
+      put(info.faceSwap, 0, 0.276, [44, 36], (x, y, s) =>
+        rect(x - 22 * s, y - 18 * s, 44 * s, 36 * s, 8, "d-window") +
+        circle(x, y, 13 * s, "d-gear") +
+        circle(x, y, 4.5 * s, "d-part-inset") +
+        path(
+          Array.from({ length: 8 }, (_, i) => {
+            const a = (i * Math.PI) / 4;
+            const [dx, dy] = [Math.cos(a), Math.sin(a)];
+            return `M${(x + dx * 8 * s).toFixed(1)} ${(y + dy * 8 * s).toFixed(1)}L${(
+              x +
+              dx * 12 * s
+            ).toFixed(1)} ${(y + dy * 12 * s).toFixed(1)}`;
+          }).join(""),
+          "d-ink"
+        )
       );
     }
+
     // Home sits low between the sticks, the only part of the centre column the
     // panel above it leaves free.
-    add(info.guide, guideGlyph(200, 176, 12));
+    put(info.guide, 0, 0.53, 24, (x, y, s) => guideGlyph(x, y, 12 * s), { shape: "circle" });
+
     if (L.extraFront) {
       // Two keys above the centre panel, two below, and an actuator either
       // side of it — the arrangement hands-on coverage describes.
-      add(
+      group(
         info.extraFront,
         [
-          [184, 92, "C1"],
-          [216, 92, "C2"],
-          [184, 152, "C3"],
-          [216, 152, "C4"],
-        ]
-          .map(
-            ([x, y, n]) =>
-              circle(x, y, 7.5, "d-btn-sm") + text(x, y + 0.4, n, "d-label d-label-xs")
-          )
-          .join("") +
-          [
-            [166, 122, "T1"],
-            [234, 122, "T2"],
-          ]
-            .map(
-              ([x, y, n]) =>
-                rect(x - 6, y - 11, 12, 22, 6, "d-btn-sm") +
-                text(x, y - 16, n, "d-label d-label-xs")
+          { u: -0.1, v: 0.145, size: 15, shape: "circle", label: "C1" },
+          { u: 0.1, v: 0.145, size: 15, shape: "circle", label: "C2" },
+          { u: -0.1, v: 0.42, size: 15, shape: "circle", label: "C3" },
+          { u: 0.1, v: 0.42, size: 15, shape: "circle", label: "C4" },
+          { u: -0.215, v: 0.276, size: [12, 22], label: "T1" },
+          { u: 0.215, v: 0.276, size: [12, 22], label: "T2" },
+        ],
+        (spots, s) =>
+          spots
+            .map(({ at: [x, y], label, shape }) =>
+              shape === "circle"
+                ? circle(x, y, 7.5 * s, "d-btn-sm") + text(x, y + 0.4, label, "d-label d-label-xs")
+                : rect(x - 6 * s, y - 11 * s, 12 * s, 22 * s, 6, "d-btn-sm") +
+                  text(x, y - 16 * s, label, "d-label d-label-xs")
             )
             .join("")
       );
     }
   } else {
-    // Offset layout: left stick high, D-pad low left, face cluster high right,
-    // right stick low right.
-    add(info.ls, stickWell(110, 120, "LS"));
-    add(
-      info.face,
-      faceCluster(296, 120, 30, 12.5, L.centre === "nintendo" ? NINTENDO_ORDER : XBOX_ORDER)
+    // Offset layout: left stick high, D-pad low on the left, ABXY high on the
+    // right, right stick below it.
+    put(info.ls, -0.545, 0.29, 56, (x, y, s) => stickWell(x, y, "LS", 28 * s, stick), {
+      shape: "circle",
+    });
+    group(info.face, capSpots(0.582, 0.29, 29, 11.5), (spots, s) => {
+      const [x, y] = box.at(0.582, 0.29);
+      return faceCluster(x, y, 29 * s, 11.5 * s, L.centre === "nintendo" ? NINTENDO_ORDER : XBOX_ORDER, {
+        blank: L.blankCaps || face.blank,
+        lit: face.lit,
+      });
+    });
+    put(
+      info.dpad,
+      -0.364,
+      0.571,
+      dpad.fenced ? 55 : 42,
+      (x, y, s) => dpadShape(x, y, 21 * s, dpad),
+      { shape: dpad.fenced ? "circle" : "diamond" }
     );
-    add(info.dpad, dpadShape(140, 184, 21));
-    add(info.rs, stickWell(258, 186, "RS"));
+    put(info.rs, 0.352, 0.581, 56, (x, y, s) => stickWell(x, y, "RS", 28 * s, stick), {
+      shape: "circle",
+    });
 
-    add(
+    put(
       info.view,
-      circle(158, 112, 10.5, "d-btn-sm") +
-        (L.centre === "nintendo" ? minusGlyph(158, 112) : viewGlyph(158, 112))
+      -0.255,
+      0.229,
+      21,
+      (x, y, s) =>
+        circle(x, y, 10.5 * s, "d-btn-sm") +
+        (L.centre === "nintendo" ? minusGlyph(x, y) : viewGlyph(x, y)),
+      { shape: "circle" }
     );
-    add(
+    put(
       info.menu,
-      circle(238, 112, 10.5, "d-btn-sm") +
-        (L.centre === "nintendo" ? plusGlyph(238, 112) : menuGlyph(238, 112))
+      0.255,
+      0.229,
+      21,
+      (x, y, s) =>
+        circle(x, y, 10.5 * s, "d-btn-sm") +
+        (L.centre === "nintendo" ? plusGlyph(x, y) : menuGlyph(x, y)),
+      { shape: "circle" }
     );
-    add(info.guide, guideGlyph(200, 90, 16));
+    put(info.guide, 0, 0.124, 32, (x, y, s) => guideGlyph(x, y, 16 * s), { shape: "circle" });
 
     if (L.profiles) {
-      add(
-        info.profiles,
-        rect(181, 124, 38, 12, 6, "d-part-inset") +
-          Array.from({ length: L.profiles }, (_, i) =>
-            rect(185.5 + i * 7.5, 127, 4.5, 6, 2.2, i === 0 ? "d-accent-fill" : "d-dim-fill")
-          ).join("")
+      put(info.profiles, 0, 0.314, [38, 12], (x, y, s) =>
+        rect(x - 19 * s, y - 6 * s, 38 * s, 12 * s, 6, "d-part-inset") +
+        Array.from({ length: L.profiles }, (_, i) =>
+          rect(
+            x + (i * 7.5 - 14.5) * s,
+            y - 3 * s,
+            4.5 * s,
+            6 * s,
+            2.2,
+            i === 0 ? "d-accent-fill" : "d-dim-fill"
+          )
+        ).join("")
       );
     } else {
-      add(info.share, circle(200, 130, 8.5, "d-btn-sm") + shareGlyph(200, 130));
+      put(info.share, 0, 0.314, 17, (x, y, s) => circle(x, y, 8.5 * s, "d-btn-sm") + shareGlyph(x, y), {
+        shape: "circle",
+      });
     }
 
     // The button faces of this range only ever carry an "M", whatever the
-    // manual calls it, so the circle is labelled M and the readout spells it out.
+    // manual calls it, so the circle is labelled M and the readout spells it
+    // out. On the two models with a mute key beside it, the pair sits low on
+    // the face, which is where the SE's and HE's notes put the M button:
+    // below the D-pad row rather than in the centre column.
     if (L.mode) {
-      const mx = L.micMute ? 184 : 200;
-      add(info.mode, circle(mx, 152, 9.5, "d-btn-sm") + text(mx, 152.4, "M", "d-label d-label-xs"));
-      if (L.micMute) {
-        add(
+      const paired = L.micMute;
+      put(
+        info.mode,
+        paired ? -0.105 : 0,
+        paired ? 0.5 : 0.43,
+        paired ? 17 : 19,
+        (x, y, s) =>
+          circle(x, y, (paired ? 8.5 : 9.5) * s, "d-btn-sm") +
+          text(x, y + 0.4, "M", "d-label d-label-xs"),
+        { shape: "circle" }
+      );
+
+      if (paired) {
+        put(
           info.micMute,
-          circle(216, 152, 9.5, "d-btn-sm") +
-            `<g class="d-glyph d-glyph-stroke"><path d="M213 148.5a3 3 0 0 1 6 0v3a3 3 0 0 1-6 0zM210.5 151.5a5.5 5.5 0 0 0 11 0M216 157v1.5"/></g>`
+          0.105,
+          0.5,
+          17,
+          (x, y, s) =>
+            circle(x, y, 8.5 * s, "d-btn-sm") +
+            `<g class="d-glyph d-glyph-stroke"><path d="M${x - 3} ${
+              y - 3.5
+            }a3 3 0 0 1 6 0v3a3 3 0 0 1-6 0zM${x - 5.5} ${y - 0.5}a5.5 5.5 0 0 0 11 0M${x} ${
+              y + 5
+            }v1.5"/></g>`,
+          { shape: "circle" }
         );
       }
     }
 
     if (L.faceSwap === "detach") {
-      add(
+      // Ring around the cluster the caps come off, kept inside the shell: the
+      // readout explains the swap, so it does not need an arrow pointing off
+      // the edge of the drawing to say so.
+      mark(
         info.faceSwap,
-        circle(296, 120, 41, "d-swap-ring") +
-          `<g class="d-glyph d-glyph-stroke"><path d="M332 160h8M336 157l4 3-4 3"/></g>`
+        (() => {
+          const [x, y] = box.at(0.582, 0.29);
+          return circle(x, y, 46 * box.scale, "d-swap-ring");
+        })()
       );
     }
   }
 
-  if (L.rgb) {
-    add(
-      info.rgb,
-      path("M 58 150 C 54 178 60 208 72 232", "d-rgb") +
-        path("M 342 150 C 346 178 340 208 328 232", "d-rgb")
+  if (L.rgb) mark(info.rgb, lightingChannels(box));
+
+  // The jack is on the bottom edge between the grips, as it is on the
+  // hardware, rather than out on the face where it used to be drawn.
+  if (c.audioJack) {
+    put(
+      info.jack,
+      0,
+      notchDepth(box),
+      [22, 13],
+      (x, y, s) =>
+        rect(x - 11 * s, y - 13 * s, 22 * s, 13 * s, 5, "d-port") +
+        circle(x, y - 6.5 * s, 3.4 * s, "d-part-inset"),
+      { edge: true }
     );
   }
 
-  // Bottom edge, between the grips: the jack, and the mute key that sits
-  // beside it on the models documented as having one.
-  if (c.audioJack) {
-    add(info.jack, rect(189, 184, 22, 13, 5, "d-port") + circle(200, 190.5, 3.4, "d-part-inset"));
-  }
+  const drawn = [
+    ...behind,
+    { markup: path(shellPath(box), "d-body") },
+    ...seam,
+    ...front,
+    ...parts,
+  ];
 
   return {
-    svg: svg("0 0 400 280", out.join(""), {
+    svg: svg("0 0 400 280", render(drawn), {
       label: `${c.name} front layout diagram: sticks, D-pad, ABXY buttons, bumpers, triggers and centre buttons`,
       cls: "diagram-controller",
     }),
+    geometry: { polygon: shellPolygon(box), parts: [...behind, ...front, ...parts] },
   };
 }
 
 /** Back view: ports, rear paddles and whatever switches the model documents. */
 function backView(c) {
   const L = layoutOf(c);
+  const box = shellBox(c);
   const info = partInfo(c);
   const eb = c.extraButtons ?? {};
-  const out = [];
-  const add = (p, inner) => {
-    if (!p) return;
-    out.push(hotspot(p, inner));
-  };
+  const { parts, put, mark } = viewParts(box);
 
-  shoulderRow(info, add, { mini: (eb.extraBumpers ?? 0) >= 2 });
-  out.push(path(bodyPath(c), "d-body"));
+  const { behind, front } = shoulderRow(box, info, { mini: (eb.extraBumpers ?? 0) >= 2 });
 
-  add(
+  put(
     info.usbc,
-    rect(182, 59, 36, 15, 7.5, "d-port") +
-      rect(188, 63.5, 24, 6, 3, "d-part-inset") +
-      text(200, 86, "USB-C", "d-label d-label-xs")
+    0,
+    0.015,
+    [36, 15],
+    (x, y) =>
+      rect(x - 18, y - 7.5, 36, 15, 7.5, "d-port") +
+      rect(x - 12, y - 3, 24, 6, 3, "d-part-inset") +
+      text(x, y + 20, "USB-C", "d-label d-label-xs"),
+    { edge: true }
   );
 
   if (c.triggers?.triggerStops === true) {
-    add(
-      info.gear,
-      rect(84, 92, 34, 15, 7.5, "d-part-2") +
-        rect(87, 95, 12, 9, 4.5, "d-accent-fill") +
-        text(101, 119, "stop", "d-label d-label-xs") +
-        rect(282, 92, 34, 15, 7.5, "d-part-2") +
-        rect(301, 95, 12, 9, 4.5, "d-accent-fill") +
-        text(299, 119, "stop", "d-label d-label-xs")
+    // The switch is on the back of each shoulder, so it follows the shell out
+    // to where the trigger it shortens actually is.
+    put(info.gear, -0.55, 0.19, [34, 15], (x, y) =>
+      rect(x - 17, y - 7.5, 34, 15, 7.5, "d-part-2") +
+      rect(x - 14, y - 4.5, 12, 9, 4.5, "d-accent-fill") +
+      text(x, y + 20, "stop", "d-label d-label-xs")
+    );
+    put(info.gear, 0.55, 0.19, [34, 15], (x, y) =>
+      rect(x - 17, y - 7.5, 34, 15, 7.5, "d-part-2") +
+      rect(x + 2, y - 4.5, 12, 9, 4.5, "d-accent-fill") +
+      text(x, y + 20, "stop", "d-label d-label-xs")
     );
   }
 
   const paddles = eb.backButtons ?? 0;
-  if (paddles >= 1) {
-    add(
-      info.l4,
-      `<g transform="rotate(-15 100 226)">${rect(87, 201, 26, 50, 13, "d-part-2")}</g>` +
-        text(100, 226, "L4", "d-label d-label-sm")
+  const paddle = (part, u, label, tilt) =>
+    put(part, u, 0.79, [26, 50], (x, y) =>
+      `<g transform="rotate(${tilt} ${x} ${y})">${rect(x - 13, y - 25, 26, 50, 13, "d-part-2")}</g>` +
+      text(x, y, label, "d-label d-label-sm")
     );
-  }
-  if (paddles >= 2) {
-    add(
-      info.r4,
-      `<g transform="rotate(15 300 226)">${rect(287, 201, 26, 50, 13, "d-part-2")}</g>` +
-        text(300, 226, "R4", "d-label d-label-sm")
-    );
-  }
 
-  if (L.latches === true) {
-    add(
-      info.latch,
-      rect(122, 204, 13, 26, 6, "d-part-inset") +
-        rect(124.5, 207, 8, 9, 4, "d-accent-fill") +
-        text(128, 240, "lock", "d-label d-label-xs") +
-        rect(265, 204, 13, 26, 6, "d-part-inset") +
-        rect(267.5, 207, 8, 9, 4, "d-accent-fill") +
-        text(272, 240, "lock", "d-label d-label-xs")
-    );
-  } else if (L.latches === false) {
-    add(
-      info.latch,
-      rect(122, 204, 13, 26, 6, "d-absent") +
-        rect(265, 204, 13, 26, 6, "d-absent") +
-        path("M 122 230 L 135 204 M 265 230 L 278 204", "d-slash-line") +
-        text(128, 240, "no lock", "d-label d-label-xs d-dim-text") +
-        text(272, 240, "no lock", "d-label d-label-xs d-dim-text")
-    );
+  if (paddles >= 1) paddle(info.l4, -0.645, "L4", -15);
+  if (paddles >= 2) paddle(info.r4, 0.645, "R4", 15);
+
+  // The latch slides inboard of the paddle it locks, which is the only place
+  // on the grip it can be without fouling the paddle's travel.
+  const latch = (u, sign) =>
+    L.latches === true
+      ? (x, y) =>
+          rect(x - 6.5, y - 13, 13, 26, 6, "d-part-inset") +
+          rect(x - 4, y - 10, 8, 9, 4, "d-accent-fill") +
+          text(x + sign * 2, y + 23, "lock", "d-label d-label-xs")
+      : (x, y) =>
+          rect(x - 6.5, y - 13, 13, 26, 6, "d-absent") +
+          path(`M ${x - 6.5} ${y + 13} L ${x + 6.5} ${y - 13}`, "d-slash-line") +
+          text(x + sign * 2, y + 23, "no lock", "d-label d-label-xs d-dim-text");
+
+  if (L.latches === true || L.latches === false) {
+    put(info.latch, -0.43, 0.735, [13, 26], latch(-0.43, -1));
+    put(info.latch, 0.43, 0.735, [13, 26], latch(0.43, 1));
   }
 
   if (L.modeSwitch) {
-    add(
-      info.modeSwitch,
-      rect(176, 140, 48, 16, 8, "d-part-inset") +
-        rect(179, 143, 13, 10, 5, "d-accent-fill") +
-        text(200, 166, "2.4G / OFF / BT", "d-label d-label-xs")
+    put(info.modeSwitch, 0, 0.45, [48, 16], (x, y) =>
+      rect(x - 24, y - 8, 48, 16, 8, "d-part-inset") +
+      rect(x - 21, y - 5, 13, 10, 5, "d-accent-fill") +
+      text(x, y + 20, "2.4G / OFF / BT", "d-label d-label-xs")
     );
   }
 
-  add(
+  // Contour lines down the inside of both grips, following the shell rather
+  // than four arcs that only ever fitted one size of it.
+  const grip = edgeSpan(sideEdge(box), 0.62, 0.98);
+  mark(
     info.grip,
-    path(
-      "M 62 200 C 66 226 76 250 92 264 M 76 194 C 80 220 90 244 106 258 " +
-        "M 338 200 C 334 226 324 250 308 264 M 324 194 C 320 220 310 244 294 258",
-      "d-texture"
-    )
+    [
+      path(edgeLine(grip, 12), "d-texture"),
+      path(edgeLine(grip, 26), "d-texture"),
+      path(edgeLine(mirrorSpan(grip), 12), "d-texture"),
+      path(edgeLine(mirrorSpan(grip), 26), "d-texture"),
+    ].join("")
   );
 
+  const drawn = [...behind, { markup: path(shellPath(box), "d-body") }, ...front, ...parts];
+
   return {
-    svg: svg("0 0 400 280", out.join(""), {
+    svg: svg("0 0 400 280", render(drawn), {
       label: `${c.name} back layout diagram: USB-C port, rear buttons and rear switches`,
       cls: "diagram-controller",
     }),
+    geometry: { polygon: shellPolygon(box), parts: [...behind, ...front, ...parts] },
   };
+}
+
+/**
+ * The top edge, seen from above: the shell's own width, and its published
+ * depth for how thick it draws. The port is on that edge between the two
+ * triggers, where the hardware has it — the older drawing put it in front of
+ * the bumpers, on a face that from this angle is not visible at all.
+ */
+const TOP_OUTLINE = {
+  start: [-0.807, 0.875],
+  corner: { c1: [-0.928, 0.839], c2: [-1, 0.696], to: [-0.952, 0.518] },
+  back: { c1: [-0.867, 0.25], c2: [-0.651, 0.054], to: [-0.41, 0] },
+  front: { c1: [0.41, 1], c2: [-0.41, 1] },
+  // The back edge again, walked outward from the centre line: the flat middle
+  // of it, then the same curve as `back` in the other direction. The shoulder
+  // row is laid along this the way the front view lays it along the shell.
+  edge: [
+    { c1: [-0.137, 0], c2: [-0.273, 0], to: [-0.41, 0] },
+    { c1: [-0.651, 0.054], c2: [-0.867, 0.25], to: [-0.952, 0.518] },
+  ],
+};
+
+function topShell(box) {
+  const thick = box.mm.depth * UNITS_PER_MM;
+  const at = (u, v) => [200 + u * box.halfW, 30 + v * thick];
+  const p = (uv) => xy(at(uv[0], uv[1]));
+  const flip = (uv) => [-uv[0], uv[1]];
+  const { start, corner, back, front } = TOP_OUTLINE;
+
+  const d =
+    `M ${p(start)}` +
+    ` C ${p(corner.c1)} ${p(corner.c2)} ${p(corner.to)}` +
+    ` C ${p(back.c1)} ${p(back.c2)} ${p(back.to)}` +
+    ` L ${p(flip(back.to))}` +
+    ` C ${p(flip(back.c2))} ${p(flip(back.c1))} ${p(flip(corner.to))}` +
+    ` C ${p(flip(corner.c2))} ${p(flip(corner.c1))} ${p(flip(start))}` +
+    ` C ${p(front.c1)} ${p(front.c2)} ${p(start)} Z`;
+
+  return { path: d, at, thick };
 }
 
 /** Top view: the shoulder row and the port edge, seen from above. */
 function topView(c) {
+  const box = shellBox(c);
   const info = partInfo(c);
   const eb = c.extraButtons ?? {};
   const mini = (eb.extraBumpers ?? 0) >= 2;
-  const out = [];
-  const add = (p, inner) => {
-    if (!p) return;
-    out.push(hotspot(p, inner));
+  const shell = topShell(box);
+  const edge = sampleEdge(shell.at, TOP_OUTLINE.edge, [0, 0]);
+
+  const behind = [];
+  const parts = [];
+
+  const piece = (into, part, spec, label, cls, right) => {
+    if (!part) return;
+    const span = right
+      ? mirrorSpan(edgeSpan(edge, spec.from, spec.to))
+      : edgeSpan(edge, spec.from, spec.to);
+    const [lx, ly] = spanOffset(span[Math.floor(span.length / 2)], (spec.inner + spec.outer) / 2);
+
+    into.push({
+      part,
+      markup: path(edgeBand(span, spec.inner, spec.outer), spec.cls) + text(lx, ly, label, cls),
+      boxes: bandBoxes(span, spec.inner, spec.outer),
+      edge: true,
+      group: "shoulder",
+    });
   };
 
-  add(info.lt, `<g transform="rotate(-8 110 58)">${rect(72, 44, 76, 30, 15, "d-part")}</g>` + text(110, 59, "LT"));
-  add(info.rt, `<g transform="rotate(8 290 58)">${rect(252, 44, 76, 30, 15, "d-part")}</g>` + text(290, 59, "RT"));
+  // Seen from above, the trigger straddles the back edge, the bumper sits in
+  // front of it and the port is on the edge between the two triggers — which
+  // is where the hardware puts it.
+  const TOP_ROW = {
+    trigger: { from: 0.4, to: 0.88, inner: 14, outer: -20, cls: "d-part" },
+    bumper: { from: 0.24, to: 0.8, inner: 22, outer: 48, cls: "d-part-2" },
+    mini: { from: 0.09, to: 0.22, inner: 24, outer: 46, cls: "d-part-2" },
+  };
 
-  out.push(
-    path(
-      "M 66 138 C 46 134 34 118 42 98 C 56 68 92 46 132 40 L 268 40 " +
-        "C 308 46 344 68 358 98 C 366 118 354 134 334 138 C 268 152 132 152 66 138 Z",
-      "d-body"
-    )
-  );
-
-  add(info.lb, `<g transform="rotate(-5 132 96)">${rect(94, 83, 76, 26, 13, "d-part-2")}</g>` + text(132, 97, "LB"));
-  add(info.rb, `<g transform="rotate(5 268 96)">${rect(230, 83, 76, 26, 13, "d-part-2")}</g>` + text(268, 97, "RB"));
+  piece(behind, info.lt, TOP_ROW.trigger, "LT", "d-label", false);
+  piece(behind, info.rt, TOP_ROW.trigger, "RT", "d-label", true);
+  piece(parts, info.lb, TOP_ROW.bumper, "LB", "d-label", false);
+  piece(parts, info.rb, TOP_ROW.bumper, "RB", "d-label", true);
 
   if (mini) {
-    add(info.l5, rect(168, 82, 25, 21, 9, "d-part-2") + text(180.5, 93, "L5", "d-label d-label-xs"));
-    add(info.r5, rect(207, 82, 25, 21, 9, "d-part-2") + text(219.5, 93, "R5", "d-label d-label-xs"));
+    piece(parts, info.l5, TOP_ROW.mini, "L5", "d-label d-label-xs", false);
+    piece(parts, info.r5, TOP_ROW.mini, "R5", "d-label d-label-xs", true);
   }
 
-  add(
-    info.usbc,
-    rect(184, mini ? 112 : 104, 32, 16, 8, "d-port") +
-      rect(190, mini ? 116 : 108, 20, 8, 4, "d-part-inset") +
-      text(200, mini ? 138 : 130, "USB-C", "d-label d-label-xs")
-  );
+  const [px, py] = shell.at(0, 0);
+  parts.push({
+    part: info.usbc,
+    markup:
+      rect(px - 16, py - 8, 32, 16, 8, "d-port") +
+      rect(px - 10, py - 4, 20, 8, 4, "d-part-inset") +
+      text(px, py + 20, "USB-C", "d-label d-label-xs"),
+    boxes: [{ anchor: [px, py], hit: [px - 16, py - 8, px + 16, py + 8], shape: "rect" }],
+    edge: true,
+  });
+
+  const drawn = [...behind, { markup: path(shell.path, "d-body") }, ...parts];
 
   return {
-    svg: svg("0 0 400 170", out.join(""), {
+    svg: svg("0 0 400 170", render(drawn), {
       label: `${c.name} top edge diagram: bumpers, triggers and the USB-C port`,
       cls: "diagram-controller is-top",
     }),
+    geometry: { polygon: null, parts: [...behind, ...parts] },
   };
 }
 
@@ -838,27 +1492,171 @@ export function controllerViews(c) {
   ];
 }
 
+/* ------------------------------------------------------------- self-check */
+
+/**
+ * How far two placed shapes overlap, in units, measured on the shapes rather
+ * than on boxes around them. A round button beside a round stick well clears
+ * it by millimetres while their boxes overlap at the corner, and a check that
+ * could not tell the difference would either cry wolf or have to be turned
+ * down until it caught nothing.
+ */
+function shapeOverlap(a, b) {
+  const round = (s) => s.shape === "circle" || s.shape === "diamond";
+  const mid = ({ hit }) => [(hit[0] + hit[2]) / 2, (hit[1] + hit[3]) / 2];
+  const radius = ({ hit }) => Math.min(hit[2] - hit[0], hit[3] - hit[1]) / 2;
+
+  if (round(a) && round(b)) {
+    const [ax, ay] = mid(a);
+    const [bx, by] = mid(b);
+    return radius(a) + radius(b) - Math.hypot(ax - bx, ay - by);
+  }
+
+  if (round(a) || round(b)) {
+    const [disc, box] = round(a) ? [a, b] : [b, a];
+    const [cx, cy] = mid(disc);
+    const near = [
+      Math.min(Math.max(cx, box.hit[0]), box.hit[2]),
+      Math.min(Math.max(cy, box.hit[1]), box.hit[3]),
+    ];
+    return radius(disc) - Math.hypot(cx - near[0], cy - near[1]);
+  }
+
+  const w = Math.min(a.hit[2], b.hit[2]) - Math.max(a.hit[0], b.hit[0]);
+  const h = Math.min(a.hit[3], b.hit[3]) - Math.max(a.hit[1], b.hit[1]);
+  return Math.min(w, h);
+}
+
+/** Points to test for containment, following the shape rather than its box. */
+function probes({ hit, shape }) {
+  const [x0, y0, x1, y1] = hit;
+  const [cx, cy] = [(x0 + x1) / 2, (y0 + y1) / 2];
+
+  if (shape === "circle") {
+    const r = (x1 - x0) / 2;
+    return Array.from({ length: 8 }, (_, i) => {
+      const a = (i * Math.PI) / 4;
+      return [cx + Math.cos(a) * r, cy + Math.sin(a) * r];
+    });
+  }
+  if (shape === "diamond") {
+    return [
+      [cx, y0],
+      [x1, cy],
+      [cx, y1],
+      [x0, cy],
+    ];
+  }
+  return [
+    [x0, y0],
+    [x1, y0],
+    [x1, y1],
+    [x0, y1],
+  ];
+}
+
+const inShell = (poly, [x, y]) => {
+  let hit = false;
+  for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) {
+    const [xi, yi] = poly[i];
+    const [xj, yj] = poly[j];
+    if (yi > y !== yj > y && x < xi + ((y - yi) * (xj - xi)) / (yj - yi)) hit = !hit;
+  }
+  return hit;
+};
+
+const distanceToShell = (poly, [x, y]) =>
+  Math.min(...poly.map(([px, py]) => Math.hypot(px - x, py - y)));
+
+/**
+ * What the build checks before it publishes a diagram: that every control is
+ * on the shell, that the parts belonging to an edge are actually on one, and
+ * that no two controls are drawn on top of each other.
+ *
+ * Placement is arithmetic on a model's own dimensions now, so a slip in that
+ * arithmetic moves a part quietly instead of failing. This is the check that
+ * would have caught the 3.5 mm jack the drawings used to put out on the middle
+ * of the face, and the mini bumpers they put where the USB-C port goes.
+ */
+export function checkControllerViews(c) {
+  const problems = [];
+  const say = (view, msg) => problems.push(`${c.id} ${view}: ${msg}`);
+
+  for (const view of controllerViews(c)) {
+    const { polygon, parts } = view.geometry;
+    const solid = parts.filter((p) => !p.loose);
+
+    if (polygon) {
+      for (const p of solid) {
+        for (const space of p.boxes) {
+          if (p.edge) {
+            const gap = distanceToShell(polygon, space.anchor);
+            if (gap > 22) {
+              say(view.id, `${p.part.label} belongs on an edge but is ${Math.round(gap)} units from one`);
+            }
+          } else if (!probes(space).every((pt) => inShell(polygon, pt))) {
+            say(view.id, `${p.part.label} is drawn off the shell`);
+          }
+        }
+      }
+    }
+
+    for (let i = 0; i < solid.length; i++) {
+      for (let j = i + 1; j < solid.length; j++) {
+        const a = solid[i];
+        const b = solid[j];
+        // The shoulder row is layered on purpose: a trigger sits behind the
+        // bumper in front of it, so those pairs are not a collision.
+        if (a.part === b.part || (a.group && a.group === b.group)) continue;
+
+        for (const x of a.boxes) {
+          for (const y of b.boxes) {
+            if (shapeOverlap(x, y) > 1) {
+              say(view.id, `${a.part.label} and ${b.part.label} are drawn on top of each other`);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  return problems;
+}
+
 /**
  * Reduced outline for the controller cards and the model switcher: silhouette,
  * stick wells and button positions only, at a size where detail would turn to
- * mud anyway.
+ * mud anyway. Drawn from the same geometry as the full views, so a card is
+ * that model's shell at that model's proportions.
  */
 export function silhouette(c) {
-  const symmetric = layoutOf(c).family === "symmetric";
+  const box = shellBox(c);
+  const symmetric = box.family === "symmetric";
+  const edge = topEdge(box);
+  const shoulder = (right) => {
+    const span = right
+      ? mirrorSpan(edgeSpan(edge, SHOULDER.bumper.from, SHOULDER.bumper.to))
+      : edgeSpan(edge, SHOULDER.bumper.from, SHOULDER.bumper.to);
+    return path(edgeBand(span, -6, 20), "s-shoulder");
+  };
+  const at = (u, v) => box.at(u, v);
+
+  const cluster = symmetric
+    ? path(plusPath(...at(-0.606, 0.229), 18, 14), "s-part") +
+      circle(...at(0.606, 0.229), 26, "s-ring") +
+      circle(...at(-0.364, 0.581), 23, "s-ring") +
+      circle(...at(0.364, 0.581), 23, "s-ring")
+    : circle(...at(-0.545, 0.32), 26, "s-ring") +
+      circle(...at(0.582, 0.32), 28, "s-ring") +
+      path(plusPath(...at(-0.364, 0.58), 18, 14), "s-part") +
+      circle(...at(0.352, 0.6), 24, "s-ring");
+
   const body =
-    rect(68, 42, 84, 26, 13, "s-shoulder") +
-    rect(248, 42, 84, 26, 13, "s-shoulder") +
-    path(bodyPath(c), "s-body") +
-    (symmetric
-      ? path(plusPath(112, 106, 18, 14), "s-part") +
-        circle(288, 106, 26, "s-ring") +
-        circle(148, 178, 24, "s-ring") +
-        circle(252, 178, 24, "s-ring")
-      : circle(110, 120, 26, "s-ring") +
-        circle(296, 120, 28, "s-ring") +
-        path(plusPath(142, 188, 18, 14), "s-part") +
-        circle(258, 186, 24, "s-ring")) +
-    circle(200, symmetric ? 150 : 90, 12, "s-part");
+    shoulder(false) +
+    shoulder(true) +
+    path(shellPath(box), "s-body") +
+    cluster +
+    circle(...at(0, symmetric ? 0.53 : 0.13), 12, "s-part");
 
   return svg("0 0 400 280", body, { cls: "diagram-silhouette" });
 }
@@ -1013,17 +1811,17 @@ export function triggerFigure(hasStops) {
   });
 }
 
-/** D-pad close-up. `fenced` draws the raised ring some models have. */
-export function dpadFigure({ fenced = false, switchType = null } = {}) {
+/**
+ * D-pad close-up, drawn in the same shape the model's own layout diagram
+ * uses — the two figures sit on the same page, so a fenced pad in one and a
+ * bare cross in the other would read as two different D-pads.
+ */
+export function dpadFigure({ fenced = false, keys = null, switchType = null } = {}) {
   const cx = 84;
   const cy = 80;
   const body =
     panel(200, 170) +
-    (fenced ? circle(cx, cy, 46, "d-ring") : "") +
-    path(plusPath(cx, cy, 34, 26), "d-part") +
-    `<g class="d-glyph d-glyph-stroke"><path d="M${cx} ${cy - 24}l-5 6h10zM${cx} ${
-      cy + 24
-    }l-5-6h10zM${cx - 24} ${cy}l6-5v10zM${cx + 24} ${cy}l-6-5v10z"/></g>` +
+    dpadShape(cx, cy, 34, { fenced, keys }) +
     // Diagonal pairs, which is what "eight-way" actually means
     [45, 135, 225, 315]
       .map((a) => {
@@ -1271,17 +2069,19 @@ export function gyroFigure() {
  */
 export function rumbleFigure(rumbleText) {
   const inTriggers = /trigger/i.test(String(rumbleText));
-  // The body path is drawn in a 400 x 280 space; the transform places it and
-  // then scales it, so these offsets stay in the panel's own coordinates.
-  const at = (x, y) => [(x * 0.5 + 20).toFixed(1), (y * 0.5 + 8).toFixed(1)];
-  const [lgx, lgy] = at(96, 234);
-  const [rgx, rgy] = at(304, 234);
-  const [ltx, lty] = at(100, 96);
-  const [rtx, rty] = at(300, 96);
+  // The shell is drawn in the 400 x 280 space and scaled into the panel, so
+  // the motor positions are taken in shell coordinates and put through the
+  // same transform rather than being measured off the scaled drawing.
+  const box = genericShell();
+  const at = (u, v) => box.at(u, v).map((n, i) => (n * 0.5 + (i ? 8 : 20)).toFixed(1));
+  const [lgx, lgy] = at(-0.6, 0.83);
+  const [rgx, rgy] = at(0.6, 0.83);
+  const [ltx, lty] = at(-0.63, 0.14);
+  const [rtx, rty] = at(0.63, 0.14);
 
   const body =
     panel(240, 170) +
-    `<g transform="translate(20,8) scale(0.5)">${path(OFFSET_BODY, "d-body")}</g>` +
+    `<g transform="translate(20,8) scale(0.5)">${path(shellPath(box), "d-body")}</g>` +
     circle(lgx, lgy, 11, "d-accent-fill") +
     circle(rgx, rgy, 11, "d-accent-fill") +
     (inTriggers
@@ -1301,8 +2101,8 @@ export function rumbleFigure(rumbleText) {
 export function faceplateFigure() {
   const body =
     panel(240, 160) +
-    `<g transform="translate(22,34) scale(0.46)">${path(OFFSET_BODY, "d-body")}</g>` +
-    `<g transform="translate(42,2) scale(0.46)">${path(OFFSET_BODY, "d-plate")}</g>` +
+    `<g transform="translate(30,34) scale(0.46)">${path(shellPath(genericShell()), "d-body")}</g>` +
+    `<g transform="translate(50,2) scale(0.46)">${path(shellPath(genericShell()), "d-plate")}</g>` +
     `<g class="d-glyph d-glyph-stroke"><path d="M204 86V58M199 66l5-6 5 6"/></g>` +
     text(120, 18, "Magnetic faceplate", "d-title") +
     text(120, 148, "calibrate with the plate installed", "d-label d-label-xs");
@@ -1395,6 +2195,13 @@ export function standaloneSvg(markup, { title, width = 800 }) {
     .d-guide-ring{fill:none;stroke:var(--line);stroke-width:1.2}
     .d-window{fill:var(--inset);stroke:var(--muted);stroke-width:1.2;stroke-dasharray:4 3}
     .d-gear{fill:var(--s3);stroke:var(--brand);stroke-width:1.4}
+    .d-fence{fill:var(--inset);stroke:var(--line);stroke-width:1.4}
+    .d-glide-ring{fill:none;stroke:var(--dim);stroke-width:1.6;opacity:.7}
+    .d-lit{fill:color-mix(in srgb,var(--brand) 26%,transparent);stroke:none;opacity:.55}
+    .d-lit-good{fill:color-mix(in srgb,var(--good) 26%,transparent)}
+    .d-lit-bad{fill:color-mix(in srgb,var(--bad) 26%,transparent)}
+    .d-lit-info{fill:color-mix(in srgb,var(--info) 26%,transparent)}
+    .d-lit-warn{fill:color-mix(in srgb,var(--warn) 26%,transparent)}
     .d-ring,.d-accent-ring{fill:none;stroke:var(--line);stroke-width:1.4}
     .d-accent-ring{stroke:var(--brand)}
     .d-swap-ring{fill:none;stroke:var(--brand);stroke-width:1.4;stroke-dasharray:5 4}

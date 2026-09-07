@@ -2246,6 +2246,38 @@ h3[id],
   stroke: var(--line-strong);
   stroke-width: 1.3;
 }
+/* The raised ring around a fenced D-pad, and the glide ring around the stick
+   caps on the models whose own record documents one. */
+.d-fence {
+  fill: var(--surface-inset);
+  stroke: var(--line-strong);
+  stroke-width: 1.4;
+}
+.d-glide-ring {
+  fill: none;
+  stroke: var(--text-dim);
+  stroke-width: 1.6;
+  opacity: 0.7;
+}
+/* Halo behind an illuminated cap. Tinted per button so a lit ABXY cluster
+   keeps the colour convention instead of glowing one flat colour. */
+.d-lit {
+  fill: var(--brand-soft, var(--surface-3));
+  stroke: none;
+  opacity: 0.55;
+}
+.d-lit-good {
+  fill: var(--good-soft);
+}
+.d-lit-bad {
+  fill: var(--bad-soft);
+}
+.d-lit-info {
+  fill: var(--info-soft);
+}
+.d-lit-warn {
+  fill: var(--warn-soft);
+}
 .d-accent-ring {
   fill: none;
   stroke: var(--brand);
@@ -2478,12 +2510,12 @@ h3[id],
   transition: fill var(--fast), stroke var(--fast), stroke-width var(--fast);
 }
 
-.d-hot:where(:hover, :focus-visible, .is-active) :is(.d-part, .d-part-2, .d-part-inset, .d-recess, .d-port, .d-btn, .d-btn-sm, .d-guide, .d-window) {
+.d-hot:where(:hover, :focus-visible, .is-active) :is(.d-part, .d-part-2, .d-part-inset, .d-recess, .d-port, .d-btn, .d-btn-sm, .d-guide, .d-window, .d-fence) {
   fill: var(--brand-soft);
   stroke: var(--brand);
   stroke-width: 2.2;
 }
-.d-hot:where(:hover, :focus-visible, .is-active) :is(.d-ink, .d-ink-thick, .d-texture, .d-travel, .d-glyph-stroke, .d-ring, .d-guide-ring, .d-absent) {
+.d-hot:where(:hover, :focus-visible, .is-active) :is(.d-ink, .d-ink-thick, .d-texture, .d-travel, .d-glyph-stroke, .d-ring, .d-guide-ring, .d-glide-ring, .d-absent) {
   stroke: var(--brand);
 }
 .d-hot:where(:hover, :focus-visible, .is-active) :is(.d-label, .d-title, .d-glyph) {

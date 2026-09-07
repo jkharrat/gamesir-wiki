@@ -33,6 +33,13 @@
     .d-guide-ring{fill:none;stroke:var(--line);stroke-width:1.2}
     .d-window{fill:var(--inset);stroke:var(--muted);stroke-width:1.2;stroke-dasharray:4 3}
     .d-gear{fill:var(--s3);stroke:var(--brand);stroke-width:1.4}
+    .d-fence{fill:var(--inset);stroke:var(--line);stroke-width:1.4}
+    .d-glide-ring{fill:none;stroke:var(--dim);stroke-width:1.6;opacity:.7}
+    .d-lit{fill:color-mix(in srgb,var(--brand) 26%,transparent);stroke:none;opacity:.55}
+    .d-lit-good{fill:color-mix(in srgb,var(--good) 26%,transparent)}
+    .d-lit-bad{fill:color-mix(in srgb,var(--bad) 26%,transparent)}
+    .d-lit-info{fill:color-mix(in srgb,var(--info) 26%,transparent)}
+    .d-lit-warn{fill:color-mix(in srgb,var(--warn) 26%,transparent)}
     .d-ring,.d-accent-ring{fill:none;stroke:var(--line);stroke-width:1.4}
     .d-accent-ring{stroke:var(--brand)}
     .d-swap-ring{fill:none;stroke:var(--brand);stroke-width:1.4;stroke-dasharray:5 4}
@@ -72,5 +79,5 @@
     .d-on-accent{fill:#fff}
   </style>
   <rect class="d-canvas" x="0" y="0" width="200" height="170"/>
-  <rect class="d-panel" x="1" y="1" width="198" height="168" rx="12"/><path class="d-part" d="M 71 46 H 97 V 67 H 118 V 93 H 97 V 114 H 71 V 93 H 50 V 67 H 71 Z"/><g class="d-glyph d-glyph-stroke"><path d="M84 56l-5 6h10zM84 104l-5-6h10zM60 80l6-5v10zM108 80l-6-5v10z"/></g><path class="d-dim-stroke" d="M 112.3 108.3 l 7.1 7.1"/><path class="d-dim-stroke" d="M 55.7 108.3 l -7.1 7.1"/><path class="d-dim-stroke" d="M 55.7 51.7 l -7.1 -7.1"/><path class="d-dim-stroke" d="M 112.3 51.7 l 7.1 -7.1"/><text class="d-label d-label-xs" x="84" y="140">eight directions</text><text class="d-label d-label-xs" x="84" y="154">four switches, diagonals from pairs</text><text class="d-title" x="84" y="22">D-pad</text>
+  <rect class="d-panel" x="1" y="1" width="198" height="168" rx="12"/><path class="d-part" d="M 70.74 46 H 97.26 V 66.74 H 118 V 93.26 H 97.26 V 114 H 70.74 V 93.26 H 50 V 66.74 H 70.74 Z"/><g class="d-glyph d-glyph-stroke"><path d="M84 55.86l-4.93 6.46h9.86zM84 104.14l-4.93 -6.46h9.86zM59.86 80l6.46 -4.93v9.86zM108.14 80l-6.46 -4.93v9.86z"/></g><path class="d-dim-stroke" d="M 112.3 108.3 l 7.1 7.1"/><path class="d-dim-stroke" d="M 55.7 108.3 l -7.1 7.1"/><path class="d-dim-stroke" d="M 55.7 51.7 l -7.1 -7.1"/><path class="d-dim-stroke" d="M 112.3 51.7 l 7.1 -7.1"/><text class="d-label d-label-xs" x="84" y="140">eight directions</text><text class="d-label d-label-xs" x="84" y="154">four switches, diagonals from pairs</text><text class="d-title" x="84" y="22">D-pad</text>
 </svg>
