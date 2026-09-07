@@ -1152,8 +1152,10 @@ function frontView(c) {
             .map(({ at: [x, y], label, shape }) =>
               shape === "circle"
                 ? circle(x, y, 7.5 * s, "d-btn-sm") + text(x, y + 0.4, label, "d-label d-label-xs")
-                : rect(x - 6 * s, y - 11 * s, 12 * s, 22 * s, 6, "d-btn-sm") +
-                  text(x, y - 16 * s, label, "d-label d-label-xs")
+                : // Below the actuator, not above it: above is where View and
+                  // Menu are, and the label landed on top of them.
+                  rect(x - 6 * s, y - 11 * s, 12 * s, 22 * s, 6, "d-btn-sm") +
+                  text(x, y + 17 * s, label, "d-label d-label-xs")
             )
             .join("")
       );
@@ -1567,6 +1569,44 @@ function shapeOverlap(a, b) {
   return Math.min(w, h);
 }
 
+/**
+ * Where a part's own labels ended up, read back out of the markup that was
+ * generated for it. Reading the finished drawing rather than tracking every
+ * label as it is placed means a label is checked wherever in the drawing code
+ * it came from, and there is nothing to keep in step.
+ *
+ * `.d-label` is centred on its anchor in both axes, so the box is around the
+ * point, and the sizes are the ones the stylesheet sets.
+ */
+const LABEL_PX = [
+  [/d-label-xs/, 8],
+  [/d-label-sm/, 9],
+  [/./, 10],
+];
+
+function labelBoxes(markup = "") {
+  const out = [];
+
+  for (const m of markup.matchAll(/<text class="([^"]*)" x="([^"]*)" y="([^"]*)"[^>]*>([^<]*)</g)) {
+    const [, cls, x, y, body] = m;
+    if (!/\bd-label\b|\bd-title\b/.test(cls) || !body.trim()) continue;
+
+    const px = LABEL_PX.find(([re]) => re.test(cls))[1];
+    // Character advance for a semibold UI face, near enough for a check that
+    // only needs to know whether two things are in the same place.
+    const w = body.trim().length * px * 0.6;
+    const [cx, cy] = [Number(x), Number(y)];
+    out.push({
+      text: body.trim(),
+      anchor: [cx, cy],
+      hit: [cx - w / 2, cy - px / 2, cx + w / 2, cy + px / 2],
+      shape: "rect",
+    });
+  }
+
+  return out;
+}
+
 /** Points to test for containment, following the shape rather than its box. */
 function probes({ hit, shape }) {
   const [x0, y0, x1, y1] = hit;
@@ -1670,6 +1710,22 @@ export function checkControllerViews(c) {
         const into = a.boxes.some((x) => b.boxes.some((y) => shapeOverlap(x, y) > 1));
         if (into) {
           say(view.id, `${a.part.label} and ${b.part.label} are drawn on top of each other`);
+        }
+
+        // A label belongs to the control it names and is usually drawn inside
+        // it, so it is checked against the other controls only. This is what
+        // catches a label pushed clear of its own part and onto a neighbour,
+        // which the parts themselves not overlapping says nothing about.
+        for (const [p, q] of [
+          [a, b],
+          [b, a],
+        ]) {
+          const label = labelBoxes(p.markup).find((t) =>
+            q.boxes.some((y) => shapeOverlap(t, y) > 1)
+          );
+          if (label) {
+            say(view.id, `the "${label.text}" label is drawn over ${q.part.label}`);
+          }
         }
       }
     }
