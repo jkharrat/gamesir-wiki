@@ -139,6 +139,21 @@ const CONTROLLER = obj({
   weight: str({ nullable: true }),
   dimensions: str({ nullable: true }),
 
+  // The millimetre figures from `dimensions` again, structured, because the
+  // layout diagrams draw each shell at its published proportions instead of
+  // one generic outline. Optional: a model nobody has published dimensions
+  // for borrows a documented sibling's shell rather than carrying a guess
+  // here. `validate` checks the numbers against the prose above, so the two
+  // copies of the same fact cannot drift apart.
+  dimensionsMm: obj(
+    {
+      width: num({ min: 60, max: 260 }),
+      height: num({ min: 60, max: 200 }),
+      depth: num({ min: 20, max: 120 }),
+    },
+    { optional: true }
+  ),
+
   extraButtons: obj({
     backButtons: num({ nullable: true, min: 0, max: 12 }),
     extraBumpers: num({ nullable: true, min: 0, max: 12 }),
@@ -379,6 +394,38 @@ export function validate(data) {
         });
       } else {
         seen.set(id, i);
+      }
+    }
+
+    // `dimensionsMm` exists so the diagrams can scale a shell mechanically,
+    // and it repeats figures the prose field already carries. Two copies of
+    // one fact drift, so the millimetre triple has to be the one the prose
+    // states — a corrected `dimensions` string with a stale structured copy
+    // would silently keep drawing the old shell.
+    for (const c of data.controllers) {
+      const mm = c?.dimensionsMm;
+      if (!mm || typeof mm !== "object") continue;
+      const at = `${typeof c.id === "string" ? c.id : "?"}.dimensionsMm`;
+
+      if (typeof c.dimensions !== "string") {
+        errors.push({ at, msg: "has no `dimensions` prose to agree with" });
+        continue;
+      }
+
+      const stated = /(\d+(?:\.\d+)?)\s*[x×]\s*(\d+(?:\.\d+)?)\s*[x×]\s*(\d+(?:\.\d+)?)/.exec(
+        c.dimensions
+      );
+      if (!stated) {
+        errors.push({ at, msg: `cannot be checked — \`dimensions\` states no "w x h x d" figure` });
+        continue;
+      }
+
+      const [width, height, depth] = stated.slice(1).map(Number);
+      if (mm.width !== width || mm.height !== height || mm.depth !== depth) {
+        errors.push({
+          at,
+          msg: `says ${mm.width} x ${mm.height} x ${mm.depth} but \`dimensions\` says ${width} x ${height} x ${depth} — the diagram would draw the wrong shell`,
+        });
       }
     }
   }
