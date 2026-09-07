@@ -492,7 +492,10 @@ function shellSize(c) {
   const from = layoutOf(c).shellFrom;
   const sibling = from ? PUBLISHED_MM.get(from) : null;
   if (sibling) return { mm: sibling, borrowed: from };
-  return { mm: TYPICAL_MM, borrowed: null };
+
+  // A shell nobody has measured and no sibling to borrow: the drawing falls
+  // back to the typical size, and says so rather than claiming the figure.
+  return { mm: TYPICAL_MM, borrowed: "typical" };
 }
 
 /**
@@ -1518,11 +1521,12 @@ export function shellNote(c) {
   }
 
   const from = PUBLISHED_MM.get(box.borrowed);
-  return (
-    `Nobody has published this model's dimensions, so the shell is drawn at the ` +
-    `${from.width} \u00d7 ${from.height} mm of the model it is a revision of. ` +
-    `The contours are schematic and no GameSir artwork is reproduced.`
-  );
+  return from
+    ? `Nobody has published this model's dimensions, so the shell is drawn at the ` +
+        `${from.width} \u00d7 ${from.height} mm of the model it is a revision of. ` +
+        `The contours are schematic and no GameSir artwork is reproduced.`
+    : `Nobody has published this model's dimensions, so the shell is drawn at the size ` +
+        `typical of this range. The contours are schematic and no GameSir artwork is reproduced.`;
 }
 
 /** All three views of one controller. */
@@ -1623,6 +1627,17 @@ const distanceToShell = (poly, [x, y]) =>
 export function checkControllerViews(c) {
   const problems = [];
   const say = (view, msg) => problems.push(`${c.id} ${view}: ${msg}`);
+
+  // A borrowed shell that resolves to nothing draws at the range's typical
+  // size instead, which is a quieter wrong answer than a crash: the note under
+  // the figure would stop naming the model the proportions came from.
+  const { shellFrom } = layoutOf(c);
+  if (shellFrom && !c.dimensionsMm && !PUBLISHED_MM.get(shellFrom)) {
+    problems.push(
+      `${c.id}: borrows the shell of "${shellFrom}", which has no published dimensions — ` +
+        `name a model that does, or drop the borrow`
+    );
+  }
 
   for (const view of controllerViews(c)) {
     const { polygon, parts } = view.geometry;
