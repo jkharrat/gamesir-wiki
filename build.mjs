@@ -17,6 +17,10 @@ import {
   icon,
   platformIcon,
   layoutInfo,
+  dpadStyle,
+  shellNote,
+  useDimensions,
+  checkControllerViews,
   controllerViews,
   silhouette,
   stickSensorFigure,
@@ -881,7 +885,7 @@ function componentFigures(c) {
     );
   }
 
-  add(dpadFigure({ fenced: /fenced/i.test(String(c.dpad)) }), "D-pad", c.dpad);
+  add(dpadFigure(dpadStyle(c)), "D-pad", c.dpad);
 
   add(
     faceButtonFigure({ swap: !!L.faceSwap || /nintendo layout/i.test(String(c.faceButtons)) }),
@@ -962,7 +966,7 @@ function featureCallouts(c) {
     { test: /gyro/i, figure: () => gyroFigure() },
     { test: /layout|nintendo|rotat|swap/i, figure: () => faceButtonFigure({ swap: true }) },
     { test: /macro|remap|profile/i, figure: () => mappingFigure({ mode: L.mode ?? "M" }) },
-    { test: /d-pad/i, figure: () => dpadFigure({ fenced: /fenced/i.test(String(c.dpad)) }) },
+    { test: /d-pad/i, figure: () => dpadFigure(dpadStyle(c)) },
     { test: /wireless|tri-mode|2\.4|bluetooth|dongle/i, figure: () => connectionFigure(c) },
     { test: /rumble|vibrat/i, figure: () => rumbleFigure(c.rumble) },
   ];
@@ -1441,6 +1445,7 @@ ${sources}
   ${layoutSection(c, {
     intro:
       "Every control on this model, front, back and top edge. The rear view is where these models differ most.",
+    note: shellNote(c),
   })}
 
   <div class="tabs-dock">
@@ -2859,6 +2864,23 @@ async function build() {
   validate(data);
 
   data.controllers.sort((a, b) => a.name.localeCompare(b.name));
+
+  // The diagrams draw each shell at that model's published dimensions, and a
+  // model with none of its own borrows a named sibling's, so they need the
+  // whole file rather than one record at a time.
+  useDimensions(data.controllers);
+
+  // Then the drawings check themselves: a control off the shell, off an edge
+  // it belongs to, or on top of another one is a bug in the placement
+  // arithmetic, and it would otherwise ship looking deliberate.
+  const misplaced = data.controllers.flatMap((c) => checkControllerViews(c));
+  if (misplaced.length) {
+    throw new Error(
+      `${misplaced.length} misplaced part${misplaced.length === 1 ? "" : "s"} in the layout diagrams:\n` +
+        misplaced.map((m) => `  ${m}`).join("\n") +
+        "\n\nNothing was written. The placements are in src/diagrams.mjs.\n"
+    );
+  }
 
   // Resolved before any page is rendered, because the footer edit links on
   // every one of them are built from it.

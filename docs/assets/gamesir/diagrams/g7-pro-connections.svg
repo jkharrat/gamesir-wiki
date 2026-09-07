@@ -33,6 +33,13 @@
     .d-guide-ring{fill:none;stroke:var(--line);stroke-width:1.2}
     .d-window{fill:var(--inset);stroke:var(--muted);stroke-width:1.2;stroke-dasharray:4 3}
     .d-gear{fill:var(--s3);stroke:var(--brand);stroke-width:1.4}
+    .d-fence{fill:var(--inset);stroke:var(--line);stroke-width:1.4}
+    .d-glide-ring{fill:none;stroke:var(--dim);stroke-width:1.6;opacity:.7}
+    .d-lit{fill:color-mix(in srgb,var(--brand) 26%,transparent);stroke:none;opacity:.55}
+    .d-lit-good{fill:color-mix(in srgb,var(--good) 26%,transparent)}
+    .d-lit-bad{fill:color-mix(in srgb,var(--bad) 26%,transparent)}
+    .d-lit-info{fill:color-mix(in srgb,var(--info) 26%,transparent)}
+    .d-lit-warn{fill:color-mix(in srgb,var(--warn) 26%,transparent)}
     .d-ring,.d-accent-ring{fill:none;stroke:var(--line);stroke-width:1.4}
     .d-accent-ring{stroke:var(--brand)}
     .d-swap-ring{fill:none;stroke:var(--brand);stroke-width:1.4;stroke-dasharray:5 4}
@@ -70,6 +77,9 @@
     .d-good-text{fill:var(--good)}
     .d-dim-text{fill:var(--dim)}
     .d-on-accent{fill:#fff}
+    .s-body{fill:none;stroke:var(--dim);stroke-width:3;opacity:.5}
+    .s-shoulder{fill:none;stroke:var(--dim);stroke-width:3;opacity:.32}
+    .s-ring,.s-part{fill:none;stroke:var(--dim);stroke-width:2.6;opacity:.42}
   </style>
   <rect class="d-canvas" x="0" y="0" width="320" height="148"/>
   <rect class="d-panel" x="1" y="1" width="318" height="146" rx="12"/><rect class="d-lane on" x="8" y="14" width="304" height="34" rx="10"/><g class="d-lane-icon" transform="translate(22,23)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3.6 20.4c4.2 0 5.2-3.2 5.2-6.4S9.8 7.6 14 7.6h6.4"/><path d="M17.4 4.6l3 3-3 3"/></svg></g><text class="d-label d-label-left" x="58" y="32"text-anchor="start">USB-C cable</text><text class="d-label d-label-xs d-good-text" x="304" y="32"text-anchor="end">supported</text><rect class="d-lane on" x="8" y="56" width="304" height="34" rx="10"/><g class="d-lane-icon" transform="translate(22,65)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3.8 9.4a12.2 12.2 0 0 1 16.4 0M7.2 13a7.6 7.6 0 0 1 9.6 0"/><circle cx="12" cy="17.6" r="1.6"/></svg></g><text class="d-label d-label-left" x="58" y="74"text-anchor="start">2.4 GHz dongle</text><text class="d-label d-label-xs d-good-text" x="304" y="74"text-anchor="end">supported</text><rect class="d-lane on" x="8" y="98" width="304" height="34" rx="10"/><g class="d-lane-icon" transform="translate(22,107)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M8 7.2 16 17l-4 3.4V3.6L16 7 8 16.8"/></svg></g><text class="d-label d-label-left" x="58" y="116"text-anchor="start">Bluetooth</text><text class="d-label d-label-xs d-good-text" x="304" y="116"text-anchor="end">supported</text>

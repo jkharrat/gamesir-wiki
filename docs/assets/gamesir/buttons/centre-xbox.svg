@@ -33,6 +33,13 @@
     .d-guide-ring{fill:none;stroke:var(--line);stroke-width:1.2}
     .d-window{fill:var(--inset);stroke:var(--muted);stroke-width:1.2;stroke-dasharray:4 3}
     .d-gear{fill:var(--s3);stroke:var(--brand);stroke-width:1.4}
+    .d-fence{fill:var(--inset);stroke:var(--line);stroke-width:1.4}
+    .d-glide-ring{fill:none;stroke:var(--dim);stroke-width:1.6;opacity:.7}
+    .d-lit{fill:color-mix(in srgb,var(--brand) 26%,transparent);stroke:none;opacity:.55}
+    .d-lit-good{fill:color-mix(in srgb,var(--good) 26%,transparent)}
+    .d-lit-bad{fill:color-mix(in srgb,var(--bad) 26%,transparent)}
+    .d-lit-info{fill:color-mix(in srgb,var(--info) 26%,transparent)}
+    .d-lit-warn{fill:color-mix(in srgb,var(--warn) 26%,transparent)}
     .d-ring,.d-accent-ring{fill:none;stroke:var(--line);stroke-width:1.4}
     .d-accent-ring{stroke:var(--brand)}
     .d-swap-ring{fill:none;stroke:var(--brand);stroke-width:1.4;stroke-dasharray:5 4}
@@ -70,6 +77,9 @@
     .d-good-text{fill:var(--good)}
     .d-dim-text{fill:var(--dim)}
     .d-on-accent{fill:#fff}
+    .s-body{fill:none;stroke:var(--dim);stroke-width:3;opacity:.5}
+    .s-shoulder{fill:none;stroke:var(--dim);stroke-width:3;opacity:.32}
+    .s-ring,.s-part{fill:none;stroke:var(--dim);stroke-width:2.6;opacity:.42}
   </style>
   <rect class="d-canvas" x="0" y="0" width="320" height="170"/>
   <rect class="d-panel" x="1" y="1" width="318" height="168" rx="12"/><circle class="d-guide" cx="160" cy="58" r="19"/><circle class="d-guide-ring" cx="160" cy="58" r="14.5"/><circle class="d-accent-fill" cx="160" cy="58" r="5"/><text class="d-label d-label-xs" x="160" y="30">Guide</text><circle class="d-btn-sm" cx="104" cy="88" r="13"/><g class="d-glyph"><rect x="98" y="83.5" width="7.5" height="6" rx="1.2"/><rect x="102.5" y="86.5" width="7.5" height="6" rx="1.2"/></g><text class="d-label d-label-xs" x="104" y="112">View</text><circle class="d-btn-sm" cx="216" cy="88" r="13"/><g class="d-glyph d-glyph-stroke"><path d="M211 84.5h10M211 88h10M211 91.5h10"/></g><text class="d-label d-label-xs" x="216" y="112">Menu</text><circle class="d-btn-sm" cx="160" cy="100" r="11"/><g class="d-glyph d-glyph-stroke"><rect x="155" y="96.4" width="10" height="7.2" rx="1.4"/><path d="M158.2 96.4v-1.6h3.6v1.6"/></g><text class="d-label d-label-xs" x="160" y="122">Share</text><circle class="d-btn-sm" cx="160" cy="138" r="11"/><text class="d-label d-label-xs" x="160" y="138.5">M</text><text class="d-label d-label-xs" x="160" y="160">M is the modifier every combination starts from</text>

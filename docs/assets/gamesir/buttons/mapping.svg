@@ -33,6 +33,13 @@
     .d-guide-ring{fill:none;stroke:var(--line);stroke-width:1.2}
     .d-window{fill:var(--inset);stroke:var(--muted);stroke-width:1.2;stroke-dasharray:4 3}
     .d-gear{fill:var(--s3);stroke:var(--brand);stroke-width:1.4}
+    .d-fence{fill:var(--inset);stroke:var(--line);stroke-width:1.4}
+    .d-glide-ring{fill:none;stroke:var(--dim);stroke-width:1.6;opacity:.7}
+    .d-lit{fill:color-mix(in srgb,var(--brand) 26%,transparent);stroke:none;opacity:.55}
+    .d-lit-good{fill:color-mix(in srgb,var(--good) 26%,transparent)}
+    .d-lit-bad{fill:color-mix(in srgb,var(--bad) 26%,transparent)}
+    .d-lit-info{fill:color-mix(in srgb,var(--info) 26%,transparent)}
+    .d-lit-warn{fill:color-mix(in srgb,var(--warn) 26%,transparent)}
     .d-ring,.d-accent-ring{fill:none;stroke:var(--line);stroke-width:1.4}
     .d-accent-ring{stroke:var(--brand)}
     .d-swap-ring{fill:none;stroke:var(--brand);stroke-width:1.4;stroke-dasharray:5 4}
@@ -70,6 +77,9 @@
     .d-good-text{fill:var(--good)}
     .d-dim-text{fill:var(--dim)}
     .d-on-accent{fill:#fff}
+    .s-body{fill:none;stroke:var(--dim);stroke-width:3;opacity:.5}
+    .s-shoulder{fill:none;stroke:var(--dim);stroke-width:3;opacity:.32}
+    .s-ring,.s-part{fill:none;stroke:var(--dim);stroke-width:2.6;opacity:.42}
   </style>
   <rect class="d-canvas" x="0" y="0" width="400" height="150"/>
   <rect class="d-panel" x="1" y="1" width="398" height="148" rx="12"/><circle class="d-step" cx="64" cy="34" r="13"/><text class="d-label d-label-xs" x="64" y="34.5">1</text><circle class="d-btn-sm" cx="64" cy="78" r="17"/><text class="d-label d-label-xs" x="64" y="78.5">M</text><text class="d-label d-label-xs" x="64" y="122">hold M</text><circle class="d-step" cx="184" cy="34" r="13"/><text class="d-label d-label-xs" x="184" y="34.5">2</text><g transform="rotate(-12 184 78)"><rect class="d-part-2" x="172" y="58" width="24" height="42" rx="12"/></g><text class="d-label d-label-xs" x="184" y="79">L4</text><text class="d-label d-label-xs" x="184" y="122">and the rear button</text><circle class="d-step" cx="312" cy="34" r="13"/><text class="d-label d-label-xs" x="312" y="34.5">3</text><circle class="d-btn d-btn-warn" cx="312" cy="56" r="10"/><text class="d-btn-letter" x="312" y="56.5">Y</text><circle class="d-btn d-btn-bad" cx="334" cy="78" r="10"/><text class="d-btn-letter" x="334" y="78.5">B</text><circle class="d-btn d-btn-good" cx="312" cy="100" r="10"/><text class="d-btn-letter" x="312" y="100.5">A</text><circle class="d-btn d-btn-info" cx="290" cy="78" r="10"/><text class="d-btn-letter" x="290" y="78.5">X</text><text class="d-label d-label-xs" x="312" y="122">then press what it should do</text><g class="d-glyph d-glyph-stroke"><path d="M108 78h32M136 74l5 4-5 4M232 78h32M260 74l5 4-5 4"/></g><text class="d-label d-label-xs" x="200" y="142">repeat and press the rear button again to clear it</text>

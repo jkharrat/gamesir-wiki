@@ -33,6 +33,13 @@
     .d-guide-ring{fill:none;stroke:var(--line);stroke-width:1.2}
     .d-window{fill:var(--inset);stroke:var(--muted);stroke-width:1.2;stroke-dasharray:4 3}
     .d-gear{fill:var(--s3);stroke:var(--brand);stroke-width:1.4}
+    .d-fence{fill:var(--inset);stroke:var(--line);stroke-width:1.4}
+    .d-glide-ring{fill:none;stroke:var(--dim);stroke-width:1.6;opacity:.7}
+    .d-lit{fill:color-mix(in srgb,var(--brand) 26%,transparent);stroke:none;opacity:.55}
+    .d-lit-good{fill:color-mix(in srgb,var(--good) 26%,transparent)}
+    .d-lit-bad{fill:color-mix(in srgb,var(--bad) 26%,transparent)}
+    .d-lit-info{fill:color-mix(in srgb,var(--info) 26%,transparent)}
+    .d-lit-warn{fill:color-mix(in srgb,var(--warn) 26%,transparent)}
     .d-ring,.d-accent-ring{fill:none;stroke:var(--line);stroke-width:1.4}
     .d-accent-ring{stroke:var(--brand)}
     .d-swap-ring{fill:none;stroke:var(--brand);stroke-width:1.4;stroke-dasharray:5 4}
@@ -70,7 +77,10 @@
     .d-good-text{fill:var(--good)}
     .d-dim-text{fill:var(--dim)}
     .d-on-accent{fill:#fff}
+    .s-body{fill:none;stroke:var(--dim);stroke-width:3;opacity:.5}
+    .s-shoulder{fill:none;stroke:var(--dim);stroke-width:3;opacity:.32}
+    .s-ring,.s-part{fill:none;stroke:var(--dim);stroke-width:2.6;opacity:.42}
   </style>
   <rect class="d-canvas" x="0" y="0" width="400" height="280"/>
-  <rect class="s-shoulder" x="68" y="42" width="84" height="26" rx="13"/><rect class="s-shoulder" x="248" y="42" width="84" height="26" rx="13"/><path class="s-body" d="M 200 64 C 178 64 152 60 124 64 C 96 68 70 80 52 104 C 38 124 33 148 36 172 C 39 202 50 234 72 254 C 90 270 114 274 132 262 C 146 253 152 240 156 220 C 159 206 166 198 180 196 C 187 195 194 195 200 195 C 206 195 213 195 220 196 C 234 198 241 206 244 220 C 248 240 254 253 268 262 C 286 274 310 270 328 254 C 350 234 361 202 364 172 C 367 148 362 124 348 104 C 330 80 304 68 276 64 C 248 60 222 64 200 64 Z"/><circle class="s-ring" cx="110" cy="120" r="26"/><circle class="s-ring" cx="296" cy="120" r="28"/><path class="s-part" d="M 135 170 H 149 V 181 H 160 V 195 H 149 V 206 H 135 V 195 H 124 V 181 H 135 Z"/><circle class="s-ring" cx="258" cy="186" r="24"/><circle class="s-part" cx="200" cy="90" r="12"/>
+  <path class="s-shoulder" d="M 154.0 61.2 L 149.2 49.6 L 144.4 48.4 L 139.6 48.7 L 134.7 49.1 L 129.9 49.7 L 125.0 50.4 L 120.2 51.3 L 115.4 52.4 L 110.6 53.7 L 105.9 55.2 L 101.3 56.9 L 96.7 58.8 L 92.2 60.9 L 87.8 63.3 L 83.5 65.8 L 79.4 68.6 L 76.2 72.6 L 80.0 84.5 L 80.0 84.5 L 90.5 91.0 L 94.3 89.9 L 97.4 87.8 L 100.6 85.9 L 103.8 84.2 L 107.2 82.6 L 110.7 81.1 L 114.3 79.8 L 118.0 78.7 L 121.7 77.7 L 125.5 76.8 L 129.4 76.1 L 133.3 75.5 L 137.3 75.0 L 141.4 74.6 L 145.6 74.4 L 149.7 72.9 L 154.0 61.2 Z"/><path class="s-shoulder" d="M 246.0 61.2 L 250.8 49.6 L 255.6 48.4 L 260.4 48.7 L 265.3 49.1 L 270.1 49.7 L 275.0 50.4 L 279.8 51.3 L 284.6 52.4 L 289.4 53.7 L 294.1 55.2 L 298.7 56.9 L 303.3 58.8 L 307.8 60.9 L 312.2 63.3 L 316.5 65.8 L 320.6 68.6 L 323.8 72.6 L 320.0 84.5 L 320.0 84.5 L 309.5 91.0 L 305.7 89.9 L 302.6 87.8 L 299.4 85.9 L 296.2 84.2 L 292.8 82.6 L 289.3 81.1 L 285.7 79.8 L 282.0 78.7 L 278.3 77.7 L 274.5 76.8 L 270.6 76.1 L 266.7 75.5 L 262.7 75.0 L 258.6 74.6 L 254.4 74.4 L 250.3 72.9 L 246.0 61.2 Z"/><path class="s-body" d="M 200.0 56.0 C 179.3 56.0 154.6 52.0 128.1 56.0 C 101.7 60.0 77.1 72.1 60.1 96.3 C 46.8 116.6 42.1 140.8 44.9 165.0 C 47.7 195.3 58.2 227.7 78.9 247.9 C 95.9 264.0 118.7 268.0 135.7 255.9 C 149.0 246.8 154.6 233.7 158.3 213.5 C 161.3 206.9 167.9 198.9 181.1 197.0 C 187.7 195.9 194.4 195.9 200.0 195.9 C 205.6 195.9 212.3 195.9 218.9 197.0 C 232.1 198.9 238.7 206.9 241.7 213.5 C 245.4 233.7 251.0 246.8 264.3 255.9 C 281.3 268.0 304.1 264.0 321.1 247.9 C 341.8 227.7 352.3 195.3 355.1 165.0 C 357.9 140.8 353.2 116.6 339.9 96.3 C 322.9 72.1 298.3 60.0 271.9 56.0 C 245.4 52.0 220.7 56.0 200.0 56.0 Z"/><circle class="s-ring" cx="114.97999999999999" cy="123.84" r="26"/><circle class="s-ring" cx="290.792" cy="123.84" r="28"/><path class="s-part" d="M 136.216 160.95999999999998 H 150.216 V 171.95999999999998 H 161.216 V 185.95999999999998 H 150.216 V 196.95999999999998 H 136.216 V 185.95999999999998 H 125.21600000000001 V 171.95999999999998 H 136.216 Z"/><circle class="s-ring" cx="254.912" cy="183.2" r="24"/><circle class="s-part" cx="200" cy="83.56" r="12"/>
 </svg>

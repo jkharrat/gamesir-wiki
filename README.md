@@ -84,12 +84,30 @@ views of each controller, close-ups of each component, and the small icons besid
 and table headers. Nothing is traced from a photograph or a render.
 
 Which controls a model's diagram shows comes from that model's record in
-`data/controllers.json`, so a diagram cannot claim hardware the spec table does not. Each
+`data/controllers.json`, so a diagram cannot claim hardware the spec table does not, and so
+does what several of them look like: a fenced D-pad gets its ring, a membrane pad is one
+moulded piece where a micro-switch pad is four keys, and a record that says the switch type
+is not documented gets the neutral shape rather than the one that sentence mentions. Each
 control carries its own name and description, which is what the readout beside the diagram
 shows on hover or focus. A small `LAYOUT` table in the module holds the few placement facts
 the JSON has no field for — which family the shell belongs to, what the centre buttons are
 called, whether the face caps are printed — and a model missing from it falls back to the
 Xbox-style layout.
+
+The shell itself is built rather than drawn: one outline per family, held in fractions of
+the shell's own width and height, sized from the `dimensionsMm` in the model's record. So
+the T7 Pro's 145 × 93 mm shell is visibly the smallest in the range and the Tarantula Pro's
+158 × 100 mm the largest, and every control is placed against that shell rather than at a
+fixed coordinate. The contour is not a per-model claim — nobody publishes a shell profile —
+and the note under each figure says which part of it is measured and which is schematic.
+
+Because placement is arithmetic, the build checks it: every control has to sit on the shell,
+parts that belong to an edge have to be on one, no two controls may be drawn on top of each
+other, a label may not land on a control it does not name, and decoration drawn around a
+cluster has to stay on the shell too. Overlap is measured on the shapes rather than on boxes
+around them, so a round button beside a round stick well is not reported as a collision it
+clears by millimetres. A slip in the arithmetic fails the build instead of shipping
+something that looks deliberate.
 
 Diagrams are inlined into the HTML so they inherit the page's custom properties and switch
 theme with it, and they are hoverable, focusable and keyboard-reachable. The same drawings
@@ -143,9 +161,13 @@ Field conventions:
 - Every `knownIssues` and `faq` entry must carry a `sourceUrl`, and every controller needs
   at least one entry in `sources`.
 - `id` must be unique and URL-safe; it becomes the page filename.
+- `dimensionsMm` repeats the millimetre figures from `dimensions` in a form the diagrams can
+  size a shell from. Leave it out when nobody has published dimensions; do not estimate it.
 - Adding a genuinely new field means declaring it in `src/schema.mjs`.
 
-All four are enforced by the build, not just advised.
+The build enforces what it can: at least one source per controller and per issue, unique
+ids, no unknown fields, no null booleans, and a `dimensionsMm` that agrees with the prose it
+copies. The two conventions above it are on the writer.
 
 ## Deploying to GitHub Pages
 

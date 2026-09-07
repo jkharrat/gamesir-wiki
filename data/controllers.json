@@ -56,6 +56,7 @@
       },
       "weight": "229 g / 0.50 lbs",
       "dimensions": "156 x 103 x 63 mm / 6.14 x 4.06 x 2.48 in",
+      "dimensionsMm": { "width": 156, "height": 103, "depth": 63 },
       "extraButtons": {
         "backButtons": 2,
         "extraBumpers": 0,
@@ -310,6 +311,7 @@
       },
       "weight": "227 g",
       "dimensions": "152 x 103 x 63 mm",
+      "dimensionsMm": { "width": 152, "height": 103, "depth": 63 },
       "extraButtons": {
         "backButtons": 2,
         "extraBumpers": 0,
@@ -578,6 +580,7 @@
       },
       "weight": "272 g",
       "dimensions": "152 x 103 x 58 mm",
+      "dimensionsMm": { "width": 152, "height": 103, "depth": 58 },
       "extraButtons": {
         "backButtons": 2,
         "extraBumpers": 2,
@@ -943,6 +946,7 @@
       },
       "weight": "221 g",
       "dimensions": "152 x 103 x 63 mm",
+      "dimensionsMm": { "width": 152, "height": 103, "depth": 63 },
       "extraButtons": {
         "backButtons": 2,
         "extraBumpers": 0,
@@ -1186,6 +1190,7 @@
       },
       "weight": "213 g / 0.47 lbs net (GameSir official). Note TechRadar's review table lists 422 g, which matches boxed/gross weight territory rather than GameSir's 213 g net figure (GameSir lists gross weight as 393 g).",
       "dimensions": "156 x 107 x 60 mm / 6.14 x 4.21 x 2.36 in (GameSir official)",
+      "dimensionsMm": { "width": 156, "height": 107, "depth": 60 },
       "extraButtons": {
         "backButtons": 2,
         "extraBumpers": 0,
@@ -1456,6 +1461,7 @@
       },
       "weight": "263 g / 0.58 lbs",
       "dimensions": "156 x 106 x 59 mm / 6.14 x 4.17 x 2.32 in",
+      "dimensionsMm": { "width": 156, "height": 106, "depth": 59 },
       "extraButtons": {
         "backButtons": 2,
         "extraBumpers": 0,
@@ -1710,6 +1716,7 @@
       },
       "weight": "217 g / 0.48 lbs (GameSir official, wired T7 Pro). Variant: T7 Pro Sugar Whirl Wireless is listed as 236 g on GameSir's product page but 272 g on GameSir's own manual page — GameSir's figures conflict.",
       "dimensions": "145 x 93 x 59 mm / 5.71 x 3.66 x 2.32 in (GameSir official; the Sugar Whirl Wireless shares these dimensions)",
+      "dimensionsMm": { "width": 145, "height": 93, "depth": 59 },
       "extraButtons": {
         "backButtons": 2,
         "extraBumpers": 0,
@@ -1966,6 +1973,7 @@
       },
       "weight": "263 g / 0.58 lbs (Standard Edition, controller only). GameSir lists 325 g / 0.72 lbs net weight for the Bundle Edition, which includes the charging station.",
       "dimensions": "158 x 100 x 61 mm / 6.22 x 3.94 x 2.40 in",
+      "dimensionsMm": { "width": 158, "height": 100, "depth": 61 },
       "extraButtons": {
         "backButtons": 2,
         "extraBumpers": null,

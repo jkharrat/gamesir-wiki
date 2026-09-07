@@ -33,6 +33,13 @@
     .d-guide-ring{fill:none;stroke:var(--line);stroke-width:1.2}
     .d-window{fill:var(--inset);stroke:var(--muted);stroke-width:1.2;stroke-dasharray:4 3}
     .d-gear{fill:var(--s3);stroke:var(--brand);stroke-width:1.4}
+    .d-fence{fill:var(--inset);stroke:var(--line);stroke-width:1.4}
+    .d-glide-ring{fill:none;stroke:var(--dim);stroke-width:1.6;opacity:.7}
+    .d-lit{fill:color-mix(in srgb,var(--brand) 26%,transparent);stroke:none;opacity:.55}
+    .d-lit-good{fill:color-mix(in srgb,var(--good) 26%,transparent)}
+    .d-lit-bad{fill:color-mix(in srgb,var(--bad) 26%,transparent)}
+    .d-lit-info{fill:color-mix(in srgb,var(--info) 26%,transparent)}
+    .d-lit-warn{fill:color-mix(in srgb,var(--warn) 26%,transparent)}
     .d-ring,.d-accent-ring{fill:none;stroke:var(--line);stroke-width:1.4}
     .d-accent-ring{stroke:var(--brand)}
     .d-swap-ring{fill:none;stroke:var(--brand);stroke-width:1.4;stroke-dasharray:5 4}
@@ -70,7 +77,10 @@
     .d-good-text{fill:var(--good)}
     .d-dim-text{fill:var(--dim)}
     .d-on-accent{fill:#fff}
+    .s-body{fill:none;stroke:var(--dim);stroke-width:3;opacity:.5}
+    .s-shoulder{fill:none;stroke:var(--dim);stroke-width:3;opacity:.32}
+    .s-ring,.s-part{fill:none;stroke:var(--dim);stroke-width:2.6;opacity:.42}
   </style>
   <rect class="d-canvas" x="0" y="0" width="240" height="160"/>
-  <rect class="d-panel" x="1" y="1" width="238" height="158" rx="12"/><g transform="translate(22,34) scale(0.46)"><path class="d-body" d="M 200 64 C 178 64 152 60 124 64 C 96 68 70 80 52 104 C 38 124 33 148 36 172 C 39 202 50 234 72 254 C 90 270 114 274 132 262 C 146 253 152 240 156 220 C 159 206 166 198 180 196 C 187 195 194 195 200 195 C 206 195 213 195 220 196 C 234 198 241 206 244 220 C 248 240 254 253 268 262 C 286 274 310 270 328 254 C 350 234 361 202 364 172 C 367 148 362 124 348 104 C 330 80 304 68 276 64 C 248 60 222 64 200 64 Z"/></g><g transform="translate(42,2) scale(0.46)"><path class="d-plate" d="M 200 64 C 178 64 152 60 124 64 C 96 68 70 80 52 104 C 38 124 33 148 36 172 C 39 202 50 234 72 254 C 90 270 114 274 132 262 C 146 253 152 240 156 220 C 159 206 166 198 180 196 C 187 195 194 195 200 195 C 206 195 213 195 220 196 C 234 198 241 206 244 220 C 248 240 254 253 268 262 C 286 274 310 270 328 254 C 350 234 361 202 364 172 C 367 148 362 124 348 104 C 330 80 304 68 276 64 C 248 60 222 64 200 64 Z"/></g><g class="d-glyph d-glyph-stroke"><path d="M204 86V58M199 66l5-6 5 6"/></g><text class="d-title" x="120" y="18">Magnetic faceplate</text><text class="d-label d-label-xs" x="120" y="148">calibrate with the plate installed</text>
+  <rect class="d-panel" x="1" y="1" width="238" height="158" rx="12"/><g transform="translate(30,34) scale(0.46)"><path class="d-body" d="M 200.0 56.0 C 179.5 56.0 155.2 52.1 129.0 56.0 C 103.0 59.9 78.6 71.7 61.9 95.1 C 48.8 114.9 44.2 138.4 46.9 161.9 C 49.7 191.3 60.0 222.9 80.5 242.4 C 97.3 258.1 119.8 262.0 136.6 250.3 C 149.6 241.4 155.2 228.6 158.9 209.1 C 161.8 202.7 168.3 194.8 181.4 193.0 C 187.8 192.0 194.5 192.0 200.0 192.0 C 205.5 192.0 212.2 192.0 218.6 193.0 C 231.7 194.8 238.2 202.7 241.1 209.1 C 244.8 228.6 250.4 241.4 263.4 250.3 C 280.2 262.0 302.7 258.1 319.5 242.4 C 340.0 222.9 350.3 191.3 353.1 161.9 C 355.8 138.4 351.2 114.9 338.1 95.1 C 321.4 71.7 297.0 59.9 271.0 56.0 C 244.8 52.1 220.5 56.0 200.0 56.0 Z"/></g><g transform="translate(50,2) scale(0.46)"><path class="d-plate" d="M 200.0 56.0 C 179.5 56.0 155.2 52.1 129.0 56.0 C 103.0 59.9 78.6 71.7 61.9 95.1 C 48.8 114.9 44.2 138.4 46.9 161.9 C 49.7 191.3 60.0 222.9 80.5 242.4 C 97.3 258.1 119.8 262.0 136.6 250.3 C 149.6 241.4 155.2 228.6 158.9 209.1 C 161.8 202.7 168.3 194.8 181.4 193.0 C 187.8 192.0 194.5 192.0 200.0 192.0 C 205.5 192.0 212.2 192.0 218.6 193.0 C 231.7 194.8 238.2 202.7 241.1 209.1 C 244.8 228.6 250.4 241.4 263.4 250.3 C 280.2 262.0 302.7 258.1 319.5 242.4 C 340.0 222.9 350.3 191.3 353.1 161.9 C 355.8 138.4 351.2 114.9 338.1 95.1 C 321.4 71.7 297.0 59.9 271.0 56.0 C 244.8 52.1 220.5 56.0 200.0 56.0 Z"/></g><g class="d-glyph d-glyph-stroke"><path d="M204 86V58M199 66l5-6 5 6"/></g><text class="d-title" x="120" y="18">Magnetic faceplate</text><text class="d-label d-label-xs" x="120" y="148">calibrate with the plate installed</text>
 </svg>
