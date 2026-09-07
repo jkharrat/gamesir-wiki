@@ -1607,6 +1607,19 @@ function labelBoxes(markup = "") {
   return out;
 }
 
+/**
+ * The circles drawn in a piece of markup. Decoration is registered without a
+ * space of its own, so this reads the shapes back out of it to check the one
+ * kind that can grow past the shell as the shell shrinks: a ring at a fixed
+ * radius around a cluster.
+ */
+function ringsIn(markup = "") {
+  return [...markup.matchAll(/<circle[^>]*cx="([^"]*)" cy="([^"]*)" r="([^"]*)"/g)].map((m) => {
+    const [cx, cy, r] = m.slice(1).map(Number);
+    return { anchor: [cx, cy], hit: [cx - r, cy - r, cx + r, cy + r], shape: "circle" };
+  });
+}
+
 /** Points to test for containment, following the shape rather than its box. */
 function probes({ hit, shape }) {
   const [x0, y0, x1, y1] = hit;
@@ -1692,6 +1705,19 @@ export function checkControllerViews(c) {
           }
         } else if (!p.boxes.every((s) => probes(s).every((pt) => inShell(polygon, pt)))) {
           say(view.id, `${p.part.label} is drawn off the shell`);
+        }
+      }
+
+      // Decoration claims no space of its own, so it is exempt from the
+      // overlap check — a ring drawn round a cluster is meant to be over it.
+      // It still has to be on the shell, which is a claim the drawing code
+      // makes in words and could not otherwise be held to.
+      for (const p of parts.filter((x) => x.loose)) {
+        for (const ring of ringsIn(p.markup)) {
+          if (!probes(ring).every((pt) => inShell(polygon, pt))) {
+            say(view.id, `${p.part.label} extends past the edge of the shell`);
+            break;
+          }
         }
       }
     }
