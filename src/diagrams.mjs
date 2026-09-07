@@ -735,6 +735,41 @@ function bandBoxes(span, inner, outer, chunks = 6) {
 }
 
 /**
+ * Places one part into an edge: mirrored for the right-hand side, tapered into
+ * the shell, and labelled near its outer end rather than its middle, which is
+ * often behind something else. The front and top views place the same shoulder
+ * row against different edges, so both ask for a placer instead of repeating
+ * the arithmetic.
+ *
+ * Offsets are given at the drawing's nominal size and multiplied by the
+ * shell's scale, so the row stays in proportion on a smaller model.
+ */
+function edgePlacer(edge, { scale = 1, behind }) {
+  return (into, part, spec, label, cls, right) => {
+    if (!part) return;
+
+    const inner = spec.inner * scale;
+    const outer = spec.outer * scale;
+    const span = right
+      ? mirrorSpan(edgeSpan(edge, spec.from, spec.to))
+      : edgeSpan(edge, spec.from, spec.to);
+    const [lx, ly] = spanOffset(
+      span[Math.floor(span.length / 2)],
+      spec.labelAt == null ? (inner + outer) / 2 : spec.labelAt * scale
+    );
+
+    into.push({
+      part,
+      markup: path(edgeBand(span, inner, outer), spec.cls) + text(lx, ly, label, cls),
+      boxes: bandBoxes(span, inner, outer),
+      edge: true,
+      group: "shoulder",
+      behind: into === behind,
+    });
+  };
+}
+
+/**
  * Bumper, trigger and — on the models whose record documents them — the mini
  * bumper, all placed by fraction along the shell's own top edge rather than by
  * coordinate. A narrower shell gets a proportionally narrower shoulder row,
@@ -760,30 +795,9 @@ const SHOULDER = {
 };
 
 function shoulderRow(box, info, { mini }) {
-  const edge = topEdge(box);
   const behind = [];
   const front = [];
-
-  const piece = (into, part, spec, label, cls, right) => {
-    if (!part) return;
-    const [inner, outer] = [spec.inner * box.scale, spec.outer * box.scale];
-    const span = right
-      ? mirrorSpan(edgeSpan(edge, spec.from, spec.to))
-      : edgeSpan(edge, spec.from, spec.to);
-    const [lx, ly] = spanOffset(
-      span[Math.floor(span.length / 2)],
-      (spec.labelAt ?? (inner + outer) / 2) * (spec.labelAt ? box.scale : 1)
-    );
-
-    into.push({
-      part,
-      markup: path(edgeBand(span, inner, outer), spec.cls) + text(lx, ly, label, cls),
-      boxes: bandBoxes(span, inner, outer),
-      edge: true,
-      group: "shoulder",
-      behind: into === behind,
-    });
-  };
+  const piece = edgePlacer(topEdge(box), { scale: box.scale, behind });
 
   piece(behind, info.lt, SHOULDER.trigger, "LT", "d-label", false);
   piece(behind, info.rt, SHOULDER.trigger, "RT", "d-label", true);
@@ -1438,30 +1452,10 @@ function topView(c) {
   const eb = c.extraButtons ?? {};
   const mini = (eb.extraBumpers ?? 0) >= 2;
   const shell = topShell(box);
-  const edge = sampleEdge(shell.at, TOP_OUTLINE.edge, [0, 0]);
 
   const behind = [];
   const parts = [];
-
-  const piece = (into, part, spec, label, cls, right) => {
-    if (!part) return;
-    const span = right
-      ? mirrorSpan(edgeSpan(edge, spec.from, spec.to))
-      : edgeSpan(edge, spec.from, spec.to);
-    const [lx, ly] = spanOffset(
-      span[Math.floor(span.length / 2)],
-      spec.labelAt ?? (spec.inner + spec.outer) / 2
-    );
-
-    into.push({
-      part,
-      markup: path(edgeBand(span, spec.inner, spec.outer), spec.cls) + text(lx, ly, label, cls),
-      boxes: bandBoxes(span, spec.inner, spec.outer),
-      edge: true,
-      group: "shoulder",
-      behind: into === behind,
-    });
-  };
+  const piece = edgePlacer(sampleEdge(shell.at, TOP_OUTLINE.edge, [0, 0]), { behind });
 
   // Seen from above, the trigger straddles the back edge, the bumper sits in
   // front of it and the port is on the edge between the two triggers — which
