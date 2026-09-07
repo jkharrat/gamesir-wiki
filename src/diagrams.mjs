@@ -1637,17 +1637,21 @@ export function checkControllerViews(c) {
     const { polygon, parts } = view.geometry;
     const solid = parts.filter((p) => !p.loose);
 
+    // A part reports its space as several boxes along itself, so a fault is
+    // reported once for the part rather than once per box: the same complaint
+    // six times over buries the other five faults under it.
     if (polygon) {
       for (const p of solid) {
-        for (const space of p.boxes) {
-          if (p.edge) {
-            const gap = distanceToShell(polygon, space.anchor);
-            if (gap > 22) {
-              say(view.id, `${p.part.label} belongs on an edge but is ${Math.round(gap)} units from one`);
-            }
-          } else if (!probes(space).every((pt) => inShell(polygon, pt))) {
-            say(view.id, `${p.part.label} is drawn off the shell`);
+        if (p.edge) {
+          const gap = Math.max(...p.boxes.map((s) => distanceToShell(polygon, s.anchor)));
+          if (gap > 22) {
+            say(
+              view.id,
+              `${p.part.label} belongs on an edge but is ${Math.round(gap)} units from one`
+            );
           }
+        } else if (!p.boxes.every((s) => probes(s).every((pt) => inShell(polygon, pt)))) {
+          say(view.id, `${p.part.label} is drawn off the shell`);
         }
       }
     }
@@ -1663,12 +1667,9 @@ export function checkControllerViews(c) {
         if (a.part === b.part || (a.group && a.group === b.group)) continue;
         if (!!a.behind !== !!b.behind) continue;
 
-        for (const x of a.boxes) {
-          for (const y of b.boxes) {
-            if (shapeOverlap(x, y) > 1) {
-              say(view.id, `${a.part.label} and ${b.part.label} are drawn on top of each other`);
-            }
-          }
+        const into = a.boxes.some((x) => b.boxes.some((y) => shapeOverlap(x, y) > 1));
+        if (into) {
+          say(view.id, `${a.part.label} and ${b.part.label} are drawn on top of each other`);
         }
       }
     }
