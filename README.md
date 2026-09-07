@@ -102,9 +102,12 @@ fixed coordinate. The contour is not a per-model claim — nobody publishes a sh
 and the note under each figure says which part of it is measured and which is schematic.
 
 Because placement is arithmetic, the build checks it: every control has to sit on the shell,
-parts that belong to an edge have to be on one, and no two controls may be drawn on top of
-each other. A slip in the arithmetic fails the build instead of shipping something that
-looks deliberate.
+parts that belong to an edge have to be on one, no two controls may be drawn on top of each
+other, a label may not land on a control it does not name, and decoration drawn around a
+cluster has to stay on the shell too. Overlap is measured on the shapes rather than on boxes
+around them, so a round button beside a round stick well is not reported as a collision it
+clears by millimetres. A slip in the arithmetic fails the build instead of shipping
+something that looks deliberate.
 
 Diagrams are inlined into the HTML so they inherit the page's custom properties and switch
 theme with it, and they are hoverable, focusable and keyboard-reachable. The same drawings

@@ -77,6 +77,9 @@
     .d-good-text{fill:var(--good)}
     .d-dim-text{fill:var(--dim)}
     .d-on-accent{fill:#fff}
+    .s-body{fill:none;stroke:var(--dim);stroke-width:3;opacity:.5}
+    .s-shoulder{fill:none;stroke:var(--dim);stroke-width:3;opacity:.32}
+    .s-ring,.s-part{fill:none;stroke:var(--dim);stroke-width:2.6;opacity:.42}
   </style>
   <rect class="d-canvas" x="0" y="0" width="240" height="170"/>
   <rect class="d-panel" x="1" y="1" width="238" height="168" rx="12"/><path class="d-ink-thick" d="M 120 40 L 120 84"/><path class="d-part" d="M 100 36 C 100 28 140 28 140 36 C 140 46 100 46 100 36 Z"/><path class="d-ink" d="M 86 84 C 86 68 154 68 154 84"/><circle class="d-part-2" cx="120" cy="88" r="7"/><rect class="d-part-2" x="60" y="124" width="120" height="18" rx="4"/><text class="d-label d-label-xs" x="120" y="133.5">sensor board</text><path class="d-ink-thick" d="M 120 96 L 120 116 L 138 118"/><rect class="d-warn-fill" x="96" y="118" width="68" height="8" rx="2"/><path class="d-leader" d="M 66 108 L 96 119"/><text class="d-label d-label-xs" x="60" y="104">resistive track</text><circle class="d-accent-fill" cx="138" cy="118" r="4"/><path class="d-leader" d="M 176 106 L 144 116"/><text class="d-label d-label-xs d-accent-text" x="196" y="102">wiper</text><path class="d-warn-stroke" d="M 60 152 h 120"/><text class="d-label d-label-xs" x="120" y="160">contact point wears with use</text><text class="d-title" x="120" y="18">Potentiometer</text>

@@ -77,6 +77,9 @@
     .d-good-text{fill:var(--good)}
     .d-dim-text{fill:var(--dim)}
     .d-on-accent{fill:#fff}
+    .s-body{fill:none;stroke:var(--dim);stroke-width:3;opacity:.5}
+    .s-shoulder{fill:none;stroke:var(--dim);stroke-width:3;opacity:.32}
+    .s-ring,.s-part{fill:none;stroke:var(--dim);stroke-width:2.6;opacity:.42}
   </style>
   <rect class="d-canvas" x="0" y="0" width="200" height="150"/>
   <rect class="d-panel" x="1" y="1" width="198" height="148" rx="12"/><g transform="translate(100,74)"><ellipse class="d-ring" cx="0" cy="0" rx="52" ry="20"/><ellipse class="d-ring" cx="0" cy="0" rx="52" ry="20" transform="rotate(60)"/><ellipse class="d-accent-ring" cx="0" cy="0" rx="52" ry="20" transform="rotate(120)"/><circle class="d-part" cx="0" cy="0" r="13"/></g><text class="d-title" x="100" y="22">Gyro</text><text class="d-label d-label-xs" x="100" y="126">motion mapped to a stick or the mouse</text>

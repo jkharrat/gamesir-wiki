@@ -77,6 +77,9 @@
     .d-good-text{fill:var(--good)}
     .d-dim-text{fill:var(--dim)}
     .d-on-accent{fill:#fff}
+    .s-body{fill:none;stroke:var(--dim);stroke-width:3;opacity:.5}
+    .s-shoulder{fill:none;stroke:var(--dim);stroke-width:3;opacity:.32}
+    .s-ring,.s-part{fill:none;stroke:var(--dim);stroke-width:2.6;opacity:.42}
   </style>
   <rect class="d-canvas" x="0" y="0" width="320" height="170"/>
   <rect class="d-panel" x="1" y="1" width="318" height="168" rx="12"/><circle class="d-btn d-btn-warn" cx="88" cy="40" r="15"/><text class="d-btn-letter" x="88" y="40.5">Y</text><circle class="d-btn d-btn-bad" cx="122" cy="74" r="15"/><text class="d-btn-letter" x="122" y="74.5">B</text><circle class="d-btn d-btn-good" cx="88" cy="108" r="15"/><text class="d-btn-letter" x="88" y="108.5">A</text><circle class="d-btn d-btn-info" cx="54" cy="74" r="15"/><text class="d-btn-letter" x="54" y="74.5">X</text><text class="d-label d-label-xs" x="88" y="132">Xbox positions</text><circle class="d-btn d-btn-info" cx="232" cy="40" r="15"/><text class="d-btn-letter" x="232" y="40.5">X</text><circle class="d-btn d-btn-good" cx="266" cy="74" r="15"/><text class="d-btn-letter" x="266" y="74.5">A</text><circle class="d-btn d-btn-bad" cx="232" cy="108" r="15"/><text class="d-btn-letter" x="232" y="108.5">B</text><circle class="d-btn d-btn-warn" cx="198" cy="74" r="15"/><text class="d-btn-letter" x="198" y="74.5">Y</text><text class="d-label d-label-xs" x="232" y="132">Nintendo positions</text><g class="d-glyph d-glyph-stroke"><path d="M148 68h24M168 64l5 4-5 4M172 84h-24M152 80l-5 4 5 4"/></g><text class="d-title" x="160" y="22">Two layouts</text>

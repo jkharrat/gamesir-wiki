@@ -77,6 +77,9 @@
     .d-good-text{fill:var(--good)}
     .d-dim-text{fill:var(--dim)}
     .d-on-accent{fill:#fff}
+    .s-body{fill:none;stroke:var(--dim);stroke-width:3;opacity:.5}
+    .s-shoulder{fill:none;stroke:var(--dim);stroke-width:3;opacity:.32}
+    .s-ring,.s-part{fill:none;stroke:var(--dim);stroke-width:2.6;opacity:.42}
   </style>
   <rect class="d-canvas" x="0" y="0" width="480" height="140"/>
   <rect class="d-panel" x="1" y="1" width="478" height="138" rx="12"/><circle class="d-guide" cx="64" cy="62" r="22"/><circle class="d-guide-ring" cx="64" cy="62" r="17"/><circle class="d-good-fill" cx="64" cy="62" r="8"/><text class="d-title" x="64" y="104">Solid</text><text class="d-label d-label-xs" x="64" y="118">connected</text><circle class="d-guide" cx="202" cy="62" r="22"/><circle class="d-guide-ring" cx="202" cy="62" r="17"/><circle class="d-half-fill" cx="202" cy="62" r="8"/><text class="d-title" x="202" y="104">Slow blink</text><text class="d-label d-label-xs" x="202" y="118">in a setting mode</text><circle class="d-guide" cx="340" cy="62" r="22"/><circle class="d-guide-ring" cx="340" cy="62" r="17"/><circle class="d-accent-fill" cx="340" cy="62" r="8"/><text class="d-title" x="340" y="104">Double blink</text><text class="d-label d-label-xs" x="340" y="118">mode change refused</text><circle class="d-guide" cx="444" cy="62" r="22"/><circle class="d-guide-ring" cx="444" cy="62" r="17"/><circle class="d-bad-fill" cx="444" cy="62" r="8"/><text class="d-title" x="444" y="104">Red</text><text class="d-label d-label-xs" x="444" y="118">low battery</text><text class="d-title" x="240" y="22">Indicator patterns</text>

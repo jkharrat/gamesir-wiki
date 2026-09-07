@@ -77,6 +77,9 @@
     .d-good-text{fill:var(--good)}
     .d-dim-text{fill:var(--dim)}
     .d-on-accent{fill:#fff}
+    .s-body{fill:none;stroke:var(--dim);stroke-width:3;opacity:.5}
+    .s-shoulder{fill:none;stroke:var(--dim);stroke-width:3;opacity:.32}
+    .s-ring,.s-part{fill:none;stroke:var(--dim);stroke-width:2.6;opacity:.42}
   </style>
   <rect class="d-canvas" x="0" y="0" width="200" height="170"/>
   <rect class="d-panel" x="1" y="1" width="198" height="168" rx="12"/><circle class="d-btn d-btn-warn" cx="100" cy="40" r="15"/><text class="d-btn-letter" x="100" y="40.5">Y</text><circle class="d-btn d-btn-bad" cx="134" cy="74" r="15"/><text class="d-btn-letter" x="134" y="74.5">B</text><circle class="d-btn d-btn-good" cx="100" cy="108" r="15"/><text class="d-btn-letter" x="100" y="108.5">A</text><circle class="d-btn d-btn-info" cx="66" cy="74" r="15"/><text class="d-btn-letter" x="66" y="74.5">X</text><text class="d-label d-label-xs" x="100" y="132">south = A, east = B</text><text class="d-title" x="100" y="22">ABXY cluster</text><text class="d-label d-label-xs" x="100" y="148">labels follow the Xbox convention</text>

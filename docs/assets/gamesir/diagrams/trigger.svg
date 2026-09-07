@@ -77,6 +77,9 @@
     .d-good-text{fill:var(--good)}
     .d-dim-text{fill:var(--dim)}
     .d-on-accent{fill:#fff}
+    .s-body{fill:none;stroke:var(--dim);stroke-width:3;opacity:.5}
+    .s-shoulder{fill:none;stroke:var(--dim);stroke-width:3;opacity:.32}
+    .s-ring,.s-part{fill:none;stroke:var(--dim);stroke-width:2.6;opacity:.42}
   </style>
   <rect class="d-canvas" x="0" y="0" width="240" height="170"/>
   <rect class="d-panel" x="1" y="1" width="238" height="168" rx="12"/><path class="d-ink" d="M 40 122 C 40 74 66 44 104 36"/><circle class="d-part-2" cx="44" cy="126" r="6"/><path class="d-part" d="M 52 122 C 60 84 84 58 118 48 L 130 66 C 100 76 80 98 74 128 Z"/><path class="d-travel" d="M 138 58 A 84 84 0 0 1 158 112"/><text class="d-label d-label-xs" x="178" y="60">full pull</text><text class="d-label d-label-xs" x="120" y="158">full analog travel, no stop</text><text class="d-title" x="120" y="20">Analog trigger</text>

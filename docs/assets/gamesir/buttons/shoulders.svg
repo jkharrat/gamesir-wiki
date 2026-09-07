@@ -77,6 +77,9 @@
     .d-good-text{fill:var(--good)}
     .d-dim-text{fill:var(--dim)}
     .d-on-accent{fill:#fff}
+    .s-body{fill:none;stroke:var(--dim);stroke-width:3;opacity:.5}
+    .s-shoulder{fill:none;stroke:var(--dim);stroke-width:3;opacity:.32}
+    .s-ring,.s-part{fill:none;stroke:var(--dim);stroke-width:2.6;opacity:.42}
   </style>
   <rect class="d-canvas" x="0" y="0" width="320" height="170"/>
   <rect class="d-panel" x="1" y="1" width="318" height="168" rx="12"/><path class="d-ink" d="M 24 128 C 40 74 96 44 160 44 C 224 44 280 74 296 128"/><rect class="d-part-2" x="40" y="96" width="92" height="26" rx="13"/><text class="d-label" x="86" y="110">LB</text><rect class="d-part-2" x="188" y="96" width="92" height="26" rx="13"/><text class="d-label" x="234" y="110">RB</text><g transform="rotate(-9 88 62)"><rect class="d-part" x="46" y="48" width="84" height="28" rx="14"/></g><text class="d-label" x="88" y="63">LT</text><g transform="rotate(9 232 62)"><rect class="d-part" x="190" y="48" width="84" height="28" rx="14"/></g><text class="d-label" x="232" y="63">RT</text><text class="d-label d-label-xs" x="160" y="146">bumpers are digital · triggers are analog</text><text class="d-title" x="160" y="22">Shoulder row</text>

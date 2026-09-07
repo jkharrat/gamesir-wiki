@@ -77,6 +77,9 @@
     .d-good-text{fill:var(--good)}
     .d-dim-text{fill:var(--dim)}
     .d-on-accent{fill:#fff}
+    .s-body{fill:none;stroke:var(--dim);stroke-width:3;opacity:.5}
+    .s-shoulder{fill:none;stroke:var(--dim);stroke-width:3;opacity:.32}
+    .s-ring,.s-part{fill:none;stroke:var(--dim);stroke-width:2.6;opacity:.42}
   </style>
   <rect class="d-canvas" x="0" y="0" width="240" height="170"/>
   <rect class="d-panel" x="1" y="1" width="238" height="168" rx="12"/><g transform="translate(20,8) scale(0.5)"><path class="d-body" d="M 200.0 56.0 C 179.5 56.0 155.2 52.1 129.0 56.0 C 103.0 59.9 78.6 71.7 61.9 95.1 C 48.8 114.9 44.2 138.4 46.9 161.9 C 49.7 191.3 60.0 222.9 80.5 242.4 C 97.3 258.1 119.8 262.0 136.6 250.3 C 149.6 241.4 155.2 228.6 158.9 209.1 C 161.8 202.7 168.3 194.8 181.4 193.0 C 187.8 192.0 194.5 192.0 200.0 192.0 C 205.5 192.0 212.2 192.0 218.6 193.0 C 231.7 194.8 238.2 202.7 241.1 209.1 C 244.8 228.6 250.4 241.4 263.4 250.3 C 280.2 262.0 302.7 258.1 319.5 242.4 C 340.0 222.9 350.3 191.3 353.1 161.9 C 355.8 138.4 351.2 114.9 338.1 95.1 C 321.4 71.7 297.0 59.9 271.0 56.0 C 244.8 52.1 220.5 56.0 200.0 56.0 Z"/></g><circle class="d-accent-fill" cx="73.8" cy="121.5" r="11"/><circle class="d-accent-fill" cx="166.2" cy="121.5" r="11"/><text class="d-label d-label-xs" x="120" y="160">one in each grip</text><text class="d-title" x="120" y="12">Two motors</text>

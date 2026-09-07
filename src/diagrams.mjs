@@ -2376,6 +2376,9 @@ export function standaloneSvg(markup, { title, width = 800 }) {
     .d-good-text{fill:var(--good)}
     .d-dim-text{fill:var(--dim)}
     .d-on-accent{fill:#fff}
+    .s-body{fill:none;stroke:var(--dim);stroke-width:3;opacity:.5}
+    .s-shoulder{fill:none;stroke:var(--dim);stroke-width:3;opacity:.32}
+    .s-ring,.s-part{fill:none;stroke:var(--dim);stroke-width:2.6;opacity:.42}
   `;
 
   const vb = /viewBox="([^"]+)"/.exec(markup)?.[1] ?? "0 0 400 300";

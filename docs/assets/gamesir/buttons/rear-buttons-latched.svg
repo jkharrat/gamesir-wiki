@@ -77,6 +77,9 @@
     .d-good-text{fill:var(--good)}
     .d-dim-text{fill:var(--dim)}
     .d-on-accent{fill:#fff}
+    .s-body{fill:none;stroke:var(--dim);stroke-width:3;opacity:.5}
+    .s-shoulder{fill:none;stroke:var(--dim);stroke-width:3;opacity:.32}
+    .s-ring,.s-part{fill:none;stroke:var(--dim);stroke-width:2.6;opacity:.42}
   </style>
   <rect class="d-canvas" x="0" y="0" width="320" height="170"/>
   <rect class="d-panel" x="1" y="1" width="318" height="168" rx="12"/><g><path class="d-body" d="M 40 24 C 76 24 104 44 112 82 C 118 116 104 146 76 150 C 48 154 28 132 22 100 C 16 68 20 38 40 24 Z"/><g transform="rotate(-12 66 92)"><rect class="d-part-2" x="52" y="62" width="28" height="60" rx="14"/></g><rect class="d-part-inset" x="94" y="74" width="13" height="28" rx="6"/><rect class="d-accent-fill" x="96.5" y="77" width="8" height="10" rx="4"/></g><g transform="translate(320,0) scale(-1,1)"><path class="d-body" d="M 40 24 C 76 24 104 44 112 82 C 118 116 104 146 76 150 C 48 154 28 132 22 100 C 16 68 20 38 40 24 Z"/><g transform="rotate(-12 66 92)"><rect class="d-part-2" x="52" y="62" width="28" height="60" rx="14"/></g><rect class="d-part-inset" x="94" y="74" width="13" height="28" rx="6"/><rect class="d-accent-fill" x="96.5" y="77" width="8" height="10" rx="4"/></g><text class="d-label" x="66" y="96">L4</text><text class="d-label" x="254" y="96">R4</text><text class="d-title" x="160" y="22">Rear buttons</text><text class="d-label d-label-xs" x="160" y="160">sliders lock the paddles out mechanically</text>

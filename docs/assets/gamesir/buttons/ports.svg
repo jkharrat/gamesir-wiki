@@ -77,6 +77,9 @@
     .d-good-text{fill:var(--good)}
     .d-dim-text{fill:var(--dim)}
     .d-on-accent{fill:#fff}
+    .s-body{fill:none;stroke:var(--dim);stroke-width:3;opacity:.5}
+    .s-shoulder{fill:none;stroke:var(--dim);stroke-width:3;opacity:.32}
+    .s-ring,.s-part{fill:none;stroke:var(--dim);stroke-width:2.6;opacity:.42}
   </style>
   <rect class="d-canvas" x="0" y="0" width="240" height="130"/>
   <rect class="d-panel" x="1" y="1" width="238" height="128" rx="12"/><rect class="d-port" x="38" y="46" width="76" height="30" rx="15"/><rect class="d-part-inset" x="48" y="55" width="56" height="12" rx="6"/><text class="d-label" x="76" y="96">USB-C</text><text class="d-label d-label-xs" x="76" y="112">reversible, data + power</text><circle class="d-port" cx="176" cy="61" r="21"/><circle class="d-part-inset" cx="176" cy="61" r="9"/><text class="d-label" x="176" y="96">3.5 mm</text><text class="d-label d-label-xs" x="176" y="112">headset audio and mic</text>
