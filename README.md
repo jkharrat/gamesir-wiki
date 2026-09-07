@@ -1,28 +1,28 @@
 # GameSir Wiki
 
 An unofficial, community-maintained reference for GameSir controllers: specifications,
-documented problems and their fixes, and frequently asked questions — with every figure
-traceable to a source.
+documented problems and their fixes, and frequently asked questions, with a source behind
+every figure.
 
 Not affiliated with, endorsed by, or operated by GameSir.
 
 ## What makes this different
 
-Most controller pages either reprint marketing copy or guess. This one has two rules:
+Most controller pages either reprint marketing copy or guess. Two rules keep this one
+honest:
 
 1. **Every specification cites a source.** Official manuals and FAQ pages first, then
    independent measurements from [gamepadla.com](https://gamepadla.com), then published
-   reviews. Community threads are used only for problem reports, never for specs.
-2. **Gaps stay visible.** If a value could not be verified, it renders as "not documented"
-   instead of being filled with a plausible estimate. A wrong number in a troubleshooting
-   guide costs someone real time.
+   reviews. Community threads are used for problem reports only, never for specs.
+2. **Gaps stay visible.** A value nobody has published renders as "not documented" instead
+   of a plausible-looking estimate. A wrong number in a troubleshooting guide costs
+   somebody an afternoon.
 
 Manufacturer claims are labelled as claims. Nothing here is first-hand testing unless a
-figure explicitly says so.
+figure says so.
 
 Nothing is sold, sponsored or affiliate-linked. Launch prices are recorded as dated
-historical facts because they are part of how these models are positioned against each
-other, never as offers — see [Tone](#tone) for how that constraint shapes the design.
+historical facts, since price is part of how these models line up against each other.
 
 ## Structure
 
@@ -41,59 +41,56 @@ Everything in `docs/` is generated. Never edit it by hand; edit the JSON and reb
 
 One stylesheet, `src/assets/css/style.css`, with no build step and no framework. Every
 colour, size and radius is a custom property declared at the top, so the dark and light
-themes are override blocks rather than parallel rulesets — nothing further down the file
-hard-codes a surface or text colour. The theme follows the operating system by default and
-remembers an explicit choice in `localStorage`.
+themes are override blocks rather than parallel rulesets. The theme follows the operating
+system by default and remembers an explicit choice in `localStorage`.
 
 Typography is a system-font stack, which renders on first paint and needs no network
-request. There is no product photography anywhere: the hero is built from a masked grid
-and a brand-tinted glow, controller cards pair a typographic panel with the model's own
-outline, and hardware is documented with the schematics described below.
+request. There is no product photography anywhere: the hero is a masked grid and a
+brand-tinted glow, controller cards pair a typographic panel with the model's own outline,
+and hardware is documented with the schematics described below.
 
-Scripting is progressive enhancement only. With JavaScript off, every page stays a
-complete, readable document — panels do not collapse, and the filters simply do not appear
-to do anything.
+Scripting is progressive enhancement only. With JavaScript off, every page is still a
+complete document — panels do not collapse, and the filters just sit there.
 
 ## Tone
 
-A reference about consumer hardware drifts towards looking like a shop for free, because
-the conventions are borrowed from the same places. The layout pushes back on that
-deliberately, and these are constraints rather than preferences:
+A reference about consumer hardware drifts towards looking like a shop, because it borrows
+its conventions from the same places. The layout pushes back on that deliberately:
 
-- **No page has a call-to-action button.** The largest type on any page is a page title;
-  there is no size above `--fs-h1`, so the home page cannot outrank the articles.
+- **No page has a call-to-action button.** The largest type anywhere is a page title, so
+  the home page cannot outrank the articles.
 - **The home page is a masthead, not a hero.** Left-aligned, with the open-contribution
-  notice in the slot where the primary and secondary buttons used to sit.
+  notice where the primary and secondary buttons would sit.
 - **Card corners show citation counts, not prices.** A bold price in the corner of a tile
-  is the single strongest storefront cue on a page; how well sourced an article is happens
-  to be the more useful number anyway.
-- **Counts are stated, not celebrated.** The home page's figures live in a labelled
-  "state of the wiki" box instead of a strip of oversized numerals.
-- **Every page ends with an edit link.** The footer names the file — and, on a controller
-  page, the line — the content was generated from.
+  is the strongest storefront cue on a page, and how well sourced an article is happens to
+  be the more useful number.
+- **Counts are stated, not celebrated.** The home page figures live in a labelled "state of
+  the wiki" box rather than a strip of oversized numerals.
+- **Every page ends with an edit link.** The footer names the file — and on a controller
+  page, the line — the content came from.
 
-The last of those is enforced in code: `readSourceLines()` in `build.mjs` resolves the
-line numbers out of the raw files at build time, so an anchor cannot go stale and point a
-contributor at the wrong record.
+That last one is enforced in code: `readSourceLines()` in `build.mjs` resolves line numbers
+out of the raw files at build time, so an anchor cannot go stale and send a contributor to
+the wrong record.
 
 ## Diagrams
 
-`src/diagrams.mjs` draws every illustration on the site from SVG primitives: front, back
-and top-edge views of each controller, close-ups of each component, and the small icons
-beside spec rows and table headers. Nothing is traced from a photograph or a render.
+`src/diagrams.mjs` draws every illustration from SVG primitives: front, back and top-edge
+views of each controller, close-ups of each component, and the small icons beside spec rows
+and table headers. Nothing is traced from a photograph or a render.
 
-Which controls a model's diagram shows is derived from that model's record in
-`data/controllers.json`, so a diagram cannot claim hardware the specification table does
-not. The legend beside each diagram is generated from the same list that drew it, which is
-why the two cannot drift apart. A small `LAYOUT` table in the module carries the few
-placement facts the JSON has no field for — which family the shell belongs to, what the
-centre buttons are called, whether the face caps are printed — and a model absent from it
-falls back to the Xbox-style layout.
+Which controls a model's diagram shows comes from that model's record in
+`data/controllers.json`, so a diagram cannot claim hardware the spec table does not. Each
+control carries its own name and description, which is what the readout beside the diagram
+shows on hover or focus. A small `LAYOUT` table in the module holds the few placement facts
+the JSON has no field for — which family the shell belongs to, what the centre buttons are
+called, whether the face caps are printed — and a model missing from it falls back to the
+Xbox-style layout.
 
-Diagrams are inlined into the HTML so they inherit the page's custom properties and theme
-with it, and are hoverable, focusable and keyboard-reachable. The same drawings are also
-written to `docs/assets/gamesir/` as standalone SVG files carrying their own palette, for
-reuse outside the site. Both come from one call, so they cannot disagree.
+Diagrams are inlined into the HTML so they inherit the page's custom properties and switch
+theme with it, and they are hoverable, focusable and keyboard-reachable. The same drawings
+are written to `docs/assets/gamesir/` as standalone SVG files carrying their own palette,
+for use outside the site. Both come from one call, so they cannot disagree.
 
 ## Building
 
@@ -109,23 +106,28 @@ browser — the site uses no `fetch()`, so it works over `file://` without a loc
 ## Adding a controller
 
 Append an object to the `controllers` array in `data/controllers.json` and rebuild. Pages,
-badges, comparison columns, and the troubleshooting and FAQ indexes are all derived from
-the data, so no template changes are needed.
+badges, comparison columns, and the troubleshooting and FAQ indexes are all derived from the
+data, so no template changes are needed.
 
 Field conventions:
 
 - Use `null` for anything you cannot verify. Do not guess.
-- Put manufacturer figures in `claimed*` fields and independent measurements in
-  `measured*` fields, so the two never get confused.
+- Put manufacturer figures in `claimed*` fields and independent measurements in `measured*`
+  fields, so the two never get confused.
 - Every `knownIssues` and `faq` entry should carry a `sourceUrl`.
 - `id` must be unique and URL-safe; it becomes the page filename. The build fails on
   duplicates.
 
 ## Deploying to GitHub Pages
 
-Push the repository, then in **Settings → Pages** set the source to **Deploy from a
-branch**, branch `main`, folder `/docs`. The build commits its output, so no CI is
-required.
+`.github/workflows/pages.yml` runs `node build.mjs` on every push to `main` and publishes
+the resulting `docs/` to Pages, so the live site is built from `data/controllers.json`
+rather than from whatever output happened to be committed. The workflow enables Pages
+itself on its first run; no repository setting needs touching.
+
+Generated output stays committed anyway, because opening `docs/index.html` over `file://`
+is the fastest way to preview a change. If a commit forgets to rebuild, the live site is
+still correct — only the local preview goes stale.
 
 ## Contributing
 
@@ -133,13 +135,12 @@ Corrections are welcome, especially from people who own the hardware. See
 [CONTRIBUTING.md](CONTRIBUTING.md) for the full walkthrough. The short version:
 
 - Fixing a spec: include the source URL.
-- Reporting a problem or fix: include the exact button combinations and what you observed.
+- Reporting a problem or fix: include the exact button combinations and what you saw.
 - First-hand measurements are particularly valuable, since this reference has none. They
-  will be credited and labelled as first-hand rather than compiled.
+  are credited and labelled as first-hand rather than compiled.
 
-Every page on the site carries an "Edit this page on GitHub" link at the foot that opens
-the file it was generated from, so the shortest path to a fix does not involve cloning
-anything.
+Every page carries an "Edit this page on GitHub" link at the foot that opens the file it was
+generated from, so the shortest path to a fix does not involve cloning anything.
 
 ## Licence
 
@@ -151,8 +152,8 @@ Two licences, because the repository is two things:
 - **Software** — `build.mjs` as a program, `src/diagrams.mjs` and the SVGs it draws,
   `src/assets/` and `serve.mjs` — is [MIT](LICENSE).
 
-`build.mjs` falls under both, which is deliberate: the code is MIT and the sentences that
-code prints are CC BY-SA. [LICENSE](LICENSE) spells out the split file by file.
+`build.mjs` falls under both, deliberately: the code is MIT and the sentences that code
+prints are CC BY-SA. [LICENSE](LICENSE) spells out the split file by file.
 
 Neither licence grants trademark rights. GameSir product names and trademarks belong to
 their owner, and this project is not affiliated with them. No GameSir photography or

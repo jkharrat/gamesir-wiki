@@ -12,7 +12,7 @@
     {
       "id": "cyclone-2",
       "name": "GameSir Cyclone 2",
-      "tagline": "An Xbox-layout tri-mode wireless controller with Mag-Res TMR sticks, micro-switch face buttons and dual-mode Hall Effect triggers, measured among the lowest-latency controllers in its price class.",
+      "tagline": "Xbox-layout tri-mode wireless controller with Mag-Res TMR sticks, micro-switch face buttons and dual-mode Hall Effect triggers.",
       "releaseYear": 2024,
       "msrp": "$49.99 / £49.99 standalone, $55.99 / £55.99 for the charging-dock bundle (launch pricing, 26 November 2024)",
       "platforms": [
@@ -88,7 +88,7 @@
         {
           "symptom": "The 2.4GHz dongle connection keeps dropping, sometimes with jittery button and stick input.",
           "cause": "Mismatched controller and dongle firmware is the primary cause. GameSir also cites RF interference from 8K wireless devices and NearLink devices, and thick obstructions between the dongle and controller.",
-          "fix": "Match the firmware: dongle V1.1.9 or above AND controller V3.4.4 or above — GameSir stresses that updating one requires updating the other. Update the dongle from GameSir Connect while the controller is connected through it, or force it by holding the dongle's sync button as you plug it in (the light should stay off) with Connect open. Update the controller by plugging it in via cable and pressing 'update firmware', or force it by holding Logo + Menu while plugging it in with Connect open. For interference, move the dongle closer using a USB extension or the charging dock's USB port.",
+          "fix": "Match the firmware: dongle V1.1.9 or above and controller V3.4.4 or above. GameSir is clear that updating one means updating the other. Update the dongle from GameSir Connect with the controller connected through it, or force it by holding the dongle's sync button as you plug it in (the light should stay off) with Connect open. Update the controller over cable and press 'update firmware', or force it by holding Logo + Menu while plugging it in with Connect open. If it is interference, move the dongle closer with a USB extension or the charging dock's USB port.",
           "sourceUrl": "https://gamesir.com/pages/faq-questions-about-cyclone-2"
         },
         {
@@ -268,7 +268,7 @@
     {
       "id": "g7-he",
       "name": "GameSir G7 HE",
-      "tagline": "Officially Xbox-licensed wired controller that keeps the G7 SE's Hall Effect sticks and triggers but swaps in microswitch face buttons and d-pad, adds silicone grips, and drops the back-button lock latches.",
+      "tagline": "Xbox-licensed wired controller: the G7 SE's Hall Effect sticks and triggers, but with microswitch buttons, silicone grips and no back-button latches.",
       "releaseYear": 2024,
       "msrp": "$49.99",
       "platforms": [
@@ -386,12 +386,12 @@
       "faq": [
         {
           "q": "What is the correct stick and trigger calibration procedure for the G7 HE? (Do NOT use the G7 Pro procedure.)",
-          "a": "1) Hold View + Menu + Xbox buttons and, while still holding, insert the USB-C cable into your PC's USB port; release after plugging in. The indicator blinks slowly in white. 2) Without touching LT, RT or either stick, press A. The indicator goes out. 3) Press LT and RT to maximum travel and rotate both sticks at maximum angle three times, then press A. The indicator turns solid white to confirm completion. 4) Unplug and replug before using. Caveats: calibration must be performed with the faceplate installed or range values will be incorrect; move at a steady, gentle speed; manual calibration often works when in-app calibration fails; calibration applies only to analog trigger mode. CRITICAL: this hold-while-plugging-in procedure belongs to the older G7 series (G7 / G7 SE / G7 HE). GameSir explicitly warns that applying this older-G7 calibration procedure to a G7 Pro will put that controller into firmware update mode and leave it unable to power on normally. The G7 Pro instead uses View + Menu + Home held 2 seconds while already connected.",
+          "a": "Hold View + Menu + Xbox and, still holding, plug the USB-C cable into your PC; release once it is in. The indicator blinks slowly white. Without touching LT, RT or either stick, press A and the indicator goes out. Now press LT and RT to full travel and rotate both sticks at maximum angle three times, then press A again — a solid white indicator confirms it. Unplug and replug before using. Calibrate with the faceplate installed or the range values come out wrong, move slowly and steadily, and note that this only affects analog trigger mode. Manual calibration often works where the in-app one fails. This plug-in procedure belongs to the older G7 series (G7, G7 SE, G7 HE) only: GameSir warns that using it on a G7 Pro drops that controller into firmware update mode, after which it will not power on normally. The G7 Pro uses View + Menu + Home held 2 seconds while already connected.",
           "sourceUrl": "https://gamesir.com/support/manuals/gamesir-g7-he-xbox-controller"
         },
         {
           "q": "What exactly is different between the G7 HE and the G7 SE?",
-          "a": "Both are wired-only, share the same 152 x 103 x 63 mm shell, the same GameSir Hall Effect sticks and Hall Effect analog triggers, the same four rumble motors, the same two back buttons, the same 3.5 mm jack and mute button, the same magnetic faceplate, and the same GameSir Nexus software. The differences: the HE uses microswitch ABXY and a microswitch d-pad (3 million press rating) where the SE uses membrane; the HE adds rubberized silicone grips; the HE removes the SE's two physical back-button lock latches; the HE weighs 227 g versus the SE's 221 g; and the HE is $49.99 versus the SE's $44.99. GameSir's own comparison FAQ answer is published only as an image with no text, so this comparison is assembled from the two product spec sheets plus PCGamingWiki and Windows Central.",
+          "a": "Almost everything is shared: both are wired-only, in the same 152 x 103 x 63 mm shell, with the same Hall Effect sticks and analog triggers, four rumble motors, two back buttons, 3.5 mm jack and mute button, magnetic faceplate and Nexus software. Five things differ. The HE has microswitch ABXY and a microswitch d-pad rated for 3 million presses where the SE has membrane; it adds rubberized silicone grips; it drops the SE's two physical back-button lock latches; it weighs 227 g against 221 g; and it launched at $49.99 against $44.99. GameSir publishes its own comparison as an image with no text, so this one is assembled from the two spec sheets plus PCGamingWiki and Windows Central.",
           "sourceUrl": "https://gamesir.com/products/gamesir-g7-he-xbox-controller"
         },
         {
@@ -426,7 +426,7 @@
         },
         {
           "q": "What can I configure in GameSir Nexus for the G7 HE?",
-          "a": "Three controller profiles covering button mapping, stick and trigger fine-tuning, vibration and more. For sticks: stick curves, initial and max deadzone, anti-deadzone, a true zero deadzone option, and a switch between Default and GameSir's exclusive 'Raw' mode. For triggers: impulse triggers for all games, hair trigger in Static mode (any movement in range reads as a full 100% pull) or Adaptive mode (100% on entering the range, instantly dropping to 0 on minimal release), and a Continuous Trigger toggle that holds an input until pressed again. Firmware updates also run through Nexus, with a standalone PC upgrader as a fallback.",
+          "a": "Three controller profiles covering button mapping, stick and trigger tuning and vibration. Sticks get curves, initial and max deadzone, anti-deadzone, a true zero deadzone option, and a switch between Default and GameSir's 'Raw' mode. Triggers get impulse triggers for all games, a hair trigger in Static mode (any movement in range reads as a full 100% pull) or Adaptive mode (100% on entering the range, dropping to 0 on the slightest release), and a Continuous Trigger toggle that holds an input until pressed again. Firmware updates also run through Nexus, with a standalone PC upgrader as a fallback.",
           "sourceUrl": "https://gamesir.com/support/manuals/gamesir-g7-he-xbox-controller"
         }
       ],
@@ -730,7 +730,7 @@
       "fullName": "GameSir G7 Pro 8K PC",
       "tier": "flagship",
       "category": "Xbox-style",
-      "tagline": "PC-focused variant with Gen-2 TMR sticks and an 8000 Hz polling rate, managed by GameSir Connect rather than Nexus.",
+      "tagline": "PC variant with Gen-2 TMR sticks and 8000 Hz polling, managed by GameSir Connect rather than Nexus.",
       "releaseYear": 2026,
       "msrp": null,
       "platforms": [
@@ -901,7 +901,7 @@
     {
       "id": "g7-se",
       "name": "GameSir G7 SE",
-      "tagline": "Officially Xbox-licensed wired controller and the first Xbox controller with Hall Effect sticks, using membrane face buttons and lockable back buttons.",
+      "tagline": "Xbox-licensed wired controller, and the first Xbox pad with Hall Effect sticks. Membrane face buttons and lockable back buttons.",
       "releaseYear": 2023,
       "msrp": "$44.99",
       "platforms": [
@@ -1018,7 +1018,7 @@
       "faq": [
         {
           "q": "What is the correct stick and trigger calibration procedure for the G7 SE? (Do NOT use the G7 Pro procedure.)",
-          "a": "1) Hold View + Menu + Xbox buttons and, while still holding them, insert the USB-C cable into your PC's USB port; release after plugging in. The indicator blinks slowly in white. 2) Without touching the triggers or sticks, press A. The indicator goes out. 3) Press LT and RT to their maximum travel and rotate both sticks at maximum angle three times, then press A. The indicator turns solid white to confirm. 4) Unplug and replug the controller before use. Important caveats: calibration must be done with the faceplate installed or the range values will be wrong; move at a steady, gentle speed to avoid data-collection errors; manual calibration often succeeds when the in-app calibration fails. CRITICAL: this hold-while-plugging-in procedure is specific to the older G7 series (G7 / G7 SE / G7 HE). GameSir explicitly warns that using this older-G7 calibration procedure on a G7 Pro will put that controller into firmware update mode and leave it unable to power on normally. The G7 Pro instead uses View + Menu + Home held for 2 seconds while already connected.",
+          "a": "Hold View + Menu + Xbox and, still holding, plug the USB-C cable into your PC; release once it is in. The indicator blinks slowly white. Without touching the triggers or sticks, press A and the indicator goes out. Now press LT and RT to full travel and rotate both sticks at maximum angle three times, then press A again — a solid white indicator confirms it. Unplug and replug before use. Calibrate with the faceplate installed or the range values come out wrong, and move slowly and steadily to avoid data-collection errors. Manual calibration often succeeds where the in-app one fails. This plug-in procedure belongs to the older G7 series (G7, G7 SE, G7 HE) only: GameSir warns that using it on a G7 Pro drops that controller into firmware update mode, after which it will not power on normally. The G7 Pro uses View + Menu + Home held for 2 seconds while already connected.",
           "sourceUrl": "https://gamesir.com/support/manuals/g7-se-multi-color"
         },
         {
@@ -1143,7 +1143,7 @@
     {
       "id": "kaleid",
       "name": "GameSir Kaleid",
-      "tagline": "Wired-only, officially licensed Xbox controller with a transparent shell, RGB light strips, Hall Effect sticks and triggers, and microswitch face buttons.",
+      "tagline": "Wired Xbox-licensed controller in a transparent shell, with RGB light strips, Hall Effect sticks and triggers, and microswitch face buttons.",
       "releaseYear": 2024,
       "msrp": "$49.99 / £59.99 (launch RRP, May 30, 2024). The Kaleid Flux variant launched at $46.99 / £55.99.",
       "platforms": [
@@ -1268,7 +1268,7 @@
         },
         {
           "q": "How does the Kaleid Flux differ from the Kaleid?",
-          "a": "GameSir describes them as the same controller with nuanced variations. The Kaleid has microswitch ABXY face buttons; the Kaleid Flux has membrane ABXY face buttons. They also have different printed PCB trace patterns and different default RGB light-strip colours — GameSir's launch press release says the Kaleid uses default rainbow colours with a PCB printed 'KALEID', while the Kaleid Flux uses a default 'noble gold' colour with a damascus pattern. Launch pricing differed ($49.99 vs $46.99). Sticks, triggers, motors, back buttons, audio jack, dimensions, weight and software are the same. They use DIFFERENT firmware and must not be cross-flashed.",
+          "a": "GameSir calls them the same controller with nuanced variations. The Kaleid has microswitch ABXY; the Flux has membrane. Their printed PCB patterns and default RGB colours differ too: per GameSir's launch press release, the Kaleid ships rainbow with 'KALEID' printed on the PCB, the Flux ships 'noble gold' with a damascus pattern. They launched at $49.99 and $46.99. Sticks, triggers, motors, back buttons, audio jack, dimensions, weight and software are identical. Their firmware is not, and must never be cross-flashed.",
           "sourceUrl": "https://gamesir.com/pages/faq-questions-about-kaleid-series"
         },
         {
@@ -1413,7 +1413,7 @@
     {
       "id": "super-nova",
       "name": "GameSir Super Nova",
-      "tagline": "A tri-mode multiplatform controller with Hall Effect sticks and triggers, magnetic swappable faceplates, and an auto start-stop charging dock.",
+      "tagline": "Tri-mode multiplatform controller with Hall Effect sticks and triggers, magnetic swappable faceplates and an auto start-stop charging dock.",
       "releaseYear": 2025,
       "msrp": "$49.99 / £49.99",
       "platforms": [
@@ -1667,7 +1667,7 @@
     {
       "id": "t7-pro",
       "name": "GameSir T7 Pro",
-      "tagline": "Officially licensed wired Xbox/PC controller with GameSir Hall Effect sticks, Hall Effect analog triggers with two-stage trigger stops, RGB lighting and two remappable back buttons.",
+      "tagline": "Xbox-licensed wired controller with Hall Effect sticks and triggers, two-stage trigger stops, RGB lighting and two remappable back buttons.",
       "releaseYear": 2025,
       "msrp": "$49.99 / £49.99 (T7 Pro Floral launch price, GameSir and Best Buy, June 2025)",
       "platforms": [
@@ -1743,7 +1743,7 @@
         {
           "symptom": "Controller is plugged in and the indicator LED is lit, but no inputs register on PC or Xbox.",
           "cause": "USB PID/device-recognition failure, or the controller is in the wrong input mode (GIP vs XInput), or the USB-C plug is not fully seated.",
-          "fix": "1) Reseat the cable firmly — GameSir notes the connector often needs real force and may click when properly seated, and cable guards can make a half-inserted plug feel fully home. 2) While connected, hold Xbox + M for 3 seconds (an indicator tone plays), then unplug and replug to switch back to the original PID. 3) If that fails, hold Xbox + Share for 3 seconds while connected to force-switch between XInput and GIP modes. 4) For the wired T7 Pro, hold View + Menu + M to reset the controller. 5) Try a different data-capable cable and a motherboard rear USB port rather than a hub or case front port.",
+          "fix": "Reseat the cable firmly first. GameSir notes the connector often needs real force and may click when it seats, and cable guards can make a half-inserted plug feel fully home. Then, while connected, hold Xbox + M for 3 seconds (an indicator tone plays), unplug and replug to switch back to the original PID. If that fails, hold Xbox + Share for 3 seconds while connected to force-switch between XInput and GIP. On the wired T7 Pro, View + Menu + M resets the controller. Failing all that, try a different data-capable cable and a rear motherboard USB port rather than a hub or case front port.",
           "sourceUrl": "https://gamesir.com/support/manuals/gamesir-t7-pro-retro-green-xbox-wired-controller"
         },
         {
@@ -1755,7 +1755,7 @@
         {
           "symptom": "Stick drift, off-center resting position, or triggers that do not reach 0% / 100%.",
           "cause": "Stick or trigger range calibration data is wrong, commonly after switching the two-stage trigger stop or after a firmware update.",
-          "fix": "Run the manual Stick & Trigger Calibration: 1) Hold View + Menu + Xbox and, while holding, plug the USB-C cable into a PC; release after plugging in — the indicator blinks slowly white. 2) Without touching sticks or triggers, press A; the indicator goes out. 3) Fully press LT and RT and rotate both sticks at full deflection three times, then press A; the indicator turns solid white. 4) Unplug and replug before using. GameSir notes manual calibration often succeeds when in-app calibration fails, that movements should be slow and steady, and that calibration only applies to analog trigger mode. Separately, after changing the two-stage trigger stop, gently press each trigger fully three times to recalibrate its range.",
+          "fix": "Run the manual Stick & Trigger Calibration. Hold View + Menu + Xbox and, still holding, plug the USB-C cable into a PC; release once it is in and the indicator blinks slowly white. Without touching sticks or triggers, press A and the indicator goes out. Fully press LT and RT and rotate both sticks at full deflection three times, then press A for a solid white indicator. Unplug and replug before using. GameSir notes that manual calibration often succeeds where the in-app one fails, that movements should be slow and steady, and that it only applies to analog trigger mode. Separately, after changing the two-stage trigger stop, gently press each trigger fully three times to recalibrate its range.",
           "sourceUrl": "https://gamesir.com/pages/faq-questions-about-t7-pro-tri-mode"
         },
         {
@@ -1922,7 +1922,7 @@
     {
       "id": "tarantula-pro",
       "name": "GameSir Tarantula Pro",
-      "tagline": "A tri-mode multiplatform controller with a symmetric PlayStation-style stick layout, Mag-Res TMR sticks, and a motorized gear that physically rotates the face buttons between Xbox and Nintendo layouts.",
+      "tagline": "Tri-mode multiplatform controller with a symmetric stick layout, Mag-Res TMR sticks, and a motorized gear that rotates the face buttons between Xbox and Nintendo layouts.",
       "releaseYear": 2024,
       "msrp": "$79.99 / £79.99 at launch (October 2024); currently listed at $69.99 on gamesir.com",
       "platforms": [
@@ -1998,7 +1998,7 @@
         {
           "symptom": "Double-clicking D-pad, reversed/reverted joystick axes, low polling rate, and the controller not being recognized by GameSir Connect over the dongle.",
           "cause": "GameSir states there were many bugs in early firmware versions of the Tarantula Pro, in both the controller and the dongle.",
-          "fix": "Update BOTH the controller and dongle firmware to the latest version. Controller: connect via USB, open the updater, press Logo + X + Y simultaneously until the device status shows online, then click update firmware. Dongle: exit GameSir Connect, insert the receiver, hold the pairing button for 5 seconds until Device Status shows ONLINE in green, then click Upgrade Firmware. WARNING: GameSir provides different controller firmware files by serial number (V2.06 for SN starting with 1 or 2, a separate V2.06 for SN starting with 3) and warns that the wrong file may brick the controller.",
+          "fix": "Update both the controller and the dongle to the latest firmware. For the controller: connect over USB, open the updater, hold Logo + X + Y until the device status shows online, then click update firmware. For the dongle: exit GameSir Connect, insert the receiver, hold the pairing button for 5 seconds until Device Status shows ONLINE in green, then click Upgrade Firmware. Check your serial number first — GameSir publishes different controller firmware files by serial (V2.06 for a SN starting 1 or 2, a separate V2.06 for a SN starting 3) and warns that the wrong file may brick the controller.",
           "sourceUrl": "https://gamesir.com/pages/tutorial-how-to-upgrade-the-dongle-firmware-of-the-tarantula-pro"
         },
         {

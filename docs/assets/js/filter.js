@@ -252,10 +252,10 @@
 
 /* -- Controller layout diagrams -------------------------------------------
    Two jobs: switch between the front, back and top views, and read out
-   whichever control the pointer or the keyboard is on. The readout text is
-   taken from the legend already in the page rather than a second copy of the
-   descriptions, so the two can never disagree. With this file absent, every
-   view and every legend simply stays on the page. */
+   whichever control the pointer or the keyboard is on. Each control carries
+   its own name and description, so the readout never needs a second copy of
+   the text. With this file absent, all three views stay on the page and every
+   control keeps its native tooltip. */
 (function () {
   var sections = document.querySelectorAll("[data-layout]");
   if (!sections.length) return;
@@ -265,32 +265,23 @@
     var idle = readout ? readout.innerHTML : "";
     var switcher = section.querySelector(".view-switch");
     var views = section.querySelectorAll(".diagram-view");
-    var legends = section.querySelectorAll(".diagram-legend");
 
     function each(list, fn) {
       Array.prototype.forEach.call(list, fn);
     }
 
-    function activeLegend() {
-      return section.querySelector(".diagram-legend.is-active");
-    }
-
-    function highlight(id) {
+    function highlight(source) {
+      var id = source.dataset.part;
       each(section.querySelectorAll("[data-part]"), function (el) {
         el.classList.toggle("is-active", el.dataset.part === id);
       });
 
-      var legend = activeLegend();
-      var source = legend && legend.querySelector('[data-part="' + id + '"]');
-      if (!readout || !source) return;
-
-      var name = source.querySelector(".legend-name");
-      var desc = source.querySelector(".legend-desc");
+      if (!readout) return;
       readout.classList.remove("is-idle");
       readout.innerHTML =
         '<span class="readout-name"></span><p class="readout-desc"></p>';
-      readout.querySelector(".readout-name").textContent = name ? name.textContent : "";
-      readout.querySelector(".readout-desc").textContent = desc ? desc.textContent : "";
+      readout.querySelector(".readout-name").textContent = source.dataset.name || "";
+      readout.querySelector(".readout-desc").textContent = source.dataset.desc || "";
     }
 
     function reset() {
@@ -303,12 +294,11 @@
       }
     }
 
-    // Delegated, so it covers both the shapes in the drawing and the rows of
-    // the legend, in both directions.
+    // Delegated, so one listener covers every shape in every view.
     ["mouseover", "focusin"].forEach(function (evt) {
       section.addEventListener(evt, function (e) {
         var target = e.target.closest ? e.target.closest("[data-part]") : null;
-        if (target) highlight(target.dataset.part);
+        if (target) highlight(target);
         else if (evt === "mouseover") reset();
       });
     });
@@ -320,7 +310,7 @@
     // Touch: there is no hover, so a tap has to do the same thing.
     section.addEventListener("click", function (e) {
       var target = e.target.closest ? e.target.closest("[data-part]") : null;
-      if (target) highlight(target.dataset.part);
+      if (target) highlight(target);
     });
 
     if (!switcher) return;
@@ -335,9 +325,6 @@
       });
       each(views, function (v) {
         v.classList.toggle("is-active", v.dataset.view === want);
-      });
-      each(legends, function (l) {
-        l.classList.toggle("is-active", l.dataset.view === want);
       });
       reset();
     });

@@ -54,26 +54,27 @@
 <div class="wrap narrow">
   <h2 id="what-this-is">What this is</h2>
   <p>
-    An unofficial, community-maintained wiki about GameSir controllers. It exists because the useful information
-    is scattered across product pages, per-edition manuals, separate FAQ documents, independent measurement
-    sites and forum threads &mdash; and because the same handful of questions get asked repeatedly.
+    An unofficial, community-maintained wiki about GameSir controllers. Everything useful about them is
+    scattered across product pages, per-edition manuals, separate FAQ documents, measurement sites and forum
+    threads, and the same handful of questions keep getting asked over and over. This is somewhere to put the
+    answers.
   </p>
   <p>
-    This site is not affiliated with, endorsed by, or operated by GameSir. Nothing here is sold, sponsored or
-    affiliate-linked, and there is no advertising: links to manufacturer pages exist so you can check a figure
-    against its source. Where a launch price is recorded it is there as a dated historical fact, because price
-    is part of how these models are positioned against each other &mdash; not because anything is on offer.
+    It is not affiliated with, endorsed by, or operated by GameSir. Nothing is sold, sponsored or
+    affiliate-linked, and there is no advertising: links to manufacturer pages are there so you can check a
+    figure against its source. Launch prices are recorded as dated historical facts, since price is part of how
+    these models line up against each other. Nothing is on offer.
   </p>
 
   <h2 id="who-writes-it">Who writes it</h2>
   <p>
-    Whoever turns up. The entire site is a data file, a generator and a stylesheet in a public Git repository, so
-    editing it needs no account with anyone but GitHub and no permission from a maintainer. Every page carries an
-    &ldquo;Edit this page on GitHub&rdquo; link at the bottom that opens the exact file &mdash; and, on a
-    controller page, the exact line &mdash; that its content came from.
+    Whoever turns up. The whole site is a data file, a generator and a stylesheet in a public Git repository, so
+    editing it needs a GitHub account and nothing else. Every page has an &ldquo;Edit this page on GitHub&rdquo;
+    link at the foot that opens the exact file its content came from &mdash; and, on a controller page, the
+    exact line.
   </p>
   <p>
-    Contributions are attributed the ordinary way, through the
+    Contributions are attributed through the
     <a href="https://github.com/jkharrat/gamesir-wiki/graphs/contributors" rel="noopener" target="_blank">commit history</a>. There is no
     editorial board to convince; the only real rule is the one below about sources.
   </p>
@@ -89,34 +90,33 @@
 
   <div class="note warn">
     <p><strong>These figures are not first-hand testing.</strong> Nothing here was measured by the maintainers
-    unless a figure explicitly says so. Manufacturer claims are labelled as claims. Independent measurements come
-    from single tested units on specific firmware versions and can vary between units.</p>
+    unless it says so. Manufacturer claims are labelled as claims. Independent measurements come from one unit
+    on one firmware and can vary between units.</p>
   </div>
 
   <h2 id="diagrams">The diagrams</h2>
   <p>
-    Every diagram on this site is original line art, drawn from primitives by the site generator and coloured from
-    the same palette as the pages around it. None of it is GameSir photography, a GameSir render, or a trace of
-    either, and no GameSir logo or marketing asset is reproduced anywhere.
+    Every diagram is original line art, drawn from primitives by the site generator and coloured from the same
+    palette as the page around it. None of it is GameSir photography, a GameSir render, or a trace of either,
+    and no GameSir logo or marketing asset appears anywhere.
   </p>
   <p>
-    The controller views are <strong>schematics, not scale drawings</strong>. Which controls appear on a model's
-    diagram comes from the same sourced record as its specification table, so a diagram will show two rear
-    paddles and no latches when that is what the sources document &mdash; but the contours, spacing and
-    proportions are drawn for clarity and should not be measured. Where a control is documented as absent, the
-    diagram marks the absence rather than quietly leaving it out.
+    The controller views are <strong>schematics, not scale drawings</strong>. Which controls a diagram shows
+    comes from the same sourced record as the specification table, so it shows two rear paddles and no latches
+    when that is what the sources document. The contours, spacing and proportions are drawn for clarity, so do
+    not measure them.
   </p>
   <p>
     The drawings are also written out as standalone SVG files under
     <code>assets/gamesir/</code> &mdash; controller views, component close-ups and the site's own mark &mdash; so
-    they can be reused or corrected independently of the pages that embed them.
+    they can be reused on their own.
   </p>
 
   <h2 id="gaps">How gaps are handled</h2>
   <p>
-    Where a value could not be verified against a source, it is left blank and marked
-    &ldquo;not documented&rdquo; rather than filled with a plausible estimate. A visible gap is more useful than a
-    confident guess, because a guess in a troubleshooting guide costs someone real time.
+    Anything that could not be verified against a source is left blank and marked &ldquo;not documented&rdquo;
+    rather than filled in with a plausible estimate. A wrong number in a troubleshooting guide costs somebody
+    an afternoon.
   </p>
   <ul>
 <li>Manufacturer claims (battery life, durability ratings, latency) are labelled as claims, not measurements.</li>
@@ -126,33 +126,32 @@
 
   <h2 id="contributing">How to contribute</h2>
   <p>
-    Corrections are welcome and wanted, especially from people who own the hardware. There are three ways in,
-    roughly in order of effort:
+    Corrections are welcome, especially from people who own the hardware. Three ways in, roughly in order of
+    effort:
   </p>
   <ol>
     <li>
       <strong>Report it and let someone else write it.</strong>
-      <a href="https://github.com/jkharrat/gamesir-wiki/issues/new" rel="noopener" target="_blank">Open an issue</a> saying what is wrong, or which
-      controller is missing. A rough note with a link is more useful than nothing, and you do not need to know
-      how the site is built.
+      <a href="https://github.com/jkharrat/gamesir-wiki/issues/new" rel="noopener" target="_blank">Open an issue</a> saying what is wrong or which
+      controller is missing. A rough note with a link beats nothing, and you do not need to know how the site is
+      built.
     </li>
     <li>
       <strong>Edit a page in the browser.</strong> Use the &ldquo;Edit this page on GitHub&rdquo; link at the
-      foot of any page. GitHub will fork the repository and open a pull request for you; nothing needs to be
-      installed and nothing can be broken irreversibly.
+      foot of any page. GitHub forks the repository and opens a pull request for you. Nothing to install,
+      nothing you can break.
     </li>
     <li>
       <strong>Edit the data and rebuild.</strong> Clone the repository, change
       <a href="https://github.com/jkharrat/gamesir-wiki/blob/main/data/controllers.json" rel="noopener" target="_blank"><code>data/controllers.json</code></a>, run <code>node build.mjs</code>
-      and commit the regenerated <code>docs/</code> alongside it. There are no dependencies to install.
+      and commit the regenerated <code>docs/</code> alongside it. No dependencies.
     </li>
   </ol>
   <p>
-    The one thing a change does need is a source: a link, a manual, a measurement, or a description of what your
-    own unit does and how you tested it. First-hand measurements are valuable precisely because this wiki has
-    none of its own &mdash; they will be credited and labelled as such. A change that adds a figure with no way
-    to check it is the one kind that gets turned away, because that is the failure mode this site exists to
-    avoid.
+    Whichever route you take, a change needs a source: a link, a manual, a measurement, or a description of what
+    your own unit does and how you tested it. First-hand measurements are especially valuable, since this wiki
+    has none of its own, and they will be credited as first-hand. The only changes turned away are figures with
+    no way to check them.
   </p>
   <p class="contrib-links">
     <a class="btn btn-ghost" href="https://github.com/jkharrat/gamesir-wiki" rel="noopener" target="_blank"><svg class="icon-github" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a5.6 5.6 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.03 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.28.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8 8 0 0 0 8 0z"/></svg><span>Browse the repository</span></a>
@@ -160,10 +159,7 @@
   </p>
 
   <h2 id="licence">Licence and reuse</h2>
-  <p>
-    Take it. The point of compiling this was that the information was hard to find, which is not solved by
-    making a second place it is hard to get out of.
-  </p>
+  <p>Reuse it. Two licences, because the repository is two things:</p>
   <ul>
     <li>
       <strong>The wiki content</strong> &mdash; specifications, documented fixes, FAQ answers and page prose
@@ -179,19 +175,19 @@
   </ul>
   <p>
     Two caveats. Neither licence grants trademark rights: &ldquo;GameSir&rdquo; and the product names belong to
-    their owner, and nothing here is affiliated with them. And the cited sources are references rather than
-    redistribution &mdash; a manual linked from a source list stays the property of whoever published it.
+    their owner. And cited sources are references, not redistribution &mdash; a manual linked from a source list
+    stays the property of whoever published it.
   </p>
 
   <p class="small text-dim">Data last reviewed 2026-09-06.</p>
 </div>
 <div class="wrap">
   <div class="page-foot">
-    <a class="edit-link" href="https://github.com/jkharrat/gamesir-wiki/edit/main/build.mjs#L2027" rel="noopener" target="_blank">
+    <a class="edit-link" href="https://github.com/jkharrat/gamesir-wiki/edit/main/build.mjs#L2004" rel="noopener" target="_blank">
       <svg class="icon-github" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a5.6 5.6 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.03 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.28.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8 8 0 0 0 8 0z"/></svg><span>Edit this page on GitHub</span>
     </a>
     <p class="page-foot-note">
-      This page is prose held in build.mjs. <a href="https://github.com/jkharrat/gamesir-wiki/blob/main/build.mjs#L2027" rel="noopener" target="_blank">View source</a>
+      This page is prose held in build.mjs. <a href="https://github.com/jkharrat/gamesir-wiki/blob/main/build.mjs#L2004" rel="noopener" target="_blank">View source</a>
       &middot; <a href="https://github.com/jkharrat/gamesir-wiki/commits/main/build.mjs" rel="noopener" target="_blank">Revision history</a>
       &middot; <a href="https://github.com/jkharrat/gamesir-wiki/issues/new" rel="noopener" target="_blank">Report an error</a>
     </p>
@@ -211,7 +207,7 @@
       </svg>
           <span>GameSir <span class="brand-sub">Wiki</span></span>
         </a>
-        <p class="footer-tag">An open, unofficial wiki that anyone can edit. Every specification traces back to a published source, anything that could not be verified is left blank on purpose, and the whole site is a handful of text files on GitHub.</p>
+        <p class="footer-tag">An open, unofficial wiki about GameSir controllers that anyone can edit.</p>
         <a class="footer-repo" href="https://github.com/jkharrat/gamesir-wiki" rel="noopener" target="_blank"><svg class="icon-github" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a5.6 5.6 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.03 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.28.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8 8 0 0 0 8 0z"/></svg><span>github.com/jkharrat/gamesir-wiki</span></a>
       </div>
       <div class="footer-col">
@@ -253,23 +249,22 @@
     <div class="footer-bottom">
       <p class="disclaimer">
         <strong>Unofficial and community-maintained.</strong> Not affiliated with, endorsed by, or operated by
-        GameSir, and nothing here is for sale. Specifications are compiled from GameSir's published product
-        pages, manuals and FAQ documents, from independent measurement data published by gamepadla.com, and from
-        published reviews &mdash; not from first-hand testing, unless a figure says otherwise. Values that could
-        not be verified are marked &ldquo;not documented&rdquo; rather than estimated. Manufacturer claims are
-        labelled as claims. Prices are recorded as historical launch figures, not current offers.
+        GameSir, and nothing here is for sale. Specifications come from GameSir's product pages, manuals and FAQ
+        documents, from independent measurements published by gamepadla.com, and from published reviews. Unless
+        a figure says otherwise, none of it is first-hand testing. Manufacturer claims are labelled as claims.
+        Anything unverified reads &ldquo;not documented&rdquo;. Prices are historical launch figures, not
+        current offers.
       </p>
       <p class="footer-meta">
         Found an error? <a href="https://github.com/jkharrat/gamesir-wiki/issues/new" rel="noopener" target="_blank">Open an issue</a> or send a
-        pull request with a source and it will be corrected. Contributors are credited in the
+        pull request with a source. Contributors are credited in the
         <a href="https://github.com/jkharrat/gamesir-wiki/graphs/contributors" rel="noopener" target="_blank">commit history</a>.
       </p>
       <p class="footer-license">
-        Text and data on this wiki are available under
-        <a href="https://github.com/jkharrat/gamesir-wiki/blob/main/LICENSE-CONTENT" rel="license noopener" target="_blank">CC BY-SA 4.0</a>, and the
-        generator that builds it under
-        <a href="https://github.com/jkharrat/gamesir-wiki/blob/main/LICENSE" rel="license noopener" target="_blank">MIT</a> &mdash; reuse either, with
-        attribution. Cited sources remain the property of their publishers.
+        Text and data are
+        <a href="https://github.com/jkharrat/gamesir-wiki/blob/main/LICENSE-CONTENT" rel="license noopener" target="_blank">CC BY-SA 4.0</a>; the generator
+        that builds them is <a href="https://github.com/jkharrat/gamesir-wiki/blob/main/LICENSE" rel="license noopener" target="_blank">MIT</a>. Reuse
+        either, with attribution. Cited sources belong to their publishers.
       </p>
     </div>
   </div>

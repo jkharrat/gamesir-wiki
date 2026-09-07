@@ -44,9 +44,15 @@ const plusPath = (cx, cy, arm, width) => {
   );
 };
 
-/** A control the reader can hover, focus or read from the legend. */
+/**
+ * A control the reader can hover or focus. The name and description ride along
+ * as data attributes so the page's readout can name the part without a second
+ * copy of the text living elsewhere in the markup.
+ */
 const hotspot = ({ id, label, desc }, inner) =>
-  `<g class="d-hot" data-part="${esc(id)}" tabindex="0" role="img" aria-label="${esc(
+  `<g class="d-hot" data-part="${esc(id)}" data-name="${esc(label)}" data-desc="${esc(
+    desc
+  )}" tabindex="0" role="img" aria-label="${esc(
     `${label}. ${desc}`
   )}"><title>${esc(label)}</title>${inner}</g>`;
 
@@ -198,7 +204,7 @@ const layoutOf = (c) => LAYOUT[c.id] ?? { family: "xbox", centre: "xbox", mode: 
 /** The layout facts above, for callers that need to pick a matching close-up. */
 export const layoutInfo = (c) => ({ ...layoutOf(c) });
 
-/** First clause of a prose field, for a legend line that has to stay short. */
+/** First clause of a prose field, for a readout line that has to stay short. */
 const brief = (v, max = 96) => {
   if (!v) return null;
   let s = String(v).split(/\.\s+/)[0].replace(/\.$/, "");
@@ -210,13 +216,13 @@ const has = (v) => v !== null && v !== undefined && v !== "" && v !== false;
 
 /**
  * Label and explanation for every control a diagram might draw. Specifics come
- * from the model's own record where the data has them, so a legend line says
+ * from the model's own record where the data has them, so a readout says
  * "Hall Effect analog" rather than "analog" when that is documented.
  */
 function partInfo(c) {
   const info = buildPartInfo(c);
-  // The key is what the legend and the drawing agree on, so it is stamped onto
-  // each entry rather than tracked separately in two places.
+  // The key ties a hotspot to its highlight, so it is stamped onto each entry
+  // rather than tracked separately in two places.
   for (const [id, part] of Object.entries(info)) part.id = id;
   return info;
 }
@@ -520,19 +526,14 @@ const dpadShape = (cx, cy, arm = 19) =>
     cy + arm - 6
   }l-3-4h6zM${cx - arm + 6} ${cy}l4-3v6zM${cx + arm - 6} ${cy}l-4-3v6z"/></g>`;
 
-/**
- * Front view. Returns the drawing plus the legend entries for what it drew, so
- * the two can never drift apart.
- */
+/** Front view. */
 function frontView(c) {
   const L = layoutOf(c);
   const info = partInfo(c);
   const eb = c.extraButtons ?? {};
-  const parts = [];
   const out = [];
   const add = (p, inner) => {
     if (!p) return;
-    parts.push(p);
     out.push(hotspot(p, inner));
   };
 
@@ -643,7 +644,7 @@ function frontView(c) {
     }
 
     // The button faces of this range only ever carry an "M", whatever the
-    // manual calls it, so the circle is labelled M and the legend spells it out.
+    // manual calls it, so the circle is labelled M and the readout spells it out.
     if (L.mode) {
       const mx = L.micMute ? 184 : 200;
       add(info.mode, circle(mx, 152, 9.5, "d-btn-sm") + text(mx, 152.4, "M", "d-label d-label-xs"));
@@ -684,39 +685,17 @@ function frontView(c) {
       label: `${c.name} front layout diagram: sticks, D-pad, ABXY buttons, bumpers, triggers and centre buttons`,
       cls: "diagram-controller",
     }),
-    parts: orderLegend(parts),
   };
 }
-
-/**
- * Legend order. Drawing order is dictated by what has to sit on top of what,
- * which is not the order anyone reads a controller in — hands first, then the
- * centre row, then the edges.
- */
-const LEGEND_ORDER = [
-  "ls", "rs", "dpad", "face", "faceSwap", "lb", "rb", "lt", "rt", "gear", "l5", "r5",
-  "view", "menu", "guide", "share", "profiles", "mode", "micMute", "extraFront",
-  "l4", "r4", "latch", "usbc", "jack", "modeSwitch", "rgb", "faceplate", "grip",
-];
-
-const orderLegend = (parts) => {
-  const rank = (p) => {
-    const i = LEGEND_ORDER.indexOf(p.id);
-    return i === -1 ? LEGEND_ORDER.length : i;
-  };
-  return parts.slice().sort((a, b) => rank(a) - rank(b));
-};
 
 /** Back view: ports, rear paddles and whatever switches the model documents. */
 function backView(c) {
   const L = layoutOf(c);
   const info = partInfo(c);
   const eb = c.extraButtons ?? {};
-  const parts = [];
   const out = [];
   const add = (p, inner) => {
     if (!p) return;
-    parts.push(p);
     out.push(hotspot(p, inner));
   };
 
@@ -802,7 +781,6 @@ function backView(c) {
       label: `${c.name} back layout diagram: USB-C port, rear buttons and rear switches`,
       cls: "diagram-controller",
     }),
-    parts: orderLegend(parts),
   };
 }
 
@@ -811,11 +789,9 @@ function topView(c) {
   const info = partInfo(c);
   const eb = c.extraButtons ?? {};
   const mini = (eb.extraBumpers ?? 0) >= 2;
-  const parts = [];
   const out = [];
   const add = (p, inner) => {
     if (!p) return;
-    parts.push(p);
     out.push(hotspot(p, inner));
   };
 
@@ -850,11 +826,10 @@ function topView(c) {
       label: `${c.name} top edge diagram: bumpers, triggers and the USB-C port`,
       cls: "diagram-controller is-top",
     }),
-    parts: orderLegend(parts),
   };
 }
 
-/** All three views of one controller, each with its own legend. */
+/** All three views of one controller. */
 export function controllerViews(c) {
   return [
     { id: "front", label: "Front", ...frontView(c) },

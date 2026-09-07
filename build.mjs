@@ -106,6 +106,13 @@ const cell = (v) =>
 const boolCell = (v) =>
   v ? '<td class="yes">Yes</td>' : '<td class="no">No</td>';
 
+/** Small counts read better spelled out in a sentence than as a numeral. */
+const NUMBER_WORDS = [
+  "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten",
+  "eleven", "twelve",
+];
+const numberWord = (n) => NUMBER_WORDS[n] ?? String(n);
+
 /**
  * Reduces a prose value to something that fits a table cell or a pill: first
  * clause only, trailing parenthetical dropped, then hard-clipped.
@@ -572,7 +579,7 @@ ${pageFoot}
           ${BRAND_MARK}
           <span>GameSir <span class="brand-sub">Wiki</span></span>
         </a>
-        <p class="footer-tag">An open, unofficial wiki that anyone can edit. Every specification traces back to a published source, anything that could not be verified is left blank on purpose, and the whole site is a handful of text files on GitHub.</p>
+        <p class="footer-tag">An open, unofficial wiki about GameSir controllers that anyone can edit.</p>
         <a class="footer-repo" href="${REPO.url}" rel="noopener" target="_blank">${ICON_GITHUB}<span>${REPO.url.replace(
     /^https:\/\//,
     ""
@@ -584,23 +591,22 @@ ${footerCols}
     <div class="footer-bottom">
       <p class="disclaimer">
         <strong>Unofficial and community-maintained.</strong> Not affiliated with, endorsed by, or operated by
-        GameSir, and nothing here is for sale. Specifications are compiled from GameSir's published product
-        pages, manuals and FAQ documents, from independent measurement data published by gamepadla.com, and from
-        published reviews &mdash; not from first-hand testing, unless a figure says otherwise. Values that could
-        not be verified are marked &ldquo;not documented&rdquo; rather than estimated. Manufacturer claims are
-        labelled as claims. Prices are recorded as historical launch figures, not current offers.
+        GameSir, and nothing here is for sale. Specifications come from GameSir's product pages, manuals and FAQ
+        documents, from independent measurements published by gamepadla.com, and from published reviews. Unless
+        a figure says otherwise, none of it is first-hand testing. Manufacturer claims are labelled as claims.
+        Anything unverified reads &ldquo;not documented&rdquo;. Prices are historical launch figures, not
+        current offers.
       </p>
       <p class="footer-meta">
         Found an error? <a href="${REPO_NEW_ISSUE}" rel="noopener" target="_blank">Open an issue</a> or send a
-        pull request with a source and it will be corrected. Contributors are credited in the
+        pull request with a source. Contributors are credited in the
         <a href="${REPO.url}/graphs/contributors" rel="noopener" target="_blank">commit history</a>.
       </p>
       <p class="footer-license">
-        Text and data on this wiki are available under
-        <a href="${REPO_LICENSE_CONTENT}" rel="license noopener" target="_blank">CC BY-SA 4.0</a>, and the
-        generator that builds it under
-        <a href="${REPO_LICENSE}" rel="license noopener" target="_blank">MIT</a> &mdash; reuse either, with
-        attribution. Cited sources remain the property of their publishers.
+        Text and data are
+        <a href="${REPO_LICENSE_CONTENT}" rel="license noopener" target="_blank">CC BY-SA 4.0</a>; the generator
+        that builds them is <a href="${REPO_LICENSE}" rel="license noopener" target="_blank">MIT</a>. Reuse
+        either, with attribution. Cited sources belong to their publishers.
       </p>
     </div>
   </div>
@@ -646,16 +652,13 @@ const wikiStatus = ({ articles, fixes, faqs, sources, updated }) => `<aside clas
     <div><dt>Documented fixes</dt><dd>${fixes}</dd></div>
     <div><dt>Answered questions</dt><dd>${faqs}</dd></div>
     <div><dt>Cited sources</dt><dd>${sources}</dd></div>
-    <div><dt>Estimated figures</dt><dd>None &mdash; gaps stay visible</dd></div>
+    <div><dt>Estimated figures</dt><dd>None</dd></div>
     <div><dt>Last reviewed</dt><dd><time datetime="${esc(updated ?? "")}">${esc(
   updated ?? "unknown"
 )}</time></dd></div>
   </dl>
   <p class="wiki-status-foot">
-    Counts are generated from <a href="${repoBlob(
-      "data/controllers.json"
-    )}" rel="noopener" target="_blank">the data file</a> on every build, so this box cannot drift from the pages
-    it describes.
+    Counted from <a href="${repoBlob("data/controllers.json")}" rel="noopener" target="_blank">the data file</a>.
   </p>
 </aside>`;
 
@@ -724,7 +727,7 @@ ${rows}
     </tbody>
   </table>
 </div>
-<p class="small text-dim">Bars use a fixed 0&ndash;16&nbsp;ms scale so they compare with every other page on this site; a full-width bar exceeds 16&nbsp;ms. Measured and published by gamepadla.com from a single unit on one firmware. Polling rate and latency are measured by different methods and are not the same thing. <a href="../latency.html">Compare against every other model</a>.</p>`;
+<p class="small text-dim">Bars run on a fixed 0&ndash;16&nbsp;ms scale so they compare across the site; a full-width bar is over 16&nbsp;ms. Measured by gamepadla.com on a single unit and one firmware. Polling rate and latency are different measurements. <a href="../latency.html">Compare against every other model</a>.</p>`;
 }
 
 /* ------------------------------------------------------- hardware figures -- */
@@ -744,13 +747,14 @@ const stickKind = (tech) => {
 };
 
 /**
- * The labelled controller diagram: three views, a readout naming whatever the
- * pointer or keyboard is on, and a legend that is also where the readout gets
- * its text, so the drawing and the prose cannot drift apart.
+ * The labelled controller diagram: three views and a readout naming whatever
+ * the pointer or keyboard is on. Each control carries its own name and
+ * description as data attributes, so the readout and the drawing are one
+ * source of text rather than two.
  *
- * With scripting off, every view stays on the page under its own heading and
- * every legend is visible, which is a complete description of the hardware —
- * the script only collapses it into one view at a time.
+ * With scripting off, all three views stay on the page under their own
+ * headings, and every control keeps its `<title>` and `aria-label` — the
+ * script only collapses the views into one at a time.
  */
 function layoutSection(c, { id = "layout", heading = "Controller layout", intro, note } = {}) {
   const views = controllerViews(c);
@@ -774,22 +778,6 @@ ${v.svg}
     )
     .join("\n");
 
-  const legends = views
-    .map(
-      (v, i) =>
-        `    <ul class="diagram-legend${i === 0 ? " is-active" : ""}" data-view="${esc(v.id)}">
-${v.parts
-  .map(
-    (p) =>
-      `      <li class="legend-item" data-part="${esc(p.id)}"><span class="legend-name">${esc(
-        p.label
-      )}</span><span class="legend-desc">${esc(p.desc)}</span></li>`
-  )
-  .join("\n")}
-    </ul>`
-    )
-    .join("\n");
-
   return `<section class="layout-section" data-layout aria-labelledby="${esc(id)}">
   <div class="layout-head">
     <h2 id="${esc(id)}">${esc(heading)}</h2>
@@ -806,15 +794,12 @@ ${stage}
 
     <div class="diagram-readout is-idle" data-readout aria-live="polite">
       <span class="readout-name">Every control, named</span>
-      <p class="readout-desc">Point at, tap or tab to any part of the diagram and it is explained here. The full list is below, so nothing depends on hovering.</p>
+      <p class="readout-desc">Point at, tap or tab to any part of the diagram and it is explained here.</p>
     </div>
-
-${legends}
   </div>
 
   <p class="small text-dim diagram-note">${
-    note ??
-    "Schematic drawing. It shows which controls this model has and where they sit relative to each other, taken from the same sourced record as the specifications below &mdash; it is not a scale drawing, and no GameSir artwork is reproduced."
+    note ?? "Schematic drawing, not to scale. No GameSir artwork is reproduced."
   }</p>
 </section>`;
 }
@@ -1054,17 +1039,14 @@ function pageIndex(data) {
     <p class="eyebrow">Unofficial &middot; Community-maintained &middot; Not for sale</p>
     <h1>A sourced reference for GameSir controllers</h1>
     <p class="lede">
-      Specifications, documented fixes and frequently asked questions for ${cs.length} GameSir controllers,
-      each traceable to an official manual, an independent measurement, or a published review. Nothing here is
-      estimated &mdash; unverified values are left blank on purpose.
+      Specifications, known problems and fixes for ${numberWord(cs.length)} GameSir controllers.
     </p>
 
     <div class="hero-notice">
       ${ICON_GITHUB}
       <div>
-        <p><strong>Anyone can edit this wiki.</strong> It is a handful of plain text files on GitHub, not a
-        product page. Every article links to the exact file and line its content comes from, so a correction is
-        a two-minute edit rather than an email to nobody.</p>
+        <p><strong>Anyone can edit this wiki.</strong> It is a few text files on GitHub, and every article links
+        to the exact file and line it came from.</p>
         <p class="hero-notice-links">
           <a href="${REPO.url}" rel="noopener" target="_blank">Browse the source</a>
           <a href="${repoBlob("data/controllers.json")}" rel="noopener" target="_blank">See the data file</a>
@@ -1087,74 +1069,74 @@ function pageIndex(data) {
   ${sectionHead(
     "controllers",
     "Controller articles",
-    `One article per model, ${cs.length} so far. Each covers full specifications, measured performance where independent data exists, documented problems with their fixes, and the sources behind every figure. A model that is missing is a gap in the wiki, not a verdict on the hardware.`
+    `One article per model, ${cs.length} so far: full specifications, measured performance where anyone has published it, documented problems and their fixes, and sources. If a model isn't here, nobody has written it up yet.`
   )}
   <div class="card-grid">
 ${cards}
   </div>
 
   <p class="index-cta">
-    Own something that isn't here, or spotted a figure that's wrong?
+    Own something that isn't here, or spotted a wrong figure?
     <a href="${REPO_NEW_ISSUE}" rel="noopener" target="_blank">Open an issue</a> or
     <a href="${repoEdit("data/controllers.json")}" rel="noopener" target="_blank">edit the data file directly</a>.
-    First-hand measurements are especially wanted, because this wiki has none of its own.
+    First-hand measurements are especially welcome, since this wiki has none of its own.
   </p>
 
   ${sectionHead(
     "anatomy",
     "Anatomy of a controller",
-    "The vocabulary the rest of this site uses. Every model page carries the same diagram drawn for that specific controller, including its back."
+    "The vocabulary the rest of the site uses. Every model page has the same diagram, drawn for its own controller."
   )}
   ${layoutSection(REFERENCE_PAD, {
     id: "reference-layout",
     heading: "The controls, named",
     intro:
-      "A generic layout rather than any one product: the offset sticks, the ABXY cluster, the centre row and the rear paddles that the models covered here share. Where a specific controller differs &mdash; no rear latches, a rotating button cluster, no wireless at all &mdash; its own page says so.",
-    note: "Generic schematic. It is not a drawing of any particular GameSir product; see a model page for that model's own layout.",
+      "A generic pad rather than a specific product: the offset sticks, ABXY cluster, centre row and rear paddles these models have in common. Where a controller differs, its own page says so.",
+    note: "Generic schematic, not a drawing of any particular GameSir product. See a model page for that model's own layout.",
   })}
 
   ${sectionHead(
     "start-here",
     "Start here",
-    "Three things account for a large share of GameSir support questions."
+    "Three things account for most GameSir support questions."
   )}
 
   <div class="accordion">
     <details class="item">
       <summary>&ldquo;My controller isn't detected by the app&rdquo; &mdash; check which app it needs</summary>
       <div class="item-body">
-        <p>GameSir ships two PC applications and they do not cover the same hardware.
-        <strong>GameSir Nexus</strong> handles the Xbox-licensed controllers &mdash; per GameSir's downloads page
-        that means the G7 Pro and its licensed editions, G7 SE, G7 HE, T7, T7 Pro, Kaleid, Kaleid Flux and
-        Tarantula Pro for Xbox. <strong>GameSir Connect</strong> handles the rest, including the G7 Pro 8K PC
-        editions, Tarantula 8K PC, Tegenaria Lite, Super Nova, Nova Lite 2 and Cyclone 2.</p>
-        <p>The trap is that a model name can appear in both families. <em>Tarantula Pro for Xbox</em> uses Nexus,
-        while the multiplatform <em>Tarantula Pro</em> and the <em>Tarantula 8K PC</em> use Connect. Installing
-        Nexus and waiting for a Connect device to appear is one of the most common reasons a controller is never
-        detected &mdash; and it is expected behaviour, not a fault.</p>
-        <p>On mobile, the separate <strong>GameSir app</strong> covers models including the Super Nova, Nova Lite,
-        Nova Lite 2, G8 series and X-series. Check your model's page for which app applies.</p>
+        <p>GameSir ships two PC apps and they cover different hardware. <strong>Nexus</strong> handles the
+        Xbox-licensed controllers: per GameSir's downloads page, the G7 Pro and its licensed editions, G7 SE,
+        G7 HE, T7, T7 Pro, Kaleid, Kaleid Flux and Tarantula Pro for Xbox. <strong>Connect</strong> handles
+        everything else, including the G7 Pro 8K PC editions, Tarantula 8K PC, Tegenaria Lite, Super Nova,
+        Nova Lite 2 and Cyclone 2.</p>
+        <p>The trap is that one name can appear in both families. <em>Tarantula Pro for Xbox</em> uses Nexus;
+        the multiplatform <em>Tarantula Pro</em> and the <em>Tarantula 8K PC</em> use Connect. Waiting in Nexus
+        for a Connect device to show up is one of the most common reasons a controller is never detected, and
+        it is expected behaviour rather than a fault.</p>
+        <p>On mobile, the separate <strong>GameSir app</strong> covers the Super Nova, Nova Lite, Nova Lite 2,
+        G8 series and X-series, among others. Your model's page says which app applies.</p>
       </div>
     </details>
 
     <details class="item">
       <summary>&ldquo;My drift-proof controller is drifting&rdquo; &mdash; usually configuration, not hardware</summary>
       <div class="item-body">
-        <p>Hall Effect and TMR sticks sense magnetically with no physical contact, so they do not develop drift the
-        way potentiometer sticks do. When a controller like this appears to drift, the cause is usually that no
-        inner deadzone is being applied, leaving the stick's natural center error visible to the game.</p>
-        <p>A misconfigured anti-deadzone produces the same symptom. GameSir's own documentation notes that improper
-        anti-deadzone configuration &ldquo;may appear similar to stick drift&rdquo;. Set it back to zero before
-        assuming the hardware has failed. See <a href="troubleshooting.html#drift">the drift section</a>.</p>
+        <p>Hall Effect and TMR sticks sense magnetically, with nothing touching, so they do not wear into drift
+        the way potentiometer sticks do. When one seems to drift, it is usually that no inner deadzone is
+        applied and the game is seeing the stick's natural centre error.</p>
+        <p>A misconfigured anti-deadzone looks the same. GameSir's own documentation says it &ldquo;may appear
+        similar to stick drift&rdquo;. Set it back to zero before assuming the hardware has failed &mdash; see
+        <a href="troubleshooting.html#drift">the drift section</a>.</p>
       </div>
     </details>
 
     <details class="item">
       <summary>&ldquo;It shows up as an Xbox 360 Controller and disconnects&rdquo; &mdash; that's intended</summary>
       <div class="item-body">
-        <p>Running a high polling rate or keyboard/mouse bindings requires the controller to switch protocol from
-        GIP (Xbox Gaming Device) to XInput. Windows renames the device accordingly and the controller briefly
-        disconnects during the switch. This is normal, not a fault.</p>
+        <p>High polling rates and keyboard/mouse bindings need the controller to switch from GIP (Xbox Gaming
+        Device) to XInput. Windows renames the device and it drops off for a moment while it switches. That is
+        normal.</p>
       </div>
     </details>
   </div>
@@ -1168,7 +1150,7 @@ ${cards}
     source: {
       file: "build.mjs",
       line: SRC.fn("pageIndex"),
-      note: "This page's wording is generated by build.mjs; the controller list comes from the data file.",
+      note: "The wording here lives in build.mjs; the controller list comes from the data file.",
     },
   });
 }
@@ -1199,7 +1181,7 @@ function pageController(c, data) {
       id: "specs",
       label: "Specifications",
       html: `<h2>Specifications</h2>
-  <p class="section-intro">Values that could not be verified against a source read &ldquo;not documented&rdquo; rather than being estimated.</p>
+  <p class="section-intro">Unverified values read &ldquo;not documented&rdquo;.</p>
   <div class="spec-columns">
     <div class="spec-card">
       <h3>${icon("gamepad")}Overview</h3>
@@ -1277,7 +1259,7 @@ function pageController(c, data) {
       count: components.length,
       html: components.length
         ? `<h2>Component by component</h2>
-  <p class="section-intro">What each part of this controller is and what it does, with the documented detail for this model beside it. The drawings explain the mechanism; the captions carry the sourced specifics.</p>
+  <p class="section-intro">What each part does, with this model's documented detail beside it.</p>
   <div class="figure-grid">
 ${components.join("\n")}
   </div>`
@@ -1287,7 +1269,7 @@ ${components.join("\n")}
       id: "performance",
       label: "Performance",
       html: `<h2>Measured performance</h2>
-  <p class="section-intro">Independent measurement, kept separate from the manufacturer's own figures above.</p>
+  <p class="section-intro">Independently measured, not manufacturer figures.</p>
   ${latencyTable(c)}`,
     },
     {
@@ -1296,7 +1278,7 @@ ${components.join("\n")}
       count: (c.notableFeatures ?? []).length,
       html: (c.notableFeatures ?? []).length
         ? `<h2>Notable features</h2>
-  <p class="section-intro">The features that separate this model from its siblings, each shown against the part of the hardware it refers to.</p>
+  <p class="section-intro">What separates this model from its siblings.</p>
 ${
   callouts.length
     ? `  <div class="callout-grid">
@@ -1319,7 +1301,7 @@ ${rest.map((f) => `    <li>${esc(f)}</li>`).join("\n")}
       count: (c.knownIssues ?? []).length,
       html: issues
         ? `<h2>Known issues and fixes</h2>
-  <p class="section-intro">Documented problems with documented solutions. Each entry cites where the fix comes from.</p>
+  <p class="section-intro">Documented problems with documented fixes.</p>
   <div class="accordion">
 ${issues}
   </div>`
@@ -1402,7 +1384,7 @@ ${sources}
 <div class="wrap narrow">
   ${layoutSection(c, {
     intro:
-      "Every control this model has, front, back and along the top edge. The rear view is where the models in this range differ most from each other.",
+      "Every control on this model, front, back and top edge. The rear view is where these models differ most.",
   })}
 
   <div class="tabs-dock">
@@ -1430,7 +1412,7 @@ ${others}
     <p class="small text-dim">Or <a href="../compare.html">compare all ${siblings.length} side by side</a>.</p>
   </details>
 
-  <p class="small text-dim">Data last reviewed ${esc(data.meta?.updated ?? "")}. Figures are compiled from the sources above rather than first-hand testing.</p>
+  <p class="small text-dim">Data last reviewed ${esc(data.meta?.updated ?? "")}.</p>
 </div>`;
 
   return layout({
@@ -1499,22 +1481,21 @@ function pageCompare(data) {
     eyebrow: "Comparison",
     heading: "Specification comparison",
     lede: `<p class="lede">
-      Every documented specification side by side. Em dashes mark values that could not be verified against a
-      source &mdash; they are gaps in the documentation, not zeros. Scroll horizontally to see all models; model
-      names stay pinned.
+      Every documented specification side by side. An em dash means nobody has published that value. Scroll
+      sideways to see every model; the names stay pinned.
     </p>
     <p class="lede small">
-      Values are abbreviated here to keep the table scannable. Hover a shortened cell for the full text, or open
-      the model page for the complete entry with its caveats and sources.
+      Values are abbreviated to keep the table scannable. Hover a shortened cell for the full text, or open the
+      model page for the caveats and sources.
     </p>`,
   })}
 
 <div class="wrap">
   <div class="note">
-    <p><strong>Reading the stick sensor row.</strong> TMR and Hall Effect sticks both sense magnetically and do not
-    wear like potentiometer sticks, which is why they are marketed as drift-resistant. That resistance is about
-    sensor wear, not about center accuracy &mdash; a magnetic stick can still show a small center error, and
-    several of these controllers apply no inner deadzone to hide it.</p>
+    <p><strong>Reading the stick sensor row.</strong> TMR and Hall Effect sticks sense magnetically and do not
+    wear like potentiometer sticks, which is why they are sold as drift-resistant. That is about wear, not
+    centre accuracy: a magnetic stick can still sit slightly off centre, and several of these controllers apply
+    no inner deadzone to hide it.</p>
   </div>
 
   <div class="figure-grid">
@@ -1531,8 +1512,8 @@ ${sensorCompareFigures()
         kind === "pot"
           ? "A wiper drags along a resistive track. The contact point is also the wear point, which is where classic stick drift comes from."
           : kind === "hall"
-          ? "A magnet on the stick shaft is read by a sensor beneath it. Nothing touches, so there is no wear path — but the sensor still has a resting value, and that value is rarely exactly zero."
-          : "The same contactless arrangement as Hall Effect, using a magnetoresistive sensor that the manufacturers rate for finer resolution. Drift resistance comes from the same property: no contact.",
+          ? "A magnet on the stick shaft is read by a sensor beneath it. Nothing touches, so nothing wears — but the sensor still has a resting value, and it is rarely exactly zero."
+          : "The same contactless arrangement as Hall Effect, with a magnetoresistive sensor rated for finer resolution. Drift resistance comes from the same place: nothing touches.",
     })
   )
   .join("\n")}
@@ -1548,10 +1529,10 @@ ${rows}
   </div>
 
   <div class="note see-also">
-    <p><strong>See also: measured latency.</strong> Latency needs a second dimension &mdash; every controller is
-    measured separately over cable, dongle and Bluetooth &mdash; so it does not fit a column here. A separate
-    page compares all ${cs.filter((c) => (c.measuredLatency ?? []).length).length} measured models by connection
-    mode: <a href="latency.html">Measured latency</a>.</p>
+    <p><strong>See also: measured latency.</strong> Every controller is measured separately over cable, dongle
+    and Bluetooth, which does not fit in one column. All
+    ${cs.filter((c) => (c.measuredLatency ?? []).length).length} measured models are compared by connection mode
+    on the <a href="latency.html">measured latency</a> page.</p>
   </div>
 </div>`;
 
@@ -1692,9 +1673,9 @@ ${latencyTable(c).replace(/\.\.\/latency\.html/g, "#top")}
     eyebrow: "Performance",
     heading: "Measured latency",
     lede: `<p class="lede">
-      Independent latency measurements published by gamepadla.com, compared across every model covered here.
-      Connection mode is the largest single factor &mdash; on several controllers the dongle is markedly slower
-      than the cable for stick input, which is not something manufacturer specifications tell you.
+      Independent latency measurements from gamepadla.com, compared across every model covered here. Connection
+      mode matters more than anything else: on several controllers the dongle is much slower than the cable for
+      stick input, which no spec sheet mentions.
     </p>`,
   })}
 
@@ -1705,8 +1686,7 @@ ${strip}
 
   <h2 id="by-mode">Compared by connection mode</h2>
   <p class="section-intro">
-    One row per controller, with each connection family in its own column. Switch which figure you are comparing
-    without the table growing.
+    One row per controller, one column per connection family.
   </p>
 
   <div class="toolbar">
@@ -1716,9 +1696,9 @@ ${metricChips}
   </div>
 
   <p class="small text-dim">
-    Not every metric was measured for every controller. gamepadla published button latency for all
-    ${measured.length}, but stick latency for only ${metricCounts.stick} of them, so some rows are empty in the
-    stick view and populated in the others.
+    Not every metric was measured on every controller. gamepadla published button latency for all
+    ${measured.length} but stick latency for only ${metricCounts.stick}, so some rows are empty in the stick
+    view and filled in the others.
   </p>
 
   <div class="table-scroll">
@@ -1733,21 +1713,20 @@ ${pivot}
   </div>
 
   <p class="small text-dim">
-    Each cell shows the fastest documented figure for that connection family. Bars use a fixed
-    0&ndash;16&nbsp;ms scale; a full-width bar exceeds 16&nbsp;ms. Green is at or under 3&nbsp;ms, amber to
-    8&nbsp;ms, red above &mdash; those bands are our editorial reading, not gamepadla's.
+    Each cell shows the fastest documented figure for that family. Bars run on a fixed 0&ndash;16&nbsp;ms scale;
+    a full-width bar is over 16&nbsp;ms. Green is 3&nbsp;ms or under, amber to 8&nbsp;ms, red above &mdash;
+    those bands are our reading, not gamepadla's.
   </p>
 
   <div class="note">
-    <p><strong>Read these as indicative, not exact.</strong> Every figure is an average from a single tested
-    unit on one firmware version, and gamepadla's own results move between firmware revisions. Differences of a
-    millisecond or two between models are inside the noise; the difference between a cable and Bluetooth is not.</p>
+    <p><strong>Read these as indicative, not exact.</strong> Each figure averages a single unit on one firmware,
+    and gamepadla's own results shift between revisions. A millisecond or two between models is noise. The gap
+    between a cable and Bluetooth is not.</p>
   </div>
 
   <h2 id="all">Every measurement</h2>
   <p class="section-intro">
-    The pivot above collapses each connection family to its fastest result. Expand a controller for the full
-    set, including the slower configurations.
+    The table above shows only the fastest result per connection family. Expand a controller for the rest.
   </p>
   <div class="accordion">
 ${detail}
@@ -1758,7 +1737,7 @@ ${detail}
       ? `<h2 id="unmeasured">Not independently measured</h2>
 <p class="section-intro">No published latency measurement exists for ${
           noData.length === 1 ? "this model" : "these models"
-        }, so nothing is shown rather than an estimate: ${noData
+        }, so nothing is shown: ${noData
           .map((c) => `<a href="controllers/${esc(c.id)}.html">${esc(c.name)}</a>`)
           .join(", ")}.</p>`
       : ""
@@ -1804,117 +1783,115 @@ ${issueItem(i, i.model)}
     eyebrow: "Troubleshooting",
     heading: "Troubleshooting index",
     lede: `<p class="lede">
-      Every documented problem and fix across all covered controllers, in one searchable list. Each entry cites
-      the source of its fix so you can check the original instructions.
+      Every documented problem and fix across all covered controllers, searchable in one list. Each entry links
+      to the original instructions.
     </p>`,
   })}
 
 <div class="wrap narrow">
   <div class="note danger">
-    <p><strong>Calibration procedures are not interchangeable between G7 models.</strong> The direction matters,
-    so check which one applies to your controller before holding any button combination.</p>
-    <p>On the <strong>G7, G7 SE and G7 HE</strong>, calibration is entered by holding
-    <kbd>View + Menu + Xbox</kbd> <em>while inserting the USB-C cable</em>. On the <strong>G7 Pro</strong>,
-    it is entered by holding <kbd>View + Xbox + Menu</kbd> <em>while already connected</em>.</p>
-    <p>GameSir explicitly warns that applying the older hold-while-plugging-in procedure to a G7 Pro puts that
-    controller into firmware update mode instead, leaving it unable to power on normally. Recovery requires a
-    manual firmware upgrade from a Windows PC. Older guides and videos still circulate the wrong sequence.</p>
+    <p><strong>Calibration procedures are not interchangeable between G7 models.</strong> Check which one
+    applies to your controller before holding anything.</p>
+    <p>On the <strong>G7, G7 SE and G7 HE</strong>, hold <kbd>View + Menu + Xbox</kbd> <em>while plugging in the
+    USB-C cable</em>. On the <strong>G7 Pro</strong>, hold <kbd>View + Xbox + Menu</kbd> <em>while already
+    connected</em>.</p>
+    <p>GameSir warns that using the older plug-in procedure on a G7 Pro drops it into firmware update mode
+    instead, after which it will not power on normally. Getting it back needs a manual firmware upgrade from a
+    Windows PC. Plenty of older guides and videos still circulate the wrong sequence.</p>
   </div>
 
   <div class="figure-grid">
 ${fig(centreButtonFigure({ variant: "xbox", mode: "M" }), {
   label: "Where those buttons are",
-  text: "View, the guide button and Menu sit in the centre row, with Share below and the M modifier under that. Every procedure on this page is a combination of these five and one other control.",
+  text: "View, the guide button and Menu sit in the centre row, Share below them, and the M modifier under that. Every procedure on this page combines these five with one other control.",
 })}
 ${fig(indicatorFigure(), {
   label: "What the indicator is telling you",
-  text: "The patterns are consistent across this range even though the exact meanings are per-model: a slow blink means the controller is waiting for you inside a setting mode, and a double blink is normally a refusal rather than a confirmation.",
+  text: "The patterns are consistent across the range even where the exact meanings differ per model. A slow blink means the controller is waiting for you inside a setting mode; a double blink is usually a refusal, not a confirmation.",
 })}
   </div>
 
   <div class="note danger">
-    <p><strong>Never cross-flash Kaleid firmware.</strong> GameSir sells three different controllers under the
-    Kaleid name &mdash; the <em>T4 Kaleid</em> (T4K), the <em>Kaleid</em> (K1) and the <em>Kaleid Flux</em>
-    (K1&nbsp;Flux) &mdash; and each takes its own firmware.</p>
-    <p>GameSir warns that installing the wrong file will likely brick the controller, and that flashing K1
-    firmware onto a T4 Kaleid leaves it unusable and unrecoverable. Always use the upgrader published for your
-    exact model. The K1 and K1 Flux look nearly identical, so confirm which one you own before downloading
-    anything.</p>
+    <p><strong>Never cross-flash Kaleid firmware.</strong> Three different controllers share the Kaleid name
+    &mdash; the <em>T4 Kaleid</em> (T4K), the <em>Kaleid</em> (K1) and the <em>Kaleid Flux</em>
+    (K1&nbsp;Flux) &mdash; and each takes its own.</p>
+    <p>GameSir warns that the wrong file will likely brick the controller, and that K1 firmware on a T4 Kaleid
+    leaves it unusable and unrecoverable. Use the upgrader published for your exact model. The K1 and K1 Flux
+    look almost identical, so check which one you own before downloading anything.</p>
   </div>
 
   <h2 id="drift">Before you assume the sticks have failed</h2>
   <p class="section-intro">
-    Most reported drift on these controllers is not sensor failure. Work through this order before contacting
-    support, because the later steps mask the symptom rather than fix it.
+    Most reported drift on these controllers is not sensor failure. Work through these in order before
+    contacting support &mdash; the later steps mask the symptom rather than fix it.
   </p>
 
   ${fig(deadzoneFigure(), {
     label: "The same stick, sitting still, three ways",
-    text: "A magnetic stick has a resting value and it is rarely exactly zero, so a controller that applies no inner deadzone reports that error to the game. An inner deadzone hides it at the cost of precision; an anti-deadzone does the opposite, deliberately reporting movement while the stick is centred — which is indistinguishable from drift if it is set too high.",
+    text: "A magnetic stick's resting value is rarely exactly zero, so a controller with no inner deadzone passes that error straight to the game. An inner deadzone hides it and costs precision. An anti-deadzone does the opposite, reporting movement while the stick is centred — which looks exactly like drift if it is set too high.",
   })}
 
   <div class="accordion">
     <details class="item" open>
       <summary>1. Rule out anti-deadzone first</summary>
       <div class="item-body">
-        <p>GameSir's documentation states that improper anti-deadzone configuration &ldquo;may appear similar to
-        stick drift&rdquo;. Anti-deadzone exists to cancel out a game's own built-in deadzone by reporting slight
-        stick movement when the stick is centered &mdash; which is indistinguishable from drift if set too high.</p>
+        <p>Anti-deadzone cancels out a game's own built-in deadzone by reporting slight movement while the stick
+        sits centred. Set too high, it is indistinguishable from drift &mdash; GameSir's documentation says as
+        much: it &ldquo;may appear similar to stick drift&rdquo;.</p>
         <p>Set <em>Anti-deadzone &rarr; Initial</em> back to 0 in the GameSir app and retest. If you have ever
-        adjusted this to fight an unresponsive game, this is the most likely cause.</p>
+        raised it to fight an unresponsive game, start here.</p>
       </div>
     </details>
 
     <details class="item">
       <summary>2. Check whether you are in Raw (zero deadzone) mode</summary>
       <div class="item-body">
-        <p>Several models toggle between a Raw stick trajectory with zero deadzone and a Circular trajectory. Raw is
-        more sensitive and exposes the stick's natural center error directly to the game. If drift appeared without
-        explanation, an accidental toggle is worth ruling out. The exact button combination varies by model &mdash;
-        check your model page.</p>
+        <p>Several models toggle between a Raw stick trajectory with zero deadzone and a Circular one. Raw is
+        more sensitive and hands the stick's natural centre error straight to the game. If drift appeared out of
+        nowhere, rule out an accidental toggle. The button combination varies by model, so check your model
+        page.</p>
       </div>
     </details>
 
     <details class="item">
       <summary>3. Recalibrate &mdash; with the faceplate installed</summary>
       <div class="item-body">
-        <p>On models with swappable faceplates, GameSir specifies that calibration must be performed with the
-        faceplate installed, because calibrating without it produces incorrect range values. This is easy to get
-        wrong on a controller designed to have its faceplate removed.</p>
-        <p>Rotate the sticks slowly and steadily. GameSir notes that faster rotation during calibration yields
-        higher resulting sensitivity, so a rushed calibration can leave the sticks feeling twitchy.</p>
+        <p>On models with swappable faceplates, GameSir says calibration has to be done with the faceplate on
+        &mdash; without it you get wrong range values. Easy to get wrong on a controller built to have its
+        faceplate taken off.</p>
+        <p>Rotate the sticks slowly and steadily. GameSir notes that faster rotation gives higher resulting
+        sensitivity, so a rushed calibration leaves the sticks feeling twitchy.</p>
       </div>
     </details>
 
     <details class="item">
       <summary>4. Only then add a small deadzone in software</summary>
       <div class="item-body">
-        <p>If a small center error remains, add the smallest inner deadzone that stops the drift. Every point you
-        add is precision you give up, which matters most in games with low native deadzones.</p>
-        <p>In Steam, a deadzone set under calibration will not apply until you enable it in the game's controller
+        <p>If a small centre error remains, add the smallest inner deadzone that stops it. Every point you add
+        is precision given up, which shows most in games with low native deadzones.</p>
+        <p>In Steam, a deadzone set under calibration does nothing until you enable it in the game's controller
         configuration: set <em>Enable Deadzone</em> to <em>Configuration</em>, then raise <em>Deadzone Inner</em>.
-        Setting a value without switching this over is why people conclude Steam's deadzone slider does nothing.</p>
+        Skipping that step is why people think Steam's deadzone slider is broken.</p>
       </div>
     </details>
   </div>
 
   <h2 id="audio">If your headset or trigger vibration stopped working</h2>
   <p class="section-intro">
-    Check your polling rate before troubleshooting either one. Across the G7 SE, G7 HE and Kaleid family,
-    selecting a report rate above 250&nbsp;Hz disables the controller's onboard 3.5&nbsp;mm audio entirely
-    &mdash; no game sound and no microphone. On the Kaleid, running at 1000&nbsp;Hz additionally disables native
-    trigger vibration. Both are by design rather than faults, and GameSir advises returning the rate to
-    250&nbsp;Hz if you use a headset through the controller.
+    Check your polling rate first. On the G7 SE, G7 HE and Kaleid family, any report rate above 250&nbsp;Hz
+    kills the onboard 3.5&nbsp;mm audio outright &mdash; no game sound, no microphone. At 1000&nbsp;Hz the
+    Kaleid also loses native trigger vibration. Both are by design, and GameSir advises going back to
+    250&nbsp;Hz if you run a headset through the controller.
   </p>
   <p class="section-intro">
-    It is an easy trap to fall into, because raising the polling rate is one of the first things people do after
-    installing the app, and the audio failure surfaces later with no obvious connection to it.
+    It is an easy trap: raising the polling rate is one of the first things people do after installing the app,
+    and the audio dies later with no obvious connection to it.
   </p>
   <p class="section-intro">
-    The trade-off is real in both directions, though. On the Kaleid, gamepadla measured average stick latency of
+    The trade-off runs both ways, though. gamepadla measured the Kaleid's average stick latency at
     7.62&nbsp;ms at 1000&nbsp;Hz, 14.21&nbsp;ms at 500&nbsp;Hz and 27.22&nbsp;ms at 250&nbsp;Hz &mdash; same
-    controller, same cable, only the report rate changed. So the safe setting for headset users is also
-    substantially the slowest one.
+    controller, same cable, only the report rate changed. The safe setting for headset users is also much the
+    slowest.
   </p>
 
   <h2 id="all">All documented issues</h2>
@@ -1972,16 +1949,16 @@ ${faqItem(f, f.model)}
     eyebrow: "FAQ",
     heading: "Frequently asked questions",
     lede: `<p class="lede">
-      Questions collected from GameSir's official FAQ pages and manuals, grouped across every covered model and
-      searchable in one place. Each answer links to its source.
+      Questions from GameSir's official FAQ pages and manuals, gathered across every covered model and
+      searchable in one place.
     </p>`,
   })}
 
 <div class="wrap narrow">
   <h2 id="reading-the-combos">Reading the button combinations</h2>
   <p class="section-intro">
-    Most answers below are a button combination. Two figures cover nearly all of them: which control is which, and
-    the remapping gesture that every model in this range shares.
+    Most answers below are a button combination. Two figures cover nearly all of them: which control is which,
+    and the remapping gesture shared across the range.
   </p>
 
   <div class="figure-grid">
@@ -1991,7 +1968,7 @@ ${fig(centreButtonFigure({ variant: "xbox", mode: "M" }), {
 })}
 ${fig(mappingFigure({ mode: "M" }), {
   label: "Assigning a rear button",
-  text: "Hold M together with the rear button until the indicator blinks slowly, press the control it should copy, and the indicator returns to solid. Repeating the hold and pressing the rear button itself clears the assignment again.",
+  text: "Hold M with the rear button until the indicator blinks slowly, press the control it should copy, and the indicator goes solid again. Repeat the hold and press the rear button itself to clear it.",
 })}
   </div>
 
@@ -2036,26 +2013,27 @@ function pageAbout(data) {
 <div class="wrap narrow">
   <h2 id="what-this-is">What this is</h2>
   <p>
-    An unofficial, community-maintained wiki about GameSir controllers. It exists because the useful information
-    is scattered across product pages, per-edition manuals, separate FAQ documents, independent measurement
-    sites and forum threads &mdash; and because the same handful of questions get asked repeatedly.
+    An unofficial, community-maintained wiki about GameSir controllers. Everything useful about them is
+    scattered across product pages, per-edition manuals, separate FAQ documents, measurement sites and forum
+    threads, and the same handful of questions keep getting asked over and over. This is somewhere to put the
+    answers.
   </p>
   <p>
-    This site is not affiliated with, endorsed by, or operated by GameSir. Nothing here is sold, sponsored or
-    affiliate-linked, and there is no advertising: links to manufacturer pages exist so you can check a figure
-    against its source. Where a launch price is recorded it is there as a dated historical fact, because price
-    is part of how these models are positioned against each other &mdash; not because anything is on offer.
+    It is not affiliated with, endorsed by, or operated by GameSir. Nothing is sold, sponsored or
+    affiliate-linked, and there is no advertising: links to manufacturer pages are there so you can check a
+    figure against its source. Launch prices are recorded as dated historical facts, since price is part of how
+    these models line up against each other. Nothing is on offer.
   </p>
 
   <h2 id="who-writes-it">Who writes it</h2>
   <p>
-    Whoever turns up. The entire site is a data file, a generator and a stylesheet in a public Git repository, so
-    editing it needs no account with anyone but GitHub and no permission from a maintainer. Every page carries an
-    &ldquo;Edit this page on GitHub&rdquo; link at the bottom that opens the exact file &mdash; and, on a
-    controller page, the exact line &mdash; that its content came from.
+    Whoever turns up. The whole site is a data file, a generator and a stylesheet in a public Git repository, so
+    editing it needs a GitHub account and nothing else. Every page has an &ldquo;Edit this page on GitHub&rdquo;
+    link at the foot that opens the exact file its content came from &mdash; and, on a controller page, the
+    exact line.
   </p>
   <p>
-    Contributions are attributed the ordinary way, through the
+    Contributions are attributed through the
     <a href="${REPO.url}/graphs/contributors" rel="noopener" target="_blank">commit history</a>. There is no
     editorial board to convince; the only real rule is the one below about sources.
   </p>
@@ -2071,68 +2049,66 @@ function pageAbout(data) {
 
   <div class="note warn">
     <p><strong>These figures are not first-hand testing.</strong> Nothing here was measured by the maintainers
-    unless a figure explicitly says so. Manufacturer claims are labelled as claims. Independent measurements come
-    from single tested units on specific firmware versions and can vary between units.</p>
+    unless it says so. Manufacturer claims are labelled as claims. Independent measurements come from one unit
+    on one firmware and can vary between units.</p>
   </div>
 
   <h2 id="diagrams">The diagrams</h2>
   <p>
-    Every diagram on this site is original line art, drawn from primitives by the site generator and coloured from
-    the same palette as the pages around it. None of it is GameSir photography, a GameSir render, or a trace of
-    either, and no GameSir logo or marketing asset is reproduced anywhere.
+    Every diagram is original line art, drawn from primitives by the site generator and coloured from the same
+    palette as the page around it. None of it is GameSir photography, a GameSir render, or a trace of either,
+    and no GameSir logo or marketing asset appears anywhere.
   </p>
   <p>
-    The controller views are <strong>schematics, not scale drawings</strong>. Which controls appear on a model's
-    diagram comes from the same sourced record as its specification table, so a diagram will show two rear
-    paddles and no latches when that is what the sources document &mdash; but the contours, spacing and
-    proportions are drawn for clarity and should not be measured. Where a control is documented as absent, the
-    diagram marks the absence rather than quietly leaving it out.
+    The controller views are <strong>schematics, not scale drawings</strong>. Which controls a diagram shows
+    comes from the same sourced record as the specification table, so it shows two rear paddles and no latches
+    when that is what the sources document. The contours, spacing and proportions are drawn for clarity, so do
+    not measure them.
   </p>
   <p>
     The drawings are also written out as standalone SVG files under
     <code>assets/gamesir/</code> &mdash; controller views, component close-ups and the site's own mark &mdash; so
-    they can be reused or corrected independently of the pages that embed them.
+    they can be reused on their own.
   </p>
 
   <h2 id="gaps">How gaps are handled</h2>
   <p>
-    Where a value could not be verified against a source, it is left blank and marked
-    &ldquo;not documented&rdquo; rather than filled with a plausible estimate. A visible gap is more useful than a
-    confident guess, because a guess in a troubleshooting guide costs someone real time.
+    Anything that could not be verified against a source is left blank and marked &ldquo;not documented&rdquo;
+    rather than filled in with a plausible estimate. A wrong number in a troubleshooting guide costs somebody
+    an afternoon.
   </p>
   ${notes ? `<ul>\n${notes}\n</ul>` : ""}
 
   <h2 id="contributing">How to contribute</h2>
   <p>
-    Corrections are welcome and wanted, especially from people who own the hardware. There are three ways in,
-    roughly in order of effort:
+    Corrections are welcome, especially from people who own the hardware. Three ways in, roughly in order of
+    effort:
   </p>
   <ol>
     <li>
       <strong>Report it and let someone else write it.</strong>
-      <a href="${REPO_NEW_ISSUE}" rel="noopener" target="_blank">Open an issue</a> saying what is wrong, or which
-      controller is missing. A rough note with a link is more useful than nothing, and you do not need to know
-      how the site is built.
+      <a href="${REPO_NEW_ISSUE}" rel="noopener" target="_blank">Open an issue</a> saying what is wrong or which
+      controller is missing. A rough note with a link beats nothing, and you do not need to know how the site is
+      built.
     </li>
     <li>
       <strong>Edit a page in the browser.</strong> Use the &ldquo;Edit this page on GitHub&rdquo; link at the
-      foot of any page. GitHub will fork the repository and open a pull request for you; nothing needs to be
-      installed and nothing can be broken irreversibly.
+      foot of any page. GitHub forks the repository and opens a pull request for you. Nothing to install,
+      nothing you can break.
     </li>
     <li>
       <strong>Edit the data and rebuild.</strong> Clone the repository, change
       <a href="${repoBlob(
         "data/controllers.json"
       )}" rel="noopener" target="_blank"><code>data/controllers.json</code></a>, run <code>node build.mjs</code>
-      and commit the regenerated <code>docs/</code> alongside it. There are no dependencies to install.
+      and commit the regenerated <code>docs/</code> alongside it. No dependencies.
     </li>
   </ol>
   <p>
-    The one thing a change does need is a source: a link, a manual, a measurement, or a description of what your
-    own unit does and how you tested it. First-hand measurements are valuable precisely because this wiki has
-    none of its own &mdash; they will be credited and labelled as such. A change that adds a figure with no way
-    to check it is the one kind that gets turned away, because that is the failure mode this site exists to
-    avoid.
+    Whichever route you take, a change needs a source: a link, a manual, a measurement, or a description of what
+    your own unit does and how you tested it. First-hand measurements are especially valuable, since this wiki
+    has none of its own, and they will be credited as first-hand. The only changes turned away are figures with
+    no way to check them.
   </p>
   <p class="contrib-links">
     <a class="btn btn-ghost" href="${REPO.url}" rel="noopener" target="_blank">${ICON_GITHUB}<span>Browse the repository</span></a>
@@ -2140,10 +2116,7 @@ function pageAbout(data) {
   </p>
 
   <h2 id="licence">Licence and reuse</h2>
-  <p>
-    Take it. The point of compiling this was that the information was hard to find, which is not solved by
-    making a second place it is hard to get out of.
-  </p>
+  <p>Reuse it. Two licences, because the repository is two things:</p>
   <ul>
     <li>
       <strong>The wiki content</strong> &mdash; specifications, documented fixes, FAQ answers and page prose
@@ -2159,8 +2132,8 @@ function pageAbout(data) {
   </ul>
   <p>
     Two caveats. Neither licence grants trademark rights: &ldquo;GameSir&rdquo; and the product names belong to
-    their owner, and nothing here is affiliated with them. And the cited sources are references rather than
-    redistribution &mdash; a manual linked from a source list stays the property of whoever published it.
+    their owner. And cited sources are references, not redistribution &mdash; a manual linked from a source list
+    stays the property of whoever published it.
   </p>
 
   <p class="small text-dim">Data last reviewed ${esc(data.meta?.updated ?? "")}.</p>
@@ -2435,10 +2408,10 @@ const FILTER_JS = `/* Progressive enhancement: theme switching, the mobile nav, 
 
 /* -- Controller layout diagrams -------------------------------------------
    Two jobs: switch between the front, back and top views, and read out
-   whichever control the pointer or the keyboard is on. The readout text is
-   taken from the legend already in the page rather than a second copy of the
-   descriptions, so the two can never disagree. With this file absent, every
-   view and every legend simply stays on the page. */
+   whichever control the pointer or the keyboard is on. Each control carries
+   its own name and description, so the readout never needs a second copy of
+   the text. With this file absent, all three views stay on the page and every
+   control keeps its native tooltip. */
 (function () {
   var sections = document.querySelectorAll("[data-layout]");
   if (!sections.length) return;
@@ -2448,32 +2421,23 @@ const FILTER_JS = `/* Progressive enhancement: theme switching, the mobile nav, 
     var idle = readout ? readout.innerHTML : "";
     var switcher = section.querySelector(".view-switch");
     var views = section.querySelectorAll(".diagram-view");
-    var legends = section.querySelectorAll(".diagram-legend");
 
     function each(list, fn) {
       Array.prototype.forEach.call(list, fn);
     }
 
-    function activeLegend() {
-      return section.querySelector(".diagram-legend.is-active");
-    }
-
-    function highlight(id) {
+    function highlight(source) {
+      var id = source.dataset.part;
       each(section.querySelectorAll("[data-part]"), function (el) {
         el.classList.toggle("is-active", el.dataset.part === id);
       });
 
-      var legend = activeLegend();
-      var source = legend && legend.querySelector('[data-part="' + id + '"]');
-      if (!readout || !source) return;
-
-      var name = source.querySelector(".legend-name");
-      var desc = source.querySelector(".legend-desc");
+      if (!readout) return;
       readout.classList.remove("is-idle");
       readout.innerHTML =
         '<span class="readout-name"></span><p class="readout-desc"></p>';
-      readout.querySelector(".readout-name").textContent = name ? name.textContent : "";
-      readout.querySelector(".readout-desc").textContent = desc ? desc.textContent : "";
+      readout.querySelector(".readout-name").textContent = source.dataset.name || "";
+      readout.querySelector(".readout-desc").textContent = source.dataset.desc || "";
     }
 
     function reset() {
@@ -2486,12 +2450,11 @@ const FILTER_JS = `/* Progressive enhancement: theme switching, the mobile nav, 
       }
     }
 
-    // Delegated, so it covers both the shapes in the drawing and the rows of
-    // the legend, in both directions.
+    // Delegated, so one listener covers every shape in every view.
     ["mouseover", "focusin"].forEach(function (evt) {
       section.addEventListener(evt, function (e) {
         var target = e.target.closest ? e.target.closest("[data-part]") : null;
-        if (target) highlight(target.dataset.part);
+        if (target) highlight(target);
         else if (evt === "mouseover") reset();
       });
     });
@@ -2503,7 +2466,7 @@ const FILTER_JS = `/* Progressive enhancement: theme switching, the mobile nav, 
     // Touch: there is no hover, so a tap has to do the same thing.
     section.addEventListener("click", function (e) {
       var target = e.target.closest ? e.target.closest("[data-part]") : null;
-      if (target) highlight(target.dataset.part);
+      if (target) highlight(target);
     });
 
     if (!switcher) return;
@@ -2518,9 +2481,6 @@ const FILTER_JS = `/* Progressive enhancement: theme switching, the mobile nav, 
       });
       each(views, function (v) {
         v.classList.toggle("is-active", v.dataset.view === want);
-      });
-      each(legends, function (l) {
-        l.classList.toggle("is-active", l.dataset.view === want);
       });
       reset();
     });
