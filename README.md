@@ -143,10 +143,18 @@ anything.
 
 ## Licence
 
-Content is offered for community reference. GameSir product names and trademarks belong to
-their owner. No GameSir product photography or copyrighted marketing assets are reproduced
-here; the site links to official pages instead.
+Two licences, because the repository is two things:
 
-There is no `LICENSE` file yet. A wiki that asks for contributions should say what happens
-to them, so this is worth settling — CC BY-SA 4.0 for the content and MIT for the
-generator is the usual split for a project shaped like this one.
+- **Content** — `data/controllers.json`, the page prose and the generated pages under
+  `docs/` — is [CC BY-SA 4.0](LICENSE-CONTENT). Credit "GameSir Wiki contributors" with a
+  link back, and share adaptations under the same terms.
+- **Software** — `build.mjs` as a program, `src/diagrams.mjs` and the SVGs it draws,
+  `src/assets/` and `serve.mjs` — is [MIT](LICENSE).
+
+`build.mjs` falls under both, which is deliberate: the code is MIT and the sentences that
+code prints are CC BY-SA. [LICENSE](LICENSE) spells out the split file by file.
+
+Neither licence grants trademark rights. GameSir product names and trademarks belong to
+their owner, and this project is not affiliated with them. No GameSir photography or
+copyrighted marketing asset is reproduced here; the site links to official pages instead,
+and cited sources remain the property of their publishers.

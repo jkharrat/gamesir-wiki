@@ -103,3 +103,19 @@ Two things worth matching, because they are what makes the site worth reading:
 Nothing here is a sales pitch. The site deliberately has no call-to-action buttons and no
 prices in card corners; if a change reads like marketing copy, it will get reworded rather
 than rejected.
+
+## Licensing your contribution
+
+Opening a pull request means offering it under the licence that already covers the part of
+the repository you touched — [CC BY-SA 4.0](LICENSE-CONTENT) for content, [MIT](LICENSE)
+for code. There is no separate agreement to sign. This is what keeps the wiki freely
+redistributable by anyone, which is the whole reason for compiling it in one place.
+
+Two things that cannot be accepted, because they would make the content unshareable:
+
+- **Copy-pasted prose from a source.** Cite it, summarise it, link it — do not paste it.
+  Specifications and figures are facts and are fine to record; a reviewer's paragraph is
+  theirs.
+- **Product photography or marketing renders.** The site has none by design. Diagrams are
+  drawn from primitives in `src/diagrams.mjs`, so a new controller gets its illustration
+  from its own data record rather than from an image.

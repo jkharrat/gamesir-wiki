@@ -56,6 +56,8 @@ const repoEdit = (file, line = null) =>
 const repoHistory = (file) => `${REPO.url}/commits/${REPO.branch}/${file}`;
 const REPO_ISSUES = `${REPO.url}/issues`;
 const REPO_NEW_ISSUE = `${REPO.url}/issues/new`;
+const REPO_LICENSE = repoBlob("LICENSE");
+const REPO_LICENSE_CONTENT = repoBlob("LICENSE-CONTENT");
 
 /**
  * Line numbers behind the "edit this page" links, resolved from the raw files
@@ -438,6 +440,7 @@ const FOOTER_COLS = [
       { href: "about.html", label: "About &amp; sourcing" },
       { href: "about.html#contributing", label: "How to contribute" },
       { href: "about.html#gaps", label: "How gaps are handled" },
+      { href: "about.html#licence", label: "Licence &amp; reuse" },
     ],
   },
 ];
@@ -591,6 +594,13 @@ ${footerCols}
         Found an error? <a href="${REPO_NEW_ISSUE}" rel="noopener" target="_blank">Open an issue</a> or send a
         pull request with a source and it will be corrected. Contributors are credited in the
         <a href="${REPO.url}/graphs/contributors" rel="noopener" target="_blank">commit history</a>.
+      </p>
+      <p class="footer-license">
+        Text and data on this wiki are available under
+        <a href="${REPO_LICENSE_CONTENT}" rel="license noopener" target="_blank">CC BY-SA 4.0</a>, and the
+        generator that builds it under
+        <a href="${REPO_LICENSE}" rel="license noopener" target="_blank">MIT</a> &mdash; reuse either, with
+        attribution. Cited sources remain the property of their publishers.
       </p>
     </div>
   </div>
@@ -2127,6 +2137,30 @@ function pageAbout(data) {
   <p class="contrib-links">
     <a class="btn btn-ghost" href="${REPO.url}" rel="noopener" target="_blank">${ICON_GITHUB}<span>Browse the repository</span></a>
     <a class="btn btn-ghost" href="${REPO_ISSUES}" rel="noopener" target="_blank">Open issues</a>
+  </p>
+
+  <h2 id="licence">Licence and reuse</h2>
+  <p>
+    Take it. The point of compiling this was that the information was hard to find, which is not solved by
+    making a second place it is hard to get out of.
+  </p>
+  <ul>
+    <li>
+      <strong>The wiki content</strong> &mdash; specifications, documented fixes, FAQ answers and page prose
+      &mdash; is licensed under
+      <a href="${REPO_LICENSE_CONTENT}" rel="license noopener" target="_blank">CC BY-SA 4.0</a>. Credit
+      &ldquo;GameSir Wiki contributors&rdquo; with a link back, and license what you build on it the same way.
+    </li>
+    <li>
+      <strong>The generator</strong> &mdash; the build script, the diagram code and the stylesheet &mdash; is
+      licensed under <a href="${REPO_LICENSE}" rel="license noopener" target="_blank">MIT</a>. If you want to
+      run a sourced reference like this one for different hardware, that is the part to fork.
+    </li>
+  </ul>
+  <p>
+    Two caveats. Neither licence grants trademark rights: &ldquo;GameSir&rdquo; and the product names belong to
+    their owner, and nothing here is affiliated with them. And the cited sources are references rather than
+    redistribution &mdash; a manual linked from a source list stays the property of whoever published it.
   </p>
 
   <p class="small text-dim">Data last reviewed ${esc(data.meta?.updated ?? "")}.</p>

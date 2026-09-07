@@ -2051,6 +2051,17 @@ h3[id],
   line-height: 1.65;
   color: var(--text-dim);
 }
+/* Its own full-width row under the disclaimer, the way a wiki states its terms
+   on every page rather than hiding them behind a link. */
+.footer-license {
+  flex: 1 1 100%;
+  margin: 0;
+  padding-top: var(--s-5);
+  border-top: 1px solid var(--line);
+  font-size: 0.8rem;
+  line-height: 1.65;
+  color: var(--text-dim);
+}
 
 /* --------------------------------------------------------- page footer --- */
 
