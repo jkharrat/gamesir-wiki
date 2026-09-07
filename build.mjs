@@ -18,6 +18,7 @@ import {
   platformIcon,
   layoutInfo,
   dpadStyle,
+  shellNote,
   useDimensions,
   checkControllerViews,
   controllerViews,
@@ -1444,6 +1445,7 @@ ${sources}
   ${layoutSection(c, {
     intro:
       "Every control on this model, front, back and top edge. The rear view is where these models differ most.",
+    note: shellNote(c),
   })}
 
   <div class="tabs-dock">

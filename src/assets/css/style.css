@@ -2262,7 +2262,7 @@ h3[id],
 /* Halo behind an illuminated cap. Tinted per button so a lit ABXY cluster
    keeps the colour convention instead of glowing one flat colour. */
 .d-lit {
-  fill: var(--brand-soft, var(--surface-3));
+  fill: var(--brand-soft);
   stroke: none;
   opacity: 0.55;
 }

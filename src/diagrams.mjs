@@ -693,7 +693,7 @@ function edgeBand(span, inner, outer) {
   const half = (outer - inner) / 2;
   const lip = (i) => {
     const f = i / (span.length - 1);
-    const e = Math.min(f, 1 - f) / 0.16;
+    const e = Math.min(f, 1 - f) / 0.1;
     return e >= 1 ? 1 : Math.sqrt(1 - (1 - e) ** 2);
   };
   const side = (k) => span.map((s, i) => spanOffset(s, mid + half * lip(i) * k));
@@ -742,14 +742,18 @@ function bandBoxes(span, inner, outer, chunks = 6) {
  * USB-C port.
  */
 const SHOULDER = {
-  // Mostly outboard of the edge, because that is where these parts are: a
-  // bumper is on the top face and a trigger behind it, and a front view sees
-  // them over the shell's silhouette rather than on it.
-  trigger: { from: 0.34, to: 0.84, inner: -18, outer: -46, cls: "d-part" },
-  bumper: { from: 0.3, to: 0.85, inner: 6, outer: -20, cls: "d-part-2" },
+  // Offsets straddle the edge, because that is where these parts are: a bumper
+  // is on the top face, wrapping over the edge, and a trigger is behind it. The
+  // inboard end of each runs under the shell, which is drawn between the two
+  // so the trigger emerges from behind it rather than hovering over the
+  // drawing the way a floating rectangle does.
+  // The trigger's own label goes near its outer end rather than in the middle
+  // of it, which is behind the bumper.
+  trigger: { from: 0.34, to: 0.84, inner: 16, outer: -44, cls: "d-part", labelAt: -31 },
+  bumper: { from: 0.3, to: 0.85, inner: 8, outer: -16, cls: "d-part-2" },
   // Inboard of the bumper but clear of the middle of the edge, which is where
-  // the USB-C port is. The old drawing put these two on top of each other.
-  mini: { from: 0.15, to: 0.27, inner: 4, outer: -16, cls: "d-part-2" },
+  // the USB-C port is. The old drawing put those two on top of each other.
+  mini: { from: 0.15, to: 0.27, inner: 6, outer: -14, cls: "d-part-2" },
 };
 
 function shoulderRow(box, info, { mini }) {
@@ -763,7 +767,10 @@ function shoulderRow(box, info, { mini }) {
     const span = right
       ? mirrorSpan(edgeSpan(edge, spec.from, spec.to))
       : edgeSpan(edge, spec.from, spec.to);
-    const [lx, ly] = spanOffset(span[Math.floor(span.length / 2)], (inner + outer) / 2);
+    const [lx, ly] = spanOffset(
+      span[Math.floor(span.length / 2)],
+      (spec.labelAt ?? (inner + outer) / 2) * (spec.labelAt ? box.scale : 1)
+    );
 
     into.push({
       part,
@@ -771,6 +778,7 @@ function shoulderRow(box, info, { mini }) {
       boxes: bandBoxes(span, inner, outer),
       edge: true,
       group: "shoulder",
+      behind: into === behind,
     });
   };
 
@@ -891,15 +899,15 @@ const dpadShape = (cx, cy, arm = 19, { fenced = false, keys = null, lit = false 
 
   if (keys === "segmented") {
     const key = (dx, dy) => {
-      const long = arm * 0.62;
-      const across = arm * 0.66;
+      const long = arm * 0.84;
+      const across = arm * 0.72;
       const [w, h] = dx ? [long, across] : [across, long];
       return rect(
-        cx + dx * arm * 0.42 - w / 2,
-        cy + dy * arm * 0.42 - h / 2,
+        cx + dx * arm * 0.53 - w / 2,
+        cy + dy * arm * 0.53 - h / 2,
         w,
         h,
-        Math.min(w, h) * 0.32,
+        Math.min(w, h) * 0.3,
         "d-part"
       );
     };
@@ -1025,10 +1033,16 @@ const insetShell = (box, k) => ({
   at: (u, v) => [200 + (u * box.w * k) / 2, box.top + (box.h * (1 - k)) / 2 + v * box.h * k],
 });
 
-/** Lighting channels following the inside of both grips. */
+/**
+ * Lighting channels, set into the grips a fixed distance inside the outline so
+ * they follow the shell instead of being two arcs that happened to fit one
+ * size of it. Only along the grip, because that is where the models that have
+ * them put them.
+ */
 const lightingChannels = (box) => {
-  const span = edgeSpan(sideEdge(box), 0.18, 0.78);
-  return path(edgeLine(span, 13), "d-rgb") + path(edgeLine(mirrorSpan(span), 13), "d-rgb");
+  const span = edgeSpan(sideEdge(box), 0.46, 0.94);
+  const inset = 10 * box.scale;
+  return path(edgeLine(span, inset), "d-rgb") + path(edgeLine(mirrorSpan(span), inset), "d-rgb");
 };
 
 /** Front view. */
@@ -1081,8 +1095,8 @@ function frontView(c) {
     if (L.faceSwap === "gear") {
       // Teeth around a hub, not spokes through a filled centre: a red dot here
       // would read as a second Home key beside the real one.
-      put(info.faceSwap, 0, 0.276, [44, 36], (x, y, s) =>
-        rect(x - 22 * s, y - 18 * s, 44 * s, 36 * s, 8, "d-window") +
+      put(info.faceSwap, 0, 0.29, [42, 34], (x, y, s) =>
+        rect(x - 21 * s, y - 17 * s, 42 * s, 34 * s, 8, "d-window") +
         circle(x, y, 13 * s, "d-gear") +
         circle(x, y, 4.5 * s, "d-part-inset") +
         path(
@@ -1109,12 +1123,12 @@ function frontView(c) {
       group(
         info.extraFront,
         [
-          { u: -0.1, v: 0.145, size: 15, shape: "circle", label: "C1" },
-          { u: 0.1, v: 0.145, size: 15, shape: "circle", label: "C2" },
-          { u: -0.1, v: 0.42, size: 15, shape: "circle", label: "C3" },
-          { u: 0.1, v: 0.42, size: 15, shape: "circle", label: "C4" },
-          { u: -0.215, v: 0.276, size: [12, 22], label: "T1" },
-          { u: 0.215, v: 0.276, size: [12, 22], label: "T2" },
+          { u: -0.105, v: 0.125, size: 15, shape: "circle", label: "C1" },
+          { u: 0.105, v: 0.125, size: 15, shape: "circle", label: "C2" },
+          { u: -0.105, v: 0.45, size: 15, shape: "circle", label: "C3" },
+          { u: 0.105, v: 0.45, size: 15, shape: "circle", label: "C4" },
+          { u: -0.245, v: 0.29, size: [12, 22], label: "T1" },
+          { u: 0.245, v: 0.29, size: [12, 22], label: "T2" },
         ],
         (spots, s) =>
           spots
@@ -1238,7 +1252,7 @@ function frontView(c) {
         info.faceSwap,
         (() => {
           const [x, y] = box.at(0.582, 0.29);
-          return circle(x, y, 46 * box.scale, "d-swap-ring");
+          return circle(x, y, 42 * box.scale, "d-swap-ring");
         })()
       );
     }
@@ -1431,7 +1445,10 @@ function topView(c) {
     const span = right
       ? mirrorSpan(edgeSpan(edge, spec.from, spec.to))
       : edgeSpan(edge, spec.from, spec.to);
-    const [lx, ly] = spanOffset(span[Math.floor(span.length / 2)], (spec.inner + spec.outer) / 2);
+    const [lx, ly] = spanOffset(
+      span[Math.floor(span.length / 2)],
+      spec.labelAt ?? (spec.inner + spec.outer) / 2
+    );
 
     into.push({
       part,
@@ -1439,6 +1456,7 @@ function topView(c) {
       boxes: bandBoxes(span, spec.inner, spec.outer),
       edge: true,
       group: "shoulder",
+      behind: into === behind,
     });
   };
 
@@ -1446,9 +1464,9 @@ function topView(c) {
   // front of it and the port is on the edge between the two triggers — which
   // is where the hardware puts it.
   const TOP_ROW = {
-    trigger: { from: 0.4, to: 0.88, inner: 14, outer: -20, cls: "d-part" },
-    bumper: { from: 0.24, to: 0.8, inner: 22, outer: 48, cls: "d-part-2" },
-    mini: { from: 0.09, to: 0.22, inner: 24, outer: 46, cls: "d-part-2" },
+    trigger: { from: 0.3, to: 0.82, inner: 18, outer: -22, cls: "d-part", labelAt: -14 },
+    bumper: { from: 0.3, to: 0.82, inner: 26, outer: 52, cls: "d-part-2" },
+    mini: { from: 0.11, to: 0.24, inner: 28, outer: 50, cls: "d-part-2" },
   };
 
   piece(behind, info.lt, TOP_ROW.trigger, "LT", "d-label", false);
@@ -1481,6 +1499,30 @@ function topView(c) {
     }),
     geometry: { polygon: null, parts: [...behind, ...parts] },
   };
+}
+
+/**
+ * What the drawing of this model does and does not claim, for the note under
+ * it. The shell is at the model's own published proportions, which is worth
+ * saying because the old note said the opposite; the contour is not, which is
+ * worth saying because a reader could otherwise take a schematic for a
+ * tracing.
+ */
+export function shellNote(c) {
+  const box = shellBox(c);
+  const { width, height } = box.mm;
+  const scaled = `Drawn at this model's published ${width} \u00d7 ${height} mm proportions`;
+
+  if (!box.borrowed) {
+    return `${scaled}; the contours are schematic and no GameSir artwork is reproduced.`;
+  }
+
+  const from = PUBLISHED_MM.get(box.borrowed);
+  return (
+    `Nobody has published this model's dimensions, so the shell is drawn at the ` +
+    `${from.width} \u00d7 ${from.height} mm of the model it is a revision of. ` +
+    `The contours are schematic and no GameSir artwork is reproduced.`
+  );
 }
 
 /** All three views of one controller. */
@@ -1606,8 +1648,11 @@ export function checkControllerViews(c) {
         const a = solid[i];
         const b = solid[j];
         // The shoulder row is layered on purpose: a trigger sits behind the
-        // bumper in front of it, so those pairs are not a collision.
+        // bumper in front of it, so those pairs are not a collision. Nor is a
+        // part that runs under the shell and one drawn on top of it, since the
+        // shell is drawn between the two and nothing of the first shows.
         if (a.part === b.part || (a.group && a.group === b.group)) continue;
+        if (!!a.behind !== !!b.behind) continue;
 
         for (const x of a.boxes) {
           for (const y of b.boxes) {
