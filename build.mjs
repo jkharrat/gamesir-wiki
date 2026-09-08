@@ -1269,6 +1269,11 @@ function pageController(c, data) {
         ${row("Measured center error", s.measuredCenterError)}
         ${row("Measured resolution", s.measuredResolution)}
       </div>
+      ${
+        s.measuredCenterError
+          ? `<p class="small text-dim">Centre error is a single-unit figure and differs between two units of the same model, so it describes the tester's controller, not the model. Do not use it to rank one model against another.</p>`
+          : ""
+      }
       ${noteDetail("How these measurements were arrived at", s.measuredNotes)}
     </div>
 
@@ -1509,7 +1514,10 @@ function pageCompare(data) {
     ["Software", (c) => c.short?.software, (c) => c.software],
     ["Stick sensor", (c) => c.short?.sticks, (c) => c.sticks?.tech],
     ["Stick resolution (claimed)", (c) => c.short?.resolution, (c) => c.sticks?.resolution],
-    ["Measured center error", (c) => c.short?.centerError, (c) => c.sticks?.measuredCenterError],
+    // Measured centre error is deliberately not a row here. It is one tester's
+    // one unit, and it varies between two units of the same model, so putting
+    // the figures side by side invites a ranking the data cannot support. The
+    // model pages still carry it, with that caveat attached.
     ["Trigger tech", (c) => c.short?.triggers, (c) => c.triggers?.tech],
     ["Trigger stops", (c) => (c.triggers?.triggerStops == null ? null : c.triggers.triggerStops ? "Yes" : "No")],
     ["D-pad", (c) => c.short?.dpad, (c) => c.dpad],
@@ -1558,6 +1566,9 @@ function pageCompare(data) {
     wear like potentiometer sticks, which is why they are sold as drift-resistant. That is about wear, not
     centre accuracy: a magnetic stick can still sit slightly off centre, and several of these controllers apply
     no inner deadzone to hide it.</p>
+    <p>Measured centre error is not compared here on purpose. Each published figure comes from a single unit,
+    and two units of the same model land differently, so the numbers say something about the tester's
+    controller rather than about the model. The model pages keep them, with that caveat.</p>
   </div>
 
   <div class="figure-grid">

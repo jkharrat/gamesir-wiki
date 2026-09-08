@@ -231,7 +231,7 @@
         }
       ],
       "fullName": "GameSir Cyclone 2",
-      "tier": "mid-range",
+      "tier": "high-end",
       "category": "Multi-platform",
       "measuredLatency": [
         {
@@ -487,7 +487,7 @@
         }
       ],
       "fullName": "GameSir G7 HE",
-      "tier": "mid-range",
+      "tier": "high-end",
       "category": "Xbox-style",
       "measuredLatency": [
         {
@@ -514,7 +514,7 @@
       "id": "g7-pro",
       "name": "GameSir G7 Pro",
       "fullName": "GameSir G7 Pro Tri-Mode",
-      "tier": "high-end",
+      "tier": "flagship",
       "category": "Xbox-style",
       "tagline": "Xbox-licensed tri-mode controller with Mag-Res TMR sticks, microswitch face buttons and 1000 Hz polling on PC.",
       "releaseYear": 2025,
@@ -1121,7 +1121,7 @@
         }
       ],
       "fullName": "GameSir G7 SE",
-      "tier": "mid-range",
+      "tier": "high-end",
       "category": "Xbox-style",
       "measuredLatency": [
         {
@@ -1902,7 +1902,7 @@
         }
       ],
       "fullName": "GameSir T7 Pro",
-      "tier": "mid-range",
+      "tier": "high-end",
       "category": "Xbox-style",
       "measuredLatency": [
         {
@@ -2141,7 +2141,7 @@
         }
       ],
       "fullName": "GameSir Tarantula Pro",
-      "tier": "high-end",
+      "tier": "flagship",
       "category": "Multi-platform",
       "measuredLatency": [
         {
