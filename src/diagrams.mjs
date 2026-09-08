@@ -310,7 +310,9 @@ function buildPartInfo(c) {
     rs: {
       label: "Right stick",
       desc: `Camera and aim axis, with a click (RS/R3). Same sensor assembly as the left stick.${
-        s.measuredCenterError ? ` Measured centre error: ${s.measuredCenterError}.` : ""
+        s.measuredCenterError
+          ? ` Measured centre error on one tested unit: ${s.measuredCenterError} — this varies from unit to unit.`
+          : ""
       }`,
     },
     dpad: {
@@ -1280,7 +1282,9 @@ function frontView(c) {
   if (L.rgb) mark(info.rgb, lightingChannels(box));
 
   // The jack is on the bottom edge between the grips, as it is on the
-  // hardware, rather than out on the face where it used to be drawn.
+  // hardware, rather than out on the face where it used to be drawn. Named,
+  // because an unlabelled rounded rectangle on a controller reads as a button;
+  // the label goes down into the notch, which is empty on every shell.
   if (c.audioJack) {
     put(
       info.jack,
@@ -1289,7 +1293,8 @@ function frontView(c) {
       [22, 13],
       (x, y, s) =>
         rect(x - 11 * s, y - 13 * s, 22 * s, 13 * s, 5, "d-port") +
-        circle(x, y - 6.5 * s, 3.4 * s, "d-part-inset"),
+        circle(x, y - 6.5 * s, 3.4 * s, "d-part-inset") +
+        text(x, y + 12, "3.5 mm", "d-label d-label-xs"),
       { edge: true }
     );
   }
